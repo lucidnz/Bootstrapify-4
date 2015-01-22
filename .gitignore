@@ -42,6 +42,6 @@ Thumbs.db
 *.sass-cache*
 /node_modules
 grunt-config.json
-config.yml
+theme/config*.yml
 /_site
 assets/logo.png
