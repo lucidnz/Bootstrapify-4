@@ -1,0 +1,32 @@
+<!-- /templates/customers/activate_account.liquid -->
+{% layout settings.customer_layout %}
+
+<div class="grid">
+  <div class="grid__item large--one-third push--large--one-third">
+
+    <h1>{{ 'customer.activate_account.title' | t }}</h1>
+    <p>{{ 'customer.activate_account.subtext' | t }}</p>
+
+    {% comment %}
+      This form must use 'activate_customer_password'
+    {% endcomment %}
+    {% form 'activate_customer_password' %}
+
+      {{ form.errors | default_errors }}
+
+      <label for="CustomerPassword" class="label--hidden">{{ 'customer.activate_account.password' | t }}</label>
+      <input type="password" value="" name="customer[password]" id="CustomerPassword" placeholder="{{ 'customer.activate_account.password' | t }}">
+
+      <label for="CustomerPasswordConfirmation" class="label--hidden">{{ 'customer.activate_account.password_confirm' | t }}</label>
+      <input type="password" value="" name="customer[password_confirmation]" id="CustomerPasswordConfirmation" placeholder="{{ 'customer.activate_account.password_confirm' | t }}">
+
+      <div class="text-center">
+        <p>
+          <input type="submit" class="btn" value="{{ 'customer.activate_account.submit' | t }}">
+        </p>
+        <input type="submit" class="btn--secondary" name="decline" value="{{ 'customer.activate_account.cancel' | t }}">
+      </div>
+    {% endform %}
+
+  </div>
+</div>
