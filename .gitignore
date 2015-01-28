@@ -41,6 +41,7 @@ Thumbs.db
 ######################
 *.sass-cache*
 /node_modules
+/bower_components
 grunt-config.json
 theme/config*.yml
 /_site
