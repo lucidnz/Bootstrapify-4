@@ -30,5 +30,8 @@
     "Stewart Knapman <stewart@lucid.co.nz>"
   ],
   "description": "Shopify theme framework based on Bootstrap 4",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap-sass": "~3.3.3"
+  }
 }
