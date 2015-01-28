@@ -1,6 +1,6 @@
 {
-  "name": "timber",
-  "version": "2.0.1",
+  "name": "bootstrapify",
+  "version": "4.0.0",
   "keywords": [
     "shopify",
     "theme",
@@ -10,23 +10,25 @@
     "sass",
     "mobile-first",
     "responsive",
-    "front-end"
+    "front-end",
+    "lucid"
   ],
   "main": [
-    "assets/*",
-    "config/*",
-    "layout/*",
-    "snippets/*",
-    "templates/*",
-    "locales/*"
+    "theme/assets/*",
+    "theme/config/*",
+    "theme/layout/*",
+    "theme/snippets/*",
+    "theme/templates/*",
+    "theme/locales/*"
   ],
   "ignore": [
     ".*"
   ],
-  "homepage": "https://github.com/Shopify/Timber",
+  "homepage": "https://github.com/luciddesign/Bootstrapify-4",
   "authors": [
-    "Carson Shold <carson.shold@shopify.com>"
+    "Galen King <galen@lucid.co.nz>",
+    "Stewart Knapman <stewart@lucid.co.nz>"
   ],
-  "description": "The Ultimate Shopify Theme Framework",
+  "description": "Shopify theme framework based on Bootstrap 4",
   "license": "MIT"
 }
