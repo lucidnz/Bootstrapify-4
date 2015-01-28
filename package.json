@@ -1,0 +1,29 @@
+{
+  "name": "Bootstrapify4",
+  "version": "4.0.0",
+  "description": "Shopify theme framework based on Bootstrap 4",
+  "main": [
+    "theme/assets/*",
+    "theme/config/*",
+    "theme/layout/*",
+    "theme/snippets/*",
+    "theme/templates/*",
+    "theme/locales/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luciddesign/Bootstrapify-4.git"
+  },
+  "authors": [
+    "Galen King <galen@lucid.co.nz>",
+    "Stewart Knapman <stewart@lucid.co.nz>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luciddesign/Bootstrapify-4/issues"
+  },
+  "homepage": "https://github.com/luciddesign/Bootstrapify-4"
+}
