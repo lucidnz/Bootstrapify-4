@@ -4,7 +4,16 @@ Bootstrapify 4 is a complete rebuild of the popular Shopify theme framework read
 
 ## Setup
 
+1. Clone the bsify4 repo
 
+    git clone https://github.com/luciddesign/Bootstrapify-4.git
+
+2. Install dependencies
+
+  bundle && npm install && bower install
+
+3. Profit!
 
 ## Workflow
 
+gulp
