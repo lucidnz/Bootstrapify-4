@@ -4,6 +4,7 @@ var gulp        = require('gulp'),
   plumber       = require('gulp-plumber'),
   jshint        = require('gulp-jshint'),
   concat        = require('gulp-concat'),
+  rename        = require('gulp-rename'),
   pjson         = require('./package.json'),
   SassImport    = require('./utils/sass_import.js');
 
@@ -17,12 +18,12 @@ var onError = function (err) {
 /* Default watch tasks for ease of development */
 gulp.task('default', function () {
   gulp.watch(['./src/scss/*.scss', './src/scss/*.scss.liquid'], ['concat_sass']);
-  gulp.watch(['./src/js/*.js'], ['lint']);
+  gulp.watch(['./src/js/*.js'], ['lint', 'modernizr']);
   gulp.watch('./settings/*.yml', ['shopify_theme_settings']);
 });
 
 /* ALL THE TASKS!!! */
-gulp.task('build', ['lint', 'concat_sass', 'shopify_theme_settings', 'assets', 'zip']);
+gulp.task('build', ['lint', 'modernizr', 'concat_sass', 'shopify_theme_settings', 'assets', 'zip']);
 
 /* Helper task for moving all asset dependancies to the theme assets folder */
 gulp.task('assets', ['js_assets']);
@@ -53,7 +54,14 @@ gulp.task('js_assets', function () {
     './src/js/*.js',
     './bower_components/jquery/dist/jquery.min.*',
     './bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js', // One minified file that contains everything is SOOO much better than multiple requests!
+    './bower_components/respond/cross-domain/respond-proxy.html',
+    './bower_components/respond/dest/respond.min.js',
   ];
+  
+  // rename respond.proxy.js to respond.liquid
+  gulp.src('./bower_components/respond/cross-domain/respond.proxy.js')
+    .pipe(rename('respond.liquid'))
+    .pipe(gulp.dest('./theme/snippets/'));
   
   return gulp.src(files)
     .pipe(gulp.dest('./theme/assets/'));
@@ -79,4 +87,9 @@ gulp.task('zip', function () {
 /* NOTE: this can be removed when Shopify fully rolls out the new theme editor! */
 gulp.task('shopify_theme_settings', function () {
   return gulp.run('grunt-shopify_theme_settings');
+});
+
+/* Run the grunt task for modernizr */
+gulp.task('modernizr', function () {
+  return gulp.run('grunt-modernizr');
 });

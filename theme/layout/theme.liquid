@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="{% if page_description %}{{ page_description | escape }}{% else %}{{ shop.description | escape }}{% endif %}" />
+
+    <title>{{ page_title }}</title>
+    
+    <link rel="shortcut icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
+    <link rel="canonical" href="{{ canonical_url }}" />
+    
+    <!-- First round of JS -->
+    {{ 'modernizr.js' | asset_url | script_tag }}
+    
+    <!-- Stylessheets -->
+    {{ 'styles.scss.css' | asset_url | stylesheet_tag }}
+    {{ '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css' | stylesheet_tag }}
+    
+    <!-- Second round of JS -->
+    {{ 'jquery.min.js' | asset_url | script_tag }}
+    <!--[if lt IE 9]>
+    {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' | script_tag }}
+    {{ '//html5shiv.googlecode.com/svn/trunk/html5.js' | script_tag }}
+    {% assign respond_js_secret_key = shop.domain | md5 %}
+    {{ 'respond.min.js' | asset_url | script_tag }}
+    <link href="{{ 'respond-proxy.html' | asset_url | split: '?' | first }}" id="respond-proxy" rel="respond-proxy" />
+    <link href="//{{shop.domain}}/search?q={{ respond_js_secret_key }}" id="respond-redirect" rel="respond-redirect" />
+    <script src="//{{shop.domain}}/search?q={{ respond_js_secret_key }}" type="text/javascript"></script>
+    <![endif]-->
+    
+    <script src="{{ 'app.js' | asset_url }}" async></script>
+    <script src="{{ 'bootstrap.min.js' | asset_url }}" async></script>
+    
+    {{ content_for_header }}
+  </head>
+  
+  <!--[if lte IE 8]> <body class="ie-legacy {{ template | replace: '.', '-' }}" id="{{ page_title | handle }}"> <![endif]-->
+  <!--[if IE 9]> <body class="ie {{ template | replace: '.', '-' }}" id="{{ page_title | handle }}"> <![endif]-->
+  <!--[if !(IE)]><!--> <body class="{{ template | replace: '.', '-' }}" id="{{ page_title | handle }}"> <!--<![endif]-->
+    
+    {{ content_for_layout }}
+    
+  </body>
+</html>
