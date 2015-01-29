@@ -69,6 +69,7 @@ gulp.task('zip', function () {
     'theme/templates/*',
     'theme/templates/customers/*'
   ];
+  
   return gulp.src(theme, {base: "."})
     .pipe(zip('Bootstrapify_' + pjson.version + '.zip'))
     .pipe(gulp.dest('./'));
