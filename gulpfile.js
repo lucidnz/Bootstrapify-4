@@ -1,8 +1,10 @@
 var gulp        = require('gulp'),
   gutil         = require('gulp-util'),
+  zip           = require('gulp-zip'),
   plumber       = require('gulp-plumber'),
   jshint        = require('gulp-jshint'),
   concat        = require('gulp-concat'),
+  pjson         = require('./package.json'),
   SassImport    = require('./utils/sass_import.js');
 
 require('gulp-grunt')(gulp);
@@ -20,7 +22,7 @@ gulp.task('default', function () {
 });
 
 /* ALL THE TASKS!!! */
-gulp.task('build', ['lint', 'concat_sass', 'shopify_theme_settings', 'assets']);
+gulp.task('build', ['lint', 'concat_sass', 'shopify_theme_settings', 'assets', 'zip']);
 
 /* Helper task for moving all asset dependancies to the theme assets folder */
 gulp.task('assets', ['js_assets']);
@@ -55,6 +57,21 @@ gulp.task('js_assets', function () {
   
   return gulp.src(files)
     .pipe(gulp.dest('./theme/assets/'));
+});
+
+gulp.task('zip', function () {
+  var theme = [
+    'theme/assets/*',
+    'theme/config/*',
+    'theme/layout/*',
+    'theme/locales/*',
+    'theme/snippets/*',
+    'theme/templates/*',
+    'theme/templates/customers/*'
+  ];
+  return gulp.src(theme, {base: "."})
+    .pipe(zip('Bootstrapify_' + pjson.version + '.zip'))
+    .pipe(gulp.dest('./'));
 });
 
 /* Run the grunt task for generating the theme settings */

@@ -17,3 +17,5 @@ Bootstrapify 4 is a complete rebuild of the popular Shopify theme framework read
 ## Workflow
 
 Run `gulp`. That is all.
+
+Want a zipped file of just the theme to upload to shopify? Run `gulp build`.

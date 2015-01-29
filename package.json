@@ -34,6 +34,7 @@
     "gulp-grunt": "^0.5.2",
     "gulp-jshint": "^1.9.0",
     "gulp-plumber": "^0.6.6",
-    "gulp-util": "^3.0.2"
+    "gulp-util": "^3.0.2",
+    "gulp-zip": "^2.0.2"
   }
 }
