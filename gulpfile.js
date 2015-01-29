@@ -14,13 +14,13 @@ var onError = function (err) {
 
 /* Default watch tasks for ease of development */
 gulp.task('default', function () {
-  gulp.watch(['./src/scss/*.scss', './src/scss/*.scss.liquid'], 'concat_sass');
-  gulp.watch(['./src/js/*.js'], 'lint');
-  gulp.watch('./settings/*.yml', 'shopify-theme-settings');
+  gulp.watch(['./src/scss/*.scss', './src/scss/*.scss.liquid'], ['concat_sass']);
+  gulp.watch(['./src/js/*.js'], ['lint']);
+  gulp.watch('./settings/*.yml', ['shopify_theme_settings']);
 });
 
 /* ALL THE TASKS!!! */
-gulp.task('build', ['lint', 'concat_sass', 'shopify-theme-settings', 'assets']);
+gulp.task('build', ['lint', 'concat_sass', 'shopify_theme_settings', 'assets']);
 
 /* Helper task for moving all asset dependancies to the theme assets folder */
 gulp.task('assets', ['js_assets']);
@@ -28,8 +28,6 @@ gulp.task('assets', ['js_assets']);
 /* Pull our scss files together and move them into the themes assets */
 gulp.task('concat_sass', function () {
   var paths = new SassImport('./src/scss/styles.scss');
-  console.log(paths);
-  
   return gulp.src(paths)
     .pipe(concat('styles.scss.liquid'))
     .pipe(gulp.dest('./theme/assets/'));
@@ -61,6 +59,6 @@ gulp.task('js_assets', function () {
 
 /* Run the grunt task for generating the theme settings */
 /* NOTE: this can be removed when Shopify fully rolls out the new theme editor! */
-gulp.task('shopify-theme-settings', function () {
+gulp.task('shopify_theme_settings', function () {
   return gulp.run('grunt-shopify_theme_settings');
 });
