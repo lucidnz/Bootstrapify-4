@@ -3,7 +3,7 @@ var gulp        = require('gulp'),
   plumber       = require('gulp-plumber'),
   jshint        = require('gulp-jshint'),
   concat        = require('gulp-concat'),
-  SassImport    = require('./util/sass_import.js');
+  SassImport    = require('./utils/sass_import.js');
 
 require('gulp-grunt')(gulp);
 
@@ -27,7 +27,10 @@ gulp.task('assets', ['js_assets']);
 
 /* Pull our scss files together and move them into the themes assets */
 gulp.task('concat_sass', function () {
-  return gulp.src(new SassImport('./src/scss/styles.scss'))
+  var paths = new SassImport('./src/scss/styles.scss');
+  console.log(paths);
+  
+  return gulp.src(paths)
     .pipe(concat('styles.scss.liquid'))
     .pipe(gulp.dest('./theme/assets/'));
 });
