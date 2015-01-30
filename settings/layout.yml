@@ -1,0 +1,21 @@
+Layout:
+
+  Site layout:
+    
+    Container width:
+      name: container-width
+      help: "The container holds the width of your content. A fixed width conatiner will stop the content from getting to wide. Full width will allow your content to always flow out to the edge of the screen no matter how big it is."
+      type: select
+      options:
+        fixed: Fixed width
+        fluid: Full width
+    
+  Section layout:
+    
+    Navigation layout:
+      name: navigation-layout
+      help: "Select the navigation layout. You can see each option here [todo: add link]"
+      type: select
+      options:
+        layout_1: Layout 1
+        layout_2: Layout 2

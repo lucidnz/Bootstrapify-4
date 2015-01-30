@@ -7858,3 +7858,7 @@ button.close {
 @media print {
   @include responsive-invisibility('.hidden-print');
 }
+
+.content {
+  @extend {% if settings.container-width == 'fluid' %} .container-fluid {% else %} .container {% endif %};
+}

@@ -1,41 +1,41 @@
 {% capture vars %}
-{% comment %} *** Craft the page title *** {% endcomment %}
+{% comment %} *** Craft the page title for SEO *** {% endcomment %}
 
 {% capture title %}{{ shop.name }}{% endcapture %}
 {% if search.performed %}
   {% capture title %}
-    {{ title }} | {{ 'search.page_title_with_search_term' | t: search_term: page_title }}
+    {{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'search.page_title_with_search_term' | t: search_term: page_title }}
     {% if current_page != 1 %}
       - Page {{ current_page }}
     {% endif %}
   {% endcapture %}
 {% else %}
   {% if template contains 'collections' %}
-    {% capture title %}{{ title }} | {{ 'collections.list_collections.page_title' | t }}{% endcapture %}
+    {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'collections.list_collections.page_title' | t }}{% endcapture %}
   
   {% elsif template contains 'collection' %}
     {% if collection.title != blank and collection.title != page_title %}
-      {% capture title %}{{ title }} | {{ page_title }} | {{ collection.title }}{% endcapture %}
+      {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ page_title }} {{ 'general.site.page_title_seperator' | t }} {{ collection.title }}{% endcapture %}
     {% else %}
-      {% capture title %}{{ title }} | {{ page_title }}{% endcapture %}
+      {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ page_title }}{% endcapture %}
     {% endif %}
     
   {% elsif template contains 'blog' %}
     {% if blog.title != blank and blog.title != page_title %}
-      {% capture title %}{{ title }} | {{ page_title }} | {{ blog.title }}{% endcapture %}
+      {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ page_title }} {{ 'general.site.page_title_seperator' | t }} {{ blog.title }}{% endcapture %}
     {% else %}
-      {% capture title %}{{ title }} | {{ page_title }}{% endcapture %}
+      {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ page_title }}{% endcapture %}
     {% endif %}
   
   {% elsif template contains 'search' %}
-    {% capture title %}{{ title }} | {{ 'search.page_title' | t: shop_name: shop.name }}{% endcapture %}
+    {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'search.page_title' | t: shop_name: shop.name }}{% endcapture %}
   
   {% elsif template contains '404' %}
-    {% capture title %}{{ title }} | {{ 'errors.404.page_title' | t }}{% endcapture %}
+    {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'errors.404.page_title' | t }}{% endcapture %}
   
   {% else %}
     {% unless title == page_title %}
-      {% capture title %}{{ title }} | {{ page_title }}{% endcapture %}
+      {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ page_title }}{% endcapture %}
     {% endunless %}
   
   {% endif %}

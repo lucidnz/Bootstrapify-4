@@ -42,13 +42,12 @@
     
     {% comment %} *** Site wide header content *** {% endcomment %}
     <header class="masthead">
-      
+      {% comment %} *** TODO: select nav layout snippet *** {% endcomment %}
     </header>
     
     {% comment %}
       Because we want to keep this theme as lean as possible we don't define secondary content here.
-      Secondary content will be applied inside each template on a 'when applicable' basis
-      because it might not be needed for each template.
+      Secondary content will be applied inside each template on a 'when applicable' basis as it might not be needed for each template.
     {% endcomment %}
     
     {{ content_for_layout }}

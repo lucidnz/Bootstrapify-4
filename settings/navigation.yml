@@ -1,0 +1,12 @@
+Navigation:
+
+  General:
+    notitle: true
+    
+    Main menu:
+      name: main-menu-linklist
+      type: linklist
+    
+    Secondary menu:
+      name: secondary-menu-linklist
+      type: linklist
