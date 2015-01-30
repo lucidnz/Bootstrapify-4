@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="description" content="{% if page_description %}{{ page_description | escape }}{% else %}{{ shop.description | escape }}{% endif %}" />
 
-    <title>{{ page_title }}</title>
+    <title>{% include 'page_title' %}</title>
     
     <link rel="shortcut icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
     <link rel="canonical" href="{{ canonical_url }}" />
@@ -40,7 +40,23 @@
   <!--[if IE 9]> <body class="ie {{ template | replace: '.', '-' }}" id="{{ page_title | handle }}"> <![endif]-->
   <!--[if !(IE)]><!--> <body class="{{ template | replace: '.', '-' }}" id="{{ page_title | handle }}"> <!--<![endif]-->
     
+    {% comment %} *** Site wide header content *** {% endcomment %}
+    <header class="masthead">
+      
+    </header>
+    
+    {% comment %}
+      Because we want to keep this theme as lean as possible we don't define secondary content here.
+      Secondary content will be applied inside each template on a 'when applicable' basis
+      because it might not be needed for each template.
+    {% endcomment %}
+    
     {{ content_for_layout }}
+    
+    {% comment %} *** Site wide footer content *** {% endcomment %}
+    <footer class="mastfoot">
+      
+    </footer>
     
   </body>
 </html>

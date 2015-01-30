@@ -1,3 +1,21 @@
 {
-  
+  "general" : {
+    
+  },
+  "collections" : {
+    "list_collections" : {
+      "page_title": ""
+    }
+  },
+  "search": {
+    "page_title_with_search_term": "Search results for &ldquo;{{ search_term }}&rdquo;",
+    "page_title": "Search {{ shop_name }}"
+  },
+  "errors": {
+    "404": {
+      "page_title": "404 - Page not found",
+      "not_found_message_homepage_link": "head back to the homepage",
+      "not_found_message_html": "Whoops! We couldn't find that page.<br>Don't worry though, if you {{ homepage_link }} we're sure you'll find what you're looking for."
+    }
+  }
 }
