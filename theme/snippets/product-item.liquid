@@ -1,0 +1,30 @@
+{% comment %}
+  Check if the product is on sale and set a variable to be used below.
+{% endcomment %}
+{% assign on_sale = false %}
+{% if p.compare_at_price > p.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% comment %}
+  Check if the product is sold out and set a variable to be used below.
+{% endcomment %}
+{% assign sold_out = true %}
+{% if p.available  %}
+  {% assign sold_out = false %}
+{% endif %}
+
+<div class="product--wrap">
+  <div class="product--item">
+    <a href="{{ p.url }}" title="{{ p.title }}">
+      <div class="product--image">
+        {{ p.featured_image | img_url: 'medium' | img_tag }}
+      </div>
+      <div class="product--details">
+        <div class="product--title">{{ p.title }}</div>
+        {% include 'product-price' %}
+        {% include 'product-badges' %}
+      </div>
+    </a>
+  </div>
+</div>

@@ -1,3 +1,5 @@
+$strong-weight: bold !default;
+
 $bootstrap-sass-asset-helper: false !default;
 //
 // Variables
@@ -7859,6 +7861,48 @@ button.close {
   @include responsive-invisibility('.hidden-print');
 }
 
-.content {
-  @extend {% if settings.container-width == 'fluid' %} .container-fluid {% else %} .container {% endif %};
+main {
+  @extend {% if settings.container-width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
+}
+
+h1 {
+  @extend .page-header;
+}
+
+.collection--grid,
+.product--grid {
+  @include make-row();
+}
+
+.collection--wrap,
+.product--wrap {
+  @include make-sm-column(3);
+}
+
+.collection--item,
+.product--item {
+  @extend .thumbnail;
+}
+
+.collection--image,
+.product--image {
+}
+
+.collection--details,
+.product--details {
+  @extend .caption;
+  @extend .text-center;
+}
+
+.collection--title,
+.product--title {
+  font-weight: $strong-weight;
+}
+
+.label-sale {
+  @extend .label-success;
+}
+
+.label-sold-out {
+  @extend .label-warning;
 }

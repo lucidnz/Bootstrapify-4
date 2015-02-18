@@ -1,0 +1,4 @@
+<div class="product--price">
+  {% if p.price_varies %}{{ 'products.general.from' | t }}{% endif %}
+  <span class="money">{{ p.price | money_with_currency }}</span>
+</div>

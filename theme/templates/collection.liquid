@@ -1,0 +1,7 @@
+<h1>{{ collection.title }}</h1>
+
+<div class="collection--grid">
+{% for p in collection.products %}
+  {% include 'product-item' %}
+{% endfor %}
+</div>

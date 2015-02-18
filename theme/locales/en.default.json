@@ -6,7 +6,16 @@
   },
   "collections" : {
     "list_collections" : {
-      "page_title" : ""
+      "page_title" : "All collections"
+    }
+  },
+  "products" : {
+    "general" : {
+      "from" : "from"
+    },
+    "badges" : {
+      "on-sale" : "On Sale",
+      "sold-out" : "Sold Out"
     }
   },
   "search" : {

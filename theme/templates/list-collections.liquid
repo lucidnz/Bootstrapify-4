@@ -1,0 +1,7 @@
+<h1>{{ 'collections.list_collections.page_title' | t }}</h1>
+
+<div class="collection--grid">
+{% for c in collections %}
+  {% include 'collection-item' %}
+{% endfor %}
+</div>
