@@ -16,6 +16,10 @@
     "badges" : {
       "on_sale" : "On Sale",
       "sold_out" : "Sold Out"
+    },
+    "buttons" : {
+      "view_product" : "View Product",
+      "add_to_cart" : "Add to Cart"
     }
   },
   "search" : {

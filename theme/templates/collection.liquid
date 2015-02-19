@@ -2,9 +2,10 @@
   <div class="page">
     <header class="page-header">
       <h1>{{ collection.title }}</h1>
+      {{ collection.description }}
     </header>
 
-    <div class="collection--grid">
+    <div class="collection-grid">
     {% for p in collection.products %}
       {% include 'product_item' %}
     {% endfor %}

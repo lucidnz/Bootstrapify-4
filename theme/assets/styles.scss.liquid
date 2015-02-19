@@ -1,6 +1,8 @@
 /* SCSS Variables */
 
-$strong-weight: bold !default;
+$strong-weight:                   bold !default;
+$grid-gutter-width:               30px !default;
+$thumbnail-padding:               $grid-gutter-width / 2 !default;
 
 $bootstrap-sass-asset-helper: false !default;
 //
@@ -7865,18 +7867,22 @@ button.close {
 
 /* Grids and Layouts */
 
+img {
+  @extend .img-responsive;
+}
+
 .page,
 .contain {
   @extend {% if settings.container_width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
 }
 
-.collection--grid,
-.product--grid {
+.collection-grid,
+.product-grid {
   @include make-row();
 }
 
-.collection--wrap,
-.product--wrap {
+.collection-wrap,
+.product-wrap {
   @include make-sm-column(3);
 }
 
@@ -7886,26 +7892,53 @@ button.close {
   @extend .page-header;
 }
 
-.collection--item,
-.product--item {
+.collection-item,
+.product-item {
   @extend .thumbnail;
 }
 
-.collection--image,
-.product--image {
+.collection-item,
+.product-item {
+  .collection-title,
+  .product-title {
+    margin-top: $grid-gutter-width / 2;
+    margin-bottom: $grid-gutter-width / 2;
+  }
+
+  .collection-buttons,
+  .product-buttons {
+    margin-top: $grid-gutter-width / 2;
+  }
+}
+
+.collection-image,
+.product-image {
+}
+
+table {
+  @extend .table;
+
+  .money {
+    text-align: right;
+  }
 }
 
 /* Typograhical Styles */
 
-.collection--details,
-.product--details {
+.collection-details,
+.product-details {
   @extend .caption;
   @extend .text-center;
 }
 
-.collection--title,
-.product--title {
+.collection-title,
+.product-title {
   font-weight: $strong-weight;
+}
+
+.money-currency {
+  @extend .small;
+  @extend .text-muted;
 }
 
 /* General styles for all navigations */
@@ -7933,4 +7966,17 @@ button.close {
 
 .label-sold-out {
   @extend .label-warning;
+}
+
+.product-buttons {
+  @extend .btn-group;
+  @extend .btn-group-justified;
+}
+
+.btn-view {
+  @extend .btn-default;
+}
+
+.btn-add-to-cart {
+  @extend .btn-primary;
 }

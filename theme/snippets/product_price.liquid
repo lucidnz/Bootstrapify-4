@@ -1,4 +1,6 @@
-<div class="product--price">
+<div class="product-price">
   {% if p.price_varies %}{{ 'products.general.from' | t }}{% endif %}
-  <span class="money">{{ p.price | money_with_currency }}</span>
+  <span class="money">{{ p.price | money }}</span>
+  {% comment %}TODO: Make optional as setting{% endcomment %}
+  <span class="money-currency">{{ shop.currency }}</span>
 </div>

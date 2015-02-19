@@ -1,17 +1,21 @@
 /* Grids and Layouts */
 
+img {
+  @extend .img-responsive;
+}
+
 .page,
 .contain {
   @extend {% if settings.container_width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
 }
 
-.collection--grid,
-.product--grid {
+.collection-grid,
+.product-grid {
   @include make-row();
 }
 
-.collection--wrap,
-.product--wrap {
+.collection-wrap,
+.product-wrap {
   @include make-sm-column(3);
 }
 
@@ -21,11 +25,33 @@
   @extend .page-header;
 }
 
-.collection--item,
-.product--item {
+.collection-item,
+.product-item {
   @extend .thumbnail;
 }
 
-.collection--image,
-.product--image {
+.collection-item,
+.product-item {
+  .collection-title,
+  .product-title {
+    margin-top: $grid-gutter-width / 2;
+    margin-bottom: $grid-gutter-width / 2;
+  }
+
+  .collection-buttons,
+  .product-buttons {
+    margin-top: $grid-gutter-width / 2;
+  }
+}
+
+.collection-image,
+.product-image {
+}
+
+table {
+  @extend .table;
+
+  .money {
+    text-align: right;
+  }
 }
