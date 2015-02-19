@@ -1,7 +1,13 @@
-<h1>{{ 'collections.list_collections.page_title' | t }}</h1>
+<section class="page-wrap">
+  <div class="page">
+    <header class="page-header">
+      <h1>{{ 'collections.list_collections.page_title' | t }}</h1>
+    </header>
 
-<div class="collection--grid">
-{% for c in collections %}
-  {% include 'collection-item' %}
-{% endfor %}
-</div>
+    <div class="collection--grid">
+    {% for c in collections %}
+      {% include 'collection-item' %}
+    {% endfor %}
+    </div>
+  </div>
+</section>

@@ -1,9 +1,7 @@
-main {
-  @extend {% if settings.container-width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
-}
+/* Grids and Layouts */
 
-h1 {
-  @extend .page-header;
+.page {
+  @extend {% if settings.container-width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
 }
 
 .collection--grid,
@@ -16,6 +14,12 @@ h1 {
   @include make-sm-column(3);
 }
 
+/* Block Element Styles */
+
+.page-header {
+  @extend .page-header;
+}
+
 .collection--item,
 .product--item {
   @extend .thumbnail;
@@ -23,23 +27,4 @@ h1 {
 
 .collection--image,
 .product--image {
-}
-
-.collection--details,
-.product--details {
-  @extend .caption;
-  @extend .text-center;
-}
-
-.collection--title,
-.product--title {
-  font-weight: $strong-weight;
-}
-
-.label-sale {
-  @extend .label-success;
-}
-
-.label-sold-out {
-  @extend .label-warning;
 }

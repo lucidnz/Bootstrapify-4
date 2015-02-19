@@ -46,11 +46,24 @@
     </header>
 
     {% comment %}
-      Because we want to keep this theme as lean as possible we don't define secondary content here.
+      Because we want to keep this theme as lean as possible we don't define secondary content here (i.e. sidebars etc.)
       Secondary content will be applied inside each template on a 'when applicable' basis as it might not be needed for each template.
+      
+      Also to keep the markup as flexible as possible template content is wrapped inside each template like so:
+        <section class="content-wrapper">
+          <div class="content">
+            ...
+          </div>
+        </section>
+        
+        .content-wrapper can be used for extending things out to the full width of the screen if needed.
+        .content will constrain the content for that section for nice view widths.
+        
+      Content sections can be easily stacked to define new areas and allow for more interesting layout options.
     {% endcomment %}
 
     {{ content_for_layout }}
+    
 
     {% comment %} *** Site wide footer content *** {% endcomment %}
     <footer class="mastfoot">

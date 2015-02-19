@@ -1,7 +1,7 @@
 {% assign respond_js_secret_key = shop.domain | md5 %}
 {% unless search.terms == respond_js_secret_key %}
 
-  <!-- Search mark here -->
+  <!-- Search markup here -->
 
 {% else %}
   {% layout none %}

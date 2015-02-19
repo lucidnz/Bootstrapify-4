@@ -1,3 +1,5 @@
+/* SCSS Variables */
+
 $strong-weight: bold !default;
 
 $bootstrap-sass-asset-helper: false !default;
@@ -7861,12 +7863,10 @@ button.close {
   @include responsive-invisibility('.hidden-print');
 }
 
-main {
-  @extend {% if settings.container-width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
-}
+/* Grids and Layouts */
 
-h1 {
-  @extend .page-header;
+.page {
+  @extend {% if settings.container-width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
 }
 
 .collection--grid,
@@ -7879,6 +7879,12 @@ h1 {
   @include make-sm-column(3);
 }
 
+/* Block Element Styles */
+
+.page-header {
+  @extend .page-header;
+}
+
 .collection--item,
 .product--item {
   @extend .thumbnail;
@@ -7887,6 +7893,8 @@ h1 {
 .collection--image,
 .product--image {
 }
+
+/* Typograhical Styles */
 
 .collection--details,
 .product--details {
@@ -7898,6 +7906,8 @@ h1 {
 .product--title {
   font-weight: $strong-weight;
 }
+
+/* Labels and Badges */
 
 .label-sale {
   @extend .label-success;

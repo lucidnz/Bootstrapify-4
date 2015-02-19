@@ -1,7 +1,13 @@
-<h1>{{ collection.title }}</h1>
+<section class="page-wrap">
+  <div class="page">
+    <header class="page-header">
+      <h1>{{ collection.title }}</h1>
+    </header>
 
-<div class="collection--grid">
-{% for p in collection.products %}
-  {% include 'product-item' %}
-{% endfor %}
-</div>
+    <div class="collection--grid">
+    {% for p in collection.products %}
+      {% include 'product-item' %}
+    {% endfor %}
+    </div>
+  </div>
+</section>
