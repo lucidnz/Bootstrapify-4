@@ -14,8 +14,8 @@
       "from" : "from"
     },
     "badges" : {
-      "on-sale" : "On Sale",
-      "sold-out" : "Sold Out"
+      "on_sale" : "On Sale",
+      "sold_out" : "Sold Out"
     }
   },
   "search" : {

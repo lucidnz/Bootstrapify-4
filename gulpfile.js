@@ -17,7 +17,7 @@ var onError = function (err) {
 
 /* Default watch tasks for ease of development */
 gulp.task('default', function () {
-  gulp.watch(['./src/scss/*.scss', './src/scss/*.scss.liquid'], ['concat_sass']);
+  gulp.watch(['./src/scss/*.scss', './src/scss/*.scss.liquid', './src/scss/*/*.scss.liquid'], ['concat_sass']);
   gulp.watch(['./src/js/*.js'], ['lint', 'modernizr']);
   gulp.watch('./settings/*.yml', ['shopify_theme_settings']);
 });

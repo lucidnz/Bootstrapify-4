@@ -14,7 +14,7 @@
     <!-- First round of JS -->
     {{ 'modernizr.js' | asset_url | script_tag }}
 
-    <!-- Stylessheets -->
+    <!-- Stylesheets -->
     {{ 'styles.scss.css' | asset_url | stylesheet_tag }}
     {{ '//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css' | stylesheet_tag }}
 
@@ -30,9 +30,6 @@
     <script src="//{{shop.domain}}/search?q={{ respond_js_secret_key }}" type="text/javascript"></script>
     <![endif]-->
 
-    <script src="{{ 'app.js' | asset_url }}" async></script>
-    <script src="{{ 'bootstrap.min.js' | asset_url }}" async></script>
-
     {{ content_for_header }}
   </head>
 
@@ -40,9 +37,15 @@
   <!--[if IE 9]> <body class="ie {{ template | replace: '.', '-' }}" id="{{ page_title | handle }}"> <![endif]-->
   <!--[if !(IE)]><!--> <body class="{{ template | replace: '.', '-' }}" id="{{ page_title | handle }}"> <!--<![endif]-->
 
-    {% comment %} *** Site wide header content *** {% endcomment %}
-    <header class="masthead">
-      {% comment %} *** TODO: select nav layout snippet *** {% endcomment %}
+    <header class="site-header">
+      {% comment %}
+        Each header layouts has it's own snippet file, this allows us to create maintainable modular layouts that can be swapped out or new ones added to easily.
+        All header layouts can be selected from the theme settings.
+        Header snippets are prefixed with 'header_'.
+      {% endcomment %}
+      
+      {% assign header_layout = settings.header_layout | default: 'header_centered' %}
+      {% include header_layout %}
     </header>
 
     {% comment %}
@@ -64,11 +67,12 @@
 
     {{ content_for_layout }}
     
-
-    {% comment %} *** Site wide footer content *** {% endcomment %}
-    <footer class="mastfoot">
+    <footer class="site-footer">
 
     </footer>
 
+    <!-- Bulk of JS -->
+    <script src="{{ 'app.js' | asset_url }}" async></script>
+    <script src="{{ 'bootstrap.min.js' | asset_url }}" async></script>
   </body>
 </html>

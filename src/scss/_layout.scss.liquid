@@ -1,7 +1,8 @@
 /* Grids and Layouts */
 
-.page {
-  @extend {% if settings.container-width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
+.page,
+.contain {
+  @extend {% if settings.container_width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
 }
 
 .collection--grid,

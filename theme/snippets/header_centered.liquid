@@ -1,0 +1,29 @@
+<div id="navigation-layout-centered">
+  <section>
+    <div class="contain">
+    {% unless settings.secondary_menu_linklist == blank %}
+      <nav class="secondary-nav">
+        {% include 'nav_list' with settings.secondary_menu_linklist %}
+      </nav>
+    {% endunless %}
+    
+    <nav class="tertiary-nav">
+      {% assign show = 'accounts,cart,search' %}
+      {% include 'nav_list' with settings.tertiary_menu_linklist %}
+    </nav>
+    </div>
+  </section>
+
+  <section>
+    {% comment %} *** TODO: Logos -> text / img / svg / font / etc *** {% endcomment %}
+    <h1>{{ shop.name }}</h1>
+  </section>
+  
+  {% unless settings.main_menu_linklist == blank %}
+  <section>
+    <nav class="main-nav">
+      {% include 'nav_list' with settings.main_menu_linklist %}
+    </nav>
+  </section>
+  {% endunless %}
+</div>

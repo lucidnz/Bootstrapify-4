@@ -7865,8 +7865,9 @@ button.close {
 
 /* Grids and Layouts */
 
-.page {
-  @extend {% if settings.container-width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
+.page,
+.contain {
+  @extend {% if settings.container_width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
 }
 
 .collection--grid,
@@ -7907,6 +7908,23 @@ button.close {
   font-weight: $strong-weight;
 }
 
+/* General styles for all navigations */
+
+.nav-inline {
+  @extend .list-inline;
+  & > li {
+    display: inline-block;
+  }
+}
+/* Styles for centered navigation snippet */
+
+#navigation-layout-centered {
+  @extend .text-center;
+  
+  .nav {
+    @extend .nav-inline;
+  }
+}
 /* Labels and Badges */
 
 .label-sale {

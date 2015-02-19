@@ -4,9 +4,13 @@ Navigation:
     notitle: true
     
     Main menu:
-      name: main-menu-linklist
+      name: main_menu_linklist
       type: linklist
     
     Secondary menu:
-      name: secondary-menu-linklist
+      name: secondary_menu_linklist
+      type: linklist
+    
+    Tertiary menu:
+      name: tertiary_menu_linklist
       type: linklist

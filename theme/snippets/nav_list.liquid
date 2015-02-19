@@ -1,0 +1,39 @@
+<ul class="nav">
+  {% for link in linklists[nav_list].links %}
+    {% assign child_list_handle = link.title | handleize %}
+    {% if linklists[child_list_handle].links != blank %}
+      <li class="dropdown">
+        <a class="dropdown-toggle" href="{{ link.url }}" data-toggle="dropdown">{{ link.title }} <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          {% for childlink in linklists[child_list_handle].links %}
+            <li><a {% if childlink.active %}class="active"{% endif %} href="{{ childlink.url }}" title="{{ childlink.title }}">{{ childlink.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% else %}
+      <li><a {% if link.active %}class="active"{% endif %} href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+    {% endif %}
+  {% endfor %}
+  
+  {% comment %}
+    Show extra nav list items i.e. accounts, cart, search
+    This is defined by a comma separated list given to the show var outside this snippet
+    e.g. assign show = 'accounts,cart,search'
+  {% endcomment %}
+  {% assign extra_items = show | split: ',' %}
+  {% for item in extra_items %}
+    <li>
+    {% case item %}
+    {% when 'accounts' %}
+      accounts
+    {% when 'cart' %}
+      cart
+    {% when 'search' %}
+      search
+    {% endcase %}
+    </li>
+  {% endfor %}
+</ul>
+
+{% comment %} unset show flag {% endcomment %}
+{% assign show = '' %}
