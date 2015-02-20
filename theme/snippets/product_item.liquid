@@ -14,18 +14,18 @@
   {% assign sold_out = false %}
 {% endif %}
 
-<div class="product-wrap">
-  <div class="product-item">
-      <div class="product-image">
+<div class="item-wrap">
+  <div class="item">
+      <div class="item-image">
         <a href="{{ p.url }}" title="{{ p.title }}">
           {{ p.featured_image | img_url: 'medium' | img_tag }}
         </a>
       </div>
-      <div class="product-details">
-        <div class="product-title">{{ p.title }}</div>
+      <div class="item-details">
+        <div class="item-title">{{ p.title }}</div>
         {% include 'product_price' %}
         {% include 'product_badges' %}
-        <div class="product-buttons" role="group">
+        <div class="item-buttons" role="group">
           <a href="{{ p.url }}" class="btn btn-view" title="{{ p.title }}">{{ 'products.buttons.view_product' | t }}</a>
           <a href="#" class="btn btn-add-to-cart">{{ 'products.buttons.add_to_cart' | t }}</a>
         </div>

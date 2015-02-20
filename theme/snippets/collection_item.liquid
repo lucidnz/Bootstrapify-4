@@ -1,12 +1,12 @@
-<div class="collection--wrap">
-  <div class="collection--item">
+<div class="item-wrap">
+  <div class="item">
     <a href="{{ c.url }}" title="{{ c.title }}">
-      <div class="collection--image">
+      <div class="item-image">
         {{ c.image | img_url: 'medium' | img_tag }}
       </div>
-      <div class="collection--details">
-        <div class="collection--title">{{ c.title }}</div>
-        <div class="collection--count">{{ c.all_products_count }}</div>
+      <div class="item-details">
+        <div class="item-title">{{ c.title }}</div>
+        <div class="item-count">{{ c.all_products_count }}</div>
       </div>
     </a>
   </div>

@@ -52,6 +52,9 @@
     {% endunless %}
   {% endfor %}
   
+  {% unless settings.homepage_advanced_layout == blank %}
+    {% comment %} TODO: advanced layout {% endcomment %}
+  {% endunless %}
 </main>
 
 {% include 'site_aside' %}
