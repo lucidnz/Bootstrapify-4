@@ -1,0 +1,71 @@
+{
+  "name": "Homepage",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Homepage Layout"
+    },
+    {
+      "type": "paragraph",
+      "content": "Select which sections of content to show on your homepage."
+    },
+    {
+      "label": "Section one",
+      "id": "homepage_layout_section_one",
+      "type": "select",
+      "options": [
+        { "value": "none", "label": "None"},
+        { "value": "slider", "label": "Slider"},
+        { "value": "featured_collections", "label": "Featured Collections"},
+        { "value": "featured_products", "label": "Featured Products"},
+        { "value": "page_content", "label": "Page Content"}
+      ],
+      "default": "slider"
+    },
+    {
+      "label": "Section two",
+      "id": "homepage_layout_section_two",
+      "type": "select",
+      "options": [
+        { "value": "none", "label": "None"},
+        { "value": "slider", "label": "Slider"},
+        { "value": "featured_collections", "label": "Featured Collections"},
+        { "value": "featured_products", "label": "Featured Products"},
+        { "value": "page_content", "label": "Page Content"}
+      ],
+      "default": "featured_collections"
+    },
+    {
+      "label": "Section three",
+      "id": "homepage_layout_section_three",
+      "type": "select",
+      "options": [
+        { "value": "none", "label": "None"},
+        { "value": "slider", "label": "Slider"},
+        { "value": "featured_collections", "label": "Featured Collections"},
+        { "value": "featured_products", "label": "Featured Products"},
+        { "value": "page_content", "label": "Page Content"}
+      ],
+      "default": "page_content"
+    },
+    {
+      "label": "Section four",
+      "id": "homepage_layout_section_four",
+      "type": "select",
+      "options": [
+        { "value": "none", "label": "None"},
+        { "value": "slider", "label": "Slider"},
+        { "value": "featured_collections", "label": "Featured Collections"},
+        { "value": "featured_products", "label": "Featured Products"},
+        { "value": "page_content", "label": "Page Content"}
+      ],
+      "default": "featured_products"
+    },
+    {
+      "label": "Advanced Layout",
+      "id": "homepage_advanced_layout",
+      "type": "link_list",
+      "info": "To create a more advanced layout or add more sections to your homepage select a linklist to base the layout from. This will be used in addition to the above sections."
+    }
+  ]
+}

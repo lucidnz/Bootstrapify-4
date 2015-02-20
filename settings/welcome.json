@@ -1,0 +1,13 @@
+{
+  "name": "Welcome",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Bootstrapify 4 by [Lucid](http:\/\/lucid.co.nz)"
+    },
+    {
+      "type": "paragraph",
+      "content": "For theme support please contact us at [shopify@lucid.co.nz](mailto:shopify@lucid.co.nz)"
+    }
+  ]
+}

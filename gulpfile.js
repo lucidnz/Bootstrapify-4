@@ -4,6 +4,7 @@ var gulp        = require('gulp'),
   plumber       = require('gulp-plumber'),
   jshint        = require('gulp-jshint'),
   concat        = require('gulp-concat'),
+  jsoncombine   = require('gulp-jsoncombine'),
   rename        = require('gulp-rename'),
   pjson         = require('./package.json'),
   SassImport    = require('./utils/sass_import.js');
@@ -19,7 +20,7 @@ var onError = function (err) {
 gulp.task('default', function () {
   gulp.watch(['./src/scss/*.scss', './src/scss/*.scss.liquid', './src/scss/*/*.scss.liquid'], ['concat_sass']);
   gulp.watch(['./src/js/*.js'], ['lint', 'modernizr']);
-  gulp.watch('./settings/*.yml', ['shopify_theme_settings']);
+  gulp.watch('./settings/*.json', ['shopify_theme_settings']); // gulp.watch('./settings/*.yml', ['shopify_theme_settings']);
 });
 
 /* ALL THE TASKS!!! */
@@ -86,7 +87,32 @@ gulp.task('zip', function () {
 /* Run the grunt task for generating the theme settings */
 /* NOTE: this can be removed when Shopify fully rolls out the new theme editor! */
 gulp.task('shopify_theme_settings', function () {
-  return gulp.run('grunt-shopify_theme_settings');
+  // list of settings files to include in order of inclusion
+  var settings = [
+    'welcome',
+    'general',
+    'layout',
+    'navigation',
+    'homepage',
+    'homepage_slider',
+    'homepage_featured_collections',
+    'homepage_featured_products'
+  ];
+  
+  return gulp.src('./settings/*.json')
+    .pipe(jsoncombine('settings_schema.json', function(data){
+      // collect the json data and store it in the correct order
+      var data_array = [];
+      for (var i = 0; i < settings.length; i++) {
+        var file = settings[i];
+        data_array.push(data[file]);
+      }
+      
+      return new Buffer(JSON.stringify(data_array));
+    }))
+    .pipe(gulp.dest('./theme/config/'));
+    
+//   return gulp.run('grunt-shopify_theme_settings');
 });
 
 /* Run the grunt task for modernizr */

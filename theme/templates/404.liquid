@@ -4,7 +4,9 @@
       <h1>{{ 'errors.404.page_title' | t }}</h1>
     </header>
     
+    <main role="main">
     {% capture homepage_link %}{{ 'errors.404.not_found_message_homepage_link' | t | link_to: shop.url, shop.name }}{% endcapture %}
     <p>{{ 'errors.404.not_found_message_html' | t: homepage_link: homepage_link }}</p>
+    </main>
   </div>
 </section>

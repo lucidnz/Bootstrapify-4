@@ -12,6 +12,7 @@
 module.exports = function(grunt) {
   
   grunt.initConfig({
+/*
     shopify_theme_settings: {
       settings: {
         options: {
@@ -19,12 +20,15 @@ module.exports = function(grunt) {
         },
         files: {
           'theme/config/settings.html': [
+            'settings/general.yml',
             'settings/layout.yml',
-            'settings/navigation.yml'
+            'settings/navigation.yml',
+            'settings/homepage.yml'
           ]
         }
       }
     },
+*/
     modernizr: {
       dist: {
         "devFile" : "remote",
@@ -39,6 +43,6 @@ module.exports = function(grunt) {
     }
   });
   
-  grunt.loadNpmTasks('grunt-shopify-theme-settings');
+//   grunt.loadNpmTasks('grunt-shopify-theme-settings');
   grunt.loadNpmTasks("grunt-modernizr");
 };

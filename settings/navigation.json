@@ -1,0 +1,20 @@
+{
+  "name": "Navigation",
+  "settings": [
+    {
+      "label": "Main Menu",
+      "id": "main_menu_linklist",
+      "type": "link_list"
+    },
+    {
+      "label": "Secondary Menu",
+      "id": "secondary_menu_linklist",
+      "type": "link_list"
+    },
+    {
+      "label": "Tertiary Menu",
+      "id": "tertiary_menu_linklist",
+      "type": "link_list"
+    }
+  ]
+}

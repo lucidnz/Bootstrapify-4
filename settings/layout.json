@@ -1,0 +1,34 @@
+{
+  "name": "Layout",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Site Layout"
+    },
+    {
+      "label": "Container width",
+      "id": "container_width",
+      "type": "select",
+      "options": [
+        { "value": "fixed", "label": "Fixed width" },
+        { "value": "fluid", "label": "Full width" }
+      ],
+      "default": "fixed",
+      "info": "The container holds the width of your content. A fixed width conatiner will stop the content from getting to wide. Full width will allow your content to always flow out to the edge of the screen no matter how big it is."
+    },
+    {
+      "type": "header",
+      "content": "Section Layout"
+    },
+    {
+      "label": "Site header and navigation layout",
+      "id": "header_layout",
+      "type": "select",
+      "options": [
+        { "value": "header_centered", "label": "Centered" }
+      ],
+      "default": "header_centered",
+      "info": "Select the site header and navigation layout. You can see each option here [TODO: add link]"
+    }
+  ]
+}

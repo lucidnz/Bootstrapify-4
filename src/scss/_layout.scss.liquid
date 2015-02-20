@@ -4,8 +4,7 @@ img {
   @extend .img-responsive;
 }
 
-.page,
-.contain {
+.page {
   @extend {% if settings.container_width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
 }
 

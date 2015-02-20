@@ -1,0 +1,9 @@
+{
+  "name": "Homepage - Featured Collections",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Homepage Featured Collections"
+    }
+  ]
+}

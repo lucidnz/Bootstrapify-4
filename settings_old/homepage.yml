@@ -1,0 +1,48 @@
+Homepage:
+
+  Homepage Layout:
+  
+    Section one:
+      name: homepage_layout_section_one
+      type: select
+      options:
+        none: 'None'
+        slider: 'Slider'
+        featured_collections: 'Featured Collections'
+        featured_products: 'Featured Products'
+        page: 'Page Content'
+  
+    Section two:
+      name: homepage_layout_section_two
+      type: select
+      options:
+        none: 'None'
+        slider: 'Slider'
+        featured_collections: 'Featured Collections'
+        featured_products: 'Featured Products'
+        page: 'Page Content'
+  
+    Section three:
+      name: homepage_layout_section_three
+      type: select
+      options:
+        none: 'None'
+        slider: 'Slider'
+        featured_collections: 'Featured Collections'
+        featured_products: 'Featured Products'
+        page: 'Page Content'
+  
+    Section four:
+      name: homepage_layout_section_four
+      type: select
+      options:
+        none: 'None'
+        slider: 'Slider'
+        featured_collections: 'Featured Collections'
+        featured_products: 'Featured Products'
+        page: 'Page Content'
+        
+    Advanced Layout:
+      name: homepage_advanced_layout
+      help: 'To create a more advanced layout or add more sections to your homepage select a linklist to base the layout from. This will be used in addition to the above sections.'
+      type: linklist

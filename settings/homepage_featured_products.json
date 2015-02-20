@@ -1,0 +1,9 @@
+{
+  "name": "Homepage - Featured Products",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Homepage Featured Products"
+    }
+  ]
+}
