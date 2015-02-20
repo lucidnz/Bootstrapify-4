@@ -7871,28 +7871,25 @@ img {
   @extend .img-responsive;
 }
 
-.page {
+.sheet {
   @extend {% if settings.container_width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
 }
 
-.collection-grid,
-.product-grid {
+.group {
   @include make-row();
 }
 
-.collection-wrap,
-.product-wrap {
+.item-wrap {
   @include make-sm-column(3);
 }
 
 /* Block Element Styles */
 
-.page-header {
+.sheet-header {
   @extend .page-header;
 }
 
-.collection-item,
-.product-item {
+.item {
   @extend .thumbnail;
 }
 

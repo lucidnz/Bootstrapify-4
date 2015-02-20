@@ -1,14 +1,16 @@
-<section class="page-wrap">
-  <div class="page">
-    <header class="page-header">
+<main role="main">
+  <div class="sheet">
+    <header class="sheet-header">
       <h1>{{ collection.title }}</h1>
       {{ collection.description }}
     </header>
 
-    <div class="group products">
+    <section class="group products">
     {% for p in collection.products %}
       {% include 'product_item' %}
     {% endfor %}
-    </div>
+    </section>
   </div>
-</section>
+</main>
+
+{% include 'site_aside' %}

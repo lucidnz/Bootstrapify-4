@@ -1,7 +1,62 @@
-<section class="page-wrap">
-  <div class="page">
-    <header class="page-header">
-      <h1>{{ page_title }}</h1>
-    </header>
-  </div>
-</section>
+<main role="main">
+
+  {% comment %}
+    Loop the homepage content settings and add each section if applicable.
+    Then loop the advanced content link list to add additional sections if needed.
+    
+    `section_count` is used across both standard & advanced sections and only increments if a section is included.
+  {% endcomment %}
+
+  {% assign section_count = 1 %}
+  {% for i in (1..4) %}
+    {% assign homepage_settings_id = 'homepage_layout_section_' | append: i %}
+    {% assign homepage_section = settings[homepage_settings_id] %}
+    
+    {% unless homepage_section == blank or homepage_section == 'none' %}
+    
+      {% case homepage_section %}
+      {% when 'slider' %}
+        {% assign homepage_section_id = 'homepage-slider-' | append: section_count %}
+        {% capture homepage_section_content %}{% include 'homepage_slider' %}{% endcapture %}
+                
+      {% when 'featured_collections' %}
+        {% unless settings.homepage_featured_collections == blank %}
+          {% assign homepage_section_object = linklists[settings.homepage_featured_collections] %}
+          {% assign homepage_section_id = homepage_section_object.handle %}
+          {% capture homepage_section_content %}{% include 'homepage_collections' with homepage_section_object %}{% endcapture %}
+        {% endunless %}
+        
+      {% when 'featured_products' %}
+        {% unless settings.homepage_featured_products == blank %}
+          {% assign homepage_section_object = collections[settings.homepage_featured_products] %}
+          {% assign homepage_section_id = homepage_section_object.handle %}
+          {% capture homepage_section_content %}{% include 'homepage_products' with homepage_section_object %}{% endcapture %}
+        {% endunless %}
+        
+      {% when 'page_content' %}
+        {% unless settings.homepage_page_content == blank %}
+          {% assign homepage_section_object = pages[settings.homepage_page_content] %}
+          {% assign homepage_section_id = homepage_section_object.handle %}
+          {% capture homepage_section_content %}{% include 'homepage_page' with homepage_section_object %}{% endcapture %}
+        {% endunless %}
+      {% endcase %}
+    
+      {% unless homepage_section_content == blank %}
+        <section class="homepage-section homepage-section-{{ section_count }}" id="{{ homepage_section_id }}">
+          {{ homepage_section_content }}
+        </section>
+        {% assign section_count = section_count | plus: 1 %}
+        {% assign homepage_section_content = '' %}
+      {% endunless %}
+      
+    {% endunless %}
+  {% endfor %}
+  
+</main>
+
+{% include 'site_aside' %}
+
+
+
+
+

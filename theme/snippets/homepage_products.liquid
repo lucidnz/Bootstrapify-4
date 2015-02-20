@@ -1,0 +1,12 @@
+<div class="sheet">
+  <header class="sheet-header">
+    <h1>{{ homepage_products.title }}</h1>
+      {{ homepage_products.description }}
+  </header>
+  
+  <section class="group collections">
+    {% for p in homepage_products.products %}
+      {% include 'product_item' %}
+    {% endfor %}
+    </section>
+</div>

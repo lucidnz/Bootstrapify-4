@@ -1,15 +1,13 @@
-<main>
-  <div class="sheet">
+<main role="main">
+  <article class="sheet">
     <header class="sheet-header">
       <h1>{{ page.title }}</h1>
     </header>
 
-    <section role="main">
+    <section class="sheet-content">
       {{ page.content }}
     </section>
-    
-    
-  </div>
+  </article>
 </main>
 
-{% include 'aside' %}
+{% include 'site_aside' %}

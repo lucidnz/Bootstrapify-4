@@ -11,10 +11,10 @@
     },
     {
       "label": "Section one",
-      "id": "homepage_layout_section_one",
+      "id": "homepage_layout_section_1",
       "type": "select",
       "options": [
-        { "value": "none", "label": "None"},
+        { "value": "", "label": "None"},
         { "value": "slider", "label": "Slider"},
         { "value": "featured_collections", "label": "Featured Collections"},
         { "value": "featured_products", "label": "Featured Products"},
@@ -24,10 +24,10 @@
     },
     {
       "label": "Section two",
-      "id": "homepage_layout_section_two",
+      "id": "homepage_layout_section_2",
       "type": "select",
       "options": [
-        { "value": "none", "label": "None"},
+        { "value": "", "label": "None"},
         { "value": "slider", "label": "Slider"},
         { "value": "featured_collections", "label": "Featured Collections"},
         { "value": "featured_products", "label": "Featured Products"},
@@ -37,10 +37,10 @@
     },
     {
       "label": "Section three",
-      "id": "homepage_layout_section_three",
+      "id": "homepage_layout_section_3",
       "type": "select",
       "options": [
-        { "value": "none", "label": "None"},
+        { "value": "", "label": "None"},
         { "value": "slider", "label": "Slider"},
         { "value": "featured_collections", "label": "Featured Collections"},
         { "value": "featured_products", "label": "Featured Products"},
@@ -50,10 +50,10 @@
     },
     {
       "label": "Section four",
-      "id": "homepage_layout_section_four",
+      "id": "homepage_layout_section_4",
       "type": "select",
       "options": [
-        { "value": "none", "label": "None"},
+        { "value": "", "label": "None"},
         { "value": "slider", "label": "Slider"},
         { "value": "featured_collections", "label": "Featured Collections"},
         { "value": "featured_products", "label": "Featured Products"},

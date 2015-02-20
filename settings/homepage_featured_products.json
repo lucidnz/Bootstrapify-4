@@ -2,8 +2,10 @@
   "name": "Homepage - Featured Products",
   "settings": [
     {
-      "type": "header",
-      "content": "Homepage Featured Products"
+      "label": "Select a collection of featured products",
+      "id": "homepage_featured_products",
+      "type": "collection",
+      "info": "This homepage section can be managed under the homepage area above."
     }
   ]
 }

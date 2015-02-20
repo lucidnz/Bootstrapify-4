@@ -6,7 +6,8 @@
   },
   "collections" : {
     "list_collections" : {
-      "page_title" : "All collections"
+      "title" : "All collections",
+      "description" : ""
     }
   },
   "products" : {

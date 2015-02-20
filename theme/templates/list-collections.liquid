@@ -1,13 +1,16 @@
-<section class="page-wrap">
-  <div class="page">
-    <header class="page-header">
-      <h1>{{ 'collections.list_collections.page_title' | t }}</h1>
+<main role="main">
+  <div class="sheet">
+    <header class="sheet-header">
+      <h1>{{ 'collections.list_collections.title' | t }}</h1>
+      {{ 'collections.list_collections.description' | t }}
     </header>
 
-    <div class="group collections">
+    <section class="group collections">
     {% for c in collections %}
       {% include 'collection_item' %}
     {% endfor %}
-    </div>
+    </section>
   </div>
-</section>
+</main>
+
+{% include 'site_aside' %}
