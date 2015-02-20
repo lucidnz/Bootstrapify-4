@@ -54,6 +54,17 @@
   
   {% unless settings.homepage_advanced_layout == blank %}
     {% comment %} TODO: advanced layout {% endcomment %}
+    
+    {% assign homepage_advanced_linklist = linklists[settings.homepage_advanced_layout] %}
+    {% unless homepage_advanced_linklist.links == blank %}
+      {% for advanced_section_link in homepage_advanced_linklist.links %}
+      
+        
+      
+      {% endfor %}
+    {% endunless %}
+    
+    
   {% endunless %}
 </main>
 
