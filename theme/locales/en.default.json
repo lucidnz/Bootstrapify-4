@@ -36,6 +36,16 @@
       "register" : "Register"
     }
   },
+  "contact" : {
+    "form" : {
+      "name" : "Name",
+      "email" : "Email",
+      "phone" : "Phone",
+      "message" : "Message",
+      "send_button" : "Send",
+      "post_success" : "Thank you for your enquiry. We will be in contact shortly."
+    }
+  },
   "search" : {
     "search_form" : {
       "field_placeholder" : "Search",

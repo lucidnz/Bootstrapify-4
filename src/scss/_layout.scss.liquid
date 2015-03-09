@@ -43,3 +43,20 @@ table {
     text-align: right;
   }
 }
+
+/* Default page specific layouts */
+.page-contact {
+  .sheet-content {
+    @include make-row();
+  }
+  
+  .page-content, .contact-content {
+    @include make-sm-column(6);
+  }
+  .page-content {
+    @include make-sm-column-push(6);
+  }
+  .contact-content {
+    @include make-sm-column-pull(6);
+  }
+}

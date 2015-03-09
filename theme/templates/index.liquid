@@ -14,6 +14,8 @@
     
     {% unless homepage_section == blank or homepage_section == 'none' %}
     
+      {% comment %} Check for each section type and collect it's relevant content inside the homepage_section_content var {% endcomment %}
+    
       {% case homepage_section %}
       {% when 'slider' %}
         {% assign homepage_section_id = 'homepage-slider-' | append: section_count %}
@@ -41,6 +43,8 @@
         {% endunless %}
       {% endcase %}
     
+      {% comment %} If we have collected content inside homepage_section_content then add it to the page {% endcomment %}
+      
       {% unless homepage_section_content == blank %}
         <section class="homepage-section homepage-section-{{ section_count }}" id="{{ homepage_section_id }}">
           {{ homepage_section_content }}
@@ -69,8 +73,3 @@
 </main>
 
 {% include 'site_aside' %}
-
-
-
-
-

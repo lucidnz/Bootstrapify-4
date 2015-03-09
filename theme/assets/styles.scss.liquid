@@ -7911,6 +7911,22 @@ table {
   }
 }
 
+/* Default page specific layouts */
+.page-contact {
+  .sheet-content {
+    @include make-row();
+  }
+  
+  .page-content, .contact-content {
+    @include make-sm-column(6);
+  }
+  .page-content {
+    @include make-sm-column-push(6);
+  }
+  .contact-content {
+    @include make-sm-column-pull(6);
+  }
+}
 /* Typograhical Styles */
 
 .item-details {
@@ -8024,6 +8040,37 @@ table {
     @extend .btn-default;
   }
 }
+
+.contact-form {
+  label {
+    @extend .control-label;
+  }
+  
+  input[type=text],
+  input[type=password],
+  input[type=email],
+  input[type=tel],
+  textarea {
+    @extend .form-control;
+  }
+  
+  input[type=submit] {
+    @extend .btn;
+    @extend .btn-primary;
+  }
+  
+  .errors, .note {
+    @extend .alert;
+  }
+  
+  .errors {
+    @extend .alert-danger;
+  }
+  
+  .note {
+    @extend .alert-success;
+  }
+}
 /* Labels and Badges */
 
 .label-sale {
@@ -8040,9 +8087,11 @@ table {
 }
 
 .btn-view {
+  @extend .btn;
   @extend .btn-default;
 }
 
 .btn-add-to-cart {
+  @extend .btn;
   @extend .btn-primary;
 }
