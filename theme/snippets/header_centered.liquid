@@ -3,8 +3,12 @@
   <div class="header-small">
     <div class="sheet">
       
+      {% comment %}
+        .navigation-toggle and .navigation need the .collapsed and .collapse links to get the BS transitions to work.
+      {% endcomment %}
+      
       <div class="navigation-header">
-        <button type="button" class="navigation-toggle" data-toggle="collapse" data-target="#navigation-collapse">
+        <button type="button" class="navigation-toggle collapsed" data-toggle="collapse" data-target="#navigation-collapse">
           <span class="sr-only">Toggle navigation</span>
           <span class="fa fa-bars"></span>
           Menu
@@ -12,12 +16,9 @@
         
         {% assign show = 'cart' %}
         {% include 'nav_list' %}
-        
-        {% comment %} *** TODO: Logos -> text / img / svg / font / etc *** {% endcomment %}
-        <a class="navbar-brand" href="#">{{ shop.name }}</a>
       </div>
       
-      <div class="navigation" id="navigation-collapse">
+      <div class="navigation collapse" id="navigation-collapse">
         {% unless settings.main_menu_linklist == blank %} {% include 'nav_list' with settings.main_menu_linklist %} {% endunless %}
 
         {% unless settings.secondary_menu_linklist == blank %} {% include 'nav_list' with settings.secondary_menu_linklist %} {% endunless %}
@@ -31,7 +32,7 @@
   
   <!-- Header markup for larger screen sizes i.e. desktops --> 
   <div class="header-large">  
-    <section>
+    <section class="navigation-top">
       <div class="sheet">
         {% unless settings.secondary_menu_linklist == blank %}
           <nav class="secondary-nav">
@@ -52,7 +53,7 @@
     </section>
     
     {% unless settings.main_menu_linklist == blank %}
-    <section>
+    <section class="navigation-main">
       <nav class="main-nav">
         {% include 'nav_list' with settings.main_menu_linklist %}
       </nav>

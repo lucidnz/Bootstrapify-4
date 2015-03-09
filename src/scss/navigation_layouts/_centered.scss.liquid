@@ -21,11 +21,11 @@
   
   .navigation-toggle {
     @extend .navbar-toggle;
-    @extend .collapsed;
+    @extend .pull-left;
+    margin-left: $grid-gutter-width/2;
   }
   
   .navigation {
-    @extend .collapse;
     @extend .navbar-collapse;
     & > .nav {
       @extend .navbar-nav;
@@ -35,8 +35,18 @@
   
   // Large screen sizes
   .header-large {
-    @extend .hidden-xs;
     @extend .text-center;
+  }
+  
+  .header-logo {
+    overflow: auto;
+    h1 {
+      margin: 1em auto;
+    }
+  }
+  
+  .navigation-top, .navigation-main {
+    @extend .hidden-xs;
   }
     
   .main-nav, .secondary-nav, .tertiary-nav {
