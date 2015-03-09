@@ -1,29 +1,62 @@
-<div id="navigation-layout-centered">
-  <section>
+<div id="header-layout-centered">
+  <!-- Header markup for smaller screen sizes i.e. mobiles -->
+  <div class="header-small">
     <div class="sheet">
-      {% unless settings.secondary_menu_linklist == blank %}
-        <nav class="secondary-nav">
-          {% include 'nav_list' with settings.secondary_menu_linklist %}
-        </nav>
-      {% endunless %}
       
-      <nav class="tertiary-nav">
-        {% assign show = 'accounts,cart,search' %}
-        {% include 'nav_list' with settings.tertiary_menu_linklist %}
-      </nav>
-    </div>
-  </section>
+      <div class="navigation-header">
+        <button type="button" class="navigation-toggle" data-toggle="collapse" data-target="#navigation-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="fa fa-bars"></span>
+          Menu
+        </button>
+        
+        {% assign show = 'cart' %}
+        {% include 'nav_list' %}
+        
+        {% comment %} *** TODO: Logos -> text / img / svg / font / etc *** {% endcomment %}
+        <a class="navbar-brand" href="#">{{ shop.name }}</a>
+      </div>
+      
+      <div class="navigation" id="navigation-collapse">
+        {% unless settings.main_menu_linklist == blank %} {% include 'nav_list' with settings.main_menu_linklist %} {% endunless %}
 
-  <section>
-    {% comment %} *** TODO: Logos -> text / img / svg / font / etc *** {% endcomment %}
-    <h1>{{ shop.name }}</h1>
-  </section>
+        {% unless settings.secondary_menu_linklist == blank %} {% include 'nav_list' with settings.secondary_menu_linklist %} {% endunless %}
+
+        {% assign show = 'accounts,search' %}
+        {% include 'nav_list' with settings.tertiary_menu_linklist %}
+      </div>
+      
+    </div>
+  </div>
   
-  {% unless settings.main_menu_linklist == blank %}
-  <section>
-    <nav class="main-nav">
-      {% include 'nav_list' with settings.main_menu_linklist %}
-    </nav>
-  </section>
-  {% endunless %}
+  <!-- Header markup for larger screen sizes i.e. desktops --> 
+  <div class="header-large">  
+    <section>
+      <div class="sheet">
+        {% unless settings.secondary_menu_linklist == blank %}
+          <nav class="secondary-nav">
+            {% include 'nav_list' with settings.secondary_menu_linklist %}
+          </nav>
+        {% endunless %}
+        
+        <nav class="tertiary-nav">
+          {% assign show = 'accounts,cart,search' %}
+          {% include 'nav_list' with settings.tertiary_menu_linklist %}
+        </nav>
+      </div>
+    </section>
+  
+    <section class="header-logo">
+      {% comment %} *** TODO: Logos -> text / img / svg / font / etc *** {% endcomment %}
+      <h1>{{ shop.name }}</h1>
+    </section>
+    
+    {% unless settings.main_menu_linklist == blank %}
+    <section>
+      <nav class="main-nav">
+        {% include 'nav_list' with settings.main_menu_linklist %}
+      </nav>
+    </section>
+    {% endunless %}
+  </div>
 </div>

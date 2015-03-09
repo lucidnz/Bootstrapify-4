@@ -6,12 +6,12 @@
         <a class="dropdown-toggle" href="{{ link.url }}" data-toggle="dropdown">{{ link.title }} <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
           {% for childlink in linklists[child_list_handle].links %}
-            <li><a {% if childlink.active %}class="active"{% endif %} href="{{ childlink.url }}" title="{{ childlink.title }}">{{ childlink.title }}</a></li>
+            <li{% if childlink.active %} class="active"{% endif %}><a href="{{ childlink.url }}" title="{{ childlink.title }}">{{ childlink.title }}</a></li>
           {% endfor %}
         </ul>
       </li>
     {% else %}
-      <li><a {% if link.active %}class="active"{% endif %} href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+      <li{% if link.active %} class="active"{% endif %}><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
     {% endif %}
   {% endfor %}
   
@@ -20,20 +20,43 @@
     This is defined by a comma separated list given to the show var outside this snippet
     e.g. assign show = 'accounts,cart,search'
   {% endcomment %}
+  
   {% assign extra_items = show | split: ',' %}
   {% for item in extra_items %}
-    <li>
     {% case item %}
     {% when 'accounts' %}
-      accounts
+      {% if shop.customer_accounts_enabled %}
+        {% if customer %}
+          <li><a href="/account">{{ 'customer_accounts.site_header.welcome_note' | t: first_name: customer.first_name }}</a></li>
+          <li>{{ 'customer_accounts.site_header.sign_out' | t | customer_logout_link }}</li>
+        {% else %}
+          <li>{{ 'customer_accounts.site_header.register' | t | customer_register_link }}</li>
+          <li>{{ 'customer_accounts.site_header.sign_in' | t | customer_login_link }}</li>
+        {% endif %}
+      {% endif %}
+      
     {% when 'cart' %}
-      cart
+      {% assign cart_total_price = cart.total_price | money %}
+      {% assign cart_total_price_with_currency = cart.total_price | money_with_currency %}
+      <li><a href="/cart"><span class="fa fa-shopping-cart"></span> {{ 'cart.site_header.cart_link_html' | t: item_count: cart.item_count, cart_total_price: cart_total_price, cart_total_price_with_currency: cart_total_price_with_currency }}</a></li>
+      
     {% when 'search' %}
-      search
+      <li class="navigation-form">
+        <form class="search-form" action="/search" role="search">
+          <div class="input-group">
+            <input type="search" name="q" autocomplete="off" placeholder="{{ 'search.search_form.field_placeholder' | t }}" value="{{ search.terms }}">
+            <span class="input-group-btn">
+              <input type="submit" value="{{ 'search.search_form.button_text' | t }}" />
+            </span>
+          </div>
+        </form>
+      </li>
+      
     {% endcase %}
-    </li>
   {% endfor %}
 </ul>
+
+
 
 {% comment %} unset show flag {% endcomment %}
 {% assign show = '' %}

@@ -4,7 +4,7 @@
 {% capture title %}{{ shop.name }}{% endcapture %}
 {% if search.performed %}
   {% capture title %}
-    {{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'search.page_title_with_search_term' | t: search_term: page_title }}
+    {{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'search.results_page.page_title_with_search_term' | t: search_term: page_title }}
     {% if current_page != 1 %}
       - Page {{ current_page }}
     {% endif %}
@@ -28,7 +28,7 @@
     {% endif %}
   
   {% elsif template contains 'search' %}
-    {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'search.page_title' | t: shop_name: shop.name }}{% endcapture %}
+    {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'search.results_page.page_title' | t: shop_name: shop.name }}{% endcapture %}
   
   {% elsif template contains '404' %}
     {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'errors.404.page_title' | t }}{% endcapture %}

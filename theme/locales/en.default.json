@@ -23,12 +23,31 @@
       "add_to_cart" : "Add to Cart"
     }
   },
+  "cart" : {
+    "site_header" : {
+      "cart_link_html" : "Cart ({{ item_count }})<span class='cart-total'> &ndash; {{ cart_total_price }}</span>"
+    }
+  },
+  "customer_accounts" : {
+    "site_header" : {
+      "welcome_note" : "Welcome, {{ first_name }}",
+      "sign_in" : "Sign in",
+      "sign_out" : "Sign out",
+      "register" : "Register"
+    }
+  },
   "search" : {
-    "page_title_with_search_term": "Search results for &ldquo;{{ search_term }}&rdquo;",
-    "page_title": "Search {{ shop_name }}"
+    "search_form" : {
+      "field_placeholder" : "Search",
+      "button_text" : "Search"
+    },
+    "results_page" : {
+      "page_title_with_search_term" : "Search results for &ldquo;{{ search_term }}&rdquo;",
+      "page_title" : "Search {{ shop_name }}"
+    }
   },
   "errors" : {
-    "404": {
+    "404" : {
       "page_title" : "404 - Page not found",
       "not_found_message_homepage_link" : "head back to the homepage",
       "not_found_message_html" : "Whoops! We couldn't find that page.<br>Don't worry though, if you {{ homepage_link }} we're sure you'll find what you're looking for."
