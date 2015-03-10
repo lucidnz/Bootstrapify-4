@@ -1,5 +1,25 @@
 /* Typograhical Styles */
 
+a:hover,
+a:active,
+a:focus {
+  text-decoration: none;
+  li &, p & {
+    text-decoration: underline;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  a {
+    color: inherit;
+  }
+}
+
 .item-details {
   @extend .caption;
   @extend .text-center;

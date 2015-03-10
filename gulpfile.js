@@ -57,6 +57,7 @@ gulp.task('js_assets', function () {
     './bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js', // One minified file that contains everything is SOOO much better than multiple requests!
     './bower_components/respond/cross-domain/respond-proxy.html',
     './bower_components/respond/dest/respond.min.js',
+    './bower_components/picturefill/dist/picturefill.min.js'
   ];
   
   // rename respond.proxy.js to respond.liquid

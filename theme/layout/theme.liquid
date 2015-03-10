@@ -13,6 +13,10 @@
 
     <!-- First round of JS -->
     {{ 'modernizr.js' | asset_url | script_tag }}
+    <script>
+      document.createElement( "picture" ); // Picture element HTML5 shiv
+    </script>
+    <script src="{{ 'picturefill.min.js' | asset_url }}" async></script>
 
     <!-- Stylesheets -->
     {{ 'styles.scss.css' | asset_url | stylesheet_tag }}

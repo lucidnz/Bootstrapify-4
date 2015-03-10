@@ -45,6 +45,34 @@ table {
 }
 
 /* Default page specific layouts */
+
+.product {
+  .sheet-content {
+    @include make-row();
+  }
+  
+  .product-header, .product-images, .product-details, .product-description {
+    @include make-sm-column(6);
+  }
+  
+  .product-images {
+    @extend .text-center;
+    @media (min-width: $grid-float-breakpoint) {
+      float: left;
+      margin-top: ($line-height-computed * 3); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
+    }
+    img {
+      margin: auto;
+    }
+  }
+  
+  .product-header, .product-details, .product-description {
+    @media (min-width: $grid-float-breakpoint) {
+      float: right;
+    }
+  }
+}
+
 .page-contact {
   .sheet-content {
     @include make-row();

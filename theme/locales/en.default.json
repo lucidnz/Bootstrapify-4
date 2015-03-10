@@ -25,7 +25,7 @@
   },
   "cart" : {
     "site_header" : {
-      "cart_link_html" : "Cart ({{ item_count }})<span class='cart-total'> &ndash; {{ cart_total_price }}</span>"
+      "cart_link_html" : "Cart ({{ item_count }})<span class='cart-total'> &ndash; <span class='money'>{{ cart_total_price_with_currency }}</span></span>"
     }
   },
   "customer_accounts" : {
