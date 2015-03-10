@@ -6,7 +6,7 @@
       <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
       
       <header class="sheet-header product-header">
-        <h1>{{ product.title }}</h1>
+        <h1 itemprop="name">{{ product.title }}</h1>
       </header>
       
       <section class="product-images">
@@ -16,6 +16,8 @@
           
           <img src="{{ featured_image | img_url: '1024x1024' }}" alt="{{ featured_image.alt | escape }}">
           
+          {% comment %}
+            Trying to use srcset but it's not totally working properly yet
 <!--
           <img src="{{ featured_image | img_url: 'medium' }}"
                srcset="{{ featured_image | img_url: 'medium' }} 240w,
@@ -27,18 +29,35 @@
                       100%"
                alt="{{ featured_image.alt | escape }}">
 -->
+          {% endcomment %}
         </div>
-        <div class="product-image-thumbs">
-          
-        </div>
+        <ul class="product-image-thumbs">
+          {% for thumb in product.images %}
+            <li><img src="{{ thumb | img_url: 'large' }}" alt="{{ thumb.alt | escape }}"></li>
+          {% endfor %}
+        </ul>
       </section>
       
-      <section class="product-details">
+      <section class="product-details" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        {% comment %}
+          Get first variant, or deep linked one
+        {% endcomment %}
+        {% assign variant = product.selected_or_first_available_variant %}
+        <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+        <meta itemprop="identifier" content="sku:{{ variant.sku }}" />
+        <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+        
+
+        
+        
+        
+        
+        
         {% comment %} TODO: product price {% endcomment %}
         {% comment %} TODO: product form {% endcomment %}
       </section>
       
-      <section class="product-description">
+      <section class="product-description" itemprop="description">
         {{ product.description }}
         {% comment %} TODO: product tags, vendor, type, etc. {% endcomment %}
       </section>

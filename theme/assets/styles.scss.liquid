@@ -7938,6 +7938,19 @@ table {
       float: right;
     }
   }
+  
+  .product-image-main {
+    margin-bottom: $grid-gutter-width;
+  }
+  .product-image-thumbs {
+    @extend .list-unstyled;
+    @extend .list-inline;
+    @include make-row();
+    li {
+      @include make-xs-column(4);
+      margin-bottom: $grid-gutter-width;
+    }
+  }
 }
 
 .page-contact {
