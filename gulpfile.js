@@ -51,7 +51,12 @@ gulp.task('lint', function () {
 
 /* Minify our own js files and move them to the theme assets. */
 gulp.task('js_minify', function () {
-  return gulp.src('./src/js/*.js')
+  // List of js files to be included
+  var files = [
+    './src/js/*.js'
+  ];
+  
+  return gulp.src(files)
     .pipe(concat('app.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./theme/assets/'));

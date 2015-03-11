@@ -84,7 +84,15 @@
     </footer>
 
     <!-- Bulk of JS -->
-    <script src="{{ 'app.js' | asset_url }}" async></script>
+    {% comment %}
+      Because of performance we concat and minify our javascript files into app.min.js,
+      but for clarity, sanity and future development we've included a copy of each un-minified file in the assets folder.
+      
+      app.min.js includes the following files:
+      - app.js
+      - linked_product_options.js
+    {% endcomment %}
+    <script src="{{ 'app.min.js' | asset_url }}" async></script>
     <script src="{{ 'bootstrap.min.js' | asset_url }}" async></script>
   </body>
 </html>
