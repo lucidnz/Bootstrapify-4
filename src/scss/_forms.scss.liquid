@@ -1,5 +1,5 @@
 
-.contact-form {
+.add-to-cart-form, .contact-form {
   label {
     @extend .control-label;
   }
@@ -8,13 +8,24 @@
   input[type=password],
   input[type=email],
   input[type=tel],
+  input[type=number],
+  select,
   textarea {
     @extend .form-control;
+  }
+  
+  .selector-wrapper {
+    @extend .form-group;
   }
   
   input[type=submit] {
     @extend .btn;
     @extend .btn-primary;
+    
+    &.btn-add-to-cart {
+      @extend .btn-lg;
+      @extend .btn-block;
+    }
   }
   
   .errors, .note {

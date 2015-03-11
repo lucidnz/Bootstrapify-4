@@ -7914,12 +7914,13 @@ table {
 /* Default page specific layouts */
 
 .product {
-  .sheet-content {
+  .sheet-content, .product-details-content {
     @include make-row();
   }
   
   .product-header, .product-images, .product-details, .product-description {
     @include make-sm-column(6);
+    margin-bottom: $line-height-computed;
   }
   
   .product-images {
@@ -7937,6 +7938,17 @@ table {
     @media (min-width: $grid-float-breakpoint) {
       float: right;
     }
+  }
+  
+  .product-price {
+    margin-top: $line-height-computed / 2;
+    margin-bottom: $line-height-computed;
+    @include make-xs-column(12);
+  }
+  
+  .add-to-cart-form {
+    margin-bottom: $line-height-computed;
+    @include make-xs-column(6);
   }
   
   .product-image-main {
@@ -7999,11 +8011,14 @@ h6 {
   font-weight: $strong-weight;
 }
 
-.money-currency {
+.money-currency, .compare-at-price {
   @extend .small;
   @extend .text-muted;
 }
 
+.product-details .product-price {
+  @extend .h3;
+}
 /* General styles for all navigations */
 
 .nav-inline {
@@ -8102,7 +8117,7 @@ h6 {
   }
 }
 
-.contact-form {
+.add-to-cart-form, .contact-form {
   label {
     @extend .control-label;
   }
@@ -8111,13 +8126,24 @@ h6 {
   input[type=password],
   input[type=email],
   input[type=tel],
+  input[type=number],
+  select,
   textarea {
     @extend .form-control;
+  }
+  
+  .selector-wrapper {
+    @extend .form-group;
   }
   
   input[type=submit] {
     @extend .btn;
     @extend .btn-primary;
+    
+    &.btn-add-to-cart {
+      @extend .btn-lg;
+      @extend .btn-block;
+    }
   }
   
   .errors, .note {

@@ -11,12 +11,16 @@
     }
   },
   "products" : {
-    "general" : {
-      "from" : "from"
+    "price" : {
+      "from" : "from",
+      "was" : "was"
     },
     "badges" : {
       "on_sale" : "On Sale",
       "sold_out" : "Sold Out"
+    },
+    "form" : {
+      "quantity" : "quantity"
     },
     "buttons" : {
       "view_product" : "View Product",

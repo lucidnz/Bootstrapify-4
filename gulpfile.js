@@ -3,6 +3,7 @@ var gulp        = require('gulp'),
   zip           = require('gulp-zip'),
   plumber       = require('gulp-plumber'),
   jshint        = require('gulp-jshint'),
+  uglify        = require('gulp-uglify'),
   concat        = require('gulp-concat'),
   jsoncombine   = require('gulp-jsoncombine'),
   rename        = require('gulp-rename'),
@@ -19,12 +20,12 @@ var onError = function (err) {
 /* Default watch tasks for ease of development */
 gulp.task('default', function () {
   gulp.watch(['./src/scss/*.scss', './src/scss/*.scss.liquid', './src/scss/*/*.scss.liquid'], ['concat_sass']);
-  gulp.watch(['./src/js/*.js'], ['lint', 'modernizr']);
+  gulp.watch(['./src/js/*.js'], ['lint', 'modernizr', 'js_minify']);
   gulp.watch('./settings/*.json', ['shopify_theme_settings']); // gulp.watch('./settings/*.yml', ['shopify_theme_settings']);
 });
 
 /* ALL THE TASKS!!! */
-gulp.task('build', ['lint', 'modernizr', 'concat_sass', 'shopify_theme_settings', 'assets', 'zip']);
+gulp.task('build', ['lint', 'modernizr', 'js_minify', 'concat_sass', 'shopify_theme_settings', 'assets', 'zip']);
 
 /* Helper task for moving all asset dependancies to the theme assets folder */
 gulp.task('assets', ['js_assets']);
@@ -48,6 +49,14 @@ gulp.task('lint', function () {
     .pipe(gulp.dest('./theme/assets/'));
 });
 
+/* Minify our own js files and move them to the theme assets. */
+gulp.task('js_minify', function () {
+  return gulp.src('./src/js/*.js')
+    .pipe(concat('app.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./theme/assets/'));
+});
+
 /* Copy all of the JS files to the theme assets. Maintain a list of paths to the src files here. All JS dependancies */
 gulp.task('js_assets', function () {
   // List of js files to be copied
@@ -65,6 +74,7 @@ gulp.task('js_assets', function () {
     .pipe(rename('respond.liquid'))
     .pipe(gulp.dest('./theme/snippets/'));
   
+  // copy files across to the assets folder
   return gulp.src(files)
     .pipe(gulp.dest('./theme/assets/'));
 });
