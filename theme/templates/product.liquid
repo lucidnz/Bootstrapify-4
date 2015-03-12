@@ -32,8 +32,20 @@
           {% endcomment %}
         </div>
         <ul class="product-image-thumbs">
+          
+          {% comment %}
+            Show thumbs for product image gallery.
+            
+            Collect any variant id (first) associated with each thumb and include it as a data-attr to be used with the image switcher.
+            Clicking a thumb to change the image also changes the selected variant if it is linked to it.
+          {% endcomment %}
+            
           {% for thumb in product.images %}
-            <li><img src="{{ thumb | img_url: 'large' }}" alt="{{ thumb.alt | escape }}"></li>
+            {% assign image_variant_id = false %}
+            {% if thumb.attached_to_variant? %}
+              {% assign image_variant_id = thumb.variants.first.id %}
+            {% endif %}
+            <li><a href="{{ thumb | img_url: 'master' }}" data-gallery-main=".product-image-main img" {% if image_variant_id %}data-variant-id="{{ image_variant_id }}"{% endif %}><img src="{{ thumb | img_url: 'large' }}" alt="{{ thumb.alt | escape }}"></a></li>
           {% endfor %}
         </ul>
       </section>
@@ -50,7 +62,7 @@
         
         <div class="product-details-content">          
           <div class="product-price">
-            {% if product.compare_at_price > product.price %}
+            {% if variant.compare_at_price > variant.price %}
               <p class="compare-at-price">{{ 'products.price.was' | t }} {{ variant.compare_at_price | money_with_currency }}</p>
             {% endif %}
             <p class="money">{{ variant.price | money_with_currency }}</p>
@@ -94,17 +106,30 @@
 <script>
   // collect product details for use within js for things like linked product options
   var Bsify = Bsify || {};
-  {% if product.available and product.options.size > 1 %}
-    Bsify.product = {{ product | json }};
-  {% endif %}
+  Bsify.product = {{ product | json }};
+  Bsify.product_selector_id = 'product-select';
+  // Set to false if you don't want to use linked product options
+  Bsify.linked_product_options = true;
   
   // Select callback is called every time a variant selector is changed
   var select_callback = function(variant, selector) {
-    console.log('select_callback', variant, selector);
+
+    if (variant) {
+     
+     // TODO: if the item already exists in your cart update the button to say add another
+     
+     // Switch the main image if the variant has one
+     if (variant.featured_image) {
+       if (Bsify.switch_image !== undefined) {
+         var mainImageElement = $('.product-image-main img')[0];
+         Bsify.switch_image(mainImageElement, variant.featured_image.src);
+       }
+     } 
+    }
   };
 
   jQuery(function($) {
-    new Shopify.OptionSelectors('product-select', {
+    new Shopify.OptionSelectors(Bsify.product_selector_id, {
       product: {{ product | json }},
       onVariantSelected: select_callback,
       enableHistoryState: true

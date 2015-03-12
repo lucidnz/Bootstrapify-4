@@ -86,11 +86,17 @@
     <!-- Bulk of JS -->
     {% comment %}
       Because of performance we concat and minify our javascript files into app.min.js,
-      but for clarity, sanity and future development we've included a copy of each un-minified file in the assets folder.
+      but for clarity, sanity and future development we've included a copy of each un-minified file in the assets folder
+      for you to see whats going on inside.
+      
+      Note: that changing anything inside these files won't actually have an effect on your theme.
+      If you do need to change these you will need to re concat and minify them into app.min.js
       
       app.min.js includes the following files:
       - app.js
+      - image_switcher.js
       - linked_product_options.js
+      - variant_option_switcher.js
     {% endcomment %}
     <script src="{{ 'app.min.js' | asset_url }}" async></script>
     <script src="{{ 'bootstrap.min.js' | asset_url }}" async></script>
