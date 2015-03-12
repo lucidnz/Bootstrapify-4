@@ -93,7 +93,6 @@ Shopify.linkOptionSelectors = function(product) {
 
 // Lucid 03/2015
 // Call linkOptionSelectors if we have a product
-var Bsify = Bsify || {};
 // Sensible default for linked product options. Set to true inside product template if you want to use it. 
 Bsify.linked_product_options = Bsify.linked_product_options || false;
 // Check that we have a product and we even want to use the linked product options

@@ -1,5 +1,3 @@
-var Bsify = Bsify || {};
-
 // Make the original variant selector update the generated option selectors
 // we are not doing this on a trigger event because if we did we'd end up in recursive hell
 Bsify.update_product_selector_options = function ($product_selector) {

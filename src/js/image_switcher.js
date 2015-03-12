@@ -1,5 +1,3 @@
-var Bsify = Bsify || {};
-
 // NOTE: how will this all work with srcset ??!!
 
 // Preload images for gallery

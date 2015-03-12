@@ -12,19 +12,24 @@
   },
   "products" : {
     "price" : {
-      "from" : "from",
-      "was" : "was"
+      "standard_price_html" : "<span class='money'>{{ price_with_currency }}</span>",
+      "sale_price_html" : "now <span class='money'>{{ price_with_currency }}</span>",
+      "from_price_html" : "from <span class='money'>{{ price_with_currency }}</span>",
+      "compare_at_price_html" : "was <span class='money'>{{ price_with_currency }}</span>"
     },
     "badges" : {
       "on_sale" : "On Sale",
       "sold_out" : "Sold Out"
     },
     "form" : {
-      "quantity" : "quantity"
+      "quantity" : "Quantity"
     },
     "buttons" : {
       "view_product" : "View Product",
-      "add_to_cart" : "Add to Cart"
+      "add_to_cart" : "Add to Cart",
+      "add_another" : "Add Another",
+      "sold_out" : "Sold Out",
+      "unavailable" : "Unavailable"
     }
   },
   "cart" : {
