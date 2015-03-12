@@ -21,10 +21,12 @@
       var Bsify = Bsify || {};
       // Add the cart data to our JS object so that we can do cart stuff with it
       Bsify.cart = {{ cart | json }};
+      Bsify.cart_display_item = '[data-cart-display]';
+      Bsify.cart_display_text = "{{ 'cart.site_header.cart_link_html' | t: item_count: '[item_count]', cart_total_price: '[cart_total_price]', cart_total_price_with_currency: '[cart_total_price_with_currency]' }}";
       Bsify.formats = {
         "moneyFormat": "{{ shop.money_format }}",
         "moneyWithCurrencyFormat": "{{ shop.money_with_currency_format }}"
-      }
+      };
       // TODO: add to cart translations
     </script>
     <script src="{{ 'picturefill.min.js' | asset_url }}" async></script>

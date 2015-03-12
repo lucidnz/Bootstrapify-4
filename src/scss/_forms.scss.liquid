@@ -28,7 +28,7 @@
     }
   }
   
-  .errors, .note {
+  .errors, .note, & + .add-to-cart-message .note {
     @extend .alert;
   }
   
@@ -36,7 +36,7 @@
     @extend .alert-danger;
   }
   
-  .note {
+  .note.sucess, & + .add-to-cart-message .note.success {
     @extend .alert-success;
   }
 }

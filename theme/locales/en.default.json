@@ -15,18 +15,23 @@
       "standard_price_html" : "<span class='money'>{{ price_with_currency }}</span>",
       "sale_price_html" : "now <span class='money'>{{ price_with_currency }}</span>",
       "from_price_html" : "from <span class='money'>{{ price_with_currency }}</span>",
-      "compare_at_price_html" : "was <span class='money'>{{ price_with_currency }}</span>"
+      "compare_at_price_html" : "was <span class='money'>{{ price_with_currency }}</span>",
+      "unavailable" : "Unavailable"
     },
     "badges" : {
       "on_sale" : "On Sale",
       "sold_out" : "Sold Out"
     },
     "form" : {
-      "quantity" : "Quantity"
+      "quantity" : "Quantity",
+      "after_product_added_message_collection_url" : "/collections/all",
+      "after_product_added_message_html" : "<h4>Thanks! Your {{ item_title }} was added to <a href='/cart'>the cart</a>.</h4><p><a href='/cart'>View your cart now</a> or <a href='{{ collection_url }}'>Continue shopping</a>.</p>"
     },
     "buttons" : {
       "view_product" : "View Product",
       "add_to_cart" : "Add to Cart",
+      "adding_to_cart" : "Adding",
+      "added_to_cart" : "Added. Add Another",
       "add_another" : "Add Another",
       "sold_out" : "Sold Out",
       "unavailable" : "Unavailable"

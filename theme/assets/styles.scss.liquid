@@ -7951,6 +7951,10 @@ table {
     @include make-xs-column(6);
   }
   
+  .add-to-cart-message {
+    @include make-xs-column(12);
+  }
+  
   .product-image-main {
     margin-bottom: $grid-gutter-width;
   }
@@ -8018,6 +8022,14 @@ h6 {
 
 .product-details .product-price {
   @extend .h3;
+/*
+  .price {
+    @extend .pull-left;
+  }
+  .compare-at-price {
+    @extend .pull-right;
+  }
+*/
 }
 /* General styles for all navigations */
 
@@ -8146,7 +8158,7 @@ h6 {
     }
   }
   
-  .errors, .note {
+  .errors, .note, & + .add-to-cart-message .note {
     @extend .alert;
   }
   
@@ -8154,7 +8166,7 @@ h6 {
     @extend .alert-danger;
   }
   
-  .note {
+  .note.sucess, & + .add-to-cart-message .note.success {
     @extend .alert-success;
   }
 }
