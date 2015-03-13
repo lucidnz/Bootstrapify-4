@@ -51,7 +51,6 @@ if (Bsify.product_form_id !== undefined && Bsify.ajax_add_to_cart) {
     CartJS.addItem(values.id, values.quantity);
   });
   
-  // TODO: add to cart events
   $(document).on('cart.requestStarted', function(event, cart) {
     // update add to cart button text
     $product_form_button.val(Bsify.adding_to_cart_button_text);
@@ -64,7 +63,7 @@ if (Bsify.product_form_id !== undefined && Bsify.ajax_add_to_cart) {
     
     // add completd message
     // TODO: update message item title with actual items title - waiting on CartJS to include the item with the event handlers params
-    var added_message = Bsify.after_product_added_message_html.replace('[item_title]', 'item').replace('[collection_url]', Bsify.after_product_added_message_collection_url);
+    var added_message = Bsify.after_product_added_message_html.replace('[item_title]', 'item');
     $product_form_message_ele.removeClass('hidden').html('<div class="note success item'+item_count+'">'+added_message+'</div>');
     // fade out and remove item added message
     setTimeout(function () {
@@ -77,10 +76,6 @@ if (Bsify.product_form_id !== undefined && Bsify.ajax_add_to_cart) {
     var cart_total_price = Shopify.formatMoney(cart.total_price, Bsify.formats.moneyFormat);
     var cart_total_price_with_currency = Shopify.formatMoney(cart.total_price, Bsify.formats.moneyWithCurrencyFormat);
     var cart_display_text = Bsify.cart_display_text.replace('[item_count]', cart.item_count).replace('[cart_total_price]', cart_total_price).replace('[cart_total_price_with_currency]', cart_total_price_with_currency);
-    
-    
-    console.log($cart_display_ele, cart_display_text);
-    
     $cart_display_ele.html(cart_display_text);
   });
 }

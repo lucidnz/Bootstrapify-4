@@ -45,3 +45,30 @@ h6 {
   }
 */
 }
+
+.cart-table {
+  
+  img {
+    margin: auto;
+  }
+  
+  td {
+    vertical-align: middle;
+    text-align: center;
+    
+    @media (min-width: $grid-float-breakpoint) {
+      text-align: left;
+    }
+  }
+  
+  @media (min-width: $grid-float-breakpoint) {
+    .cart-item-quantity-label,
+    .cart-item-price-label,
+    .cart-item-total-label,
+    .cart-item-quantity,
+    .cart-item-price,
+    .cart-item-total {
+      text-align: right;
+    }
+  }
+}

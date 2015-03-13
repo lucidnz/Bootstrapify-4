@@ -5,8 +5,7 @@
     </header>
 
     <section class="sheet-content">
-      {% capture homepage_link %}{{ 'errors.404.not_found_message_homepage_link' | t | link_to: shop.url, shop.name }}{% endcapture %}
-      <p>{{ 'errors.404.not_found_message_html' | t: homepage_link: homepage_link }}</p>
+      <p>{{ 'errors.404.not_found_message_html' | t }}</p>
     </section>
   </article>
 </main>

@@ -24,8 +24,7 @@
     },
     "form" : {
       "quantity" : "Quantity",
-      "after_product_added_message_collection_url" : "/collections/all",
-      "after_product_added_message_html" : "<h4>Thanks! Your {{ item_title }} was added to <a href='/cart'>the cart</a>.</h4><p><a href='/cart'>View your cart now</a> or <a href='{{ collection_url }}'>Continue shopping</a>.</p>"
+      "after_product_added_message_html" : "<h4>Thanks! Your {{ item_title }} was added to <a href='/cart'>the cart</a>.</h4><p><a href='/cart'>View your cart now</a> or <a href='/collections/all'>Continue&nbsp;shopping</a>.</p>"
     },
     "buttons" : {
       "view_product" : "View Product",
@@ -40,6 +39,17 @@
   "cart" : {
     "site_header" : {
       "cart_link_html" : "Cart ({{ item_count }})<span class='cart-total'> &ndash; <span class='money'>{{ cart_total_price_with_currency }}</span></span>"
+    },
+    "cart_page" : {
+      "page_title" : "Cart",
+      "empty_message" : "Your cart is empty.",
+      "continue_browsing_html" : "<a href='/collections/all'>Continue&nbsp;shopping</a>"
+    },
+    "cart_table" : {
+      "product_label" : "Item",
+      "price_label" : "Price",
+      "quantity_label" : "Quantity",
+      "total_label" : "Total"
     }
   },
   "customer_accounts" : {
@@ -57,7 +67,7 @@
       "phone" : "Phone",
       "message" : "Message",
       "send_button" : "Send",
-      "post_success" : "Thank you for your enquiry. We will be in contact shortly."
+      "post_success" : "Thank you for your enquiry. We will be in contact&nbsp;shortly."
     }
   },
   "search" : {
@@ -73,8 +83,7 @@
   "errors" : {
     "404" : {
       "page_title" : "404 - Page not found",
-      "not_found_message_homepage_link" : "head back to the homepage",
-      "not_found_message_html" : "Whoops! We couldn't find that page.<br>Don't worry though, if you {{ homepage_link }} we're sure you'll find what you're looking for."
+      "not_found_message_html" : "Whoops! We couldn't find that&nbsp;page.<br>Don't worry though, if you <a href='/'>head back to the homepage</a> we're sure you'll find what you're looking&nbsp;for."
     }
   }
 }

@@ -1,4 +1,5 @@
 // NOTE: how will this all work with srcset ??!!
+// TODO: swipe between images on mobile
 
 // Preload images for gallery
 // Used the sized src

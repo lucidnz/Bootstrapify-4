@@ -1,1 +1,74 @@
-{{ cart | json }}
+<main role="main">
+  <article class="sheet">
+    <header class="sheet-header">
+      <h1>{{ 'cart.cart_page.page_title' | t }}</h1>
+    </header>
+
+    <section class="sheet-content">
+      {% if cart.item_count > 0 %}
+        <form action="/cart" method="post">
+          <div class="cart-items">
+            <table class="cart-table">
+              <thead>
+                <tr>
+                  <th class="cart-item-product-label">{{ 'cart.cart_table.product_label' | t }}</th>
+                  <th class="cart-item-price-label">{{ 'cart.cart_table.price_label' | t }}</th>
+                  <th class="cart-item-quantity-label">{{ 'cart.cart_table.quantity_label' | t }}</th>
+                  <th class="cart-item-total-label">{{ 'cart.cart_table.total_label' | t }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in cart.items %}
+                <tr class="cart-item">
+                  <td class="cart-item-content">
+                    <a href="{{ item.url }}">
+                      <div class="cart-item-image">
+                        <img src="{{ item | img_url: 'large' }}" alt="{{ item.title | escape }}">
+                      </div>
+                      <div class="cart-item-details">
+                        <h2>{{ item.product.title }}</h2>
+                        {% unless item.variant.title contains 'Default' %}
+                          <h3>{{ item.variant.title }}</h3>
+                        {% endunless %}
+                      </div>
+                    </a>
+                    <!-- {{ item | json }} -->
+                  </td>
+                  <td class="cart-item-price">
+                    <span class="money">{{ item.price | money_with_currency }}</span>
+                  </td>
+                  <td class="cart-item-quantity">
+                    
+                  </td>
+                  <td class="cart-item-total">
+                    <span class="money">{{ item.line_price | money_with_currency }}</span>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="cart-details">
+            {% comment %} TODO: Cart total, update and checkout buttons {% endcomment %}
+          </div>
+          
+          <div class="cart-extras">
+            {% comment %} TODO: Cart note, shipping estimator, etc. {% endcomment %}
+          </div>
+        </form>
+      {% else %}
+        {% comment %}
+          The cart is empty
+        {% endcomment %}
+        
+        <div class="cart-message">
+          <p>{{ 'cart.cart_page.empty_message' | t }}</p>
+          <p>{{ 'cart.cart_page.continue_browsing_html' | t }}</p>
+        </div>
+      {% endif %}
+    </section>
+  </article>
+</main>
+
+{% include 'site_aside' %}

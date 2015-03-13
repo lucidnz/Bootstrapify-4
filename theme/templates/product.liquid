@@ -10,14 +10,16 @@
       </header>
       
       <section class="product-images">
-        {% comment %} TODO: product images {% endcomment %}
+        
+        {% comment %} TODO: product image gallery on mobile - swipe between images & hide thumbs {% endcomment %}
+        
         <div class="product-image-main">
           {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
-          
           <img src="{{ featured_image | img_url: '1024x1024' }}" alt="{{ featured_image.alt | escape }}">
           
           {% comment %}
             Trying to use srcset but it's not totally working properly yet
+            Waiting on Shopify to implement image width filter
 <!--
           <img src="{{ featured_image | img_url: 'medium' }}"
                srcset="{{ featured_image | img_url: 'medium' }} 240w,
@@ -137,8 +139,7 @@
   Bsify.adding_to_cart_button_text = "{{ 'products.buttons.adding_to_cart' | t }}";
   Bsify.add_another_button_text = "{{ 'products.buttons.add_another' | t }}";
   Bsify.sold_out_button_text = "{{ 'products.buttons.sold_out' | t }}";
-  Bsify.after_product_added_message_html = "{{ 'products.form.after_product_added_message_html' | t: item_title: '[item_title]', collection_url: '[collection_url]' }}";
-  Bsify.after_product_added_message_collection_url = "{{ 'products.form.after_product_added_message_collection_url' | t }}";
+  Bsify.after_product_added_message_html = "{{ 'products.form.after_product_added_message_html' | t: item_title: '[item_title]' }}";
 
   // price strings uses a marker that is replaced so as to preserve Shopify translations
   {% assign price_marker = '[price]' %}
