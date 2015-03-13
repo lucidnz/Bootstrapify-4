@@ -6,7 +6,7 @@
 
     <section class="sheet-content">
       {% if cart.item_count > 0 %}
-        <form action="/cart" method="post">
+        <form class="cart-form" action="/cart" method="post">
           <div class="cart-items">
             <table class="cart-table">
               <thead>
@@ -38,7 +38,14 @@
                     <span class="money">{{ item.price | money_with_currency }}</span>
                   </td>
                   <td class="cart-item-quantity">
-                    
+                    <div class="input-group">
+                      <input type="number" name="updates[{{ item.id }}]" value="{{ item.quantity }}">
+                      <div class="input-group-btn">
+                        <button type="button" class="btn btn-default"><span class="fa fa-minus"></span><span class="sr-only">Decrease quantity by 1</span></button>
+                        <button type="button" class="btn btn-default"><span class="fa fa-plus"></span><span class="sr-only">Increase quantity by 1</span></button>
+                        <button type="button" class="btn btn-default"><span class="fa fa-times"></span><span class="sr-only">Remove item</span></button>
+                      </div>
+                    </div>
                   </td>
                   <td class="cart-item-total">
                     <span class="money">{{ item.line_price | money_with_currency }}</span>
