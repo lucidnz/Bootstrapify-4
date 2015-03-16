@@ -12,18 +12,57 @@
   /*
     Cart
   */
-  Bsify.cart = Bsify.cart = {{ cart | json }};
+  Bsify.Cart = {};
+  Bsify.Cart.cart = {{ cart | json }};
   // Cart item selectors
-  Bsify.cart_table_selector = ".cart-table";
-  Bsify.cart_item_selector = ".cart-item";
-  Bsify.cart_item_price_selector = ".cart-item-price .money";
-  Bsify.cart_item_total_selector = ".cart-item-total .money";
-  Bsify.cart_message_selector = '.cart-message';
-  // Cart translations
-  Bsify.cart_display_text = "{{ 'cart.site_header.cart_link_html' | t: item_count: '[item_count]', cart_total_price: '[cart_total_price]', cart_total_price_with_currency: '[cart_total_price_with_currency]' }}";
-  Bsify.empty_cart_text = "{{ 'cart.cart_page.empty_message_html' | t }}";
-  Bsify.remove_item_message = "{{ 'cart.cart_table.remove_item_message_html' | t: item_title: '[item_title]' }}";
-  Bsify.remove_item_error_message = "{{ 'cart.cart_table.remove_item_error_message_html' | t: item_title: '[item_title]', error_message: '[error_message]' }}";
+  Bsify.Cart.selectors = {
+    table_selector: ".cart-table",
+    item_selector: ".cart-item",
+    item_price_selector: ".cart-item-price .money",
+    item_total_selector: ".cart-item-total .money",
+    message_selector: '.cart-message'
+  };
+  // Cart item translations
+  Bsify.Cart.translations = {
+    cart_display_text: "{{ 'cart.site_header.cart_link_html' | t: item_count: '[item_count]', cart_total_price: '[cart_total_price]', cart_total_price_with_currency: '[cart_total_price_with_currency]' }}",
+    empty_cart_text: "{{ 'cart.cart_page.empty_message_html' | t }}",
+    remove_item_message: "{{ 'cart.cart_table.remove_item_message_html' | t: item_title: '[item_title]' }}",
+    remove_item_error_message: "{{ 'cart.cart_table.remove_item_error_message_html' | t: item_title: '[item_title]', error_message: '[error_message]' }}"
+  };
+  
+  /*
+    Product
+  */
+  {% assign product_json = product | json %}
+  Bsify.Product = {};
+  Bsify.Product.product = {{ product_json }};
+  {% if product_json %}
+  
+  // Selectors for elements.
+  // Make sure to update these if you change any markup
+  Bsify.Product.selectors = {
+    select_selector: '.product-select',
+    form_selector: '.add-to-cart-form',
+    form_message_selector: '.add-to-cart-message'
+  };
+  
+  // Product translations
+  Bsify.Product.translations = {
+    unavailable_button_text: "{{ 'products.buttons.unavailable' | t }}",
+    add_to_cart_button_text: "{{ 'products.buttons.add_to_cart' | t }}",
+    added_to_cart_button_text: "{{ 'products.buttons.added_to_cart' | t }}",
+    adding_to_cart_button_text: "{{ 'products.buttons.adding_to_cart' | t }}",
+    add_another_button_text: "{{ 'products.buttons.add_another' | t }}",
+    sold_out_button_text: "{{ 'products.buttons.sold_out' | t }}",
+    after_product_added_message_html: "{{ 'products.form.after_product_added_message_html' | t: item_title: '[item_title]' }}",
+    after_product_added_error_message_html: "{{ 'products.form.after_product_added_message_html' | t: item_title: '[item_title]', error_message: '[error_message]' }}",
+    item_title_seperator: "{{ 'products.form.item_title_seperator' | t }}"
+  };
+  {% endif %}
+  
+  /*
+    Misc
+  */
   
   // Money formats
   Bsify.money_formats = {
@@ -31,42 +70,12 @@
     "moneyWithCurrencyFormat": "{{ shop.money_with_currency_format }}"
   };
   
-  /*
-    Product
-  */
-  {% assign product_json = product | json %}
-  Bsify.product = {{ product_json }};
-  {% if product_json %}
-  
   // Functionality flags - this just sets if we want to use some of these things.
   // If you don't want them then just set them to false
   Bsify.ajax_add_to_cart = true;
   Bsify.linked_product_options = true; // links product options selectors so as to not show unavilble products on a products page
   
-  // Selectors for elements.
-  // Make sure to update these if you change any markup
-  Bsify.product_select_selector = '.product-select';
-  Bsify.product_form_selector = '.add-to-cart-form';
-  Bsify.product_form_message_selector = '.add-to-cart-message';
-  
-  // Product translations
-  Bsify.unavailable_button_text = "{{ 'products.buttons.unavailable' | t }}";
-  Bsify.add_to_cart_button_text = "{{ 'products.buttons.add_to_cart' | t }}";
-  Bsify.added_to_cart_button_text = "{{ 'products.buttons.added_to_cart' | t }}";
-  Bsify.adding_to_cart_button_text = "{{ 'products.buttons.adding_to_cart' | t }}";
-  Bsify.add_another_button_text = "{{ 'products.buttons.add_another' | t }}";
-  Bsify.sold_out_button_text = "{{ 'products.buttons.sold_out' | t }}";
-  Bsify.after_product_added_message_html = "{{ 'products.form.after_product_added_message_html' | t: item_title: '[item_title]' }}";
-  Bsify.after_product_added_error_message_html = "{{ 'products.form.after_product_added_message_html' | t: item_title: '[item_title]', error_message: '[error_message]' }}";
-  Bsify.item_title_seperator = "{{ 'products.form.item_title_seperator' | t }}";
-  
-  /*
-    Misc
-  */
-  
   // Time that any message created by the cart is visble for before being removed
   Bsify.message_timeout = 15000; // 15 secs
-  
-  {% endif %}
-  
+
 </script>

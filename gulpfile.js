@@ -95,7 +95,8 @@ gulp.task('js_lint', function () {
 // JS_BROWSERIFY: Build our js files ready for use in the browser
 gulp.task('js_browserify', function () {
   return browserify('./src/js/app.js', {
-      debug: true // output source maps for easy debuging
+      debug: true, // output source maps for easy debuging
+      standalone: 'app'
     })
     .transform('debowerify') // require js files from bower packages
     .transform({ global: true }, 'uglifyify')
