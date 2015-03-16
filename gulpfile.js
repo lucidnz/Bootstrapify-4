@@ -9,7 +9,8 @@ var gulp        = require('gulp'),
   jshint        = require('gulp-jshint'),
   //uglify        = require('gulp-uglify'),
   
-  
+  vsource       = require('vinyl-source-stream'),
+  browserify    = require('browserify'),
   
   concat        = require('gulp-concat'),
   jsoncombine   = require('gulp-jsoncombine'),
@@ -34,16 +35,39 @@ var onError = function (err) {
 // Default watch tasks for ease of development
 // just run `gulp`
 gulp.task('default', function () {
-  gulp.watch(['./src/scss/*.scss', './src/scss/*.scss.liquid', './src/scss/*/*.scss.liquid'], ['sass_concat']);
-  gulp.watch(['./src/js/*.js'], ['js_lint', 'js_modernizr', 'js_minify']);
-  gulp.watch('./settings/*.json', ['shopify_theme_settings']); // gulp.watch('./settings/*.yml', ['shopify_theme_settings']);
+  // watch for sass changes
+  gulp.watch([
+    './src/scss/*.scss',
+    './src/scss/*.scss.liquid',
+    './src/scss/*/*.scss.liquid'
+  ], ['sass']);
+  
+  // watch for js changes
+  gulp.watch([
+    './src/js/*.js'
+  ], ['js']);
+  
+  // watch for settings changes
+  gulp.watch([
+    './settings_schema/*.json',
+    './settings_html/*.yml'
+  ], ['settings']);
 });
 
-// ALL THE TASKS!!!
-gulp.task('build', ['js_lint', 'js_modernizr', 'js_minify', 'sass_concat', 'shopify_theme_settings', 'assets', 'zip']);
+// Helper for js tasks
+gulp.task('js', ['js_lint', 'js_modernizr', 'js_minify', 'js_browserify']);
 
-// Helper task for moving all asset dependancies to the theme assets folder
+// Helper for sass tasks
+gulp.task('sass', ['sass_concat']);
+
+// Helper for settings tasks
+gulp.task('settings', ['shopify_theme_settings']);
+
+// Helper task for moving all asset dependancies to the theme assets folder and 
 gulp.task('assets', ['js_assets']);
+
+// ALL THE TASKS!!! plus zipping up a fully built theme
+gulp.task('build', ['js', 'sass', 'settings', 'assets', 'zip']);
 
 /*
   Tasks - This is where the heavy lifting is done
@@ -68,10 +92,25 @@ gulp.task('js_lint', function () {
     /*.pipe(gulp.dest('./theme/assets/'));*/
 });
 
+// JS_BROWSERIFY: Build our js files ready for use in the browser
+gulp.task('js_browserify', function () {
+  return browserify('./src/js/app.js', {
+      debug: true // output source maps for easy debuging
+    })
+    .transform('debowerify') // require js files from bower packages
+    .transform({ global: true }, 'uglifyify')
+    .bundle()
+    .pipe(vsource('app.min.js'))
+    .pipe(gulp.dest('./theme/assets/'));
+});
+
+
+
+
+
 // JS_MINIFY: Minify our own js files and move them to the theme assets
+gulp.task('js_minify', function () { 
 /*
-gulp.task('js_minify', function () {
-  
   // List of js files to be included
   var files = [
     './src/js/*.js'
@@ -81,12 +120,12 @@ gulp.task('js_minify', function () {
     .pipe(concat('app.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./theme/assets/'));
-});
 */
+});
 
 // JS_ASSETS: Copy all of the JS files to the theme assets. Maintain a list of paths to the src files here. All JS dependancies
-/*
 gulp.task('js_assets', function () {
+/*
   // List of js files to be copied
   var files = [
     './src/js/*.js',
@@ -106,8 +145,8 @@ gulp.task('js_assets', function () {
   // copy files across to the assets folder
   return gulp.src(files)
     .pipe(gulp.dest('./theme/assets/'));
-});
 */
+});
 
 // ZIP: Cretae a zipped file of the theme that can be uploaded to Shopify
 gulp.task('zip', function () {
