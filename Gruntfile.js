@@ -4,7 +4,7 @@
   
   We have a Grunt task set up specifcally to run the theme settings generator because there is no Gulp version.
   This is called from inside Gulp so there is no need to run this here.
-  Note: this can be removed when Shopify fully rolls out the new theme editor!
+  Note: this can be removed when Shopify _fully_ rolls out the new theme editor!
   
   We also use Grunt modernizer because the gulp one sucked.
 */
@@ -16,14 +16,14 @@ module.exports = function(grunt) {
     shopify_theme_settings: {
       settings: {
         options: {
-          templates: ['settings/templates']
+          templates: ['settings_html/templates']
         },
         files: {
           'theme/config/settings.html': [
-            'settings/general.yml',
-            'settings/layout.yml',
-            'settings/navigation.yml',
-            'settings/homepage.yml'
+            'settings_html/general.yml',
+            'settings_html/layout.yml',
+            'settings_html/navigation.yml',
+            'settings_html/homepage.yml'
           ]
         }
       }

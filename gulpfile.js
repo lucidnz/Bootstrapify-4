@@ -1,56 +1,77 @@
+/*
+  Bootstrapify build tasks
+*/
+
 var gulp        = require('gulp'),
   gutil         = require('gulp-util'),
   zip           = require('gulp-zip'),
   plumber       = require('gulp-plumber'),
   jshint        = require('gulp-jshint'),
-  uglify        = require('gulp-uglify'),
+  //uglify        = require('gulp-uglify'),
+  
+  
+  
   concat        = require('gulp-concat'),
   jsoncombine   = require('gulp-jsoncombine'),
   rename        = require('gulp-rename'),
   pjson         = require('./package.json'),
   SassImport    = require('./utils/sass_import.js');
 
+// Setup gulp-grunt so that we can automatically run grunt tasks from inside gulp
 require('gulp-grunt')(gulp);
 
+// Basic error messages output to the console.
+// Used with plumber so we don't stop the other tasks from running or kill the gulp process on an error
 var onError = function (err) {
   gutil.beep();
   gutil.log(gutil.colors.red(err));
 };
 
-/* Default watch tasks for ease of development */
+/*
+  Default tasks
+*/
+
+// Default watch tasks for ease of development
+// just run `gulp`
 gulp.task('default', function () {
-  gulp.watch(['./src/scss/*.scss', './src/scss/*.scss.liquid', './src/scss/*/*.scss.liquid'], ['concat_sass']);
-  gulp.watch(['./src/js/*.js'], ['lint', 'modernizr', 'js_minify']);
+  gulp.watch(['./src/scss/*.scss', './src/scss/*.scss.liquid', './src/scss/*/*.scss.liquid'], ['sass_concat']);
+  gulp.watch(['./src/js/*.js'], ['js_lint', 'js_modernizr', 'js_minify']);
   gulp.watch('./settings/*.json', ['shopify_theme_settings']); // gulp.watch('./settings/*.yml', ['shopify_theme_settings']);
 });
 
-/* ALL THE TASKS!!! */
-gulp.task('build', ['lint', 'modernizr', 'js_minify', 'concat_sass', 'shopify_theme_settings', 'assets', 'zip']);
+// ALL THE TASKS!!!
+gulp.task('build', ['js_lint', 'js_modernizr', 'js_minify', 'sass_concat', 'shopify_theme_settings', 'assets', 'zip']);
 
-/* Helper task for moving all asset dependancies to the theme assets folder */
+// Helper task for moving all asset dependancies to the theme assets folder
 gulp.task('assets', ['js_assets']);
 
-/* Pull our scss files together and move them into the themes assets */
-gulp.task('concat_sass', function () {
+/*
+  Tasks - This is where the heavy lifting is done
+*/
+
+// SASS_CONCAT: Pull our scss files together and move them into the themes assets
+gulp.task('sass_concat', function () {
   var paths = new SassImport('./src/scss/styles.scss');
   return gulp.src(paths)
     .pipe(concat('styles.scss.liquid'))
     .pipe(gulp.dest('./theme/assets/'));
 });
 
-/* Check we are not doing silly stuff with our JS and then move the files to theme assets. Our own JS specific */
-gulp.task('lint', function () {
+// JS_LINT: Check we are not doing silly stuff with our JS
+gulp.task('js_lint', function () {
   return gulp.src('./src/js/*.js')
     .pipe(plumber({
       errorHandler: onError
     }))
     .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(gulp.dest('./theme/assets/'));
+    .pipe(jshint.reporter('default'));
+    /*.pipe(gulp.dest('./theme/assets/'));*/
 });
 
-/* Minify our own js files and move them to the theme assets. */
+// JS_MINIFY: Minify our own js files and move them to the theme assets
+/*
 gulp.task('js_minify', function () {
+  
   // List of js files to be included
   var files = [
     './src/js/*.js'
@@ -61,8 +82,10 @@ gulp.task('js_minify', function () {
     .pipe(uglify())
     .pipe(gulp.dest('./theme/assets/'));
 });
+*/
 
-/* Copy all of the JS files to the theme assets. Maintain a list of paths to the src files here. All JS dependancies */
+// JS_ASSETS: Copy all of the JS files to the theme assets. Maintain a list of paths to the src files here. All JS dependancies
+/*
 gulp.task('js_assets', function () {
   // List of js files to be copied
   var files = [
@@ -84,7 +107,9 @@ gulp.task('js_assets', function () {
   return gulp.src(files)
     .pipe(gulp.dest('./theme/assets/'));
 });
+*/
 
+// ZIP: Cretae a zipped file of the theme that can be uploaded to Shopify
 gulp.task('zip', function () {
   var theme = [
     'theme/assets/*',
@@ -101,10 +126,18 @@ gulp.task('zip', function () {
     .pipe(gulp.dest('./'));
 });
 
-/* Run the grunt task for generating the theme settings */
-/* NOTE: this can be removed when Shopify fully rolls out the new theme editor! */
+// SHOPIFY_THEME_SETTINGS: - we have two ways of creating theme settings:
+//    (1) Concatenating json files to create a settings_schema.json (new way)
+//    (2) Using the grunt plugin to create settings.html (old way)
+//  Unfortunately this means we have two settings configs to maintain separately so we are just using the new way
+//  but still leaving the old way intact for now incase we need it at some point.
+//  If you wish to switch between the two all you need to do is comment out the new way and comment in the old way.
+//  It's all set up so it should just work.
+
+// SHOPIFY_THEME_SETTINGS (1): Create settings_schema.json
 gulp.task('shopify_theme_settings', function () {
-  // list of settings files to include in order of inclusion
+  
+  // list of settings files to include, in order of inclusion
   var settings = [
     'welcome',
     'general',
@@ -117,7 +150,7 @@ gulp.task('shopify_theme_settings', function () {
     'homepage_page_content'
   ];
   
-  return gulp.src('./settings/*.json')
+  return gulp.src('./settings_schema/*.json')
     .pipe(jsoncombine('settings_schema.json', function(data){
       // collect the json data and store it in the correct order
       var data_array = [];
@@ -129,11 +162,20 @@ gulp.task('shopify_theme_settings', function () {
       return new Buffer(JSON.stringify(data_array));
     }))
     .pipe(gulp.dest('./theme/config/'));
-    
-//   return gulp.run('grunt-shopify_theme_settings');
 });
 
-/* Run the grunt task for modernizr */
-gulp.task('modernizr', function () {
+/*
+  Grunt tasks - this is the config for running grunt tasks from inside gulp
+*/
+
+// SHOPIFY_THEME_SETTINGS (2): Create settings.html - this can be removed when Shopify _fully_ rolls out the new theme editor!
+/*
+gulp.task('shopify_theme_settings', function () {
+  return gulp.run('grunt-shopify_theme_settings');
+});
+*/
+
+// JS_MODERNIZR: Run the grunt task for modernizr
+gulp.task('js_modernizr', function () {
   return gulp.run('grunt-modernizr');
 });
