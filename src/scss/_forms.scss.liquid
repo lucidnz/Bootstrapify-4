@@ -1,4 +1,3 @@
-
 .add-to-cart-form, .cart-form, .contact-form {
   label {
     @extend .control-label;
@@ -18,25 +17,15 @@
     @extend .form-group;
   }
   
-  input[type=submit] {
-    @extend .btn;
-    @extend .btn-primary;
-    
-    &.btn-add-to-cart {
-      @extend .btn-lg;
-      @extend .btn-block;
-    }
-  }
-  
   .errors, .note, & + .add-to-cart-message .note {
     @extend .alert;
   }
   
-  .errors {
+  .errors, .note.error {
     @extend .alert-danger;
   }
   
-  .note.sucess, & + .add-to-cart-message .note.success {
+  .note.success, & + .add-to-cart-message .note.success {
     @extend .alert-success;
   }
 }

@@ -1,3 +1,10 @@
+/*
+  Fix rounding issue as sass var can only hold 5 decimal places (orig: 1.428571429)
+  This would cause buttons in input groups to not be lined up correctly with inputs
+*/
+$line-height-base:    1.42858;
+
+
 /* SCSS Variables */
 
 $strong-weight:                   bold !default;

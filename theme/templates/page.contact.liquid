@@ -41,7 +41,7 @@
             <textarea rows="10" id="contact-form-message" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}"{% if form.errors contains 'email' %} aria-invalid="true"{% endif %}>{% if form.body %}{{ form.body }}{% endif %}</textarea>
           </div>
           
-          <input type="submit" value="{{ 'contact.form.send_button' | t }}">
+          <input class="btn-contact" type="submit" value="{{ 'contact.form.send_button' | t }}">
         {% endform %}
       </div>
     </section>

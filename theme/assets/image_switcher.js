@@ -45,7 +45,7 @@ Bsify.switch_image = function (main_image_element, image_src) {
   }
 };
 
-if (Bsify.product !== undefined) {
+if (Bsify.product) {
   // Preload images and call image switcher init
   Bsify.preload_product_thumbs();
   Bsify.image_swticher();

@@ -7,19 +7,20 @@
     <section class="sheet-content">
       {% if cart.item_count > 0 %}
         <form class="cart-form" action="/cart" method="post">
+          <div class="cart-message hidden"></div>
           <div class="cart-items">
             <table class="cart-table">
               <thead>
                 <tr>
                   <th class="cart-item-product-label">{{ 'cart.cart_table.product_label' | t }}</th>
-                  <th class="cart-item-price-label">{{ 'cart.cart_table.price_label' | t }}</th>
                   <th class="cart-item-quantity-label">{{ 'cart.cart_table.quantity_label' | t }}</th>
+                  <th class="cart-item-price-label">{{ 'cart.cart_table.price_label' | t }}</th>
                   <th class="cart-item-total-label">{{ 'cart.cart_table.total_label' | t }}</th>
                 </tr>
               </thead>
               <tbody>
                 {% for item in cart.items %}
-                <tr class="cart-item">
+                <tr class="cart-item" data-cart-item="{{ item.id }}">
                   <td class="cart-item-content">
                     <a href="{{ item.url }}">
                       <div class="cart-item-image">
@@ -34,21 +35,23 @@
                     </a>
                     <!-- {{ item | json }} -->
                   </td>
-                  <td class="cart-item-price">
-                    <span class="money">{{ item.price | money_with_currency }}</span>
-                  </td>
                   <td class="cart-item-quantity">
                     <div class="input-group">
-                      <input type="number" name="updates[{{ item.id }}]" value="{{ item.quantity }}">
+                      <input type="number" name="updates[{{ item.id }}]" value="{{ item.quantity }}" data-update-item="{{ forloop.index }}">
                       <div class="input-group-btn">
-                        <button type="button" class="btn btn-default"><span class="fa fa-minus"></span><span class="sr-only">Decrease quantity by 1</span></button>
-                        <button type="button" class="btn btn-default"><span class="fa fa-plus"></span><span class="sr-only">Increase quantity by 1</span></button>
-                        <button type="button" class="btn btn-default"><span class="fa fa-times"></span><span class="sr-only">Remove item</span></button>
+                        <button type="button" class="btn btn-default" title="Remove {{ item.title }}" data-remove-item="{{ forloop.index }}"><span class="fa fa-times"></span><span class="sr-only">Remove {{ item.title }}</span></button>
                       </div>
                     </div>
                   </td>
+                  <td class="cart-item-price">
+                    {% assign item_price = item.price | money %}
+                    {% assign item_price_with_currency = item.price | money_with_currency %}
+                    {{ 'cart.price.item_price_html' | t: price: item_price, price_with_currency: item_price_with_currency }}
+                  </td>
                   <td class="cart-item-total">
-                    <span class="money">{{ item.line_price | money_with_currency }}</span>
+                    {% assign line_price = item.line_price | money %}
+                    {% assign line_price_with_currency = item.line_price | money_with_currency %}
+                    {{ 'cart.price.item_price_html' | t: price: line_price, price_with_currency: line_price_with_currency }}
                   </td>
                 </tr>
                 {% endfor %}
@@ -56,8 +59,26 @@
             </table>
           </div>
           
-          <div class="cart-details">
+          <div class="cart-details">            
+            <h3>
+              <small>{{ 'cart.cart_page.subtotal_title' | t }}</small>
+              {% assign total_price = cart.total_price | money %}
+              {% assign total_price_with_currency = cart.total_price | money_with_currency %}
+              <span class="cart-total">{{ 'cart.price.cart_total_html' | t: price: total_price, price_with_currency: total_price_with_currency }}</span>
+            </h3>
+            <div class="cart-shipping-note">
+              <p><em>{{ 'cart.cart_page.shipping_note' | t }}</em></p>
+            </div>
+            <div class="cart-buttons">
+              <input class="btn-update-cart" type="submit" name="update" value="{{ 'cart.buttons.update' | t }}">
+              <input class="btn-checkout" type="submit" name="checkout" value="{{ 'cart.buttons.checkout' | t }}">
+            </div>
+            
             {% comment %} TODO: Cart total, update and checkout buttons {% endcomment %}
+            
+            {% if additional_checkout_buttons %}
+              <div class="cart-additional-buttons">{{ content_for_additional_checkout_buttons }}</div>
+            {% endif %}
           </div>
           
           <div class="cart-extras">
@@ -70,8 +91,7 @@
         {% endcomment %}
         
         <div class="cart-message">
-          <p>{{ 'cart.cart_page.empty_message' | t }}</p>
-          <p>{{ 'cart.cart_page.continue_browsing_html' | t }}</p>
+          {{ 'cart.cart_page.empty_message_html' | t }}
         </div>
       {% endif %}
     </section>

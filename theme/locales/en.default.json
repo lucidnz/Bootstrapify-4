@@ -24,7 +24,9 @@
     },
     "form" : {
       "quantity" : "Quantity",
-      "after_product_added_message_html" : "<h4>Thanks! Your {{ item_title }} was added to <a href='/cart'>the cart</a>.</h4><p><a href='/cart'>View your cart now</a> or <a href='/collections/all'>Continue&nbsp;shopping</a>.</p>"
+      "after_product_added_message_html" : "<h4>Thanks! Your item <strong>&ldquo;{{ item_title }}&rdquo;</strong> was added to <a href='/cart'>the cart</a>.</h4><p><a href='/cart'>View your cart now</a> or <a href='/collections/all'>Continue&nbsp;shopping</a>.</p>",
+      "after_product_added_error_message_html" : "<h4>There was an error adding <strong>&ldquo;{{ item_title }}&rdquo;</strong> to <a href='/cart'>the cart</a>.</h4><p><em>{{ error_message }}</em></p><p>Please try again later, or feel free to <a href='/pages/contact'>contact us</a>.</p>",
+      "item_title_seperator" : " - "
     },
     "buttons" : {
       "view_product" : "View Product",
@@ -42,14 +44,26 @@
     },
     "cart_page" : {
       "page_title" : "Cart",
-      "empty_message" : "Your cart is empty.",
-      "continue_browsing_html" : "<a href='/collections/all'>Continue&nbsp;shopping</a>"
+      "empty_message_html" : "<h3>Your cart is empty.</h3><p><a href='/collections/all'>Continue&nbsp;shopping</a></p>",
+      "subtotal_title" : "Subtotal",
+      "shipping_note" : "Shipping & taxes calculated at checkout"
+    },
+    "price" : {
+      "item_price_html" : "<span class='money'>{{ price_with_currency }}</span>",
+      "item_total_html" : "<span class='money'>{{ price_with_currency }}</span>",
+      "cart_total_html" : "<span class='money'>{{ price_with_currency }}</span>"
     },
     "cart_table" : {
       "product_label" : "Item",
       "price_label" : "Price",
       "quantity_label" : "Quantity",
-      "total_label" : "Total"
+      "total_label" : "Total",
+      "remove_item_message_html" : "<h4><strong>&ldquo;{{ item_title }}&rdquo;</strong> was removed from your cart.</h4>",
+      "remove_item_error_message_html" : "<h4>There was an error removing <strong>&ldquo;{{ item_title }}&rdquo;</strong> from your cart.</h4><p><em>{{ error_message }}</em></p><p>Please try again later, or feel free to <a href='/pages/contact'>contact us</a>.</p>"
+    },
+    "buttons" : {
+      "update" : "Update Cart",
+      "checkout" : "Checkout"
     }
   },
   "customer_accounts" : {

@@ -1,3 +1,10 @@
+/*
+  Fix rounding issue as sass var can only hold 5 decimal places (orig: 1.428571429)
+  This would cause buttons in input groups to not be lined up correctly with inputs
+*/
+$line-height-base:    1.42858;
+
+
 /* SCSS Variables */
 
 $strong-weight:                   bold !default;
@@ -8003,9 +8010,12 @@ table {
         border-top: none;
       }
       .cart-item-quantity,
-      .cart-item-total {
+      .cart-item-price {
         width: 50%;
         float: left;
+      }
+      .cart-item-total {
+        clear: both;
       }
     }
   }
@@ -8098,7 +8108,6 @@ h6 {
 }
 
 .cart-table {
-  
   img {
     margin: auto;
   }
@@ -8106,22 +8115,29 @@ h6 {
   td {
     vertical-align: middle;
     text-align: center;
-    
-    @media (min-width: $grid-float-breakpoint) {
-      text-align: left;
-    }
   }
   
   @media (min-width: $grid-float-breakpoint) {
-    .cart-item-quantity-label,
     .cart-item-price-label,
     .cart-item-total-label,
-    .cart-item-quantity,
     .cart-item-price,
     .cart-item-total {
       text-align: right;
     }
+    
+    .cart-item-product-label,
+    .cart-item-quantity-label {
+      text-align: center;
+    }
+    
+    .cart-item-details {
+      text-align: left;
+    }
   }
+}
+
+.cart-details {
+  text-align: right;
 }
 /* General styles for all navigations */
 
@@ -8220,7 +8236,6 @@ h6 {
     @extend .btn-default;
   }
 }
-
 .add-to-cart-form, .cart-form, .contact-form {
   label {
     @extend .control-label;
@@ -8240,25 +8255,15 @@ h6 {
     @extend .form-group;
   }
   
-  input[type=submit] {
-    @extend .btn;
-    @extend .btn-primary;
-    
-    &.btn-add-to-cart {
-      @extend .btn-lg;
-      @extend .btn-block;
-    }
-  }
-  
   .errors, .note, & + .add-to-cart-message .note {
     @extend .alert;
   }
   
-  .errors {
+  .errors, .note.error {
     @extend .alert-danger;
   }
   
-  .note.sucess, & + .add-to-cart-message .note.success {
+  .note.success, & + .add-to-cart-message .note.success {
     @extend .alert-success;
   }
 }
@@ -8272,6 +8277,11 @@ h6 {
   @extend .label-warning;
 }
 
+.btn-contact {
+  @extend .btn;
+  @extend .btn-default;
+}
+
 .product-buttons {
   @extend .btn-group;
   @extend .btn-group-justified;
@@ -8283,6 +8293,22 @@ h6 {
 }
 
 .btn-add-to-cart {
+  @extend .btn;
+  @extend .btn-primary;
+  @extend .btn-lg;
+  @extend .btn-block;
+}
+
+.cart-buttons {
+  @extend .btn-group;
+}
+
+.btn-update-cart {
+  @extend .btn;
+  @extend .btn-default;
+}
+
+.btn-checkout {
   @extend .btn;
   @extend .btn-primary;
 }

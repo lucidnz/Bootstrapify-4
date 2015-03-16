@@ -47,7 +47,6 @@ h6 {
 }
 
 .cart-table {
-  
   img {
     margin: auto;
   }
@@ -55,20 +54,27 @@ h6 {
   td {
     vertical-align: middle;
     text-align: center;
-    
-    @media (min-width: $grid-float-breakpoint) {
-      text-align: left;
-    }
   }
   
   @media (min-width: $grid-float-breakpoint) {
-    .cart-item-quantity-label,
     .cart-item-price-label,
     .cart-item-total-label,
-    .cart-item-quantity,
     .cart-item-price,
     .cart-item-total {
       text-align: right;
     }
+    
+    .cart-item-product-label,
+    .cart-item-quantity-label {
+      text-align: center;
+    }
+    
+    .cart-item-details {
+      text-align: left;
+    }
   }
+}
+
+.cart-details {
+  text-align: right;
 }

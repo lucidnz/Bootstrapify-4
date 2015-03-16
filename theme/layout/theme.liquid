@@ -16,18 +16,6 @@
     <script>
       // Picture element HTML5 shiv
       document.createElement( "picture" );
-      
-      // Setup our javascript object
-      var Bsify = Bsify || {};
-      // Add the cart data to our JS object so that we can do cart stuff with it
-      Bsify.cart = {{ cart | json }};
-      Bsify.cart_display_item = '[data-cart-display]';
-      Bsify.cart_display_text = "{{ 'cart.site_header.cart_link_html' | t: item_count: '[item_count]', cart_total_price: '[cart_total_price]', cart_total_price_with_currency: '[cart_total_price_with_currency]' }}";
-      Bsify.formats = {
-        "moneyFormat": "{{ shop.money_format }}",
-        "moneyWithCurrencyFormat": "{{ shop.money_with_currency_format }}"
-      };
-      // TODO: add to cart translations
     </script>
     <script src="{{ 'picturefill.min.js' | asset_url }}" async></script>
 
@@ -36,6 +24,7 @@
     {{ '//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css' | stylesheet_tag }}
 
     <!-- Second round of JS -->
+    {% include 'site_js_vars' %}
     <!--[if !(lt IE 9)]><!-->
     {{ 'jquery.min.js' | asset_url | script_tag }}
     <!--<![endif]-->
@@ -113,6 +102,7 @@
       - linked_product_options.js
       - variant_option_switcher.js
     {% endcomment %}
+    {{ 'option_selection.js' | shopify_asset_url | script_tag }}
     <script src="{{ 'cart.min.js' | asset_url }}" async></script>
     <script src="{{ 'app.min.js' | asset_url }}" async></script>
     <script src="{{ 'bootstrap.min.js' | asset_url }}" async></script>
