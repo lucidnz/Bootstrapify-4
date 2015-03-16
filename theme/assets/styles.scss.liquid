@@ -7920,6 +7920,39 @@ table {
 
 /* Default page specific layouts */
 
+.collection-list {
+  .item-wrap {
+    @include make-sm-column(12);
+  }
+  .item {
+    @include make-row();
+  }
+  .item-image {
+    @include make-sm-column(4);
+  }
+  .item-details {
+    @extend .text-left;
+    @include make-sm-column(8);
+  }
+}
+
+.collection-lookbook {
+  .products-wrap {
+    width: 100%;
+    
+    overflow: scroll; //hidden; // javascript scroll through images
+  }
+  
+  .products {
+    width: 15000px; // actually worked out by the js
+  }
+  
+  .item-wrap {
+    max-width: 500px; // can we be more integelent about this ?
+  }
+  
+}
+
 .product {
   .sheet-content, .product-details-content {
     @include make-row();

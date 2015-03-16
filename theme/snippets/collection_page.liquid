@@ -1,0 +1,19 @@
+<main role="main">
+  <div class="sheet">
+    <header class="sheet-header">
+      <h1>{{ collection.title }}</h1>
+      {% include 'collection_controls'%}
+      {{ collection.description }}
+    </header>
+  </div>
+  
+  <div class="sheet products-wrap">
+    <section class="group products">
+    {% for p in collection.products %}
+      {% include 'product_item' %}
+    {% endfor %}
+    </section>
+  </div>
+</main>
+
+{% include 'site_aside' %}
