@@ -161,27 +161,27 @@
       }
      
       if (variant.available) {
-        $add_to_cart_button.removeClass('disabled').attr('disabled', false).val(Bsify.add_to_cart_button_text);
+        $add_to_cart_button.removeClass('disabled').attr('disabled', false).val(Bsify.translations.product.add_to_cart_button_text);
        
-        if (Bsify.cart_has_variant !== undefined && Bsify.cart_has_variant(variant.id)) {
-          $add_to_cart_button.val(Bsify.add_another_button_text);
+        if (Bsify.Cart !== undefined && Bsify.Cart.has_variant(variant.id)) {
+          $add_to_cart_button.val(Bsify.translations.product.add_another_button_text);
         }
        
       } else { // variant is sold out
-        $add_to_cart_button.addClass('disabled').attr('disabled', 'disabled').val(Bsify.sold_out_button_text);
+        $add_to_cart_button.addClass('disabled').attr('disabled', 'disabled').val(Bsify.translations.product.sold_out_button_text);
         // TODO: add notify me form
       }
      
       // Switch the main image if the variant has one
       if (variant.featured_image) {
-        if (Bsify.switch_image !== undefined) {
+        if (Bsify.ImageSwitcher !== undefined) {
           var mainImageElement = $('.product-image-main img')[0];
-          Bsify.switch_image(mainImageElement, variant.featured_image.src);
+          Bsify.ImageSwitcher.switch_image(mainImageElement, variant.featured_image.src);
         }
       } 
     } else {
       // The variant dosn't exist so unset details
-      $add_to_cart_button.addClass('disabled').attr('disabled', 'disabled').val(Bsify.unavailable_button_text);
+      $add_to_cart_button.addClass('disabled').attr('disabled', 'disabled').val(Bsify.translations.product.unavailable_button_text);
       $price_money_ele.addClass('text-muted').text(unavailable_str);
       $compare_at_price_ele.addClass('hidden');
     }

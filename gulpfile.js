@@ -7,11 +7,8 @@ var gulp        = require('gulp'),
   zip           = require('gulp-zip'),
   plumber       = require('gulp-plumber'),
   jshint        = require('gulp-jshint'),
-  //uglify        = require('gulp-uglify'),
-  
   vsource       = require('vinyl-source-stream'),
   browserify    = require('browserify'),
-  
   concat        = require('gulp-concat'),
   jsoncombine   = require('gulp-jsoncombine'),
   rename        = require('gulp-rename'),
@@ -55,7 +52,7 @@ gulp.task('default', function () {
 });
 
 // Helper for js tasks
-gulp.task('js', ['js_lint', 'js_modernizr', 'js_minify', 'js_browserify']);
+gulp.task('js', ['js_lint', 'js_modernizr', 'js_browserify']);
 
 // Helper for sass tasks
 gulp.task('sass', ['sass_concat']);
@@ -82,14 +79,15 @@ gulp.task('sass_concat', function () {
 });
 
 // JS_LINT: Check we are not doing silly stuff with our JS
+//  also copy our un built js files to the assets folder for sanity's sake
 gulp.task('js_lint', function () {
   return gulp.src('./src/js/*.js')
     .pipe(plumber({
       errorHandler: onError
     }))
     .pipe(jshint())
-    .pipe(jshint.reporter('default'));
-    /*.pipe(gulp.dest('./theme/assets/'));*/
+    .pipe(jshint.reporter('default'))
+    .pipe(gulp.dest('./theme/assets/'));
 });
 
 // JS_BROWSERIFY: Build our js files ready for use in the browser
@@ -105,28 +103,8 @@ gulp.task('js_browserify', function () {
     .pipe(gulp.dest('./theme/assets/'));
 });
 
-
-
-
-
-// JS_MINIFY: Minify our own js files and move them to the theme assets
-gulp.task('js_minify', function () { 
-/*
-  // List of js files to be included
-  var files = [
-    './src/js/*.js'
-  ];
-  
-  return gulp.src(files)
-    .pipe(concat('app.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('./theme/assets/'));
-*/
-});
-
 // JS_ASSETS: Copy all of the JS files to the theme assets. Maintain a list of paths to the src files here. All JS dependancies
 gulp.task('js_assets', function () {
-/*
   // List of js files to be copied
   var files = [
     './src/js/*.js',
@@ -134,7 +112,7 @@ gulp.task('js_assets', function () {
     './bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js', // One minified file that contains everything is SOOO much better than multiple requests!
     './bower_components/respond/cross-domain/respond-proxy.html',
     './bower_components/respond/dest/respond.min.js',
-    './bower_components/shopify-cartjs/dist/cart.min.js',
+    './bower_components/shopify-cartjs/dist/cart.js',
     './bower_components/picturefill/dist/picturefill.min.js'
   ];
   
@@ -146,7 +124,6 @@ gulp.task('js_assets', function () {
   // copy files across to the assets folder
   return gulp.src(files)
     .pipe(gulp.dest('./theme/assets/'));
-*/
 });
 
 // ZIP: Cretae a zipped file of the theme that can be uploaded to Shopify

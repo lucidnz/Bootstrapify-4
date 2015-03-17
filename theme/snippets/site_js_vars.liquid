@@ -9,13 +9,15 @@
   // Setup our base javascript object
   var Bsify = Bsify || {};
   
+  Bsify.selectors = {};
+  Bsify.translations = {};
+  
   /*
     Cart
   */
-  Bsify.Cart = {};
-  Bsify.Cart.cart = {{ cart | json }};
+  Bsify.cart = {{ cart | json }};
   // Cart item selectors
-  Bsify.Cart.selectors = {
+  Bsify.selectors.cart = {
     table_selector: ".cart-table",
     item_selector: ".cart-item",
     item_price_selector: ".cart-item-price .money",
@@ -23,7 +25,7 @@
     message_selector: '.cart-message'
   };
   // Cart item translations
-  Bsify.Cart.translations = {
+  Bsify.translations.cart = {
     cart_display_text: "{{ 'cart.site_header.cart_link_html' | t: item_count: '[item_count]', cart_total_price: '[cart_total_price]', cart_total_price_with_currency: '[cart_total_price_with_currency]' }}",
     empty_cart_text: "{{ 'cart.cart_page.empty_message_html' | t }}",
     remove_item_message: "{{ 'cart.cart_table.remove_item_message_html' | t: item_title: '[item_title]' }}",
@@ -34,20 +36,19 @@
     Product
   */
   {% assign product_json = product | json %}
-  Bsify.Product = {};
-  Bsify.Product.product = {{ product_json }};
+  Bsify.product = {{ product_json }};
   {% if product_json %}
   
   // Selectors for elements.
   // Make sure to update these if you change any markup
-  Bsify.Product.selectors = {
+  Bsify.selectors.product = {
     select_selector: '.product-select',
     form_selector: '.add-to-cart-form',
     form_message_selector: '.add-to-cart-message'
   };
   
   // Product translations
-  Bsify.Product.translations = {
+  Bsify.translations.product = {
     unavailable_button_text: "{{ 'products.buttons.unavailable' | t }}",
     add_to_cart_button_text: "{{ 'products.buttons.add_to_cart' | t }}",
     added_to_cart_button_text: "{{ 'products.buttons.added_to_cart' | t }}",
