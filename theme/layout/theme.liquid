@@ -42,6 +42,11 @@
     <script src="//{{shop.domain}}/search?q={{ respond_js_secret_key }}" type="text/javascript"></script>
     <![endif]-->
 
+    {% unless settings.header_code == blank %}
+    <!-- Additional custom header code -->
+      {{ settings.header_code }}
+    {% endunless %}
+
     {{ content_for_header }}
   </head>
 
@@ -111,5 +116,10 @@
     {% endcomment %}
     <script src="{{ 'app.min.js' | asset_url }}" async></script>
     <script src="{{ 'bootstrap.min.js' | asset_url }}" async></script>
+    
+    {% unless settings.footer_code == blank %}
+    <!-- Additional custom footer code -->
+      {{ settings.footer_code }}
+    {% endunless %}
   </body>
 </html>

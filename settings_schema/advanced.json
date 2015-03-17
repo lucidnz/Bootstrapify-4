@@ -1,0 +1,43 @@
+{
+  "name": "Advanced",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Style settings"
+    },
+    {
+      "type": "paragraph",
+      "content": "This theme uses sass. [ TODO: make this wording better ]"
+    },
+    {
+      "label": "SCSS variable",
+      "id": "scss_variables",
+      "type": "textarea",
+      "info": "Set or override the standard scss variables"
+    },
+    {
+      "label": "CSS overrides",
+      "id": "scss_overrides",
+      "type": "textarea",
+      "info": "Override the standard css with your custom styles"
+    },
+    {
+      "type": "header",
+      "content": "Header and footer code"
+    },
+    {
+      "type": "paragraph",
+      "content": "Insert additional code into the header and footer of your theme"
+    },
+    {
+      "label": "Header code",
+      "id": "header_code",
+      "type": "textarea"
+    },
+    {
+      "label": "Footer code",
+      "id": "footer_code",
+      "type": "textarea"
+    }
+  ]
+}

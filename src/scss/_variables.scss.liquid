@@ -10,3 +10,6 @@ $line-height-base:    1.42858;
 $strong-weight:                   bold !default;
 $grid-gutter-width:               30px !default;
 $thumbnail-padding:               $grid-gutter-width / 2 !default;
+
+
+{% unless settings.scss_variables == blank %}{{ settings.scss_variables }}{% endunless %}
