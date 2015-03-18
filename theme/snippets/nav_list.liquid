@@ -1,6 +1,6 @@
 <ul class="nav">
   {% for link in linklists[nav_list].links %}
-    {% assign child_list_handle = link.title | handleize %}
+    {% assign child_list_handle = link.handle %}
     {% if linklists[child_list_handle].links != blank %}
       <li class="dropdown">
         <a class="dropdown-toggle" href="{{ link.url }}" data-toggle="dropdown">{{ link.title }} <span class="caret"></span></a>

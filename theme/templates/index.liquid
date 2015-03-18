@@ -8,13 +8,20 @@
   {% endcomment %}
 
   {% assign section_count = 1 %}
+  
   {% for i in (1..4) %}
     {% assign homepage_settings_id = 'homepage_layout_section_' | append: i %}
     {% assign homepage_section = settings[homepage_settings_id] %}
     
     {% unless homepage_section == blank or homepage_section == 'none' %}
     
-      {% comment %} Check for each section type and collect it's relevant content inside the homepage_section_content var {% endcomment %}
+      {% comment %}
+        Check for each section type and collect it's relevant content inside the homepage_section_content variable
+        
+        All except for the slider create two variables:
+         - homepage_section_object which is passed to the snippet to be rendered
+         - homepage_section_id to be used to identify each section
+      {% endcomment %}
     
       {% case homepage_section %}
       {% when 'slider' %}
@@ -43,33 +50,155 @@
         {% endunless %}
       {% endcase %}
     
-      {% comment %} If we have collected content inside homepage_section_content then add it to the page {% endcomment %}
+      {% comment %}
+        If we have collected content inside homepage_section_content then add it to the page
+      {% endcomment %}
       
-      {% unless homepage_section_content == blank %}
-        <section class="homepage-section homepage-section-{{ section_count }}" id="{{ homepage_section_id }}">
-          {{ homepage_section_content }}
-        </section>
-        {% assign section_count = section_count | plus: 1 %}
-        {% assign homepage_section_content = '' %}
-      {% endunless %}
+      {% include 'homepage_section' %}
       
     {% endunless %}
   {% endfor %}
   
+  {% comment %}
+    Advanced layout.
+    
+    The advanced layout uses nested linklists like dropdown menus do, but the layout of the content is changed by it's level
+    i.e. a product on the top level of the list will show a 'homepage product' layout with product form and description,
+    but a product on the 2nd level will show a product thumbnail.
+  {% endcomment %}
+  
   {% unless settings.homepage_advanced_layout == blank %}
-    {% comment %} TODO: advanced layout {% endcomment %}
     
     {% assign homepage_advanced_linklist = linklists[settings.homepage_advanced_layout] %}
     {% unless homepage_advanced_linklist.links == blank %}
       {% for advanced_section_link in homepage_advanced_linklist.links %}
       
+        {% assign child_list_handle = advanced_section_link.handle %}
+        {% if linklists[child_list_handle].links == blank %}
+          {% comment %}
+            We have no nested linklist so build the top level sections
+          {% endcomment %}
+      
+          {% case advanced_section_link.type %}
+          {% when 'relative_link' %}
+            {% comment %} This could be a couple of things so check again to see what we are working with {% endcomment %}
+            
+            {% case advanced_section_link.url %}
+            {% when '/collections/all' %}
+              {% comment %} Show the product loop for this collection {% endcomment %}
+              {% assign homepage_section_object = collections.all %}
+              {% assign homepage_section_id = homepage_section_object.handle %}
+              {% capture homepage_section_content %}{% include 'homepage_products' with homepage_section_object %}{% endcapture %}
+              
+            {% when '/search' %}
+              {% comment %} Show an awesome search form {% endcomment %}
+              
+            {% else %}
+              {% comment %} We've got the front page; that's pretty meta. http://gph.is/1kPdp9x {% endcomment %}
+            {% endcase %}
+            
+          {% when 'collection_link' %}
+            {% comment %} Show the product loop for this collection {% endcomment %}
+            {% assign homepage_section_object = advanced_section_link.object %}
+            {% assign homepage_section_id = homepage_section_object.handle %}
+            {% capture homepage_section_content %}{% include 'homepage_products' with homepage_section_object %}{% endcapture %}
+          
+          {% when 'product_link' %}
+            {% comment %} Show the special homepage product details {% endcomment %}
+          
+          {% when 'page_link' %}
+            {% comment %} Show the page content {% endcomment %}
+            {% assign homepage_section_object = advanced_section_link.object %}
+            {% assign homepage_section_id = homepage_section_object.handle %}
+            {% capture homepage_section_content %}{% include 'homepage_page' with homepage_section_object %}{% endcapture %}
+          
+          {% when 'blog_link' %}
+            {% comment %} Show a list of articles from this blog. limit in settings? {% endcomment %}
+          
+          {% when 'http_link' %}
+            {% comment %}
+              SOCIAL LINKS
+              
+              i.e.
+              - url contains instagram.com/username or instagram.com/#hashtag then show a feed of images
+              - url contains twitter.com/username then show a feed of tweets
+              
+            {% endcomment %}
+            
+          {% endcase %}
         
+        {% else %}
+          {% comment %}
+            Nested linklist
+            Drop down a level and change context of snippets
+          {% endcomment %}
+        
+          {% capture homepage_sub_section_content %}{% endcapture %}
+          {% for advanced_section_child_link in linklists[child_list_handle].links %}
+        
+            {% case advanced_section_child_link.type %}
+            {% when 'relative_link' %}
+              {% comment %} This could be a couple of things so check again to see what we are working with {% endcomment %}
+              
+              {% case advanced_section_child_link.url %}
+              {% when '/collections/all' %}
+                {% comment %} Show the collection thumbnail for the all collection {% endcomment %}
+                {% assign c = collections.all %}
+                {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'collection_item' %}{% endcapture %}
+                
+              {% when '/search' %}
+                {% comment %} Show an awesome search form {% endcomment %}
+                
+              {% else %}
+                {% comment %} We've got the front page; that's pretty meta. http://gph.is/1kPdp9x {% endcomment %}
+              {% endcase %}
+            
+            {% when 'collection_link' %}
+              {% comment %} Show the collection thumbnail {% endcomment %}
+              {% assign c = advanced_section_child_link.object %}
+              {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'collection_item' %}{% endcapture %}
+            
+            {% when 'product_link' %}
+              {% comment %} Show the products thumbnail {% endcomment %}
+              {% assign p = advanced_section_child_link.object %}
+              {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'product_item' %}{% endcapture %}
+            
+            {% when 'page_link' %}
+              {% comment %} Show the page content, with title ala features {% endcomment %}
+              {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'homepage_sub_page' with advanced_section_child_link.object %}{% endcapture %}
+            
+            {% when 'blog_link' %}
+              {% comment %} Show a list of articles from this blog {% endcomment %}
+            
+            {% when 'http_link' %}
+              {% comment %} We have no idea what you expect from this {% endcomment %}
+            {% endcase %}
+        
+          {% endfor %}
+          
+          {% assign homepage_section_id = advanced_section_link.handle %}
+          {% capture homepage_section_content %}
+            <div class="sheet">
+              <div class="homepage-section-group group">
+                {{ homepage_sub_section_content }}
+              </div>
+            </div>
+          {% endcapture %}
+        {% endif %}
+      
+        {% include 'homepage_section' %}
       
       {% endfor %}
     {% endunless %}
-    
-    
   {% endunless %}
+  
+  {% comment %}
+    If the section count is still 1 after all of that then we haven't created any sections.
+    So show the on-boarding content
+  {% endcomment %}
+  {% if section_count == 1 %}
+    {% include 'homepage_onboarding' %}
+  {% endif %}
 </main>
 
 {% include 'site_aside' %}
