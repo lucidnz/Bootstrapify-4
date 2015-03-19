@@ -5,7 +5,7 @@
       "label": "Select a page for your homepage content",
       "id": "homepage_page_content",
       "type": "page",
-      "info": "This homepage section can be managed under the homepage area above."
+      "info": "This homepage section can be managed under the homepage settings above."
     }
   ]
 }

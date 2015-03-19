@@ -18,15 +18,15 @@
       {% comment %}
         Check for each section type and collect it's relevant content inside the homepage_section_content variable
         
-        All except for the slider create two variables:
+        All except for the banner create two variables:
          - homepage_section_object which is passed to the snippet to be rendered
          - homepage_section_id to be used to identify each section
       {% endcomment %}
     
       {% case homepage_section %}
-      {% when 'slider' %}
-        {% assign homepage_section_id = 'homepage-slider-' | append: section_count %}
-        {% capture homepage_section_content %}{% include 'homepage_slider' %}{% endcapture %}
+      {% when 'banner' %}
+        {% assign homepage_section_id = 'homepage-banner-' | append: section_count %}
+        {% capture homepage_section_content %}{% include 'homepage_banner' %}{% endcapture %}
                 
       {% when 'featured_collections' %}
         {% unless settings.homepage_featured_collections == blank %}
@@ -91,7 +91,7 @@
               {% capture homepage_section_content %}{% include 'homepage_products' with homepage_section_object %}{% endcapture %}
               
             {% when '/search' %}
-              {% comment %} Show an awesome search form {% endcomment %}
+              {% comment %} TODO: Show an awesome search form {% endcomment %}
               
             {% else %}
               {% comment %} We've got the front page; that's pretty meta. http://gph.is/1kPdp9x {% endcomment %}
@@ -104,7 +104,7 @@
             {% capture homepage_section_content %}{% include 'homepage_products' with homepage_section_object %}{% endcapture %}
           
           {% when 'product_link' %}
-            {% comment %} Show the special homepage product details {% endcomment %}
+            {% comment %} TODO: Show the special homepage product details {% endcomment %}
           
           {% when 'page_link' %}
             {% comment %} Show the page content {% endcomment %}
@@ -113,7 +113,7 @@
             {% capture homepage_section_content %}{% include 'homepage_page' with homepage_section_object %}{% endcapture %}
           
           {% when 'blog_link' %}
-            {% comment %} Show a list of articles from this blog. limit in settings? {% endcomment %}
+            {% comment %} TODO: Show a list of articles from this blog. limit in settings? {% endcomment %}
           
           {% when 'http_link' %}
             {% comment %}
@@ -122,6 +122,7 @@
               i.e.
               - url contains instagram.com/username or instagram.com/#hashtag then show a feed of images
               - url contains twitter.com/username then show a feed of tweets
+              - url contains youtube.com/video or vimeo.com/video then embed the video
               
             {% endcomment %}
             
@@ -147,7 +148,7 @@
                 {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'collection_item' %}{% endcapture %}
                 
               {% when '/search' %}
-                {% comment %} Show an awesome search form {% endcomment %}
+                {% comment %} TODO: Show an awesome search form {% endcomment %}
                 
               {% else %}
                 {% comment %} We've got the front page; that's pretty meta. http://gph.is/1kPdp9x {% endcomment %}
@@ -168,10 +169,18 @@
               {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'homepage_sub_page' with advanced_section_child_link.object %}{% endcapture %}
             
             {% when 'blog_link' %}
-              {% comment %} Show a list of articles from this blog {% endcomment %}
+              {% comment %} TODO: Show a list of articles from this blog {% endcomment %}
             
             {% when 'http_link' %}
-              {% comment %} We have no idea what you expect from this {% endcomment %}
+              {% comment %}
+                SOCIAL LINKS
+                
+                i.e.
+                - url contains instagram.com/username or instagram.com/#hashtag then show a feed of images
+                - url contains twitter.com/username then show a feed of tweets
+                - url contains youtube.com/video or vimeo.com/video then embed the video
+                
+              {% endcomment %}
             {% endcase %}
         
           {% endfor %}

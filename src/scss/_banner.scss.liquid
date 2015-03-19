@@ -1,0 +1,55 @@
+.banner {
+  &.fade {
+    opacity: 1;
+  	.banner-content {
+  		.item {
+  			opacity: 0;
+  			transition-property: opacity;
+  		}
+  		.active {
+  			opacity: 1;
+  		}
+  		.active.left,
+  		.active.right {
+  			left: 0;
+  			opacity: 0;
+  			z-index: 1;
+  		}
+  		.next.left,
+  		.prev.right {
+  			opacity: 1;
+  		}
+  	}
+  }
+  
+  img {
+    margin: auto;
+  }
+}
+
+.banner-content {
+  {% comment %}
+    carousel-inner and row conflict
+  {% endcomment %}
+  @extend .carousel-inner;
+}
+
+.banner-caption {
+  @extend .carousel-caption;
+}
+
+.banner-control-left, .banner-control-right {
+  background-image: none;
+  @extend .carousel-control;
+  [class*=icon] {
+    font-family: FontAwesome;
+  }
+}
+
+.banner-control-left {
+  @extend .left;
+}
+
+.banner-control-right {
+  @extend .right;
+}

@@ -3,7 +3,7 @@
   "settings": [
     {
       "type": "header",
-      "content": "Homepage Layout"
+      "content": "Homepage layout"
     },
     {
       "type": "paragraph",
@@ -15,12 +15,12 @@
       "type": "select",
       "options": [
         { "value": "", "label": "None"},
-        { "value": "slider", "label": "Slider"},
+        { "value": "banner", "label": "Banner"},
         { "value": "featured_collections", "label": "Featured Collections"},
         { "value": "featured_products", "label": "Featured Products"},
         { "value": "page_content", "label": "Page Content"}
       ],
-      "default": "slider"
+      "default": "banner"
     },
     {
       "label": "Section two",
@@ -28,7 +28,7 @@
       "type": "select",
       "options": [
         { "value": "", "label": "None"},
-        { "value": "slider", "label": "Slider"},
+        { "value": "banner", "label": "Banner"},
         { "value": "featured_collections", "label": "Featured Collections"},
         { "value": "featured_products", "label": "Featured Products"},
         { "value": "page_content", "label": "Page Content"}
@@ -41,7 +41,7 @@
       "type": "select",
       "options": [
         { "value": "", "label": "None"},
-        { "value": "slider", "label": "Slider"},
+        { "value": "banner", "label": "Banner"},
         { "value": "featured_collections", "label": "Featured Collections"},
         { "value": "featured_products", "label": "Featured Products"},
         { "value": "page_content", "label": "Page Content"}
@@ -54,7 +54,7 @@
       "type": "select",
       "options": [
         { "value": "", "label": "None"},
-        { "value": "slider", "label": "Slider"},
+        { "value": "banner", "label": "Banner"},
         { "value": "featured_collections", "label": "Featured Collections"},
         { "value": "featured_products", "label": "Featured Products"},
         { "value": "page_content", "label": "Page Content"}
@@ -62,10 +62,41 @@
       "default": "featured_products"
     },
     {
-      "label": "Advanced Layout",
-      "id": "homepage_advanced_layout",
+      "type": "header",
+      "content": "Homepage content"
+    },
+    {
+      "type": "paragraph",
+      "content": "The homepage banners content can be managed under the 'Homepage - Banner' settings."
+    },
+    {
+      "label": "Featured collections linklist",
+      "id": "homepage_featured_collections",
       "type": "link_list",
-      "info": "To create a more advanced layout or add more sections to your homepage select a linklist to base the layout from. This will be used in addition to the above sections."
+      "info": "To show a group of featured collections you will need to create a navigation linklist that contains the collections you wish to show"
+    },
+    {
+      "label": "Featured products collection",
+      "id": "homepage_featured_products",
+      "type": "collection"
+    },
+    {
+      "label": "Homepage content",
+      "id": "homepage_page_content",
+      "type": "page"
+    },
+    {
+      "type": "header",
+      "content": "Advanced layout"
+    },
+    {
+      "type": "paragraph",
+      "content": "To create a more advanced layout or add more sections to your homepage select a linklist to base the layout from. This will be used in addition to the above sections."
+    },
+    {
+      "label": "Advanced layout linklist",
+      "id": "homepage_advanced_layout",
+      "type": "link_list"
     }
   ]
 }

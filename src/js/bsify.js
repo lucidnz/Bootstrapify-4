@@ -23,5 +23,6 @@ Bsify.Cart = require('./bsify.cart.js');
 Bsify.ImageSwitcher = require('./bsify.image_switcher.js');
 Bsify.VariantOptionSwitcher = require('./bsify.variant_option_switcher.js');
 Bsify.LinkedProductOptions = require('./bsify.linked_product_options.js');
+Bsify.Banner = require('./bsify.banner.js');
 
 module.exports = Bsify;

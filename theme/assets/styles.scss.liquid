@@ -7888,7 +7888,7 @@ img {
   @include make-row();
 }
 
-.item-wrap {
+.group-item-wrap {
   @include make-sm-column(3);
 }
 
@@ -7896,20 +7896,20 @@ img {
   @extend .page-header;
 }
 
-.item {
+.group-item {
   @extend .thumbnail;
   
-  .item-title {
+  .group-item-title {
     margin-top: $grid-gutter-width / 2;
     margin-bottom: $grid-gutter-width / 2;
   }
 
-  .item-buttons {
+  .group-item-buttons {
     margin-top: $grid-gutter-width / 2;
   }
 }
 
-.item-image {
+.group-item-image {
 }
 
 table {
@@ -7923,16 +7923,16 @@ table {
 /* Default page specific layouts */
 
 .collection-list {
-  .item-wrap {
+  .group-item-wrap {
     @include make-sm-column(12);
   }
-  .item {
+  .group-item {
     @include make-row();
   }
-  .item-image {
+  .group-item-image {
     @include make-sm-column(4);
   }
-  .item-details {
+  .group-item-details {
     @extend .text-left;
     @include make-sm-column(8);
   }
@@ -7949,7 +7949,7 @@ table {
     width: 15000px; // actually worked out by the js
   }
   
-  .item-wrap {
+  .group-item-wrap {
     max-width: 500px; // can we be more integelent about this ?
   }
   
@@ -8116,12 +8116,12 @@ h6 {
   }
 }
 
-.item-details {
+.group-item-details {
   @extend .caption;
   @extend .text-center;
 }
 
-.item-title {
+.group-item-title {
   font-weight: $strong-weight;
 }
 
@@ -8301,6 +8301,61 @@ h6 {
   .note.success, & + .add-to-cart-message .note.success {
     @extend .alert-success;
   }
+}
+.banner {
+  &.fade {
+    opacity: 1;
+  	.banner-content {
+  		.item {
+  			opacity: 0;
+  			transition-property: opacity;
+  		}
+  		.active {
+  			opacity: 1;
+  		}
+  		.active.left,
+  		.active.right {
+  			left: 0;
+  			opacity: 0;
+  			z-index: 1;
+  		}
+  		.next.left,
+  		.prev.right {
+  			opacity: 1;
+  		}
+  	}
+  }
+  
+  img {
+    margin: auto;
+  }
+}
+
+.banner-content {
+  {% comment %}
+    carousel-inner and row conflict
+  {% endcomment %}
+  @extend .carousel-inner;
+}
+
+.banner-caption {
+  @extend .carousel-caption;
+}
+
+.banner-control-left, .banner-control-right {
+  background-image: none;
+  @extend .carousel-control;
+  [class*=icon] {
+    font-family: FontAwesome;
+  }
+}
+
+.banner-control-left {
+  @extend .left;
+}
+
+.banner-control-right {
+  @extend .right;
 }
 /* Labels and Badges */
 

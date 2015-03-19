@@ -14,19 +14,19 @@
   {% assign sold_out = false %}
 {% endif %}
 
-<div class="item-wrap">
-  <div class="item">
-      <div class="item-image">
+<div class="group-item-wrap">
+  <div class="group-item">
+      <div class="group-item-image">
         <a href="{{ p.url }}" title="{{ p.title }}">
           {{ p.featured_image | img_url: 'medium' | img_tag }}
         </a>
       </div>
-      <div class="item-details">
-        <div class="item-title">{{ p.title }}</div>
+      <div class="group-item-details">
+        <div class="group-item-title">{{ p.title }}</div>
         {% include 'product_price' %}
         {% include 'product_badges' %}
 <!--
-        <div class="item-buttons" role="group">
+        <div class="group-item-buttons" role="group">
           <a href="{{ p.url }}" class="btn-view" title="{{ p.title }}">{{ 'products.buttons.view_product' | t }}</a>
           {% comment %} TODO: add to cart button functionality {% endcomment %}
           <a href="#" class="btn-add-to-cart">{{ 'products.buttons.add_to_cart' | t }}</a>

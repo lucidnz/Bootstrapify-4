@@ -161,10 +161,10 @@ gulp.task('shopify_theme_settings', function () {
     'layout',
     'navigation',
     'homepage',
-    'homepage_slider',
-    'homepage_featured_collections',
-    'homepage_featured_products',
-    'homepage_page_content',
+    'homepage_banner',
+    //'homepage_featured_collections',
+    //'homepage_featured_products',
+    //'homepage_page_content',
     'advanced'
   ];
   

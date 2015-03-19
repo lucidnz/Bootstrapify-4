@@ -5,7 +5,7 @@
       "label": "Select a link list of featured collections",
       "id": "homepage_featured_collections",
       "type": "link_list",
-      "info": "This homepage section can be managed under the homepage area above."
+      "info": "This homepage section can be managed under the homepage settings above."
     }
   ]
 }

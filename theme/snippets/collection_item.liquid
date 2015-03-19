@@ -1,12 +1,12 @@
-<div class="item-wrap">
-  <div class="item">
+<div class="group-item-wrap">
+  <div class="group-item">
     <a href="{{ c.url }}" title="{{ c.title }}">
-      <div class="item-image">
+      <div class="group-item-image">
         {{ c.image | img_url: 'medium' | img_tag }}
       </div>
-      <div class="item-details">
-        <div class="item-title">{{ c.title }}</div>
-        <div class="item-count">{{ c.all_products_count }}</div>
+      <div class="group-item-details">
+        <div class="group-item-title">{{ c.title }}</div>
+        <div class="group-item-count">{{ c.all_products_count }}</div>
       </div>
     </a>
   </div>
