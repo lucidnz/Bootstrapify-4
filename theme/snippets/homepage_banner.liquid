@@ -65,21 +65,21 @@
   
     {% capture banner_content %}
       {{ banner_content }}
-      <div class="item{% if slide_count == 0 %} active{% endif %}">
+      <div class="item{% if slide_count == 0 %} active{% endif %}" data-slide="{{ slide_count | plus: 1 }}">
         <div class="banner-content-wrap">
           <figure class="banner-content">
-            <div class="banner-image">{{ slide_image | asset_url | img_tag: settings[slide_title] }}</div>
             <figcaption class="banner-caption">
               {% unless settings[slide_title] == blank %}
                 <h1>{{ settings[slide_title] }}</h1>
               {% endunless %}
               {% unless settings[slide_text] == blank %}
-                <p>settings[slide_text]</p>
+                <p>{{ settings[slide_text] }}</p>
               {% endunless %}
               {% unless settings[slide_button_text] == blank and settings[slide_button_link] == blank %}
-                <p><a class="call-to-action" href="{{ settings[slide_button_link] }}">settings[slide_button_text]</a></p>
+                <p><a class="call-to-action" href="{{ settings[slide_button_link] }}">{{ settings[slide_button_text] }}</a></p>
               {% endunless %}
             </figcaption>
+            <div class="banner-image">{{ slide_image | asset_url | img_tag: settings[slide_title] }}</div>
           </figure>
         </div>
       </div>
@@ -97,7 +97,7 @@
 
 {% unless banner_content == blank %}
 {% endunless %}
-<div class="banner carousel slide {% if settings.banner_transtion_type == 'fade' %}fade{% endif %}" id="{{ banner_id }}" {% if banner_autoplay %}data-ride="carousel"{% endif %} data-interval="{{ settings.banner_transtion_speed }}">
+<div class="banner carousel slide {% if settings.banner_transtion_type == 'fade' %}fade{% endif %}" id="{{ banner_id }}" {% if banner_autoplay %}data-ride="carousel"{% endif %} data-interval="{{ settings.banner_transtion_speed }}" data-banner="1">
   {% if slide_count > 1 %}
   <!-- Indicators -->
   <ol class="carousel-indicators">

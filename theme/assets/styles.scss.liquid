@@ -13,6 +13,15 @@ $thumbnail-padding:               $grid-gutter-width / 2 !default;
 
 
 {% unless settings.scss_variables == blank %}{{ settings.scss_variables }}{% endunless %}
+/* Functions */
+
+@function button-text-color( $colour, $strength: 100% ) {
+  @return if( lightness( $colour ) > 80%, darken( $colour, $strength ), lighten( $colour, $strength ) );
+}
+
+@function border-color( $colour ) {
+  @return if( $colour != transparent, darken( $colour, 5% ), transparent );
+}
 $bootstrap-sass-asset-helper: false !default;
 //
 // Variables
@@ -8303,6 +8312,8 @@ h6 {
   }
 }
 .banner {
+  
+  // create the fade transition
   &.fade {
     opacity: 1;
   	.banner-content {
@@ -8326,21 +8337,13 @@ h6 {
   	}
   }
   
+  // center images inside the banner
   img {
     margin: auto;
   }
 }
 
-.banner-content {
-  {% comment %}
-    carousel-inner and row conflict
-  {% endcomment %}
-  @extend .carousel-inner;
-}
-
-.banner-caption {
-  @extend .carousel-caption;
-}
+// Banner controls
 
 .banner-control-left, .banner-control-right {
   background-image: none;
@@ -8357,6 +8360,152 @@ h6 {
 .banner-control-right {
   @extend .right;
 }
+
+
+{% comment %}
+  Setup individual slide styles
+{% endcomment %}
+
+{% assign slide_count = 0 %}
+{% capture slides %}{% endcapture %}
+{% for i in (1..5) %}
+  
+  {% assign slide = 'banner_slide_' | append: forloop.index %}
+  {% assign slide_enabled_setting = slide | append: '_enabled' %}
+  {% assign slide_size_setting = slide | append: '_size' %}
+  {% assign slide_alignment_setting = slide | append: '_alignment' %}
+  {% assign slide_text_colour_setting = slide | append: '_text_colour' %}
+  {% assign slide_button_colour_setting = slide | append: '_button_colour' %}
+  {% assign slide_background_colour_setting = slide | append: '_background_colour' %}
+  
+  {% if settings[slide_enabled_setting] %}
+    {% assign slide_count = slide_count | plus: 1 %}
+  
+    {% comment %}
+      Create the scss vars for each slides settings
+    {% endcomment %}
+  
+    $slide-{{ slide_count }}-size: {{ settings[slide_size_setting] }};
+    $slide-{{ slide_count }}-alignment: {{ settings[slide_alignment_setting] }};
+    $slide-{{ slide_count }}-text-colour: {{ settings[slide_text_colour_setting] | default: '$text-color' }};
+    $slide-{{ slide_count }}-button-colour: {{ settings[slide_button_colour_setting] | default: '$btn-primary-bg' }};
+    $slide-{{ slide_count }}-background-colour: {{ settings[slide_background_colour_setting] | default: 'transparent' }};
+    
+    {% comment %}
+      Capture the scss vars for use with a scss array
+    {% endcomment %}
+    
+    {% capture slides %}{{ slides }} ($slide-{{ slide_count }}-size $slide-{{ slide_count }}-alignment $slide-{{ slide_count }}-text-colour $slide-{{ slide_count }}-button-colour $slide-{{ slide_count }}-background-colour){% endcapture %}
+  {% endif %}
+  
+{% endfor %}
+
+// mixin for slides
+@mixin slide($slide-count, $slide-size, $slide-alignment, $slide-text-colour, $slide-button-bg-colour, $slide-background-colour){
+  [data-banner="#{$slide-count}"] {
+    
+    .banner-content {
+      @extend .carousel-inner;
+    }
+    
+    @if $slide-size!= 'full_width' and $slide-size != 'full_screen' {
+      .banner-content-wrap {
+        @extend .sheet;
+      }
+    }
+    
+    @if $slide-size == 'half_container_left' or $slide-size == 'half_container_right' {
+      .banner-content {
+        width: auto; // undo 
+        @include make-row();
+      }
+      
+      // cols
+      .banner-caption, .banner-image {
+        @include make-sm-column(6);
+      }
+      
+      // vertical center banner caption
+      @media (min-width: $grid-float-breakpoint) {
+        .banner-caption {
+          position: absolute;
+          top: 50%;
+        	transform: translateY(-50%);
+        }
+        .banner-image {
+          float: right;
+        }
+      }
+      
+      @if $slide-size == 'half_container_left' {
+        .banner-caption {
+          @include make-sm-column-push(6);
+        }
+        .banner-image {
+          @include make-sm-column-pull(6);
+        }
+      }
+      
+    } @else {
+    
+      // TODO: caption alignment when not inside half container
+      .banner-caption {
+        @extend .carousel-caption;
+      }
+    }
+    
+    .banner-caption {
+      text-align: $slide-alignment;
+      color: $slide-text-colour;
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        color: $slide-text-colour;
+      }
+      .call-to-action {
+        @extend .btn;
+        $slide-button-text-colour: button-text-color($slide-button-bg-colour);
+        $slide-button-border-colour: border-color($slide-button-bg-colour);
+        @include button-variant($slide-button-text-colour, $slide-button-bg-colour, $slide-button-border-colour);
+      }
+    }
+    
+    
+    .item {
+      background-color: $slide-background-colour;
+    }
+    
+    
+  }
+}
+
+{% unless slides == blank %}
+// Styles for each slide
+$slides: {{ slides }};
+$slide-count: 1;
+@each $slide in $slides{
+  @include slide($slide-count, nth($slide, 1), nth($slide, 2), nth($slide, 3), nth($slide, 4), nth($slide, 5));
+  $slide-count: $slide-count + 1;
+}
+{% endunless %}
+
+
+
+
+
+
+
+.banner-content {
+  {% comment %}
+    carousel-inner and row conflict
+  {% endcomment %}
+  
+  @extend .carousel-inner;
+}
+
 /* Labels and Badges */
 
 .label-sale {

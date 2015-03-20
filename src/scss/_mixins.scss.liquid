@@ -1,0 +1,9 @@
+/* Functions */
+
+@function button-text-color( $colour, $strength: 100% ) {
+  @return if( lightness( $colour ) > 80%, darken( $colour, $strength ), lighten( $colour, $strength ) );
+}
+
+@function border-color( $colour ) {
+  @return if( $colour != transparent, darken( $colour, 5% ), transparent );
+}

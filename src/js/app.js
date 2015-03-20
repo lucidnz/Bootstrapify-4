@@ -32,6 +32,9 @@ var App = function () {
     Bsify.Cart.init();
   }
   
+  // init event listeners for banner
+  Bsify.Banner.init();
+  
 };
 
 // initiate the app and expose it to the browser

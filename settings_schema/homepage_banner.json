@@ -72,8 +72,8 @@
       "id": "banner_slide_1_size",
       "type": "select",
       "options": [
-        { "value": "half_container_left", "label": "Half container - left"},
-        { "value": "half_container_right", "label": "Half container - right"},
+        { "value": "half_container_left", "label": "Half container - Image left"},
+        { "value": "half_container_right", "label": "Half container - Image right"},
         { "value": "full_container", "label": "Full container"},
         { "value": "full_width", "label": "Full width"},
         { "value": "full_screen", "label": "Full screen"}
@@ -99,7 +99,7 @@
     {
       "label": "Caption text",
       "id": "banner_slide_1_caption_text",
-      "type": "text"
+      "type": "textarea"
     },
     {
       "label": "'Call to action' button text",
@@ -148,8 +148,8 @@
       "id": "banner_slide_2_size",
       "type": "select",
       "options": [
-        { "value": "half_container_left", "label": "Half container - left"},
-        { "value": "half_container_right", "label": "Half container - right"},
+        { "value": "half_container_left", "label": "Half container - Image left"},
+        { "value": "half_container_right", "label": "Half container - Image right"},
         { "value": "full_container", "label": "Full container"},
         { "value": "full_width", "label": "Full width"},
         { "value": "full_screen", "label": "Full screen"}
@@ -175,7 +175,7 @@
     {
       "label": "Caption text",
       "id": "banner_slide_2_caption_text",
-      "type": "text"
+      "type": "textarea"
     },
     {
       "label": "'Call to action' button text",
@@ -224,8 +224,8 @@
       "id": "banner_slide_3_size",
       "type": "select",
       "options": [
-        { "value": "half_container_left", "label": "Half container - left"},
-        { "value": "half_container_right", "label": "Half container - right"},
+        { "value": "half_container_left", "label": "Half container - Image left"},
+        { "value": "half_container_right", "label": "Half container - Image right"},
         { "value": "full_container", "label": "Full container"},
         { "value": "full_width", "label": "Full width"},
         { "value": "full_screen", "label": "Full screen"}
@@ -251,7 +251,7 @@
     {
       "label": "Caption text",
       "id": "banner_slide_3_caption_text",
-      "type": "text"
+      "type": "textarea"
     },
     {
       "label": "'Call to action' button text",
@@ -300,8 +300,8 @@
       "id": "banner_slide_4_size",
       "type": "select",
       "options": [
-        { "value": "half_container_left", "label": "Half container - left"},
-        { "value": "half_container_right", "label": "Half container - right"},
+        { "value": "half_container_left", "label": "Half container - Image left"},
+        { "value": "half_container_right", "label": "Half container - Image right"},
         { "value": "full_container", "label": "Full container"},
         { "value": "full_width", "label": "Full width"},
         { "value": "full_screen", "label": "Full screen"}
@@ -327,7 +327,7 @@
     {
       "label": "Caption text",
       "id": "banner_slide_4_caption_text",
-      "type": "text"
+      "type": "textarea"
     },
     {
       "label": "'Call to action' button text",
@@ -376,8 +376,8 @@
       "id": "banner_slide_5_size",
       "type": "select",
       "options": [
-        { "value": "half_container_left", "label": "Half container - left"},
-        { "value": "half_container_right", "label": "Half container - right"},
+        { "value": "half_container_left", "label": "Half container - Image left"},
+        { "value": "half_container_right", "label": "Half container - Image right"},
         { "value": "full_container", "label": "Full container"},
         { "value": "full_width", "label": "Full width"},
         { "value": "full_screen", "label": "Full screen"}
@@ -403,7 +403,7 @@
     {
       "label": "Caption text",
       "id": "banner_slide_5_caption_text",
-      "type": "text"
+      "type": "textarea"
     },
     {
       "label": "'Call to action' button text",
