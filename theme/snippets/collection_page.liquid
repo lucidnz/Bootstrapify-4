@@ -7,12 +7,20 @@
     </header>
   </div>
   
-  <div class="sheet products-wrap">
+  <div class="sheet {% if collection.products.size > 0 %}products-wrap{% endif %}" data-products-size="{{ collection.products.size }}">
+  {% if collection.products.size > 0 %}
     <section class="group products">
-    {% for p in collection.products %}
-      {% include 'product_item' %}
-    {% endfor %}
+      {% for p in collection.products %}
+        {% include 'product_item' %}
+      {% endfor %}
     </section>
+  {% else %}
+    <section class="sheet-content">
+      <div class="collection-message">
+        {{ 'collections.general.empty_message_html' | t }}
+      </div>
+    </section>  
+  {% endif %}
   </div>
 </main>
 

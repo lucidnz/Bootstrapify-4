@@ -7928,6 +7928,16 @@ table {
 
 /* Default page specific layouts */
 
+// all collection templates
+[class*="collection"] {
+  .sheet-content {
+    @include make-row();
+  }
+  .collection-message {
+    @include make-sm-column(12);
+  }
+}
+
 .collection-list {
   .group-item-wrap {
     @include make-sm-column(12);
@@ -7949,16 +7959,16 @@ table {
     width: 100%;
     
     overflow: scroll; //hidden; // javascript scroll through images
-  }
   
-  .products {
-    width: 15000px; // actually worked out by the js
-  }
+    .products {
+      width: 15000px; // actually worked out by the js
+    }
+    
+    .group-item-wrap {
+      max-width: 500px; // can we be more integelent about this ?
+    }
   
-  .group-item-wrap {
-    max-width: 500px; // can we be more integelent about this ?
   }
-  
 }
 
 .product {
