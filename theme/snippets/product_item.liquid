@@ -18,11 +18,11 @@
   <div class="group-item">
       <div class="group-item-image">
         <a href="{{ p.url }}" title="{{ p.title }}">
-          {{ p.featured_image | img_url: 'medium' | img_tag }}
+          {{ p.featured_image | img_url: 'large' | img_tag }}
         </a>
       </div>
       <div class="group-item-details">
-        <div class="group-item-title">{{ p.title }}</div>
+        <h3 class="group-item-title">{{ p.title }}</h3>
         {% include 'product_price' %}
         {% include 'product_badges' %}
 <!--
