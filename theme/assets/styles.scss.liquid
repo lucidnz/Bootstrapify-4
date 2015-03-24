@@ -7883,6 +7883,22 @@ button.close {
   @include responsive-invisibility('.hidden-print');
 }
 
+/* Sticky footer */
+html,
+body { height: 100%; }
+ 
+body {
+  display: table;
+  width: 100%;
+}
+ 
+.site-content, .site-footer {
+  display: table-row;
+  height: 1px;
+}
+ 
+.site-content { height: 100%; }
+
 /* Grids and Layouts */
 
 img {
@@ -7927,6 +7943,22 @@ table {
 
   .money {
     text-align: right;
+  }
+}
+
+footer {
+  overflow: hidden;
+  
+  .sheet-content {
+    @include make-row();
+  }
+  
+  .site-credits {
+    text-align: center;
+    margin: $grid-gutter-width / 2 auto;
+    br {
+      @extend .visible-sm;
+    }
   }
 }
 

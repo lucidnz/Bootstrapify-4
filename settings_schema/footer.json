@@ -1,0 +1,9 @@
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Moose"
+    }
+  ]
+}

@@ -90,10 +90,12 @@
       Sections can be easily stacked to define new areas and allow for more interesting layout options.
     {% endcomment %}
 
-    {{ content_for_layout }}
+    <div class="site-content">
+      {{ content_for_layout }}
+    </div>
     
     <footer class="site-footer">
-
+      {% include 'site_footer' %}
     </footer>
 
     <!-- Bulk of JS -->
