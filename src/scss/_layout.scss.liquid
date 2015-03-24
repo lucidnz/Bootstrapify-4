@@ -22,6 +22,10 @@ img {
 
 .group-item {
   @extend .thumbnail;
+  img {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .group-item-title {
@@ -42,6 +46,34 @@ table {
 }
 
 /* Default page specific layouts */
+
+.list-collections {
+  .group-item-wrap {
+    @include make-sm-column(4);
+  }
+  
+  .group-item {
+    position: relative;
+  
+    .group-item-image .svg {
+      display: block;
+      padding-bottom: 100%; // = window width ?
+    }
+    
+    .group-item-image .svg-rect {
+      fill: lighten($brand-primary, 30%);
+    }
+    
+    .group-item-details {
+      position: absolute;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+    	transform: translateY(-50%);
+    	padding: 0 $grid-gutter-width;
+    }
+    
+  }
+}
 
 // all collection templates
 [class*="collection"] {

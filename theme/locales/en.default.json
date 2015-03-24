@@ -10,7 +10,8 @@
     },
     "list_collections" : {
       "title" : "All collections",
-      "description" : ""
+      "description" : "",
+      "item_title_html": "{{ collection_title }}"
     }
   },
   "products" : {

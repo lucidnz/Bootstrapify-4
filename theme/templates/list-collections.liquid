@@ -4,11 +4,28 @@
       <h1>{{ 'collections.list_collections.title' | t }}</h1>
       {{ 'collections.list_collections.description' | t }}
     </header>
+  </div>
 
+  <div class="sheet">
     <section class="group collections">
-    {% for c in collections %}
-      {% include 'collection_item' %}
-    {% endfor %}
+      {% assign featured_collections = linklists[settings.list_collections_featured_collection] %}
+      {% if featured_collections.links != blank %}
+        {% for collection_link in featured_collections.links %}
+          {% assign c = collection_link.object %}
+          {% capture collection_title %}{{ 'collections.list_collections.item_title_html' | t: collection_title: c.title }}{% endcapture %}
+          {% include 'collection_item' %}
+        {% endfor %}
+            
+      {% else %}
+        {% comment %}
+          No featured collections so fallback to all collections
+        {% endcomment %}
+      
+        {% for c in collections %}
+          {% capture collection_title %}{{ 'collections.list_collections.item_title_html' | t: collection_title: c.title }}{% endcapture %}
+          {% include 'collection_item' %}
+        {% endfor %}
+      {% endif %}
     </section>
   </div>
 </main>

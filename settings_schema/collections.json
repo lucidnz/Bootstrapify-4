@@ -1,0 +1,29 @@
+{
+  "name": "Collections",
+  "settings": [
+    {
+      "type": "header",
+      "content": "List Collections"
+    },
+    {
+      "type": "paragraph",
+      "content": "The 'List Collections' template shows all of your collections and is availble at yourshop.com/collections"
+    },
+    {
+      "label": "Featured collection",
+      "id": "list_collections_featured_collection",
+      "type": "link_list",
+      "info": "If a link list of collections is selected then the list collections template will show just the collections in this list. If it is set to none or the link list is empty then the template will show all collections."
+    },
+    {
+      "type": "header",
+      "content": "Collection Thumbs"
+    },
+    {
+      "label": "Show collections product count",
+      "id": "show_collection_product_count",
+      "type": "checkbox",
+      "default": true
+    }
+  ]
+}
