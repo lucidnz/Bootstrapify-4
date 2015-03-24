@@ -1,0 +1,24 @@
+/*
+  Fix rounding issue as sass var can only hold 5 decimal places (orig: 1.428571429)
+  This would cause buttons in input groups to not be lined up correctly with inputs
+*/
+$line-height-base:    1.42858;
+
+
+/* SCSS Variables */
+
+$strong-weight:                   bold !default;
+$grid-gutter-width:               30px !default;
+$thumbnail-padding:               $grid-gutter-width / 2 !default; // TODO: if we have no borders this needs to be set to 0
+
+
+{% unless settings.scss_variables == blank %}{{ settings.scss_variables }}{% endunless %}
+/* Functions */
+
+@function button-text-color( $colour, $strength: 100% ) {
+  @return if( lightness( $colour ) > 80%, darken( $colour, $strength ), lighten( $colour, $strength ) );
+}
+
+@function border-color( $colour ) {
+  @return if( $colour != transparent, darken( $colour, 5% ), transparent );
+}

@@ -1,0 +1,728 @@
+/* Sticky footer */
+html,
+body { height: 100%; }
+ 
+body {
+  display: table;
+  width: 100%;
+}
+ 
+.site-content, .site-footer {
+  display: table-row;
+  height: 1px;
+}
+ 
+.site-content { height: 100%; }
+
+/* Grids and Layouts */
+
+img {
+  @extend .img-responsive;
+}
+
+.sheet {
+  @extend {% if settings.container_width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
+}
+
+.group {
+  @include make-row();
+}
+
+.group-item-wrap {
+  @include make-sm-column(3);
+}
+
+.sheet-header {
+  @extend .page-header;
+}
+
+.group-item {
+  @extend .thumbnail;
+  img {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.group-item-title {
+  margin-top: $grid-gutter-width / 2;
+  margin-bottom: $grid-gutter-width / 2;
+}
+
+.group-item-buttons {
+  margin-top: $grid-gutter-width / 2;
+}
+
+table {
+  @extend .table;
+
+  .money {
+    text-align: right;
+  }
+}
+
+footer {
+  overflow: hidden;
+  
+  .sheet-content {
+    @include make-row();
+  }
+  
+  .site-credits {
+    text-align: center;
+    margin: $grid-gutter-width / 2 auto;
+    br {
+      @extend .visible-sm;
+    }
+  }
+}
+
+/* Default page specific layouts */
+
+.list-collections {
+  .group-item-wrap {
+    @include make-sm-column(4);
+  }
+  
+  .group-item {
+    position: relative;
+  
+    .group-item-image .svg {
+      display: block;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+    }
+    
+    .group-item-image .svg-rect {
+      fill: lighten($brand-primary, 30%);
+    }
+    
+    .group-item-details {
+      position: absolute;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+    	transform: translateY(-50%);
+    	padding: 0 $grid-gutter-width;
+    }
+    
+  }
+}
+
+// all collection templates
+[class*="collection"] {
+  .sheet-content {
+    @include make-row();
+  }
+  .collection-message {
+    @include make-sm-column(12);
+  }
+}
+
+.collection-list {
+  .group-item-wrap {
+    @include make-sm-column(12);
+  }
+  .group-item {
+    @include make-row();
+  }
+  .group-item-image {
+    @include make-sm-column(4);
+  }
+  .group-item-details {
+    @extend .text-left;
+    @include make-sm-column(8);
+  }
+}
+
+.collection-lookbook {
+  .products-wrap {
+    width: 100%;
+    
+    overflow: scroll; //hidden; // javascript scroll through images
+  
+    .products {
+      width: 15000px; // actually worked out by the js
+    }
+    
+    .group-item-wrap {
+      max-width: 500px; // can we be more integelent about this ?
+    }
+  
+  }
+}
+
+.product {
+  .sheet-content, .product-details-content {
+    @include make-row();
+  }
+  
+  .product-header, .product-images, .product-details, .product-description {
+    @include make-sm-column(6);
+    margin-bottom: $line-height-computed;
+  }
+  
+  .product-images {
+    @extend .text-center;
+    @media (min-width: $grid-float-breakpoint) {
+      float: left;
+      margin-top: ($line-height-computed * 3); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
+    }
+    img {
+      margin: auto;
+    }
+  }
+  
+  .product-header, .product-details, .product-description {
+    @media (min-width: $grid-float-breakpoint) {
+      float: right;
+    }
+  }
+  
+  .product-price {
+    margin-top: $line-height-computed / 2;
+    margin-bottom: $line-height-computed;
+    @include make-sm-column(12);
+  }
+  
+  .add-to-cart-form {
+    margin-bottom: $line-height-computed;
+    @include make-sm-column(6);
+  }
+  
+  .add-to-cart-message {
+    @include make-sm-column(12);
+  }
+  
+  .product-image-main {
+    margin-bottom: $grid-gutter-width;
+  }
+  .product-image-thumbs {
+    @extend .list-unstyled;
+    @extend .list-inline;
+    @include make-row();
+    li {
+      @include make-xs-column(4);
+      margin-bottom: $grid-gutter-width;
+    }
+  }
+}
+
+.cart {
+  .sheet-content {
+    @include make-row();
+  }
+  
+  .cart-items {
+    @include make-md-column(9);
+  }
+  
+  .cart-details {
+    @include make-md-column(3);
+  }
+  
+  .cart-extras, .cart-message {
+    @include make-sm-column(12);
+  }
+
+  // Display cart table as a list on mobiles
+  @media (max-width: $grid-float-breakpoint-max) {
+    .cart-table {
+      thead {
+        display: none;
+      }
+      table, tr, td {
+        display: block;
+      }
+      tr {
+        overflow: hidden;
+        border-bottom: 1px solid $table-border-color;
+      }
+      td {
+        border-top: none;
+      }
+      .cart-item-quantity,
+      .cart-item-price {
+        width: 50%;
+        float: left;
+      }
+      .cart-item-total {
+        clear: both;
+      }
+    }
+  }
+
+  @media (min-width: $grid-float-breakpoint) {
+    .cart-item a {
+      display: table-row;
+    }
+    .cart-item-image,
+    .cart-item-details {
+      display: table-cell;
+      vertical-align: middle;
+    }
+    .cart-item-image {
+      width: 35%;
+    }
+    .cart-item-details {
+      padding-left: $grid-gutter-width / 2;
+    }
+    .cart-item-quantity,
+    .cart-item-price,
+    .cart-item-total {
+      width: 20%;
+    }
+  }
+  
+}
+
+.page-contact {
+  .sheet-content {
+    @include make-row();
+  }
+  
+  .page-content, .contact-content {
+    @include make-sm-column(6);
+  }
+  .page-content {
+    @include make-sm-column-push(6);
+  }
+  .contact-content {
+    @include make-sm-column-pull(6);
+  }
+}
+/* Typograhical Styles */
+
+a:hover,
+a:active,
+a:focus {
+  text-decoration: none;
+  li &, p & {
+    text-decoration: underline;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  a {
+    color: inherit;
+  }
+}
+
+.group-item-details {
+  @extend .caption;
+  @extend .text-center;
+}
+
+.group-item-title {
+  @extend .h5;
+  font-weight: $strong-weight;
+  
+  .list-collections & {
+  	font-size: $font-size-h3;
+  }
+}
+
+.compare-at-price {
+  @extend .small;
+  @extend .text-muted;
+}
+
+.product-details .product-price {
+  @extend .h3;
+/*
+  .price {
+    @extend .pull-left;
+  }
+  .compare-at-price {
+    @extend .pull-right;
+  }
+*/
+}
+
+.cart-table {
+  img {
+    margin: auto;
+  }
+  
+  td {
+    vertical-align: middle;
+    text-align: center;
+  }
+  
+  @media (min-width: $grid-float-breakpoint) {
+    .cart-item-price-label,
+    .cart-item-total-label,
+    .cart-item-price,
+    .cart-item-total {
+      text-align: right;
+    }
+    
+    .cart-item-product-label,
+    .cart-item-quantity-label {
+      text-align: center;
+    }
+    
+    .cart-item-details {
+      text-align: left;
+    }
+  }
+}
+
+.cart-details {
+  text-align: right;
+}
+/* General styles for all navigations */
+
+.nav-inline {
+  @extend .list-inline;
+  & > li {
+    display: inline-block;
+  }
+}
+/* Styles for centered navigation snippet */
+
+#header-layout-centered {
+  // Small screen sizes
+  .header-small {
+    margin-bottom: 0;
+    @extend .visible-xs-block;
+    @extend .navbar;
+    @extend .navbar-default;
+  }
+  
+  .navigation-header {
+    @extend .navbar-header;
+    & > .nav {
+      @extend .navbar-nav;
+      @extend .nav-inline;
+      @extend .pull-right;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+  
+  .navigation-toggle {
+    @extend .navbar-toggle;
+    @extend .pull-left;
+    margin-left: $grid-gutter-width/2;
+  }
+  
+  .navigation {
+    @extend .navbar-collapse;
+    & > .nav {
+      @extend .navbar-nav;
+      border-top: 1px solid $dropdown-divider-bg;
+    }
+  }
+  
+  // Large screen sizes
+  .header-large {
+    @extend .text-center;
+  }
+  
+  .header-logo {
+    overflow: auto;
+    h1 {
+      margin: 1em auto;
+    }
+  }
+  
+  .navigation-top, .navigation-main {
+    @extend .hidden-xs;
+  }
+    
+  .main-nav, .secondary-nav, .tertiary-nav {
+    .nav {
+      @extend .nav-inline;
+    }
+  }
+  
+  .secondary-nav {
+    @extend .pull-left;
+  }
+  
+  .tertiary-nav {
+    @extend .pull-right;
+  }
+  
+  // Details
+  .cart-total {
+    @extend .hidden-xs;
+  }
+  
+  .navigation-form {
+    padding: 0 $grid-gutter-width/2;
+  }
+  .search-form {
+    @extend .navbar-form;
+  }
+  .input-group {
+    @extend .form-group;
+  }
+  input[type=search],
+  input[type=text] {
+    @extend .form-control;
+  }
+  input[type=submit],
+  button {
+    @extend .btn;
+    @extend .btn-default;
+  }
+}
+.add-to-cart-form, .cart-form, .contact-form {
+  label {
+    @extend .control-label;
+  }
+  
+  input[type=text],
+  input[type=password],
+  input[type=email],
+  input[type=tel],
+  input[type=number],
+  select,
+  textarea {
+    @extend .form-control;
+  }
+  
+  .selector-wrapper {
+    @extend .form-group;
+  }
+  
+  .errors, .note, & + .add-to-cart-message .note {
+    @extend .alert;
+  }
+  
+  .errors, .note.error {
+    @extend .alert-danger;
+  }
+  
+  .note.success, & + .add-to-cart-message .note.success {
+    @extend .alert-success;
+  }
+}
+.banner {
+  
+  // create the fade transition
+  &.fade {
+    opacity: 1;
+  	.banner-content {
+  		.item {
+  			opacity: 0;
+  			transition-property: opacity;
+  		}
+  		.active {
+  			opacity: 1;
+  		}
+  		.active.left,
+  		.active.right {
+  			left: 0;
+  			opacity: 0;
+  			z-index: 1;
+  		}
+  		.next.left,
+  		.prev.right {
+  			opacity: 1;
+  		}
+  	}
+  }
+  
+  // center images inside the banner
+  img {
+    margin: auto;
+  }
+}
+
+// Banner controls
+
+.banner-control-left, .banner-control-right {
+  background-image: none;
+  @extend .carousel-control;
+  [class*=icon] {
+    font-family: FontAwesome;
+  }
+}
+
+.banner-control-left {
+  @extend .left;
+}
+
+.banner-control-right {
+  @extend .right;
+}
+
+
+{% comment %}
+  Setup individual slide styles
+{% endcomment %}
+
+{% capture slides %}{% endcapture %}
+{% for i in (1..5) %}
+  
+  {% comment %}
+    Create the scss vars for each slides settings
+  {% endcomment %}
+  
+  {% assign slide_count = forloop.index %}
+  
+  {% assign slide = 'banner_slide_' | append: slide_count %}
+  {% assign slide_enabled_setting = slide | append: '_enabled' %}
+  {% assign slide_size_setting = slide | append: '_size' %}
+  {% assign slide_alignment_setting = slide | append: '_alignment' %}
+  {% assign slide_text_colour_setting = slide | append: '_text_colour' %}
+  {% assign slide_button_colour_setting = slide | append: '_button_colour' %}
+  {% assign slide_background_colour_setting = slide | append: '_background_colour' %}
+
+  $slide-{{ slide_count }}-enabled: {{ settings[slide_enabled_setting] | default: 'false' }};
+  $slide-{{ slide_count }}-size: {{ settings[slide_size_setting] | default: 'full_container' }};
+  $slide-{{ slide_count }}-alignment: {{ settings[slide_alignment_setting] | default: 'center' }};
+  $slide-{{ slide_count }}-text-colour: {{ settings[slide_text_colour_setting] | default: '$text-color' }};
+  $slide-{{ slide_count }}-button-colour: {{ settings[slide_button_colour_setting] | default: '$btn-primary-bg' }};
+  $slide-{{ slide_count }}-background-colour: {{ settings[slide_background_colour_setting] | default: 'transparent' }};
+  
+  {% comment %}
+    Capture the scss vars for use with a scss array
+  {% endcomment %}
+  
+  {% capture slides %}{{ slides }} ($slide-{{ slide_count }}-enabled $slide-{{ slide_count }}-size $slide-{{ slide_count }}-alignment $slide-{{ slide_count }}-text-colour $slide-{{ slide_count }}-button-colour $slide-{{ slide_count }}-background-colour){% endcapture %}
+  
+{% endfor %}
+
+// mixin for slides
+@mixin slide($slide-count, $slide-enabled, $slide-size, $slide-alignment, $slide-text-colour, $slide-button-bg-colour, $slide-background-colour){
+  @if $slide-enabled {
+    [data-banner="#{$slide-count}"] {
+      
+      @if $slide-size!= 'full_width' and $slide-size != 'full_screen' {
+        .banner-content-wrap {
+          @extend .sheet;
+        }
+      }
+      
+      @if $slide-size == 'half_container_left' or $slide-size == 'half_container_right' {
+        // cols
+        .banner-caption, .banner-image {
+          @include make-sm-column(6);
+        }
+        
+        // vertical center banner caption
+        @media (min-width: $grid-float-breakpoint) {
+          .banner-caption {
+            position: absolute;
+            top: 50%;
+          	transform: translateY(-50%);
+          }
+          .banner-image {
+            float: right;
+          }
+        }
+        
+        @if $slide-size == 'half_container_left' {
+          .banner-caption {
+            @include make-sm-column-push(6);
+          }
+          .banner-image {
+            @include make-sm-column-pull(6);
+          }
+        }
+        
+      } @else {
+        .banner-content {
+          @extend .carousel-inner;
+        }
+
+        // TODO: caption alignment when not inside half container
+        .banner-caption {
+          @extend .carousel-caption;
+        }
+      }
+      
+      .banner-caption {
+        text-align: $slide-alignment;
+        color: $slide-text-colour;
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          color: $slide-text-colour;
+        }
+        .call-to-action {
+          @extend .btn;
+          $slide-button-text-colour: button-text-color($slide-button-bg-colour);
+          $slide-button-border-colour: border-color($slide-button-bg-colour);
+          @include button-variant($slide-button-text-colour, $slide-button-bg-colour, $slide-button-border-colour);
+        }
+      }
+      
+      
+      .item {
+        background-color: $slide-background-colour;
+      }
+       
+    }
+  }
+}
+
+{% unless slides == blank %}
+// Styles for each slide
+$slides: {{ slides }};
+$slide-count: 1;
+
+@each $slide in $slides{
+  @include slide($slide-count, nth($slide, 1), nth($slide, 2), nth($slide, 3), nth($slide, 4), nth($slide, 5), nth($slide, 6));
+  $slide-count: $slide-count + 1;
+}
+{% endunless %}
+/* Labels and Badges */
+
+.label-sale {
+  @extend .label-success;
+}
+
+.label-sold-out {
+  @extend .label-warning;
+}
+
+.btn-contact {
+  @extend .btn;
+  @extend .btn-default;
+}
+
+.product-buttons {
+  @extend .btn-group;
+  @extend .btn-group-justified;
+}
+
+.btn-view {
+  @extend .btn;
+  @extend .btn-default;
+}
+
+.btn-add-to-cart {
+  @extend .btn;
+  @extend .btn-primary;
+  @extend .btn-lg;
+  @extend .btn-block;
+}
+
+.cart-buttons {
+  @extend .btn-group;
+}
+
+.btn-update-cart {
+  @extend .btn;
+  @extend .btn-default;
+}
+
+.btn-checkout {
+  @extend .btn;
+  @extend .btn-primary;
+}
+// This file is purely for this one liquid settings so that it is placed right at the bottom of our stylesheet.
+{% unless settings.scss_overrides == blank %}{{ settings.scss_overrides }}{% endunless %}

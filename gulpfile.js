@@ -70,11 +70,38 @@ gulp.task('build', ['js', 'sass', 'settings', 'assets', 'zip']);
   Tasks - This is where the heavy lifting is done
 */
 
+
 // SASS_CONCAT: Pull our scss files together and move them into the themes assets
+// also copy the master styles.scss.liquid into assets
+
+// sass:
+// - styles.scss.liquid -> copy
+//  - _base_pre.scss -> concat
+//  - _custom_pre.scss.liquid -> lives in assets
+//  - _bootstrap.scss -> concat
+//  - _base_post.scss -> concat
+//  - _custom_post.scss.liquid -> lives in assets
 gulp.task('sass_concat', function () {
-  var paths = new SassImport('./src/scss/styles.scss');
-  return gulp.src(paths)
-    .pipe(concat('styles.scss.liquid'))
+  // Pre base
+  var pre_base = new SassImport('./src/scss/base_pre.scss.liquid');
+  gulp.src(pre_base)
+    .pipe(concat('_base_pre.scss.liquid'))
+    .pipe(gulp.dest('./theme/assets/'));
+  
+  // Post base
+  var post_base = new SassImport('./src/scss/base_post.scss.liquid');
+  gulp.src(post_base)
+    .pipe(concat('_base_post.scss.liquid'))
+    .pipe(gulp.dest('./theme/assets/'));
+  
+  // Bootstrap
+  var bootstrap = new SassImport('./bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss');
+  gulp.src(bootstrap)
+    .pipe(concat('_bootstrap.scss'))
+    .pipe(gulp.dest('./theme/assets/'));
+    
+  // Copy styles to assets
+  return gulp.src('./src/scss/styles.scss.liquid')
     .pipe(gulp.dest('./theme/assets/'));
 });
 
