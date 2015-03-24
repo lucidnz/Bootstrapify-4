@@ -165,9 +165,8 @@ gulp.task('shopify_theme_settings', function () {
     'collections',
     'products',
     'footer',
-    //'homepage_featured_collections',
-    //'homepage_featured_products',
-    //'homepage_page_content',
+    'social',
+    'newsletter',
     'advanced'
   ];
   

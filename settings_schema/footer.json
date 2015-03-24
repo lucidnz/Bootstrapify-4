@@ -2,8 +2,144 @@
   "name": "Footer",
   "settings": [
     {
+      "type": "paragraph",
+      "content": "The footer can have upto four columns. Setting cols 1 and 2 but leaving 3 and 4 will result in a 2 col footer [TODO: better description]"
+    },
+    {
       "type": "header",
-      "content": "Moose"
+      "content": "Column 1"
+    },
+    {
+      "label": "Custom text",
+      "id": "footer_col_1_text",
+      "type": "textarea",
+      "info": "You may use html here"
+    },
+    {
+      "label": "Footer linklist",
+      "id": "footer_col_1_linklist",
+      "type": "link_list"
+    },
+    {
+      "label": "Blog list",
+      "id": "footer_col_1_blog",
+      "type": "blog"
+    },
+    {
+      "label": "Show social icons",
+      "id": "footer_col_1_social",
+      "type": "checkbox",
+      "default": false,
+      "info": "Your social settings can be managed under the social area above."
+    },
+    {
+      "label": "Show newsletter sign up form",
+      "id": "footer_col_1_newsletter",
+      "type": "checkbox",
+      "default": false,
+      "info": "Your newsletter sign up form settings can be managed under the newsletter area above."
+    },
+    {
+      "type": "header",
+      "content": "Column 2"
+    },
+    {
+      "label": "Custom text",
+      "id": "footer_col_2_text",
+      "type": "textarea",
+      "info": "You may use html here"
+    },
+    {
+      "label": "Footer linklist",
+      "id": "footer_col_2_linklist",
+      "type": "link_list"
+    },
+    {
+      "label": "Blog list",
+      "id": "footer_col_2_blog",
+      "type": "blog"
+    },
+    {
+      "label": "Show social icons",
+      "id": "footer_col_2_social",
+      "type": "checkbox",
+      "default": false,
+      "info": "Your social settings can be managed under the social area above."
+    },
+    {
+      "label": "Show newsletter sign up form",
+      "id": "footer_col_2_newsletter",
+      "type": "checkbox",
+      "default": false,
+      "info": "Your newsletter sign up form settings can be managed under the newsletter area above."
+    },
+    {
+      "type": "header",
+      "content": "Column 3"
+    },
+    {
+      "label": "Custom text",
+      "id": "footer_col_3_text",
+      "type": "textarea",
+      "info": "You may use html here"
+    },
+    {
+      "label": "Footer linklist",
+      "id": "footer_col_3_linklist",
+      "type": "link_list"
+    },
+    {
+      "label": "Blog list",
+      "id": "footer_col_3_blog",
+      "type": "blog"
+    },
+    {
+      "label": "Show social icons",
+      "id": "footer_col_3_social",
+      "type": "checkbox",
+      "default": false,
+      "info": "Your social settings can be managed under the social area above."
+    },
+    {
+      "label": "Show newsletter sign up form",
+      "id": "footer_col_3_newsletter",
+      "type": "checkbox",
+      "default": false,
+      "info": "Your newsletter sign up form settings can be managed under the newsletter area above."
+    },
+    {
+      "type": "header",
+      "content": "Column 4"
+    },
+    {
+      "label": "Custom text",
+      "id": "footer_col_4_text",
+      "type": "textarea",
+      "info": "You may use html here"
+    },
+    {
+      "label": "Footer linklist",
+      "id": "footer_col_4_linklist",
+      "type": "link_list"
+    },
+    {
+      "label": "Blog list",
+      "id": "footer_col_4_blog",
+      "type": "blog"
+    },
+    {
+      "label": "Show social icons",
+      "id": "footer_col_4_social",
+      "type": "checkbox",
+      "default": false,
+      "info": "Your social settings can be managed under the social area above."
+    },
+    {
+      "label": "Show newsletter sign up form",
+      "id": "footer_col_4_newsletter",
+      "type": "checkbox",
+      "default": false,
+      "info": "Your newsletter sign up form settings can be managed under the newsletter area above."
     }
   ]
 }

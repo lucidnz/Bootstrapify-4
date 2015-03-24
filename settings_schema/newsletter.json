@@ -1,0 +1,9 @@
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Newsletter"
+    }
+  ]
+}
