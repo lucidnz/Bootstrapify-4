@@ -1,10 +1,56 @@
-<section>
+{% comment %}
+  Loop the footer settings and check if we have content for each col.
+  If we do then build up that content and display it
+{% endcomment %}
+
+{% capture footer_content %}{% endcapture %}
+{% assign col_count = 0 %}
+
+{% for i in (1..4) %}
+  
+  {% capture footer_col_content %}{% endcapture %}
+  {% assign footer_col = 'footer_col_' | append: forloop.index %}
+  {% assign footer_col_text_setting = footer_col | append: '_text' %}
+  {% assign footer_col_blog_setting = footer_col | append: '_blog' %}
+  {% assign footer_col_social_setting = footer_col | append: '_social' %}
+  {% assign footer_col_linklist_setting = footer_col | append: '_linklist' %}
+  {% assign footer_col_newsletter_setting = footer_col | append: '_newsletter' %}
+  {% assign footer_col_text = setting[footer_col_text_setting] %}
+  {% assign footer_col_blog = setting[footer_col_blog_setting] %}
+  {% assign footer_col_social = setting[footer_col_social_setting] %}
+  {% assign footer_col_linklist = setting[footer_col_linklist_setting] %}
+  {% assign footer_col_newsletter = setting[footer_col_newsletter_setting] %}
+  
+  {% if footer_col_text != blank or footer_col_blog.articles != blank or footer_col_linklist.links != blank or footer_col_social or footer_col_newsletter %}
+    {% comment %}
+      We have footer content so collect it
+    {% endcomment %}
+  
+    
+    
+  
+  
+    {% assign col_count = col_count | plus: 1 %}
+  
+    {% capture footer_content %}
+      {{ footer_content }}
+      <div class="footer-col-{{ col_count }}">
+        {{ footer_col_content }}
+      </div>
+    {% endcapture %}
+  {% endif %}
+  
+{% endfor %}
+
+{% unless footer_content == blank %}
+<section class="footer-content" data-col-count="{{ col_count }}">
   <div class="sheet">
     <div class="sheet-content">
-      
+      {{ footer_content }}
     </div>
   </div>
 </section>
+{% endunless %}
 
 <section class="site-credits">
   <p>
