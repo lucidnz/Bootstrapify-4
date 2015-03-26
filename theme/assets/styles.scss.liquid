@@ -8297,11 +8297,17 @@ h6 {
 }
 
 .article-list {
-  @extend .list-unstyled;
+  @extend .nav;
+  > li > a {
+    padding-left: 0;
+  }
   a:hover,
   a:active,
   a:focus {
     text-decoration: none;
+  }
+  h5 {
+    margin-top: 0;
   }
   .article-list-meta {
     @extend .small;
