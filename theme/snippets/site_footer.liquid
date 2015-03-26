@@ -42,7 +42,7 @@
     {% if footer_col_blog.articles != blank %}
       {% capture footer_col_content %}
         {{ footer_col_content }}
-        <div class="footer-blog">{{ include 'homepage_sub_blog' with footer_col_blog }}</div>
+        <div class="footer-blog">{% include 'homepage_sub_blog' with footer_col_blog %}</div>
       {% endcapture %}
     {% endif %}
     
@@ -50,10 +50,13 @@
       {% capture footer_col_content %}
         {{ footer_col_content }}
         <div class="footer-linklist">
+          <h4>{{ footer_col_linklist.title }}</h4>
           {% comment %}
-            nav list accepts the string name of the link_list, not the link_list object
+            Nav list accepts the string name of the link_list, not the link_list object
+            We also disable dropdowns here
           {% endcomment %}
-          {{ include 'nav_list' with footer_col_linklist_setting }}
+          {% assign nav_list_items = 'hide_dropdowns' %}
+          {% include 'nav_list' with footer_col_linklist_setting %}
         </div>
       {% endcapture %}
     {% endif %}
@@ -61,14 +64,14 @@
     {% if footer_col_social %}
       {% capture footer_col_content %}
         {{ footer_col_content }}
-        <div class="footer-social">{{ include 'site_social_links' }}</div>
+        <div class="footer-social">{% include 'site_social_links' %}</div>
       {% endcapture %}
     {% endif %}
     
     {% if footer_col_newsletter %}
       {% capture footer_col_content %}
         {{ footer_col_content }}
-        <div class="footer-newsletter">{{ include 'site_newsletter_form' }}</div>
+        <div class="footer-newsletter">{% include 'site_newsletter_form' %}</div>
       {% endcapture %}
     {% endif %}
   

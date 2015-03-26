@@ -14,7 +14,7 @@
           Menu
         </button>
         
-        {% assign show = 'cart' %}
+        {% assign nav_list_items = 'cart' %}
         {% include 'nav_list' %}
       </div>
       
@@ -23,7 +23,7 @@
 
         {% unless settings.secondary_menu_linklist == blank %} {% include 'nav_list' with settings.secondary_menu_linklist %} {% endunless %}
 
-        {% assign show = 'accounts,search' %}
+        {% assign nav_list_items = 'accounts,search' %}
         {% include 'nav_list' with settings.tertiary_menu_linklist %}
       </div>
       
@@ -41,7 +41,7 @@
         {% endunless %}
         
         <nav class="tertiary-nav">
-          {% assign show = 'accounts,cart,search' %}
+          {% assign nav_list_items = 'accounts,cart,search' %}
           {% include 'nav_list' with settings.tertiary_menu_linklist %}
         </nav>
       </div>

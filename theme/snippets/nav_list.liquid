@@ -1,7 +1,19 @@
 <ul class="nav">
+  {% comment %}
+    Disable dropdowns if 
+  {% endcomment %}
+  {% assign show_dropdowns = true %}
+  {% if nav_list_items contains 'hide_dropdowns' %}
+    {% assign show_dropdowns = false %}
+  {% endif %}
+  
+  {% comment %}
+    Create nav links from our linklist
+  {% endcomment %}
+  
   {% for link in linklists[nav_list].links %}
     {% assign child_list_handle = link.handle %}
-    {% if linklists[child_list_handle].links != blank %}
+    {% if linklists[child_list_handle].links != blank and show_dropdowns %}
       <li class="dropdown">
         <a class="dropdown-toggle" href="{{ link.url }}" data-toggle="dropdown">{{ link.title }} <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
@@ -18,10 +30,10 @@
   {% comment %}
     Show extra nav list items i.e. accounts, cart, search
     This is defined by a comma separated list given to the show var outside this snippet
-    e.g. assign show = 'accounts,cart,search'
+    e.g. assign nav_list_items = 'accounts,cart,search'
   {% endcomment %}
   
-  {% assign extra_items = show | split: ',' %}
+  {% assign extra_items = nav_list_items | split: ',' %}
   {% for item in extra_items %}
     {% case item %}
     {% when 'accounts' %}
@@ -49,7 +61,5 @@
   {% endfor %}
 </ul>
 
-
-
-{% comment %} unset show flag {% endcomment %}
-{% assign show = '' %}
+{% comment %} unset nav_list_items {% endcomment %}
+{% assign nav_list_items = '' %}
