@@ -67,6 +67,34 @@ footer {
   .sheet-content {
     @include make-row();
   }
+
+  [data-col-count="0"] {
+    display: none;
+  }
+  
+  [data-col-count="1"] {
+    [class*="footer-col"] {
+      @include make-sm-column(12);
+    }
+  }
+  
+  [data-col-count="2"] {
+    [class*="footer-col"] {
+      @include make-sm-column(6);
+    }
+  }
+  
+  [data-col-count="3"] {
+    [class*="footer-col"] {
+      @include make-sm-column(4);
+    }
+  }
+  
+  [data-col-count="4"] {
+    [class*="footer-col"] {
+      @include make-sm-column(3);
+    }
+  }
   
   .site-credits {
     text-align: center;

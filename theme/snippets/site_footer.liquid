@@ -4,53 +4,105 @@
 {% endcomment %}
 
 {% capture footer_content %}{% endcapture %}
-{% assign col_count = 0 %}
+{% assign max_col_count = 0 %}
 
 {% for i in (1..4) %}
   
   {% capture footer_col_content %}{% endcapture %}
   {% assign footer_col = 'footer_col_' | append: forloop.index %}
-  {% assign footer_col_text_setting = footer_col | append: '_text' %}
-  {% assign footer_col_blog_setting = footer_col | append: '_blog' %}
-  {% assign footer_col_social_setting = footer_col | append: '_social' %}
-  {% assign footer_col_linklist_setting = footer_col | append: '_linklist' %}
-  {% assign footer_col_newsletter_setting = footer_col | append: '_newsletter' %}
-  {% assign footer_col_text = setting[footer_col_text_setting] %}
-  {% assign footer_col_blog = setting[footer_col_blog_setting] %}
-  {% assign footer_col_social = setting[footer_col_social_setting] %}
-  {% assign footer_col_linklist = setting[footer_col_linklist_setting] %}
-  {% assign footer_col_newsletter = setting[footer_col_newsletter_setting] %}
+  
+  {% assign footer_col_text_key = footer_col | append: '_text' %}
+  {% assign footer_col_text = settings[footer_col_text_key] %}
+  
+  {% assign footer_col_blog_key = footer_col | append: '_blog' %}
+  {% assign footer_col_blog_setting = settings[footer_col_blog_key] %}
+  {% assign footer_col_blog = blogs[footer_col_blog_setting] %}
+  
+  {% assign footer_col_linklist_key = footer_col | append: '_linklist' %}
+  {% assign footer_col_linklist_setting = settings[footer_col_linklist_key] %}
+  {% assign footer_col_linklist = linklists[footer_col_linklist_setting] %}
+  
+  {% assign footer_col_social_key = footer_col | append: '_social' %}
+  {% assign footer_col_social = settings[footer_col_social_key] %}
+  
+  {% assign footer_col_newsletter_key = footer_col | append: '_newsletter' %}
+  {% assign footer_col_newsletter = settings[footer_col_newsletter_key] %}
   
   {% if footer_col_text != blank or footer_col_blog.articles != blank or footer_col_linklist.links != blank or footer_col_social or footer_col_newsletter %}
     {% comment %}
       We have footer content so collect it
     {% endcomment %}
   
+    {% if footer_col_text != blank %}
+      {% capture footer_col_content %}
+        <div class="footer-text">{{ footer_col_text }}</div>
+      {% endcapture %}
+    {% endif %}
     
-    
-  
-  
-    {% assign col_count = col_count | plus: 1 %}
-  
-    {% capture footer_content %}
-      {{ footer_content }}
-      <div class="footer-col-{{ col_count }}">
+    {% if footer_col_blog.articles != blank %}
+      {% capture footer_col_content %}
         {{ footer_col_content }}
-      </div>
-    {% endcapture %}
-  {% endif %}
+        <div class="footer-blog">{{ include 'homepage_sub_blog' with footer_col_blog }}</div>
+      {% endcapture %}
+    {% endif %}
+    
+    {% if footer_col_linklist.links != blank %}
+      {% capture footer_col_content %}
+        {{ footer_col_content }}
+        <div class="footer-linklist">
+          {% comment %}
+            nav list accepts the string name of the link_list, not the link_list object
+          {% endcomment %}
+          {{ include 'nav_list' with footer_col_linklist_setting }}
+        </div>
+      {% endcapture %}
+    {% endif %}
+    
+    {% if footer_col_social %}
+      {% capture footer_col_content %}
+        {{ footer_col_content }}
+        <div class="footer-social">{{ include 'site_social_links' }}</div>
+      {% endcapture %}
+    {% endif %}
+    
+    {% if footer_col_newsletter %}
+      {% capture footer_col_content %}
+        {{ footer_col_content }}
+        <div class="footer-newsletter">{{ include 'site_newsletter_form' }}</div>
+      {% endcapture %}
+    {% endif %}
   
+    {% assign max_col_count = forloop.index %}
+  {% endif %}
+
+  {% comment %}
+    Capture each col weather it has content or not so we can include empty cols if they are in between ones with content.
+  {% endcomment %}
+  
+  {% capture footer_content %}
+    {% unless footer_content == blank %}{{ footer_content }}[SPLIT]{% endunless %}
+    <div class="footer-col-{{ forloop.index }}">
+      {{ footer_col_content }}
+    </div>
+  {% endcapture %}
 {% endfor %}
 
-{% unless footer_content == blank %}
-<section class="footer-content" data-col-count="{{ col_count }}">
+{% comment %}
+  Output col up to the max col so that we get blank ones if they exist in between ones with content
+  but not if they are blank _after_ the content
+{% endcomment %}
+{% if max_col_count > 0 %}
+<section class="footer-content" data-col-count="{{ max_col_count }}">
   <div class="sheet">
     <div class="sheet-content">
-      {{ footer_content }}
+      {% assign footer_contents = footer_content | split: '[SPLIT]' %}
+      {% for i in (1..max_col_count) %}
+        {{ footer_contents[forloop.index0] }}
+      {% endfor %}
     </div>
   </div>
 </section>
-{% endunless %}
+{% endif %}
 
 <section class="site-credits">
   <p>
