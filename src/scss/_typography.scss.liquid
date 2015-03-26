@@ -83,3 +83,18 @@ h6 {
 .cart-details {
   text-align: right;
 }
+
+.article-list {
+  @extend .list-unstyled;
+  a:hover,
+  a:active,
+  a:focus {
+    text-decoration: none;
+  }
+  .article-list-meta {
+    @extend .small;
+    .separator {
+      margin: 0 $grid-gutter-width / 8;
+    }
+  }
+}

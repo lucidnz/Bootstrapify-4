@@ -1,0 +1,27 @@
+<h4>{{ site_blog_list.title }}</h4>
+
+<ul class="article-list">
+{% for a in site_blog_list.articles %}
+  <li>
+    <a href="{{ a.url }}">
+      <h5>{{ a.title }}</h5>
+      <div class="article-list-meta">
+        <span class="article-author">
+          {{ 'blog.article_list.author' | t: author: a.author }}
+        </span>
+        <span class="separator">{{ 'blog.article_list.separator' | t }}</span>
+        <span class="article-published-date">
+          {% capture published_at %}{{ a.published_at | date: format: 'article_short' }}{% endcapture %}
+          {{ 'blog.article_list.published_date' | t: date: published_at }}
+        </span>
+        {% if a.comments_enabled? %}
+        <span class="separator">{{ 'blog.article_list.separator' | t }}</span>
+        <span class="article-comments">
+          <span class="fa fa-comment"></span> {{ 'blog.article_list.comments' | t: comments_count: a.comments_count }}
+        </span>
+        {% endif %}
+      </div>
+    </a>
+  </li>
+{% endfor %}
+</ul>

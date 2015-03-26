@@ -42,7 +42,7 @@
     {% if footer_col_blog.articles != blank %}
       {% capture footer_col_content %}
         {{ footer_col_content }}
-        <div class="footer-blog">{% include 'homepage_sub_blog' with footer_col_blog %}</div>
+        <div class="footer-blog">{% include 'site_blog_list' with footer_col_blog %}</div>
       {% endcapture %}
     {% endif %}
     

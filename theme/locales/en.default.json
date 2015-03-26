@@ -88,6 +88,14 @@
       "post_success" : "Thank you for your enquiry. We will be in contact&nbsp;shortly."
     }
   },
+  "blog" : {
+    "article_list" : {
+      "published_date" : "{{ date }}",
+      "author" : "By {{ author }}",
+      "comments" : "{{ comments_count }} comments",
+      "separator" : "|"
+    }
+  },
   "search" : {
     "search_form" : {
       "field_placeholder" : "Search",
@@ -103,5 +111,9 @@
       "page_title" : "404 - Page not found",
       "not_found_message_html" : "Whoops! We couldn't find that&nbsp;page.<br>Don't worry though, if you <a href='/'>head back to the homepage</a> we're sure you'll find what you're looking&nbsp;for."
     }
+  },
+  "date_formats": {
+    "article_short": "%-d %b %Y",
+    "article_long": "%a, %-d %B %Y"
   }
 }
