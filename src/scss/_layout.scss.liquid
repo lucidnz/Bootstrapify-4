@@ -14,6 +14,25 @@ body {
  
 .site-content { height: 100%; }
 
+/* Pass media queries to JS: https://adactio.com/journal/5429 */
+body:after {
+  content: 'xs';
+  display: block;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  margin-top: -1.5em;
+  @media (min-width: $screen-sm-min) {
+    content: 'sm';
+  }
+  @media (min-width: $screen-md-min) {
+    content: 'md';
+  }
+  @media (min-width: $screen-lg-min) {
+    content: 'lg';
+  }
+}
+
 /* Grids and Layouts */
 
 img {
@@ -72,27 +91,11 @@ footer {
     display: none;
   }
   
-  [data-col-count="1"] {
-    [class*="footer-col"] {
-      @include make-sm-column(12);
-    }
-  }
-  
-  [data-col-count="2"] {
-    [class*="footer-col"] {
-      @include make-sm-column(6);
-    }
-  }
-  
-  [data-col-count="3"] {
-    [class*="footer-col"] {
-      @include make-sm-column(4);
-    }
-  }
-  
-  [data-col-count="4"] {
-    [class*="footer-col"] {
-      @include make-sm-column(3);
+  @for $i from 1 through 4 {
+    [data-col-count="#{$i}"] {
+      [class*="footer-col"] {
+        @include make-sm-column(12 / $i);
+      }
     }
   }
   
@@ -144,7 +147,7 @@ footer {
 }
 
 // all collection templates
-[class*="collection"] {
+body[class*="collection"] {
   .sheet-content {
     @include make-row();
   }
@@ -170,19 +173,78 @@ footer {
 }
 
 .collection-lookbook {
-  .products-wrap {
+  // we need to undo the sticky footer to get this to work properlly because the images are hiddne off the page
+  display: block;
+  .site-content, .site-footer {
+    display: block;
+    height: auto;
+  }
+  
+  // Image scroller
+  .js & .products-wrap {
+    // make the products go out to the edge of the page but hide them
     width: 100%;
+    overflow: hidden;
+    position: relative;
+    opacity: 0;
     
-    overflow: scroll; //hidden; // javascript scroll through images
+    background-color: lighten($brand-primary, 30%);
   
-    .products {
-      width: 15000px; // actually worked out by the js
-    }
-    
     .group-item-wrap {
-      max-width: 500px; // can we be more integelent about this ?
+      background-color: #fff; // TODO: use site background color
+      transition: margin 1s ease;
+      @include make-xs-column(3);
+      
+      width: $lookbook-item-max-width-xs;
+      @media (orientation: portrait) {
+        width: $lookbook-item-max-width-sm;
+      }
+      @media (min-width: $screen-sm-min) {
+        width: $lookbook-item-max-width-sm;
+      }
+      @media (min-width: $screen-md-min) {
+        width: $lookbook-item-max-width-md;
+      }
+      @media (min-width: $screen-lg-min) {
+        width: $lookbook-item-max-width-lg;
+      }
     }
   
+    .lookbook-controls {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    [data-gallery-direction] {
+      position: absolute;
+      font-size: 2.75em;
+      color: rgba(255,255,255,.5);
+      text-shadow: 0px 1px 4px rgba(0,0,0,.3);
+      .no-touch &:hover {
+        color: #fff;
+      }
+    }
+    
+    [data-gallery-direction] {
+      top: 50%;
+      transform: translateY(-50%);
+      &.disabled, &.disabled:hover {
+        color: rgba(0,0,0,.3);
+        text-shadow: none;
+        cursor: not-allowed;
+      }
+    }
+    
+    [data-gallery-direction="left"] {
+      left: 2.5%;
+    }
+    
+    [data-gallery-direction="right"] {
+      right: 2.5%;
+    }
   }
 }
 

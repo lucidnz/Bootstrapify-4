@@ -2,4 +2,32 @@
   {% comment %}
     TODO: sort by, filter by, view switcher
   {% endcomment %}
+  
+  
+  
+  
+  
+  
+  
+  
+  {% comment %}
+    Collection template switcher
+    
+  {% endcomment %}
+  
+  {% assign collection_templates = 'grid,list,lookbook' | split: ',' %}
+  {% assign enabled_templates = '' %}
+  {% for collection_template in collection_templates %}
+    {% assign setting_key = 'collection_template_' | append: collection_template %}
+    {% if settings[setting_key] %}
+      {% assign enabled_templates = enabled_templates | append: collection_template | append: ',' %}
+    {% endif %}
+  {% endfor %}
+  
+  {% unless enabled_templates == blank %}
+  {% endunless %}
+  <div class="collection-template-switcher">
+    [{{ template }}] [{{ handle }}]
+  </div>
+  
 </div>

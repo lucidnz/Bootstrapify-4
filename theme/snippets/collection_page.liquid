@@ -1,3 +1,7 @@
+{% comment %}
+  TODO: pagination
+{% endcomment%}
+
 <main role="main">
   <div class="sheet">
     <header class="sheet-header">
@@ -14,6 +18,13 @@
         {% include 'product_item' %}
       {% endfor %}
     </section>
+    
+    {% if template contains 'lookbook' %}
+      <div class="lookbook-controls">
+        <a href="#" data-gallery-direction="left" data-scroll-to=""><span class="fa fa-chevron-left"></span></a>
+        <a href="#" data-gallery-direction="right" data-scroll-to=""><span class="fa fa-chevron-right"></span></a>
+      </div>
+    {% endif %}
   {% else %}
     <section class="sheet-content">
       <div class="collection-message">

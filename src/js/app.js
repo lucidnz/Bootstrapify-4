@@ -2,8 +2,9 @@
   Main app for Bootstrapify
 */
 
-Bsify = require('./bsify.js');
-CartJS = require('shopify-cartjs');
+var Bsify = require('./bsify.js');
+var CartJS = require('shopify-cartjs');
+var Lookbook = require('./bsify.lookbook_gallery.js');
 
 var App = function () {
   // init CartJS
@@ -35,6 +36,19 @@ var App = function () {
   // init event listeners for banner
   Bsify.Banner.init();
   
+  // init lookbook gallery
+  if ($('.collection-lookbook').length > 0) {
+    var lookbook = new Lookbook({
+      gallery_wrapper: '.collection-lookbook .products.group',
+      item_wrapper: '.group-item-wrap',
+      controls_wrapper: '.lookbook-controls'
+    });
+    
+    lookbook.on_loaded = function () {
+      var item_height = $('.group-item-image').height();
+      $('.lookbook-controls').height(item_height);
+    };
+  }
 };
 
 // initiate the app and expose it to the browser

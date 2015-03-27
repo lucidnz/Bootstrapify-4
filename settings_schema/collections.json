@@ -24,6 +24,32 @@
       "id": "show_collection_product_count",
       "type": "checkbox",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Collection Template Switcher"
+    },
+    {
+      "type": "paragraph",
+      "content": "You can allow users to switch between different collection templates while viewing your site. To enable this you must have at least one template selected other than your default template."
+    },
+    {
+      "label": "Grid view",
+      "id": "collection_template_grid",
+      "type": "checkbox",
+      "default": false
+    },
+    {
+      "label": "List view",
+      "id": "collection_template_list",
+      "type": "checkbox",
+      "default": false
+    },
+    {
+      "label": "Lookbook view",
+      "id": "collection_template_lookbook",
+      "type": "checkbox",
+      "default": false
     }
   ]
 }
