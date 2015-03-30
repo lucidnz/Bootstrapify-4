@@ -13,7 +13,7 @@ Thumbnails.init = function () {
     if (ratio === 'square' || ratio === 'landscape' || ratio === 'portrait') {
       opts.format = ratio;
     } else {
-      opts.ratio = ratio
+      opts.ratio = ratio;
     }
     
     $(Bsify.thumbnail_selectors.image_wrapper).uniform_thumbnails(opts).on('ut_complete', function(){

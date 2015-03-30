@@ -14,16 +14,18 @@
           Menu
         </button>
         
-        {% assign navbar_nav = true %}
         {% assign nav_list_items = 'cart' %}
         {% include 'nav_list' %}
       </div>
       
       <div class="navigation collapse" id="navigation-collapse">
+        {% assign navbar_nav = true %}
         {% unless settings.main_menu_linklist == blank %} {% include 'nav_list' with settings.main_menu_linklist %} {% endunless %}
 
+        {% assign navbar_nav = true %}
         {% unless settings.secondary_menu_linklist == blank %} {% include 'nav_list' with settings.secondary_menu_linklist %} {% endunless %}
 
+        {% assign navbar_nav = true %}
         {% assign nav_list_items = 'accounts,search' %}
         {% include 'nav_list' with settings.tertiary_menu_linklist %}
       </div>

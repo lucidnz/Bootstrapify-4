@@ -7914,20 +7914,22 @@ button.close {
 }
 
 /* Sticky footer */
-html,
-body { height: 100%; }
- 
-body {
-  display: table;
-  width: 100%;
+@media (min-width: $grid-float-breakpoint) {
+  html,
+  body { height: 100%; }
+   
+  body {
+    display: table;
+    width: 100%;
+  }
+   
+  .site-content, .site-footer {
+    display: table-row;
+    height: 1px;
+  }
+   
+  .site-content { height: 100%; }
 }
- 
-.site-content, .site-footer {
-  display: table-row;
-  height: 1px;
-}
- 
-.site-content { height: 100%; }
 
 /* Pass media queries to JS: https://adactio.com/journal/5429 */
 body:after {
@@ -7963,6 +7965,7 @@ img {
 }
 
 .group-item-wrap {
+  @include make-xs-column(12);
   @include make-sm-column(3);
 }
 
@@ -8410,11 +8413,13 @@ h6 {
 }
 /* General styles for all navigations */
 
+/*
 [class*="navigation"] {
   .nav {
     @extend .navbar-nav;
   }
 }
+*/
 
 .nav-inline {
   @extend .list-inline;
