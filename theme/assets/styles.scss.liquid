@@ -7913,7 +7913,10 @@ button.close {
   @include responsive-invisibility('.hidden-print');
 }
 
-/* Sticky footer */
+/*
+  Sticky footer
+  Display table breaks full width content so don't use it on mobiles
+*/
 @media (min-width: $grid-float-breakpoint) {
   html,
   body { height: 100%; }
@@ -8412,14 +8415,6 @@ h6 {
   }
 }
 /* General styles for all navigations */
-
-/*
-[class*="navigation"] {
-  .nav {
-    @extend .navbar-nav;
-  }
-}
-*/
 
 .nav-inline {
   @extend .list-inline;
