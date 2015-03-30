@@ -1,0 +1,41 @@
+{
+  "name": "Thumbnails",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The thumbnails settings effects both the product and collections thumbs. The 'Crop', 'Ratio' & 'Alignment' settings will only be used if 'Constrain images to the same size' is enabled."
+    },
+    {
+      "label": "Constrain images to the same size",
+      "id": "thumbnail_images_constrained",
+      "type": "checkbox",
+      "default": false,
+      "info": "Use this if you have uploaded different sized images across your products and want them to look consistent"
+    },
+    {
+      "label": "Crop images to fit thumbnail container",
+      "id": "thumbnail_images_cropped",
+      "type": "checkbox",
+      "default": false,
+      "info": "If left unchecked images will be scaled to fit inside their thumbnail container"
+    },
+    {
+      "label": "Thumbnail ratio",
+      "id": "thumbnail_images_ratio",
+      "type": "text",
+      "default": "1:1",
+      "info": "Options are either 'square', 'landscape', 'portrait', or a ratio written in the format 'w:h' (i.e. 1:1 would be sqaure, 4:6 would be portrait)"
+    },
+    {
+      "label": "Thumbnail alignment",
+      "id": "thumbnail_images_alignment",
+      "type": "select",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "middle", "label": "Middle" },
+        { "value": "bottom", "label": "Bottom" }
+      ],
+      "default": "middle"
+    }
+  ]
+}    

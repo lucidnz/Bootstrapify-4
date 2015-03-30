@@ -242,6 +242,9 @@ $input-height-large:             (ceil($font-size-large * $line-height-large) + 
 //** Small `.form-control` height
 $input-height-small:             (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2) !default;
 
+//** `.form-group` margin
+$form-group-margin-bottom:       15px !default;
+
 $legend-color:                   $gray-dark !default;
 $legend-border-color:            #e5e5e5 !default;
 
@@ -301,7 +304,8 @@ $zindex-dropdown:          1000 !default;
 $zindex-popover:           1060 !default;
 $zindex-tooltip:           1070 !default;
 $zindex-navbar-fixed:      1030 !default;
-$zindex-modal:             1040 !default;
+$zindex-modal-background:  1040 !default;
+$zindex-modal:             1050 !default;
 
 
 //== Media queries breakpoints
@@ -2701,8 +2705,12 @@ th {
 .glyphicon-piggy-bank             { &:before { content: "\e225"; } }
 .glyphicon-scissors               { &:before { content: "\e226"; } }
 .glyphicon-bitcoin                { &:before { content: "\e227"; } }
+.glyphicon-btc                    { &:before { content: "\e227"; } }
+.glyphicon-xbt                    { &:before { content: "\e227"; } }
 .glyphicon-yen                    { &:before { content: "\00a5"; } }
+.glyphicon-jpy                    { &:before { content: "\00a5"; } }
 .glyphicon-ruble                  { &:before { content: "\20bd"; } }
+.glyphicon-rub                    { &:before { content: "\20bd"; } }
 .glyphicon-scale                  { &:before { content: "\e230"; } }
 .glyphicon-ice-lolly              { &:before { content: "\e231"; } }
 .glyphicon-ice-lolly-tasted       { &:before { content: "\e232"; } }
@@ -2886,6 +2894,17 @@ hr {
   }
 }
 
+
+// iOS "clickable elements" fix for role="button"
+//
+// Fixes "clickability" issue (and more generally, the firing of events such as focus as well)
+// for traditionally non-focusable elements with role="button"
+// see https://developer.mozilla.org/en-US/docs/Web/Events/click#Safari_Mobile
+// Upstream patch for normalize.css submitted: https://github.com/necolas/normalize.css/pull/379 - remove this fix once that is merged
+
+[role="button"] {
+  cursor: pointer;
+}
 //
 // Typography
 // --------------------------------------------------
@@ -3122,7 +3141,7 @@ abbr[data-original-title] {
 }
 .initialism {
   font-size: 90%;
-  text-transform: uppercase;
+  @extend .text-uppercase;
 }
 
 // Blockquotes
@@ -3718,9 +3737,13 @@ output {
   &[disabled],
   &[readonly],
   fieldset[disabled] & {
-    cursor: $cursor-disabled;
     background-color: $input-bg-disabled;
     opacity: 1; // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: $cursor-disabled;
   }
 
   // [converter] extracted textarea& to textarea.form-control
@@ -3777,7 +3800,7 @@ input[type="search"] {
 // horizontal forms, use the predefined grid classes.
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: $form-group-margin-bottom;
 }
 
 
@@ -3817,6 +3840,7 @@ input[type="search"] {
 // Radios and checkboxes on same line
 .radio-inline,
 .checkbox-inline {
+  position: relative;
   display: inline-block;
   padding-left: 20px;
   margin-bottom: 0;
@@ -3873,6 +3897,7 @@ input[type="checkbox"] {
   padding-bottom: ($padding-base-vertical + 1);
   // Remove default margin from `p`
   margin-bottom: 0;
+  min-height: ($line-height-computed + $font-size-base);
 
   &.input-lg,
   &.input-sm {
@@ -3900,6 +3925,7 @@ input[type="checkbox"] {
     padding: $padding-small-vertical $padding-small-horizontal;
     font-size: $font-size-small;
     line-height: $line-height-small;
+    min-height: ($line-height-computed + $font-size-small);
   }
 }
 
@@ -3913,6 +3939,7 @@ input[type="checkbox"] {
     padding: $padding-large-vertical $padding-large-horizontal;
     font-size: $font-size-large;
     line-height: $line-height-large;
+    min-height: ($line-height-computed + $font-size-large);
   }
 }
 
@@ -4326,9 +4353,8 @@ input[type="button"] {
 
 .collapse {
   display: none;
-  visibility: hidden;
 
-  &.in      { display: block; visibility: visible; }
+  &.in      { display: block; }
   // [converter] extracted tr&.in to tr.collapse.in
   // [converter] extracted tbody&.in to tbody.collapse.in
 }
@@ -4358,7 +4384,7 @@ tbody.collapse.in { display: table-row-group; }
   height: 0;
   margin-left: 2px;
   vertical-align: middle;
-  border-top:   $caret-width-base solid;
+  border-top:   $caret-width-base dashed;
   border-right: $caret-width-base solid transparent;
   border-left:  $caret-width-base solid transparent;
 }
@@ -5197,11 +5223,9 @@ tbody.collapse.in { display: table-row-group; }
 .tab-content {
   > .tab-pane {
     display: none;
-    visibility: hidden;
   }
   > .active {
     display: block;
-    visibility: visible;
   }
 }
 
@@ -5286,7 +5310,6 @@ tbody.collapse.in { display: table-row-group; }
 
     &.collapse {
       display: block !important;
-      visibility: visible !important;
       height: auto !important;
       padding-bottom: 0; // Override default setting
       overflow: visible !important;
@@ -6149,8 +6172,9 @@ a.label {
     position: relative;
     top: -1px;
   }
-  
-  .btn-xs & {
+
+  .btn-xs &,
+  .btn-group-xs > .btn & {
     top: 0;
     padding: 1px 5px;
   }
@@ -6163,15 +6187,15 @@ a.label {
     color: $badge-active-color;
     background-color: $badge-active-bg;
   }
-  
+
   .list-group-item > & {
     float: right;
   }
-  
+
   .list-group-item > & + & {
     margin-right: 5px;
   }
-  
+
   .nav-pills > li > a > & {
     margin-left: 3px;
   }
@@ -6202,7 +6226,7 @@ a.badge {
   .h1 {
     color: $jumbotron-heading-color;
   }
-  
+
   p {
     margin-bottom: ($jumbotron-padding / 2);
     font-size: $jumbotron-font-size;
@@ -6297,7 +6321,7 @@ a.thumbnail.active {
     // Specified for the h4 to prevent conflicts of changing $headings-color
     color: inherit;
   }
-  
+
   // Provide class for links that match alerts
   .alert-link {
     font-weight: $alert-link-font-weight;
@@ -6308,7 +6332,7 @@ a.thumbnail.active {
   > ul {
     margin-bottom: 0;
   }
-  
+
   > p + p {
     margin-top: 5px;
   }
@@ -6916,16 +6940,16 @@ a.list-group-item {
     width: 100%;
     border: 0;
   }
+}
 
-  // Modifier class for 16:9 aspect ratio
-  &.embed-responsive-16by9 {
-    padding-bottom: 56.25%;
-  }
+// Modifier class for 16:9 aspect ratio
+.embed-responsive-16by9 {
+  padding-bottom: 56.25%;
+}
 
-  // Modifier class for 4:3 aspect ratio
-  &.embed-responsive-4by3 {
-    padding-bottom: 75%;
-  }
+// Modifier class for 4:3 aspect ratio
+.embed-responsive-4by3 {
+  padding-bottom: 75%;
 }
 
 //
@@ -7059,10 +7083,12 @@ button.close {
 
 // Modal background
 .modal-backdrop {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
+  bottom: 0;
   left: 0;
+  z-index: $zindex-modal-background;
   background-color: $modal-backdrop-bg;
   // Fade for backdrop
   &.fade { @include opacity(0); }
@@ -7154,7 +7180,6 @@ button.close {
   position: absolute;
   z-index: $zindex-tooltip;
   display: block;
-  visibility: visible;
   // Reset font and text properties given new insertion method
   font-family: $font-family-base;
   font-size: $font-size-small;
@@ -7700,7 +7725,6 @@ button.close {
 
 .hidden {
   display: none !important;
-  visibility: hidden !important;
 }
 
 
@@ -8385,6 +8409,12 @@ h6 {
   }
 }
 /* General styles for all navigations */
+
+[class*="navigation"] {
+  .nav {
+    @extend .navbar-nav;
+  }
+}
 
 .nav-inline {
   @extend .list-inline;

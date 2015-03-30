@@ -33,6 +33,9 @@ var App = function () {
     Bsify.Cart.init();
   }
   
+  // load uniform thumbs and orderly
+  Bsify.Thumbnails.init();
+  
   // init event listeners for banner
   Bsify.Banner.init();
   
@@ -47,6 +50,8 @@ var App = function () {
     lookbook.on_loaded = function () {
       var item_height = $('.group-item-image').height();
       $('.lookbook-controls').height(item_height);
+      
+      Bsify.Thumbnails.orderly();
     };
   }
 };

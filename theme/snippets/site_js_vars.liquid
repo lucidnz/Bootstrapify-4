@@ -79,4 +79,20 @@
   // Time that any message created by the cart is visble for before being removed
   Bsify.message_timeout = 15000; // 15 secs
 
+  /*
+    Thumbnail settings
+    - You can override the Bsify.thumbnail_selectors object by calling it first inside the theme settings header custom code area.
+      It must conatin a selector for the thumbnail image wrapper and the details/caption wrapper
+  */
+  Bsify.thumbnail_settings = {
+    constrain_images: {{ settings.thumbnail_images_constrained | json }},
+    crop_images: {{ settings.thumbnail_images_cropped | json }},
+    image_ratio: "{{ settings.thumbnail_images_ratio }}",
+    image_alignment: "{{ settings.thumbnail_images_alignment }}"
+  };
+  Bsify.thumbnail_selectors = Bsify.thumbnail_selectors || {
+    image_wrapper: '.group-item-image:not(.collection-lookbook .group-item-image)',
+    details_wrapper: '.group-item-details'
+  };
+
 </script>

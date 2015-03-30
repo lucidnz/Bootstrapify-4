@@ -1,4 +1,4 @@
-<ul class="nav">
+<ul class="nav{% if navbar_nav %} navbar-nav{% endif %}">
   {% comment %}
     Disable dropdowns if 
   {% endcomment %}
@@ -63,3 +63,15 @@
 
 {% comment %} unset nav_list_items {% endcomment %}
 {% assign nav_list_items = '' %}
+
+{% comment %}
+  unset navbar_nav
+  
+  Why do we even have this?
+  Well, Bootstrap is horrible and your dropdown links will break on mobile if you do not specify this exact class on the ul
+  But we want to be smart and reuse our snippets in multiple places, even when the are not inside a navbar
+  So we have to do lame conditionals like this just to make it work.
+  
+  Thanks Bootstrap!
+{% endcomment %}
+{% assign navbar_nav = true %}

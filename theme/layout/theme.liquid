@@ -26,7 +26,6 @@
     {{ '//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css' | stylesheet_tag }}
 
     <!-- Second round of JS -->
-    {% include 'site_js_vars' %}
     <!-- Use up-to-date jQuery for modern browsers but fallback to 1.x for leagacy IE -->
     
     <!--[if !(lt IE 9)]><!-->
@@ -46,6 +45,7 @@
     <!-- Additional custom header code -->
       {{ settings.header_code }}
     {% endunless %}
+    {% include 'site_js_vars' %}
 
     {{ content_for_header }}
   </head>
