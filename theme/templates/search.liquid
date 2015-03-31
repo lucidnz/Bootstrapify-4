@@ -2,6 +2,25 @@
 {% unless search.terms == respond_js_secret_key %}
 
   <!-- Search markup here -->
+  
+<main role="main">
+  <div class="sheet">
+    <header class="sheet-header">
+      <h1>Search</h1>
+    </header>
+
+    <section class="sheet-content">
+      {% comment %}
+        TODO: Search templates
+      {% endcomment %}
+      
+      <p>Site search coming soon</p>
+      
+    </section>
+  </div>
+</main>
+
+{% include 'site_aside' %}
 
 {% else %}
   {% layout none %}
