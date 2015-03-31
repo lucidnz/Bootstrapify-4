@@ -1,44 +1,6 @@
 /*
-  Sticky footer
-  Display table breaks full width content so don't use it on mobiles
+  Base Layouts and Grids
 */
-@media (min-width: $grid-float-breakpoint) {
-  html,
-  body { height: 100%; }
-   
-  body {
-    display: table;
-    width: 100%;
-  }
-   
-  .site-content, .site-footer {
-    display: table-row;
-    height: 1px;
-  }
-   
-  .site-content { height: 100%; }
-}
-
-/* Pass media queries to JS: https://adactio.com/journal/5429 */
-body:after {
-  content: 'xs';
-  display: block;
-  visibility: hidden;
-  width: 0;
-  height: 0;
-  margin-top: -1.5em;
-  @media (min-width: $screen-sm-min) {
-    content: 'sm';
-  }
-  @media (min-width: $screen-md-min) {
-    content: 'md';
-  }
-  @media (min-width: $screen-lg-min) {
-    content: 'lg';
-  }
-}
-
-/* Grids and Layouts */
 
 img {
   @extend .img-responsive;
@@ -120,7 +82,9 @@ footer {
   }
 }
 
-/* Default page specific layouts */
+/*
+  Default page specific layouts
+*/
 
 .list-collections {
   .group-item-wrap {
@@ -179,7 +143,7 @@ body[class*="collection"] {
 }
 
 .collection-lookbook {
-  // we need to undo the sticky footer to get this to work properlly because the images are hiddne off the page
+  // we need to undo the sticky footer to get this to work properlly because the images are hidden off the page and display:table mucks things up
   display: block;
   .site-content, .site-footer {
     display: block;

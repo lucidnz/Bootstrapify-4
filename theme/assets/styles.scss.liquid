@@ -7915,7 +7915,9 @@ button.close {
 
 /*
   Sticky footer
-  Display table breaks full width content so don't use it on mobiles
+  Display table breaks full width content due to images without max-width:100%; so don't use it on mobiles
+  I know, you're asking 'whut?! why is this even a thing?' but there is some javascript thing involved
+  (*cough* uniformThumbs for constraining images *cough*)
 */
 @media (min-width: $grid-float-breakpoint) {
   html,
@@ -7934,7 +7936,11 @@ button.close {
   .site-content { height: 100%; }
 }
 
-/* Pass media queries to JS: https://adactio.com/journal/5429 */
+/*
+  Pass media queries to JS: https://adactio.com/journal/5429
+  We do this so we are using one consitant source for this value.
+  But also slightly tweaked because Chrome stopped letting us collect the value if the content was inside display:none;
+*/
 body:after {
   content: 'xs';
   display: block;
@@ -7953,7 +7959,10 @@ body:after {
   }
 }
 
-/* Grids and Layouts */
+
+/*
+  Base Layouts and Grids
+*/
 
 img {
   @extend .img-responsive;
@@ -8035,7 +8044,9 @@ footer {
   }
 }
 
-/* Default page specific layouts */
+/*
+  Default page specific layouts
+*/
 
 .list-collections {
   .group-item-wrap {
@@ -8094,7 +8105,7 @@ body[class*="collection"] {
 }
 
 .collection-lookbook {
-  // we need to undo the sticky footer to get this to work properlly because the images are hiddne off the page
+  // we need to undo the sticky footer to get this to work properlly because the images are hidden off the page and display:table mucks things up
   display: block;
   .site-content, .site-footer {
     display: block;
@@ -8697,7 +8708,6 @@ h6 {
           @include button-variant($slide-button-text-colour, $slide-button-bg-colour, $slide-button-border-colour);
         }
       }
-      
       
       .item {
         background-color: $slide-background-colour;

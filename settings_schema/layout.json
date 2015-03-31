@@ -18,17 +18,17 @@
     },
     {
       "type": "header",
-      "content": "Section Layout"
+      "content": "Site Header Layout"
     },
     {
-      "label": "Site header and navigation layout",
+      "label": "Select a header and navigation layout",
       "id": "header_layout",
       "type": "select",
       "options": [
         { "value": "header_centered", "label": "Centered" }
       ],
       "default": "header_centered",
-      "info": "Select the site header and navigation layout. You can see each option here [TODO: add link]"
+      "info": "You can see each option here [TODO: add link]"
     }
   ]
 }
