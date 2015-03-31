@@ -6,3 +6,32 @@
     display: inline-block;
   }
 }
+
+[data-cart-display] > span {
+  @extend .hidden-xs;
+}
+
+.collection-controls {
+  @extend .clearfix;
+}
+
+.collection-sort-by {
+  float: right;
+  margin-right: $grid-gutter-width;
+  button {
+    @extend .btn;
+    @extend .btn-default;
+  }
+}
+
+.collection-template-switcher {
+  float: right;
+  ul {
+    @extend .nav;
+    @extend .nav-inline;
+    & > li > a {
+      padding-left: $grid-gutter-width / 4;
+      padding-right: $grid-gutter-width / 4;
+    }
+  }
+}

@@ -27,6 +27,16 @@
     },
     {
       "type": "header",
+      "content": "Sort and filter"
+    },
+    {
+      "label": "Enable collections to be sorted",
+      "id": "show_collection_sort_by",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "type": "header",
       "content": "Collection Template Switcher"
     },
     {

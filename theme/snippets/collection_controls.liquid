@@ -1,11 +1,8 @@
 <div class="collection-controls">
   {% comment %}
-    TODO: sort by, filter by, view switcher
+    TODO: filter by tags
+    note: does filter_by url filter take into account sort order and view url params?
   {% endcomment %}
-  
-  
-  
-  
   
   
   
@@ -13,21 +10,96 @@
   {% comment %}
     Collection template switcher
     
+    Collect the:
+    - Default template
+    - Current template
+    - Enabled templates list
   {% endcomment %}
   
+  {% assign default_template = collection.template_suffix | default: 'grid' %}
+  
+  {% assign current_template = template | split: '.' | last %}
+  {% if current_template == 'collection' %}{% assign current_template = 'grid' %}{% endif %}
+  
   {% assign collection_templates = 'grid,list,lookbook' | split: ',' %}
+  
   {% assign enabled_templates = '' %}
   {% for collection_template in collection_templates %}
     {% assign setting_key = 'collection_template_' | append: collection_template %}
-    {% if settings[setting_key] %}
+    {% if settings[setting_key] or collection_template == default_template %}
       {% assign enabled_templates = enabled_templates | append: collection_template | append: ',' %}
     {% endif %}
   {% endfor %}
+  {% assign enabled_templates = enabled_templates | split: ',' %}
   
-  {% unless enabled_templates == blank %}
-  {% endunless %}
+  {% if enabled_templates.size > 1 %}
   <div class="collection-template-switcher">
-    [{{ template }}] [{{ handle }}]
+    <ul>
+    {% for t in enabled_templates %}
+      
+      {% case t %}
+      {% when 'grid' %}
+        {% assign t_icon = 'fa fa-lg fa-th-large' %}
+      {% when 'list' %}
+        {% assign t_icon = 'fa fa-lg fa-th-list' %}
+      {% when 'lookbook' %}
+        {% assign t_icon = 'fa fa-lg fa-book' %}
+      {% endcase %}
+      
+      {% comment %}
+        Set the url taking into account a sort order might currently be in use
+      {% endcomment %}
+      {% capture template_url %}{{ collection.url }}?{% unless collection.sort_by == blank %}sort_by={{ collection.sort_by }}&{% endunless %}{% endcapture %}
+      
+      <li{% if t == current_template %} class="active"{% endif %}><a href="{{ template_url }}view={{ t }}" title="{{ 'collections.collection_controls.switcher_title' | t: collection_title: collection.title, template_type: t }}"><span class="{{ t_icon }}"></span><span class="sr-only">{{ t }}</span></a></li>
+    {% endfor %}
+    </ul>
   </div>
+  {% endif %}
+  
+  
+  {% comment %}
+    Collection Sort By
+  {% endcomment %}
+  
+  {% if settings.show_collection_sort_by %}
+    <div class="collection-sort-by">
+      <div class="btn-group">
+        <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{{ 'collections.sorting.title' | t }} <span class="caret"></span></button>
+        
+        {% comment %}
+          Set the url taking into account another template might be currently in use
+        {% endcomment %}
+        {% capture sort_by_url %}{{ collection.url }}?{% if current_template != default_template %}view={{ current_template }}&{% endif %}{% endcapture %}
+        
+        {% assign current_sort_by = collection.sort_by | default: collection.default_sort_by %}
+        {% assign sort_orders = 'manual,best-selling,title-ascending,title-descending,price-ascending,price-descending,created-ascending,created-descending' | split: ',' %}
+        
+        <ul class="dropdown-menu" role="menu">
+        {% for so in sort_orders %}
+        
+          {% comment %}
+            Build the translations key from the current sort order string
+            Some keys don't match the sort order strings, mainly because we want to use nicer wording in the translation settings
+          {% endcomment %}
+          {% case so %}
+          {% when 'manual' %}
+            {% assign key = 'featured' %}
+          {% when 'created-ascending' %}
+            {% assign key = 'date_ascending' %}
+          {% when 'created-descending' %}
+            {% assign key = 'date_descending' %}
+          {% else %}
+            {% assign key = so | replace: '-','_' %}
+          {% endcase %}
+            
+          {% capture sort_by_translation_key %}collections.sorting.{{ key }}{% endcapture %}
+          
+          <li {% if current_sort_by == so %}class="active"{% endif %}><a href="{{ sort_by_url }}sort_by={{ so }}">{{ sort_by_translation_key | t }}</a></li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
   
 </div>

@@ -8,6 +8,20 @@
     "general": {
       "empty_message_html": "<p>There are no items in this collection. You could try viewing <a href='/collections/all'>all&nbsp;products</a> or <a href='/search'>searching&nbsp;the&nbsp;site</a>.</p>"
     },
+    "sorting": {
+      "title": "Sort by",
+      "featured": "Featured",
+      "best_selling": "Best Selling",
+      "title_ascending": "A-Z",
+      "title_descending": "Z-A",
+      "price_ascending": "Lowest Price",
+      "price_descending": "Highest Price",
+      "date_ascending": "Newest",
+      "date_descending": "Oldest"
+    },
+    "collection_controls": {
+      "switcher_title": "View {{ collection_title }} as {{ template_type }}"
+    },
     "list_collections" : {
       "title" : "All collections",
       "description" : "",
