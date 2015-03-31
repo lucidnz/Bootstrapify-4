@@ -8017,6 +8017,11 @@ footer {
     @include make-row();
   }
 
+  .footer-content,
+  .site-credits {
+    margin: $grid-gutter-width / 2 auto;
+  }
+
   [data-col-count="0"] {
     display: none;
   }
@@ -8037,9 +8042,10 @@ footer {
   
   .site-credits {
     text-align: center;
-    margin: $grid-gutter-width / 2 auto;
-    br {
-      @extend .visible-sm;
+    @media (min-width: $grid-float-breakpoint) {
+      br {
+        display: none;
+      }
     }
   }
 }
@@ -8119,8 +8125,6 @@ body[class*="collection"] {
     overflow: hidden;
     position: relative;
     opacity: 0;
-    
-    background-color: lighten($brand-primary, 30%);
   
     .group-item-wrap {
       background-color: #fff; // TODO: use site background color
