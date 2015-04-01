@@ -8290,16 +8290,52 @@ body[class*="collection"] {
     @include make-row();
   }
   
+  .cart-items,
+  .cart-details,
+  .cart-extras {
+    margin: $grid-gutter-width auto;
+  }
+  
   .cart-items {
-    @include make-md-column(9);
+    @include make-xs-column(12);
+    margin-top: 0;
   }
   
   .cart-details {
-    @include make-md-column(3);
+    @include make-sm-column(6);
+    @include make-md-column(4);
+    h3 {
+      margin-top: 0;
+      margin-bottom: $grid-gutter-width / 2;
+    }
+    .cart-shipping-note {
+      margin: ($grid-gutter-width / 2) auto;
+    }
   }
   
-  .cart-extras, .cart-message {
+  .cart-extras {
+    @include make-sm-column(6);
+    @include make-md-column(8);
+    
+    .cart-extras-content {
+      @include make-row();
+    }
+    
+    .cart-instructions {
+      @include make-md-column(6);
+      textarea {
+        min-height: 6em;
+      }
+    }
+  }
+    
+  .cart-message {
     @include make-sm-column(12);
+  }
+  
+  .cart-item-label-mini {
+    display: none;
+    @extend .text-muted;
   }
 
   // Display cart table as a list on mobiles
@@ -8318,13 +8354,8 @@ body[class*="collection"] {
       td {
         border-top: none;
       }
-      .cart-item-quantity,
-      .cart-item-price {
-        width: 50%;
-        float: left;
-      }
-      .cart-item-total {
-        clear: both;
+      .cart-item-label-mini {
+        display: inline;
       }
     }
   }
