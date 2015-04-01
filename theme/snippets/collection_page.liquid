@@ -11,13 +11,17 @@
     </header>
   </div>
   
-  <div class="sheet {% if collection.products.size > 0 %}products-wrap{% endif %}" data-products-size="{{ collection.products.size }}">
+  <div class="sheet {% if collection.products.size > 0 %}products-wrap{% endif %}">
   {% if collection.products.size > 0 %}
-    <section class="group products">
-      {% for p in collection.products %}
-        {% include 'product_item' %}
-      {% endfor %}
-    </section>
+    {% include 'pagination_limit' with 'products' %}
+    {% paginate collection.products by pagination_limit %}
+      <section class="group products" data-products-size="{% if collection.products.size < pagination_limit %}{{ collection.products.size }}{% else %}{{ pagination_limit }}{% endif %}">
+        {% for p in collection.products %}
+          {% include 'product_item' %}
+        {% endfor %}
+        {% include 'pagination' %}
+      </section>
+    {% endpaginate %}
     
     {% if template contains 'lookbook' %}
       <div class="lookbook-controls">

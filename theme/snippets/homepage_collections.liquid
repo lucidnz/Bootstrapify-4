@@ -3,7 +3,7 @@
     <h1>{{ homepage_collections.title }}</h1>
   </header>
   
-  <section class="group collections">
+  <section class="group collections" data-collections-size="{{ homepage_collections.size }}">
     {% for l in homepage_collections.links %}
       {% assign c = l.object %}
       {% include 'collection_item' %}

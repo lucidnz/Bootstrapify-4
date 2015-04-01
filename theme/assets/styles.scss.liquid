@@ -28,6 +28,40 @@ $lookbook-item-max-width-lg: 600px;
 @function border-color( $colour ) {
   @return if( $colour != transparent, darken( $colour, 5% ), transparent );
 }
+
+@mixin adaptive-columns {
+  @include make-xs-column(12);
+  @include make-sm-column(6);
+  @include make-md-column(3);
+  
+  
+  [data-group-size="0"] &,
+  [data-products-size="0"] &,
+  [data-collections-size="0"] & {
+    display: none;
+  }
+
+  [data-group-size="1"] &,
+  [data-products-size="1"] &,
+  [data-collections-size="1"] & {
+    @include make-sm-column(12);
+    @include make-md-column(12);
+  }
+  
+  [data-group-size="2"] &,
+  [data-products-size="2"] &,
+  [data-collections-size="2"] & {
+    @include make-sm-column(6);
+    @include make-md-column(6);
+  }
+
+  [data-group-size="3"] &,
+  [data-products-size="3"] &,
+  [data-collections-size="3"] & {
+    @include make-sm-column(4);
+    @include make-md-column(4);
+  }
+}
 $bootstrap-sass-asset-helper: false !default;
 //
 // Variables
@@ -7978,7 +8012,8 @@ img {
 
 .group-item-wrap {
   @include make-xs-column(12);
-  @include make-sm-column(3);
+  @include make-sm-column(6);
+  @include make-md-column(3);
 }
 
 .sheet-header {
@@ -8054,9 +8089,15 @@ footer {
   Default page specific layouts
 */
 
+.index {
+  .group-item-wrap {
+    @include adaptive-columns();
+  }
+}
+
 .list-collections {
   .group-item-wrap {
-    @include make-sm-column(4);
+    @include adaptive-columns();
   }
   
   .group-item {
@@ -8095,6 +8136,8 @@ body[class*="collection"] {
 }
 
 .collection-list {
+  // override the grid cols so that we have a list form
+  // TODO: make these look better
   .group-item-wrap {
     @include make-sm-column(12);
   }
@@ -8129,6 +8172,7 @@ body[class*="collection"] {
     .group-item-wrap {
       background-color: #fff; // TODO: use site background color
       transition: margin 1s ease;
+      // override grid cols for lookbook
       @include make-xs-column(3);
       
       width: $lookbook-item-max-width-xs;
@@ -8465,6 +8509,11 @@ h6 {
       padding-right: $grid-gutter-width / 4;
     }
   }
+}
+
+.pagination-wrapper {
+  @include make-xs-column(12);
+  text-align: center;
 }
 /* Styles for centered navigation snippet */
 

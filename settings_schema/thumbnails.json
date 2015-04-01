@@ -3,7 +3,22 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "The thumbnails settings effects both the product and collections thumbs. The 'Crop', 'Ratio' & 'Alignment' settings will only be used if 'Constrain images to the same size' is enabled."
+      "content": "The thumbnails settings effects both the product and collections thumbs."
+    },
+    {
+      "label": "Thumbnail pagination limit",
+      "id": "pagination_limit_products",
+      "type": "text",
+      "default": "50",
+      "info": "The maximum amount of thumbs you can show on a page is 50. For best results use a multiple of your thumbs column count."
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "paragraph",
+      "content": "The 'Crop', 'Ratio' & 'Alignment' settings will only be used if 'Constrain images to the same size' is enabled."
     },
     {
       "label": "Constrain images to the same size",

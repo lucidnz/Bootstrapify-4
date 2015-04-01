@@ -1,0 +1,17 @@
+<div class="pagination-wrapper">
+  <ul class="pagination" role="toolbar" aria-label="pagination">
+    {% if paginate.previous %}
+    <li>{{ paginate.previous.title | link_to: paginate.previous.url }}</li>
+    {% endif %}
+    {% for p in paginate.parts %}
+    {% if p.is_link or p.title == paginate.current_page %}
+    <li{% if p.title == paginate.current_page %} class="active"{% endif %}>{{ p.title | link_to: p.url }}</li>
+    {% else %}
+    <li class="disabled">{{ p.title | link_to: p.url }}</li>        
+    {% endif %}        
+    {% endfor %}      
+    {% if paginate.next %}
+    <li>{{ paginate.next.title | link_to: paginate.next.url }}</li>
+    {% endif %}
+  </ul>
+</div>

@@ -4,7 +4,7 @@
       {{ homepage_products.description }}
   </header>
   
-  <section class="group collections">
+  <section class="group products" data-products-size="{{ homepage_products.products.size }}">
     {% for p in homepage_products.products %}
       {% include 'product_item' %}
     {% endfor %}

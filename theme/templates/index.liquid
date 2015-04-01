@@ -188,7 +188,7 @@
           {% assign homepage_section_id = advanced_section_link.handle %}
           {% capture homepage_section_content %}
             <div class="sheet">
-              <div class="homepage-section-group group">
+              <div class="homepage-section-group group" data-group-size="{{ linklists[child_list_handle].links.size }}">
                 {{ homepage_sub_section_content }}
               </div>
             </div>

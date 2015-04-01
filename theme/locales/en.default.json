@@ -2,6 +2,10 @@
   "general" : {
     "site" : {
       "page_title_seperator" : "|"
+    },
+    "pagination": {
+      "previous": "previous",
+      "next": "next"
     }
   },
   "collections" : {

@@ -16,7 +16,8 @@ img {
 
 .group-item-wrap {
   @include make-xs-column(12);
-  @include make-sm-column(3);
+  @include make-sm-column(6);
+  @include make-md-column(3);
 }
 
 .sheet-header {
@@ -92,9 +93,15 @@ footer {
   Default page specific layouts
 */
 
+.index {
+  .group-item-wrap {
+    @include adaptive-columns();
+  }
+}
+
 .list-collections {
   .group-item-wrap {
-    @include make-sm-column(4);
+    @include adaptive-columns();
   }
   
   .group-item {
@@ -133,6 +140,8 @@ body[class*="collection"] {
 }
 
 .collection-list {
+  // override the grid cols so that we have a list form
+  // TODO: make these look better
   .group-item-wrap {
     @include make-sm-column(12);
   }
@@ -167,6 +176,7 @@ body[class*="collection"] {
     .group-item-wrap {
       background-color: #fff; // TODO: use site background color
       transition: margin 1s ease;
+      // override grid cols for lookbook
       @include make-xs-column(3);
       
       width: $lookbook-item-max-width-xs;

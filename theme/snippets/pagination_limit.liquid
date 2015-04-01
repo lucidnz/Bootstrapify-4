@@ -1,0 +1,13 @@
+{% comment %}
+  The pagination limit is set in the theme settings with a default fallback to 50
+  For consistency this snippet must be included anywhere pagination is used
+  
+  
+  TODO: use this same file for paginating blogs and search results as well:
+      settings.pagination_limit_products -> {% include 'pagination_limit' with 'products' %}
+      settings.pagination_limit_search -> {% include 'pagination_limit' with 'search' %}
+      settings.pagination_limit_articles -> {% include 'pagination_limit' with 'articles' %}
+  
+{% endcomment %}
+{% assign pagination_key = 'pagination_limit_' | append: pagination_limit %}
+{% assign pagination_limit = settings[pagination_key] | default: 50 | times: 1 %}

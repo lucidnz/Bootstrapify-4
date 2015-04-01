@@ -7,26 +7,28 @@
   </div>
 
   <div class="sheet">
-    <section class="group collections">
-      {% assign featured_collections = linklists[settings.list_collections_featured_collection] %}
-      {% if featured_collections.links != blank %}
+    {% assign featured_collections = linklists[settings.list_collections_featured_collection] %}
+    {% if featured_collections.links != blank %}
+      <section class="group collections" data-collections-size="{{ featured_collections.links.size }}">
         {% for collection_link in featured_collections.links %}
           {% assign c = collection_link.object %}
           {% capture collection_title %}{{ 'collections.list_collections.item_title_html' | t: collection_title: c.title }}{% endcapture %}
           {% include 'collection_item' %}
         {% endfor %}
+      </section>
             
       {% else %}
         {% comment %}
           No featured collections so fallback to all collections
         {% endcomment %}
       
+      <section class="group collections" data-collections-size="{{ collections.size }}">
         {% for c in collections %}
           {% capture collection_title %}{{ 'collections.list_collections.item_title_html' | t: collection_title: c.title }}{% endcapture %}
           {% include 'collection_item' %}
         {% endfor %}
-      {% endif %}
-    </section>
+      </section>
+    {% endif %}
   </div>
 </main>
 
