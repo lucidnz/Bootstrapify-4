@@ -8278,7 +8278,8 @@ body[class*="collection"] {
     @extend .list-inline;
     @include make-row();
     li {
-      @include make-xs-column(4);
+      @include make-xs-column(6);
+      @include make-sm-column(3);
       margin-bottom: $grid-gutter-width;
     }
   }
