@@ -31,14 +31,10 @@
 {% endcase %}
 </div>
 
-
-
-
-
-
 {% comment %}
-
-
+  TODO: move this into the src js files
+   - also include any feedback message from mailchimp / CM in the alert
+{% endcomment %}
 <script type="text/javascript">
   var removeNewsletterAlert = function($form){
     window.setTimeout(function(){
@@ -50,7 +46,7 @@
   
   var resetNewsletterForm = function($form){
     $form.find('[type="submit"]').prop('disabled', false);
-    $form.find('#fieldEmail').val('');
+    $form.find('[type="email"]').val('');
     removeNewsletterAlert($form);
   };
 
@@ -58,24 +54,22 @@
     var $form = $(this);
     e.preventDefault();
     $form.find('[type="submit"]').prop('disabled', true);
-    if($form.find('#fieldEmail').val() !== ''){
+    if($form.find('[type="email"]').val() !== ''){
       $.ajax({
         type: 'POST',
-        {% unless settings.newsletter-platform == "shopify" %} dataType: 'json', {% endunless %}
+        {% unless settings.newsletter_platform == "shopify" %} dataType: 'json', {% endunless %}
         url: $form.prop('action'),
         data: $form.serialize()
       })
       .done(function(result){
-        $form.prepend('<div class="alert alert-success">{{ "social.newsletter.sign-up-form-success-message" | t }}</div>');
+        $form.prepend("<div class='alert alert-success'>{{ 'social_and_newsletter.newsletter.success_message_html' | t }}</div>");
         resetNewsletterForm($form);
       })
       .fail(function(err){
         console.log('err: ', err);
-        $form.prepend('<div class="alert alert-danger">{{ "social.newsletter.sign-up-form-error-message" | t }}</div>');
+        $form.prepend("<div class='alert alert-danger'>{{ 'social_and_newsletter.newsletter.error_message_html' | t }}</div>");
         resetNewsletterForm($form);
       });
     }
   });
 </script>
-
-{% endcomment %}

@@ -119,7 +119,9 @@
     "newsletter" : {
       "title" : "Get our newsletter",
       "email_placeholder" : "Email",
-      "subscribe_button" : "Subscribe"
+      "subscribe_button" : "Subscribe",
+      "success_message_html" : "Thank you for subscribing to our newsletter",
+      "error_message_html" : "There was an error subscribing you to our newsletter. Please try again later, or feel free to <a href='/pages/contact'>contact us</a>"
     },
     "social_links" : {
       "title" : "Follow us"
