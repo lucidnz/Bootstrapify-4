@@ -1,3 +1,41 @@
 {% comment %}
-  TODO: Social links - to appear in sidebar and footer
-{% comment %}
+  TODO: update list of link; order better?
+{% endcomment %}
+
+
+<div class="social-links">
+  <ul>
+  {% assign social_links = 'dribbble,email,facebook,flickr,foursquare,github,google_plus,instagram,linkedin,pinterest,rss,skype,stack_exchange,stack_overflow,tumblr,twitter,vimeo,youtube' | split: ',' %}
+  {% for link in social_links %}
+    {% assign social_link = link | prepend: 'social_links_' %}
+    {% unless settings[social_link] == blank %}
+      {% assign link_href = settings[social_link] %}
+      {% assign icon = link | replace: '_', '-' %}
+  
+      {% case link %}
+      {% when 'email' %}
+        {% assign link_href = settings[social_link] | prepend: 'mailto:' %}
+        {% assign icon = 'envelope' %}
+      {% when 'rss' %}
+        {% assign blog_rss = settings[social_link] %}
+        {% if blogs[blog_rss].url != blank %}
+          {% assign link_href = blogs[blog_rss].url | append: '.atom' %}
+        {% else %}
+          {% assign link_href = '' %}
+        {% endif %}
+      {% when 'vimeo' %}
+        {% assign icon = icon | append: '-square' %}
+      {% endcase %}
+      
+      {% if link_href != blank %}
+      <li>
+        <a href="{{ link_href }}" title="{{ link }}" target="_blank">
+        	<span class="fa fa-{{ icon }} fa-lg fa-fw"></span>
+        	<span class="sr-only">{{ link }}</span>
+        </a>
+      </li>
+      {% endif %}
+    {% endunless %}
+  {% endfor %}
+  </ul>
+</div>

@@ -2,8 +2,19 @@
   "name": "Social",
   "settings": [
     {
-      "type": "header",
-      "content": "Social"
+      "label": "Facebook",
+      "id": "social_links_facebook",
+      "type": "text"
+    },
+    {
+      "label": "Pinterest",
+      "id": "social_links_pinterest",
+      "type": "text"
+    },
+    {
+      "label": "Twitter",
+      "id": "social_links_twitter",
+      "type": "text"
     }
   ]
 }
