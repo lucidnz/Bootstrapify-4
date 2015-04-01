@@ -115,6 +115,16 @@
       "separator" : "|"
     }
   },
+  "social_and_newsletter" : {
+    "newsletter" : {
+      "title" : "Get our newsletter",
+      "email_placeholder" : "Email",
+      "subscribe_button" : "Subscribe"
+    },
+    "social_links" : {
+      "title" : "Follow us"
+    }
+  },
   "search" : {
     "search_form" : {
       "field_placeholder" : "Search",

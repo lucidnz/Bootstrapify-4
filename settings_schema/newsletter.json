@@ -2,8 +2,29 @@
   "name": "Newsletter",
   "settings": [
     {
-      "type": "header",
-      "content": "Newsletter"
+      "label": "Newsletter platform",
+      "id": "newsletter_platform",
+      "type": "select",
+      "options": [
+        { "value": "shopify", "label": "Shopify" },
+        { "value": "campaign-monitor", "label": "Campaign Monitor" },
+        { "value": "mailchimp", "label": "MailChimp" }
+      ],
+      "default": "shopify"
+    },
+    {
+      "label": "Newsletter form url",
+      "id": "newsletter_form_action",
+      "type": "text",
+      "info": "To use Campaign Monitor & MailChimp you will need to include the forms action url"
+    },
+    {
+      "type": "paragraph",
+      "content": "To find your Campaign Monitor form action url [read the documentation here](#). TODO: link to documentation"
+    },
+    {
+      "type": "paragraph",
+      "content": "To find your MailChimp form action url [read the documentation here](http://docs.shopify.com/support/configuration/store-customization/where-do-i-get-my-mailchimp-form-action)."
     }
   ]
 }

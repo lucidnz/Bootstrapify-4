@@ -1,6 +1,81 @@
+{% case settings.newsletter_platform %}
+{% when 'campaign-monitor' %}
+  {% capture email_name %}cm-{{ settings.newsletter_form_action | split: '/' | last }}-{{ settings.newsletter_form_action | split: '/' | last }}{% endcapture %}
+{% when 'mailchimp' %}
+  {% assign email_name = 'EMAIL' %}
+{% else %}
+  {% assign email_name = 'contact[email]' %}
+{% endcase %}
+
+{% capture fields %}
+<div class="input-group">
+  <input class="newsletter-email" name="{{ email_name }}" type="email" id="newsletter-email" placeholder="{{ 'social_and_newsletter.newsletter.email_placeholder' | t }}" />
+  <span class="input-group-btn"><button class="newsletter-subscribe" type="submit">{{ 'social_and_newsletter.newsletter.subscribe_button' | t }}</button></span>
+</div>
+{% endcapture %}
+
+<div class="newsletter-form">
+{% case settings.newsletter_platform %}
+{% when 'campaign-monitor' %}
+  <form action="{{ settings.newsletter_form_action }}?callback=?" method="post">
+    {{ fields }}
+  </form>
+{% when 'mailchimp' %}
+  <form action="{{ settings.newsletter_form_action | replace: '/post?','/post-json?' | append: '&amp;c=?' }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form">
+    {{ fields }}
+  </form>
+{% else %}
+  {% form 'customer' %}
+    {{ fields }}
+  {% endform %}
+{% endcase %}
+</div>
+
+
+
+
+
+
 {% comment %}
-  TODO: Newsletter signup form - to appear in sidebar and footer
-   - mailchimp
-   - campaign monitor
-   - shopify
-{% comment %}
+
+
+<script type="text/javascript">
+  var removeNewsletterAlert = function($form){
+    window.setTimeout(function(){
+      $form.find('.alert').hide(186, function(){
+        this.remove();
+      });
+    }, 6000);
+  };
+  
+  var resetNewsletterForm = function($form){
+    $form.find('[type="submit"]').prop('disabled', false);
+    $form.find('#fieldEmail').val('');
+    removeNewsletterAlert($form);
+  };
+
+  $(document).on('submit', '.newsletter-form > form', function(e){
+    var $form = $(this);
+    e.preventDefault();
+    $form.find('[type="submit"]').prop('disabled', true);
+    if($form.find('#fieldEmail').val() !== ''){
+      $.ajax({
+        type: 'POST',
+        {% unless settings.newsletter-platform == "shopify" %} dataType: 'json', {% endunless %}
+        url: $form.prop('action'),
+        data: $form.serialize()
+      })
+      .done(function(result){
+        $form.prepend('<div class="alert alert-success">{{ "social.newsletter.sign-up-form-success-message" | t }}</div>');
+        resetNewsletterForm($form);
+      })
+      .fail(function(err){
+        console.log('err: ', err);
+        $form.prepend('<div class="alert alert-danger">{{ "social.newsletter.sign-up-form-error-message" | t }}</div>');
+        resetNewsletterForm($form);
+      });
+    }
+  });
+</script>
+
+{% endcomment %}

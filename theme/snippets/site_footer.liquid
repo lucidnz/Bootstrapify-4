@@ -50,7 +50,7 @@
       {% capture footer_col_content %}
         {{ footer_col_content }}
         <div class="footer-linklist">
-          <h4>{{ footer_col_linklist.title }}</h4>
+          {% unless footer_col_linklist.title == 'Footer' %}<h4>{{ footer_col_linklist.title }}</h4>{% endunless %}
           {% comment %}
             Nav list accepts the string name of the link_list, not the link_list object
             We also disable dropdowns here
@@ -64,14 +64,22 @@
     {% if footer_col_social %}
       {% capture footer_col_content %}
         {{ footer_col_content }}
-        <div class="footer-social">{% include 'site_social_links' %}</div>
+        <div class="footer-social">
+          {% capture social_links_title %}{{ 'social_and_newsletter.social_links.title' | t }}{% endcapture %}
+          {% unless social_links_title == blank %}<h4>{{ social_links_title }}</h4>{% endunless %}
+          {% include 'site_social_links' %}
+        </div>
       {% endcapture %}
     {% endif %}
     
     {% if footer_col_newsletter %}
       {% capture footer_col_content %}
         {{ footer_col_content }}
-        <div class="footer-newsletter">{% include 'site_newsletter_form' %}</div>
+        <div class="footer-newsletter">
+          {% capture newsletter_title %}{{ 'social_and_newsletter.newsletter.title' | t }}{% endcapture %}
+          {% unless newsletter_title == blank %}<h4>{{ newsletter_title }}</h4>{% endunless %}
+          {% include 'site_newsletter_form' %}
+        </div>
       {% endcapture %}
     {% endif %}
   
