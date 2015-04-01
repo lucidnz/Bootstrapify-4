@@ -1,11 +1,11 @@
 <div class="product-price">
   {% if p.price_varies %}
-    {% assign price = p.price_min | money %}
-    {% assign price_with_currency = p.price_min | money_with_currency %}
+    {% capture price %}<span class="money">{{ p.price_min | money }}</span>{% endcapture %}
+    {% capture price_with_currency %}<span class="money">{{ p.price_min | money_with_currency }}</span>{% endcapture %}
     {{ 'products.price.from_price_html' | t: price: price, price_with_currency: price_with_currency }}
   {% else %}
-    {% assign price = p.price | money %}
-    {% assign price_with_currency = p.price | money_with_currency %}
+    {% capture price %}<span class="money">{{ p.price | money }}</span>{% endcapture %}
+    {% capture price_with_currency %}<span class="money">{{ p.price | money_with_currency }}</span>{% endcapture %}
     {{ 'products.price.standard_price_html' | t: price: price, price_with_currency: price_with_currency }}
   {% endif %}
 </div>

@@ -2,12 +2,16 @@
   Base Layouts and Grids
 */
 
-img {
-  @extend .img-responsive;
-}
-
 .sheet {
   @extend {% if settings.container_width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
+}
+
+.sheet-header {
+  @extend .page-header;
+}
+
+.sheet-content {
+  margin-bottom: $line-height-computed * 2;
 }
 
 .group {
@@ -18,10 +22,6 @@ img {
   @include make-xs-column(12);
   @include make-sm-column(6);
   @include make-md-column(3);
-}
-
-.sheet-header {
-  @extend .page-header;
 }
 
 .group-item {
@@ -54,6 +54,7 @@ footer {
   
   .sheet-content {
     @include make-row();
+    margin-bottom: 0;
   }
 
   .footer-content,
@@ -167,11 +168,12 @@ body[class*="collection"] {
   
   // Image scroller
   .js & .products-wrap {
-    // make the products go out to the edge of the page but hide them
+    // make the products span the whole of the page but hide the ones that go off the edge
     width: 100%;
     overflow: hidden;
     position: relative;
     opacity: 0;
+    margin-bottom: $line-height-computed * 2;
   
     .group-item-wrap {
       background-color: #fff; // TODO: use site background color

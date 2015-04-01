@@ -18,7 +18,7 @@
   Bsify.cart = {{ cart | json }};
   // Cart item selectors
   Bsify.selectors.cart = {
-    table_selector: ".cart-table",
+    form_selector: ".cart-form",
     item_selector: ".cart-item",
     item_price_selector: ".cart-item-price .money",
     item_total_selector: ".cart-item-total .money",
@@ -26,7 +26,8 @@
   };
   // Cart item translations
   Bsify.translations.cart = {
-    cart_display_text: "{{ 'cart.site_header.cart_link_html' | t: item_count: '[item_count]', cart_total_price: '[cart_total_price]', cart_total_price_with_currency: '[cart_total_price_with_currency]' }}",
+    cart_total: "{{ 'cart.price.cart_total_html' | t: price: '<span class=\"money\">[cart_total_price]</span>', price_with_currency: '<span class=\"money\">[cart_total_price_with_currency]</span>' }}",
+    cart_display_text: "{{ 'cart.site_header.cart_link_html' | t: item_count: '[item_count]', cart_total_price: '<span class=\"money\">[cart_total_price]</span>', cart_total_price_with_currency: '<span class=\"money\">[cart_total_price_with_currency]</span>' }}",
     empty_cart_text: "{{ 'cart.cart_page.empty_message_html' | t }}",
     remove_item_message: "{{ 'cart.cart_table.remove_item_message_html' | t: item_title: '[item_title]' }}",
     remove_item_error_message: "{{ 'cart.cart_table.remove_item_error_message_html' | t: item_title: '[item_title]', error_message: '[error_message]' }}"

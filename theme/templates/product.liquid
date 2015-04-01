@@ -66,14 +66,14 @@
           <div class="product-price">
             <p class="compare-at-price">
               {% if variant.compare_at_price > variant.price %}
-                {% assign price = variant.compare_at_price | money %}
-                {% assign price_with_currency = variant.compare_at_price | money_with_currency %}
+                {% capture price %}<span class="money">{{ variant.compare_at_price | money }}</span>{% endcapture %}
+                {% capture price_with_currency %}<span class="money">{{ variant.compare_at_price | money_with_currency }}</span>{% endcapture %}
                 {{ 'products.price.compare_at_price_html' | t: price: price, price_with_currency: price_with_currency }}
               {% endif %}
             </p>
             <p class="price" itemprop="price">
-              {% assign price = variant.price | money %}
-              {% assign price_with_currency = variant.price | money_with_currency %}
+              {% capture price %}<span class="money">{{ variant.price | money }}</span>{% endcapture %}
+              {% capture price_with_currency %}<span class="money">{{ variant.price | money_with_currency }}</span>{% endcapture %}
               {% if variant.compare_at_price > variant.price %}
                 {{ 'products.price.sale_price_html' | t: price: price, price_with_currency: price_with_currency }}
               {% else %}
@@ -133,7 +133,7 @@
   
     // Translation strings
     // price strings uses a marker that is replaced so as to preserve Shopify translations
-    {% assign price_marker = '[price]' %}
+    {% assign price_marker = '<span class=\"money\">[price]</span>' %}
     var standard_price_str = "{{ 'products.price.standard_price_html' | t: price: price_marker, price_with_currency: price_marker }}";
     var compare_at_str = "{{ 'products.price.compare_at_price_html' | t: price: price_marker, price_with_currency: price_marker }}";
     var sale_price_str = "{{ 'products.price.sale_price_html' | t: price: price_marker, price_with_currency: price_marker }}";

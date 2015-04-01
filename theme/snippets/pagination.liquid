@@ -1,17 +1,31 @@
+{% unless paginate.previous == blank and paginate.next == blank %}
 <div class="pagination-wrapper">
   <ul class="pagination" role="toolbar" aria-label="pagination">
     {% if paginate.previous %}
-    <li>{{ paginate.previous.title | link_to: paginate.previous.url }}</li>
-    {% endif %}
-    {% for p in paginate.parts %}
-    {% if p.is_link or p.title == paginate.current_page %}
-    <li{% if p.title == paginate.current_page %} class="active"{% endif %}>{{ p.title | link_to: p.url }}</li>
+      <li><a href="{{ paginate.previous.url }}" title="{{ paginate.previous.title }}">{{ 'general.pagination.previous_html' | t }}</a></li>
     {% else %}
-    <li class="disabled">{{ p.title | link_to: p.url }}</li>        
-    {% endif %}        
-    {% endfor %}      
+      <li class="disabled"><span>{{ 'general.pagination.previous_html' | t }}</span></li>
+    {% endif %}
+  
+    {% for part in paginate.parts %}
+      {% if part.is_link %}
+        <li>
+          <a href="{{ part.url }}" title="">{{ part.title }}</a>
+        </li>
+      {% else %}
+        {% if part.title == paginate.current_page %}
+          <li class="active"><span>{{ part.title }}</span></li>
+        {% else %}
+          <li><span>{{ part.title }}</span></li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  
     {% if paginate.next %}
-    <li>{{ paginate.next.title | link_to: paginate.next.url }}</li>
+      <li><a href="{{ paginate.next.url }}" title="{{ paginate.next.title }}">{{ 'general.pagination.next_html' | t }}</a></li>
+    {% else %}
+      <li class="disabled"><span>{{ 'general.pagination.next_html' | t }}</span></li>
     {% endif %}
   </ul>
 </div>
+{% endunless %}

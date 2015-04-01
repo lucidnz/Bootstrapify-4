@@ -17,7 +17,9 @@
     - Enabled templates list
   {% endcomment %}
   
-  {% assign default_template = collection.template_suffix | default: 'grid' %}
+  {% if collection %}
+    {% assign default_template = collection.template_suffix | default: 'grid' %}
+  {% endif %}
   
   {% assign current_template = template | split: '.' | last %}
   {% if current_template == 'collection' %}{% assign current_template = 'grid' %}{% endif %}

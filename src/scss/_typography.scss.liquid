@@ -9,6 +9,13 @@ a:focus {
   }
 }
 
+.pagination>li>a:hover,
+.pagination>li>a:focus,
+.pagination>li>span:hover,
+.pagination>li>span:focus {
+  text-decoration: none;
+}
+
 h1,
 h2,
 h3,
@@ -22,10 +29,10 @@ h6 {
 
 .group-item-details {
   @extend .caption;
-  @extend .text-center;
 }
 
-.group-item-title {
+.group-item-title,
+.cart-item-title {
   @extend .h5;
   font-weight: $strong-weight;
   
@@ -61,6 +68,10 @@ h6 {
     text-align: center;
   }
   
+  .cart-item-details {
+    color: $thumbnail-caption-color;
+  }
+  
   @media (min-width: $grid-float-breakpoint) {
     .cart-item-price-label,
     .cart-item-total-label,
@@ -82,6 +93,10 @@ h6 {
 
 .cart-details {
   text-align: right;
+  margin: $grid-gutter-width auto;
+  @media (min-width: $grid-float-breakpoint) {
+    margin: auto;
+  }
 }
 
 .article-list {

@@ -30,10 +30,16 @@ $lookbook-item-max-width-lg: 600px;
 }
 
 @mixin adaptive-columns {
+  /*
+    Display cols based on the amount of content in them:
+      1 item shows 1x12 col
+      2 items shows 2x6 cols
+      3 items shows 3x4 cols
+      4 or more items shows 4x3 cols
+  */
   @include make-xs-column(12);
   @include make-sm-column(6);
   @include make-md-column(3);
-  
   
   [data-group-size="0"] &,
   [data-products-size="0"] &,
@@ -41,25 +47,13 @@ $lookbook-item-max-width-lg: 600px;
     display: none;
   }
 
-  [data-group-size="1"] &,
-  [data-products-size="1"] &,
-  [data-collections-size="1"] & {
-    @include make-sm-column(12);
-    @include make-md-column(12);
-  }
-  
-  [data-group-size="2"] &,
-  [data-products-size="2"] &,
-  [data-collections-size="2"] & {
-    @include make-sm-column(6);
-    @include make-md-column(6);
-  }
-
-  [data-group-size="3"] &,
-  [data-products-size="3"] &,
-  [data-collections-size="3"] & {
-    @include make-sm-column(4);
-    @include make-md-column(4);
+  @for $i from 1 through 3 {
+    [data-group-size="#{$i}"] &,
+    [data-products-size="#{$i}"] &,
+    [data-collections-size="#{$i}"] & {
+      @include make-sm-column(12 / $i);
+      @include make-md-column(12 / $i);
+    }
   }
 }
 $bootstrap-sass-asset-helper: false !default;
@@ -7947,6 +7941,10 @@ button.close {
   @include responsive-invisibility('.hidden-print');
 }
 
+img {
+  @extend .img-responsive;
+}
+
 /*
   Sticky footer
   Display table breaks full width content due to images without max-width:100%; so don't use it on mobiles
@@ -7998,12 +7996,16 @@ body:after {
   Base Layouts and Grids
 */
 
-img {
-  @extend .img-responsive;
-}
-
 .sheet {
   @extend {% if settings.container_width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
+}
+
+.sheet-header {
+  @extend .page-header;
+}
+
+.sheet-content {
+  margin-bottom: $line-height-computed * 2;
 }
 
 .group {
@@ -8014,10 +8016,6 @@ img {
   @include make-xs-column(12);
   @include make-sm-column(6);
   @include make-md-column(3);
-}
-
-.sheet-header {
-  @extend .page-header;
 }
 
 .group-item {
@@ -8050,6 +8048,7 @@ footer {
   
   .sheet-content {
     @include make-row();
+    margin-bottom: 0;
   }
 
   .footer-content,
@@ -8163,11 +8162,12 @@ body[class*="collection"] {
   
   // Image scroller
   .js & .products-wrap {
-    // make the products go out to the edge of the page but hide them
+    // make the products span the whole of the page but hide the ones that go off the edge
     width: 100%;
     overflow: hidden;
     position: relative;
     opacity: 0;
+    margin-bottom: $line-height-computed * 2;
   
     .group-item-wrap {
       background-color: #fff; // TODO: use site background color
@@ -8378,6 +8378,13 @@ a:focus {
   }
 }
 
+.pagination>li>a:hover,
+.pagination>li>a:focus,
+.pagination>li>span:hover,
+.pagination>li>span:focus {
+  text-decoration: none;
+}
+
 h1,
 h2,
 h3,
@@ -8391,10 +8398,10 @@ h6 {
 
 .group-item-details {
   @extend .caption;
-  @extend .text-center;
 }
 
-.group-item-title {
+.group-item-title,
+.cart-item-title {
   @extend .h5;
   font-weight: $strong-weight;
   
@@ -8430,6 +8437,10 @@ h6 {
     text-align: center;
   }
   
+  .cart-item-details {
+    color: $thumbnail-caption-color;
+  }
+  
   @media (min-width: $grid-float-breakpoint) {
     .cart-item-price-label,
     .cart-item-total-label,
@@ -8451,6 +8462,10 @@ h6 {
 
 .cart-details {
   text-align: right;
+  margin: $grid-gutter-width auto;
+  @media (min-width: $grid-float-breakpoint) {
+    margin: auto;
+  }
 }
 
 .article-list {
@@ -8620,7 +8635,7 @@ h6 {
     @extend .form-group;
   }
   
-  .errors, .note, & + .add-to-cart-message .note {
+  .errors, .note {
     @extend .alert;
   }
   
@@ -8628,7 +8643,16 @@ h6 {
     @extend .alert-danger;
   }
   
-  .note.success, & + .add-to-cart-message .note.success {
+  .note.success {
+    @extend .alert-success;
+  }
+}
+
+.add-to-cart-message, .cart-message {
+  .note {
+    @extend .alert;
+  }
+  .note.success {
     @extend .alert-success;
   }
 }

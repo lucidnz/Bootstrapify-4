@@ -17,7 +17,7 @@
     @extend .form-group;
   }
   
-  .errors, .note, & + .add-to-cart-message .note {
+  .errors, .note {
     @extend .alert;
   }
   
@@ -25,7 +25,16 @@
     @extend .alert-danger;
   }
   
-  .note.success, & + .add-to-cart-message .note.success {
+  .note.success {
+    @extend .alert-success;
+  }
+}
+
+.add-to-cart-message, .cart-message {
+  .note {
+    @extend .alert;
+  }
+  .note.success {
     @extend .alert-success;
   }
 }

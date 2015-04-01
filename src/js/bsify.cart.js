@@ -1,10 +1,12 @@
-var Cart = {};
+var CartJS = require('shopify-cartjs');
 
+var Cart = {};
 var message_count = 0;
 
 // Cart vars
 var $cart_display_ele = $('[data-cart-display]');
-var $cart_table_ele = $(Bsify.selectors.cart.table_selector);
+var $cart_total_ele = $('[data-cart-total]');
+var $cart_form_ele = $(Bsify.selectors.cart.form_selector);
 var $cart_message_ele = $(Bsify.selectors.cart.message_selector);
 
 // product vars
@@ -98,7 +100,7 @@ Cart.remove_item_from_cart = function ($current_target) {
       
     },
     "error": function (jqXHR, text_status, error_thrown) {
-      console.log('[ERROR] - Remove item from cart:', jqXHR, text_status, error_thrownn);
+      console.log('[ERROR] - Remove item from cart:', jqXHR, text_status, error_thrown);
       
       // Show user a nice message
       var message = Bsify.translations.cart.remove_item_error_message.replace('[item_title]', item_title).replace('[error_message]', error_thrown);
@@ -115,14 +117,18 @@ Cart.remove_item_from_cart = function ($current_target) {
 Cart.update_cart_display = function () {
   var cart_total_price = Shopify.formatMoney(CartJS.cart.total_price, Bsify.money_formats.moneyFormat);
   var cart_total_price_with_currency = Shopify.formatMoney(CartJS.cart.total_price, Bsify.money_formats.moneyWithCurrencyFormat);
+  
   var cart_display_text = Bsify.translations.cart.cart_display_text.replace('[item_count]', CartJS.cart.item_count).replace('[cart_total_price]', cart_total_price).replace('[cart_total_price_with_currency]', cart_total_price_with_currency);
   $cart_display_ele.html(cart_display_text);
+  
+  var cart_total_text = Bsify.translations.cart.cart_total.replace('[cart_total_price]', cart_total_price).replace('[cart_total_price_with_currency]', cart_total_price_with_currency);
+  $cart_total_ele.html(cart_total_text);
 };
 
 // hide the cart table if the cart is empty
 Cart.update_cart_table = function () {
   if (CartJS.cart.item_count === 0) {
-    $cart_table_ele.hide();
+    $cart_form_ele.hide();
     $cart_message_ele.removeClass('hidden').html(Bsify.translations.cart.empty_cart_text);
   }
 };

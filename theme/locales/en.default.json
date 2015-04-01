@@ -4,8 +4,8 @@
       "page_title_seperator" : "|"
     },
     "pagination": {
-      "previous": "previous",
-      "next": "next"
+      "previous_html": "&laquo; Previous",
+      "next_html": "Next &raquo;"
     }
   },
   "collections" : {
@@ -34,10 +34,10 @@
   },
   "products" : {
     "price" : {
-      "standard_price_html" : "<span class='money'>{{ price_with_currency }}</span>",
-      "sale_price_html" : "now <span class='money'>{{ price_with_currency }}</span>",
-      "from_price_html" : "from <span class='money'>{{ price_with_currency }}</span>",
-      "compare_at_price_html" : "was <span class='money'>{{ price_with_currency }}</span>",
+      "standard_price_html" : "{{ price_with_currency }}",
+      "sale_price_html" : "now {{ price_with_currency }}",
+      "from_price_html" : "from {{ price_with_currency }}",
+      "compare_at_price_html" : "was {{ price_with_currency }}",
       "unavailable" : "Unavailable"
     },
     "badges" : {
@@ -62,7 +62,7 @@
   },
   "cart" : {
     "site_header" : {
-      "cart_link_html" : "Cart ({{ item_count }})<span class='cart-total'> &ndash; <span class='money'>{{ cart_total_price_with_currency }}</span></span>"
+      "cart_link_html" : "Cart ({{ item_count }})<span class='cart-total'> &ndash; {{ cart_total_price_with_currency }}</span>"
     },
     "cart_page" : {
       "page_title" : "Cart",
@@ -71,9 +71,9 @@
       "shipping_note" : "Shipping & taxes calculated at checkout"
     },
     "price" : {
-      "item_price_html" : "<span class='money'>{{ price_with_currency }}</span>",
-      "item_total_html" : "<span class='money'>{{ price_with_currency }}</span>",
-      "cart_total_html" : "<span class='money'>{{ price_with_currency }}</span>"
+      "item_price_html" : "{{ price_with_currency }}",
+      "item_total_html" : "{{ price_with_currency }}",
+      "cart_total_html" : "{{ price_with_currency }}"
     },
     "cart_table" : {
       "product_label" : "Item",
