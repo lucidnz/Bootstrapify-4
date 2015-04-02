@@ -35,6 +35,7 @@
     "bootstrap-sass": "~3.3.3",
     "respond": "https://github.com/scottjehl/Respond.git#~1.4.2",
     "picturefill": "https://github.com/scottjehl/picturefill.git#~2.2.0",
-    "shopify-cartjs": "~0.2.3"
+    "shopify-cartjs": "~0.2.3",
+    "html5shiv": "~3.7.2"
   }
 }

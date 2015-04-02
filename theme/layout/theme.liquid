@@ -33,12 +33,12 @@
     <!--<![endif]-->
     <!--[if lt IE 9]>
     {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' | script_tag }}
-    {{ '//html5shiv.googlecode.com/svn/trunk/html5.js' | script_tag }}
+    {{ 'html5shiv.js' | asset_url | script_tag }}
     {% assign respond_js_secret_key = shop.domain | md5 %}
     {{ 'respond.min.js' | asset_url | script_tag }}
     <link href="{{ 'respond-proxy.html' | asset_url | split: '?' | first }}" id="respond-proxy" rel="respond-proxy" />
-    <link href="//{{shop.domain}}/search?q={{ respond_js_secret_key }}" id="respond-redirect" rel="respond-redirect" />
-    <script src="//{{shop.domain}}/search?q={{ respond_js_secret_key }}" type="text/javascript"></script>
+    <link href="//{{ shop.url }}/search?q={{ respond_js_secret_key }}" id="respond-redirect" rel="respond-redirect" />
+    <script src="//{{ shop.url }}/search?q={{ respond_js_secret_key }}" type="text/javascript"></script>
     <![endif]-->
 
     {% unless settings.header_code == blank %}
@@ -52,7 +52,8 @@
 
   <!--[if lte IE 8]> <body class="ie-legacy {{ template | replace: '.', '-' }}" id="{{ page_title | handle }}"> <![endif]-->
   <!--[if IE 9]> <body class="ie {{ template | replace: '.', '-' }}" id="{{ page_title | handle }}"> <![endif]-->
-  <!--[if !(IE)]><!--> <body class="{{ template | replace: '.', '-' }}" id="{{ page_title | handle }}"> <!--<![endif]-->
+  <!--[if !(IE)]><!-->  <!--<![endif]-->
+  <body class="{{ template | replace: '.', '-' }}" id="{{ page_title | handle }}">
 
     <header class="site-header">
       {% comment %}

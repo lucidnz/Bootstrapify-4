@@ -17,11 +17,11 @@
 <div class="newsletter-form">
 {% case settings.newsletter_platform %}
 {% when 'campaign-monitor' %}
-  <form action="{{ settings.newsletter_form_action }}?callback=?" method="post">
+  <form action="{{ settings.newsletter_form_action | escape }}?callback=?" method="post">
     {{ fields }}
   </form>
 {% when 'mailchimp' %}
-  <form action="{{ settings.newsletter_form_action | replace: '/post?','/post-json?' | append: '&amp;c=?' }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form">
+  <form action="{{ settings.newsletter_form_action | escape | replace: '/post?','/post-json?' | append: '&amp;c=?' }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form">
     {{ fields }}
   </form>
 {% else %}

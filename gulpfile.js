@@ -113,7 +113,8 @@ gulp.task('js_assets', function () {
     './bower_components/respond/cross-domain/respond-proxy.html',
     './bower_components/respond/dest/respond.min.js',
     './bower_components/shopify-cartjs/dist/cart.js',
-    './bower_components/picturefill/dist/picturefill.min.js'
+    './bower_components/picturefill/dist/picturefill.min.js',
+    './bower_components/html5shiv/dist/html5shiv.js'
   ];
   
   // rename respond.proxy.js to respond.liquid
