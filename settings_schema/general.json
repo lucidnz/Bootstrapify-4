@@ -4,6 +4,15 @@
     {
       "type": "header",
       "content": "Branding"
+    },
+    {
+      "type": "paragraph",
+      "content": "TODO: Logos and colours"
+    },
+    {
+      "label": "Site Favicon",
+      "id": "favicon.png",
+      "type": "image"
     }
   ]
 }

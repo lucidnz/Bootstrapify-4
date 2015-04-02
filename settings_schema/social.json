@@ -2,8 +2,17 @@
   "name": "Social",
   "settings": [
     {
+      "type": "paragraph",
+      "content": "Enter the web address of your social media pages to have the links appear"
+    },
+    {
       "label": "Facebook",
       "id": "social_links_facebook",
+      "type": "text"
+    },
+    {
+      "label": "Instagram",
+      "id": "social_links_instagram",
       "type": "text"
     },
     {
@@ -15,6 +24,17 @@
       "label": "Twitter",
       "id": "social_links_twitter",
       "type": "text"
+    },
+    {
+      "label": "Email",
+      "id": "social_links_email",
+      "type": "text"
+    },
+    {
+      "label": "RSS",
+      "id": "social_links_rss",
+      "type": "blog",
+      "info": "Select a blog to link to an RSS feed"
     }
   ]
 }
