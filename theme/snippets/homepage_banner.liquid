@@ -96,7 +96,6 @@
 
 
 {% unless banner_content == blank %}
-{% endunless %}
 <div class="banner carousel slide {% if settings.banner_transtion_type == 'fade' %}fade{% endif %}" id="{{ banner_id }}" {% if banner_autoplay %}data-ride="carousel"{% endif %} data-interval="{{ settings.banner_transtion_speed }}" data-banner="1">
   {% if slide_count > 1 %}
   <!-- Indicators -->
@@ -122,3 +121,4 @@
   </a>
   {% endif %}
 </div>
+{% endunless %}
