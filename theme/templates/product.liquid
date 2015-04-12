@@ -62,21 +62,24 @@
         {% unless variant.sku == blank %}<meta itemprop="identifier" content="sku:{{ variant.sku }}" />{% endunless %}
         <link itemprop="availability" href="http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}">
         
-        <div class="product-details-content">          
+        <div class="product-details-content">
           <div class="product-price">
             <p class="compare-at-price">
+              {% comment %} Leave compare-at-price element in markup even if empty so we can grab it with JS if we need to {% endcomment %}
               {% if variant.compare_at_price > variant.price %}
-                {% capture price %}<span class="money">{{ variant.compare_at_price | money }}</span>{% endcapture %}
-                {% capture price_with_currency %}<span class="money">{{ variant.compare_at_price | money_with_currency }}</span>{% endcapture %}
+                {% capture price %}<span class="money" data-price="{{ variant.compare_at_price }}" data-currency="{{ shop.currency }}">{{ variant.compare_at_price | money }}</span>{% endcapture %}
+                {% capture price_with_currency %}<span class="money" data-price="{{ variant.compare_at_price }}" data-currency="{{ shop.currency }}">{{ variant.compare_at_price | money_with_currency }}</span>{% endcapture %}
                 {{ 'products.price.compare_at_price_html' | t: price: price, price_with_currency: price_with_currency }}
               {% endif %}
             </p>
-            
-              
-              [{{ variant.price }}]
             <p class="price" itemprop="price">
-              {% capture price %}<span class="money">{{ variant.price | money }}</span>{% endcapture %}
-              {% capture price_with_currency %}<span class="money">{{ variant.price | money_with_currency }}</span>{% endcapture %}
+              {% if variant.price == 0 %}
+                {% capture price %}<span class="money" data-price="0" data-currency="{{ shop.currency }}">{{ 'products.price.zero_price' | t }}</span>{% endcapture %}
+                {% capture price_with_currency %}{{ price }}{% endcapture %}
+              {% else %}
+                {% capture price %}<span class="money" data-price="{{ variant.price }}" data-currency="{{ shop.currency }}">{{ variant.price | money }}</span>{% endcapture %}
+                {% capture price_with_currency %}<span class="money" data-price="{{ variant.price }}" data-currency="{{ shop.currency }}">{{ variant.price | money_with_currency }}</span>{% endcapture %}
+              {% endif %}
               {% if variant.compare_at_price > variant.price %}
                 {{ 'products.price.sale_price_html' | t: price: price, price_with_currency: price_with_currency }}
               {% else %}
@@ -136,31 +139,53 @@
   
     // Translation strings
     // price strings uses a marker that is replaced so as to preserve Shopify translations
-    {% assign price_marker = '<span class=\"money\">[price]</span>' %}
-    var standard_price_str = "{{ 'products.price.standard_price_html' | t: price: price_marker, price_with_currency: price_marker }}";
-    var compare_at_str = "{{ 'products.price.compare_at_price_html' | t: price: price_marker, price_with_currency: price_marker }}";
-    var sale_price_str = "{{ 'products.price.sale_price_html' | t: price: price_marker, price_with_currency: price_marker }}";
-    var unavailable_str = "{{ 'products.price.unavailable' | t }}"
+    {% assign price_marker = '<span class=\"money\" data-price=\"[raw_price]\" data-currency=\"{{ shop.currency }}\">[price]</span>' %}
+    {% assign price_with_currency_marker = '<span class=\"money\" data-price=\"[raw_price]\" data-currency=\"{{ shop.currency }}\">[price_with_currency]</span>' %}
+    
+    var standard_price_str = "{{ 'products.price.standard_price_html' | t: price: price_marker, price_with_currency: price_with_currency_marker }}";
+    var compare_at_str = "{{ 'products.price.compare_at_price_html' | t: price: price_marker, price_with_currency: price_with_currency_marker }}";
+    var sale_price_str = "{{ 'products.price.sale_price_html' | t: price: price_marker, price_with_currency: price_with_currency_marker }}";
+    var unavailable_str = "{{ 'products.price.unavailable' | t }}";
+    var zero_price_str = "{{ 'products.price.zero_price' | t }}";
 
     if (variant) {
       // get formated variant price and set it
-      console.log('variant.price', variant.price);
-      var price_formatted = Shopify.formatMoney(variant.price, Bsify.money_formats.moneyWithCurrencyFormat);
-      var standard_price = standard_price_str.replace('{{ price_marker }}', price_formatted);
-      $price_money_ele.removeClass('text-muted').html(standard_price);
-     
-      // Set the compare at price if we have it
-      if (variant.compare_at_price > 0) {
-        // update price with sale price string
-        var sale_price = sale_price_str.replace('{{ price_marker }}', price_formatted);
-        $price_money_ele.html(sale_price);
+      if (variant.price == 0) {
+        var raw_price = 0;
+        var price = zero_price_str;
+        var price_with_currency = zero_price_str;
+      } else {
+        var raw_price = variant.price;
+        var price = Shopify.formatMoney(variant.price, Bsify.money_formats.moneyFormat);
+        var price_with_currency = Shopify.formatMoney(variant.price, Bsify.money_formats.moneyWithCurrencyFormat);
+      }
+
+      if (variant.compare_at_price > variant.price) {
+        // It's on sale
+        var sale_price = sale_price_str
+          .replace('[raw_price]', raw_price)
+          .replace('[price]', price)
+          .replace('[price_with_currency]', price_with_currency);
+        $price_money_ele.removeClass('text-muted').html(sale_price);
         
         // update compare at price
-        var compare_at_price_formatted = Shopify.formatMoney(variant.compare_at_price, Bsify.money_formats.moneyWithCurrencyFormat);
-        var compare_at = compare_at_str.replace('{{ price_marker }}', compare_at_price_formatted);
+        var raw_compare_at_price = variant.compare_at_price;
+        var compare_at_price = Shopify.formatMoney(variant.compare_at_price, Bsify.money_formats.moneyFormat);
+        var compare_at_price_with_currency = Shopify.formatMoney(variant.compare_at_price, Bsify.money_formats.moneyWithCurrencyFormat);
+        var compare_at = compare_at_str
+          .replace('[raw_price]', raw_compare_at_price)
+          .replace('[price]', compare_at_price)
+          .replace('[price_with_currency]', compare_at_price_with_currency);
         $compare_at_price_ele.html(compare_at).removeClass('hidden');
         
       } else {
+        // It's the standard price
+        var standard_price = standard_price_str
+          .replace('[raw_price]', raw_price)
+          .replace('[price]', price)
+          .replace('[price_with_currency]', price_with_currency);
+        $price_money_ele.removeClass('text-muted').html(standard_price);
+        
         $compare_at_price_ele.addClass('hidden');
       }
      
