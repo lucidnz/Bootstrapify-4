@@ -18,7 +18,7 @@
           <img src="{{ featured_image | img_url: '1024x1024' }}" alt="{{ featured_image.alt | escape }}">
           
           {% comment %}
-            Trying to use srcset but it's not totally working properly yet
+            TODO: Trying to use srcset but it's not totally working properly yet
             Waiting on Shopify to implement image width filter
 <!--
           <img src="{{ featured_image | img_url: 'medium' }}"
@@ -71,6 +71,9 @@
                 {{ 'products.price.compare_at_price_html' | t: price: price, price_with_currency: price_with_currency }}
               {% endif %}
             </p>
+            
+              
+              [{{ variant.price }}]
             <p class="price" itemprop="price">
               {% capture price %}<span class="money">{{ variant.price | money }}</span>{% endcapture %}
               {% capture price_with_currency %}<span class="money">{{ variant.price | money_with_currency }}</span>{% endcapture %}
@@ -141,6 +144,7 @@
 
     if (variant) {
       // get formated variant price and set it
+      console.log('variant.price', variant.price);
       var price_formatted = Shopify.formatMoney(variant.price, Bsify.money_formats.moneyWithCurrencyFormat);
       var standard_price = standard_price_str.replace('{{ price_marker }}', price_formatted);
       $price_money_ele.removeClass('text-muted').html(standard_price);

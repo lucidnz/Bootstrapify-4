@@ -38,7 +38,8 @@
       "sale_price_html" : "now {{ price_with_currency }}",
       "from_price_html" : "from {{ price_with_currency }}",
       "compare_at_price_html" : "was {{ price_with_currency }}",
-      "unavailable" : "Unavailable"
+      "unavailable" : "Unavailable",
+      "zero_price" : "Free"
     },
     "badges" : {
       "on_sale" : "On Sale",

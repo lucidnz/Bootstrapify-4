@@ -7,16 +7,18 @@ var ImageSwitcher = {};
 // Used the sized src
 ImageSwitcher.preload_product_thumbs = function(){
   var $thumbs = $('[data-gallery-main]');
-  var main_image_element = $($thumbs.data('gallery-main'))[0];
-  var main_image_size = Shopify.Image.imageSize(main_image_element.src);
-  
-  if($thumbs.length > 0){
-    $thumbs.each(function(){
-      var image = new Image();
-      var src = $(this).attr('href');
-      var sized_src = Shopify.Image.getSizedImageUrl(src, main_image_size);
-      image.src = sized_src;
-    });
+  if ($thumbs.length > 0) {
+    var main_image_element = $($thumbs.data('gallery-main'))[0];
+    var main_image_size = Shopify.Image.imageSize(main_image_element.src);
+    
+    if($thumbs.length > 0){
+      $thumbs.each(function(){
+        var image = new Image();
+        var src = $(this).attr('href');
+        var sized_src = Shopify.Image.getSizedImageUrl(src, main_image_size);
+        image.src = sized_src;
+      });
+    }
   }
 };
 
