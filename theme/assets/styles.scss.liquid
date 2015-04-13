@@ -6536,7 +6536,7 @@ button.close {
 }
 
 img {
-  @extend .img-responsive;
+  @extend .img-responsive; // mixin ?
 }
 
 /*
@@ -6613,7 +6613,7 @@ body:after {
 }
 
 .group-item {
-  @extend .thumbnail;
+  @extend .thumbnail; //!!!
   img {
     margin-left: auto;
     margin-right: auto;
@@ -6630,7 +6630,7 @@ body:after {
 }
 
 table {
-  @extend .table;
+  @extend .table; //!!!
 
   .money {
     text-align: right;
@@ -6833,7 +6833,7 @@ body[class*="collection"] {
   }
   
   .product-images {
-    @extend .text-center;
+    @extend .text-center; //!!!
     @media (min-width: $grid-float-breakpoint) {
       float: left;
       margin-top: ($line-height-computed * 3); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
@@ -6868,8 +6868,8 @@ body[class*="collection"] {
     margin-bottom: $grid-gutter-width;
   }
   .product-image-thumbs {
-    @extend .list-unstyled;
-    @extend .list-inline;
+    @extend .list-unstyled; //!!!
+    @extend .list-inline; //!!!
     @include make-row();
     li {
       @include make-xs-column(6);
@@ -6930,7 +6930,7 @@ body[class*="collection"] {
   
   .cart-item-label-mini {
     display: none;
-    @extend .text-muted;
+    @extend .text-muted; //!!!
   }
 
   // Display cart table as a list on mobiles
@@ -7024,12 +7024,12 @@ h6 {
 }
 
 .group-item-details {
-  @extend .caption;
+  @extend .caption; //!!!
 }
 
 .group-item-title,
 .cart-item-title {
-  @extend .h5;
+  @extend .h5; //!!!
   font-weight: $strong-weight;
   
   .list-collections & {
@@ -7038,12 +7038,12 @@ h6 {
 }
 
 .compare-at-price {
-  @extend .small;
-  @extend .text-muted;
+  @extend .small; //!!!
+  @extend .text-muted; //!!!
 }
 
 .product-details .product-price {
-  @extend .h3;
+  @extend .h3; //!!!
 /*
   .price {
     @extend .pull-left;
@@ -7096,7 +7096,7 @@ h6 {
 }
 
 .article-list {
-  @extend .nav;
+  @extend .nav; //!!!
   > li > a {
     padding-left: 0;
   }
@@ -7109,7 +7109,7 @@ h6 {
     margin-top: 0;
   }
   .article-list-meta {
-    @extend .small;
+    @extend .small; //!!!
     .separator {
       margin: 0 $grid-gutter-width / 8;
     }
@@ -7117,7 +7117,7 @@ h6 {
 }
 /* General styles for all navigations */
 
-.nav-inline {
+.nav-inline { // Placeholder?
   @extend .list-inline;
   & > li {
     display: inline-block;
@@ -7125,27 +7125,27 @@ h6 {
 }
 
 [data-cart-display] > span {
-  @extend .hidden-xs;
+  @extend .hidden-xs; //!!!
 }
 
 .collection-controls {
-  @extend .clearfix;
+  @extend .clearfix; //!!!
 }
 
 .collection-sort-by {
   float: right;
   margin-right: $grid-gutter-width;
   button {
-    @extend .btn;
-    @extend .btn-default;
+    @extend .btn; //!!!
+    @extend .btn-default; //!!!
   }
 }
 
 .collection-template-switcher {
   float: right;
   ul {
-    @extend .nav;
-    @extend .nav-inline;
+    @extend .nav; //!!!
+    @extend .nav-inline; //%?
     & > li > a {
       padding-left: $grid-gutter-width / 4;
       padding-right: $grid-gutter-width / 4;
@@ -7160,8 +7160,8 @@ h6 {
 
 .social-links {
   ul {
-    @extend .nav;
-    @extend .nav-inline;
+    @extend .nav; //!!!
+    @extend .nav-inline; //%?
   }
   ul > li > a {
     padding-left: 0;
@@ -7177,39 +7177,39 @@ h6 {
   // Small screen sizes
   .header-small {
     margin-bottom: 0;
-    @extend .visible-xs-block;
-    @extend .navbar;
-    @extend .navbar-default;
+    @extend .visible-xs-block; //!!!
+    @extend .navbar; //!!!
+    @extend .navbar-default; //!!!
   }
   
   .navigation-header {
-    @extend .navbar-header;
+    @extend .navbar-header; //!!!
     & > .nav {
-      @extend .navbar-nav;
-      @extend .nav-inline;
-      @extend .pull-right;
+      @extend .navbar-nav; //!!!
+      @extend .nav-inline; //%?
+      @extend .pull-right; //!!!
       margin-left: 0;
       margin-right: 0;
     }
   }
   
   .navigation-toggle {
-    @extend .navbar-toggle;
-    @extend .pull-left;
+    @extend .navbar-toggle; //!!!
+    @extend .pull-left; //!!!
     margin-left: $grid-gutter-width/2;
   }
   
   .navigation {
-    @extend .navbar-collapse;
+    @extend .navbar-collapse; //!!!
     & > .nav {
-      @extend .navbar-nav;
+      @extend .navbar-nav; //!!!
       border-top: 1px solid $dropdown-divider-bg;
     }
   }
   
   // Large screen sizes
   .header-large {
-    @extend .text-center;
+    @extend .text-center; //!!!
   }
   
   .header-logo {
@@ -7220,21 +7220,21 @@ h6 {
   }
   
   .navigation-top, .navigation-main {
-    @extend .hidden-xs;
+    @extend .hidden-xs; //!!!
   }
     
   .main-nav, .secondary-nav, .tertiary-nav {
     .nav {
-      @extend .nav-inline;
+      @extend .nav-inline; //%?
     }
   }
   
   .secondary-nav {
-    @extend .pull-left;
+    @extend .pull-left; //!!!
   }
   
   .tertiary-nav {
-    @extend .pull-right;
+    @extend .pull-right; //!!!
   }
   
   // Details
@@ -7242,24 +7242,24 @@ h6 {
     padding: 0 $grid-gutter-width/2;
   }
   .search-form {
-    @extend .navbar-form;
+    @extend .navbar-form; //!!!
   }
   .input-group {
-    @extend .form-group;
+    @extend .form-group; //!!!
   }
   input[type=search],
   input[type=text] {
-    @extend .form-control;
+    @extend .form-control; //!!!
   }
   input[type=submit],
   button {
-    @extend .btn;
-    @extend .btn-default;
+    @extend .btn; //!!!
+    @extend .btn-default; //!!!
   }
 }
 .add-to-cart-form, .cart-form, .contact-form, .newsletter-form {
   label {
-    @extend .control-label;
+    @extend .control-label; //!!!
   }
   
   input[type=text],
@@ -7269,37 +7269,37 @@ h6 {
   input[type=number],
   select,
   textarea {
-    @extend .form-control;
+    @extend .form-control; //!!!
   }
   
   button {
-    @extend .btn;
-    @extend .btn-default;
+    @extend .btn; //!!!
+    @extend .btn-default; //!!!
   }
   
   .selector-wrapper {
-    @extend .form-group;
+    @extend .form-group; //!!!
   }
   
-  .errors, .note {
-    @extend .alert;
+  .errors, .note { // <!-- dont have controll over the errors ele
+    @extend .alert; //!!!
   }
   
-  .errors, .note.error {
-    @extend .alert-danger;
+  .errors, .note.error { // <!--dont have controll over the errors ele
+    @extend .alert-danger; //!!!
   }
   
   .note.success {
-    @extend .alert-success;
+    @extend .alert-success; //!!!
   }
 }
 
 .add-to-cart-message, .cart-message {
   .note {
-    @extend .alert;
+    @extend .alert; //!!!
   }
   .note.success {
-    @extend .alert-success;
+    @extend .alert-success; //!!!
   }
 }
 .banner {
@@ -7338,18 +7338,18 @@ h6 {
 
 .banner-control-left, .banner-control-right {
   background-image: none;
-  @extend .carousel-control;
+  @extend .carousel-control; //!!!
   [class*=icon] {
     font-family: FontAwesome;
   }
 }
 
 .banner-control-left {
-  @extend .left;
+  @extend .left; //!!!
 }
 
 .banner-control-right {
-  @extend .right;
+  @extend .right; //!!!
 }
 
 
@@ -7396,7 +7396,7 @@ h6 {
       
       @if $slide-size!= 'full_width' and $slide-size != 'full_screen' {
         .banner-content-wrap {
-          @extend .sheet;
+          @extend .sheet; //!!!
         }
       }
       
@@ -7429,12 +7429,12 @@ h6 {
         
       } @else {
         .banner-content {
-          @extend .carousel-inner;
+          @extend .carousel-inner; //!!!
         }
 
         // TODO: caption alignment when not inside half container
         .banner-caption {
-          @extend .carousel-caption;
+          @extend .carousel-caption; //!!!
         }
       }
       
@@ -7450,7 +7450,7 @@ h6 {
           color: $slide-text-colour;
         }
         .call-to-action {
-          @extend .btn;
+          @extend .btn; //!!!
           $slide-button-text-colour: button-text-color($slide-button-bg-colour);
           $slide-button-border-colour: border-color($slide-button-bg-colour);
           @include button-variant($slide-button-text-colour, $slide-button-bg-colour, $slide-button-border-colour);
@@ -7478,47 +7478,47 @@ $slide-count: 1;
 /* Labels and Badges */
 
 .label-sale {
-  @extend .label-success;
+  @extend .label-success; //!!!
 }
 
 .label-sold-out {
-  @extend .label-warning;
+  @extend .label-warning; //!!!
 }
 
 .btn-contact {
-  @extend .btn;
-  @extend .btn-default;
+  @extend .btn; //!!!
+  @extend .btn-default; //!!!
 }
 
 .product-buttons {
-  @extend .btn-group;
-  @extend .btn-group-justified;
+  @extend .btn-group; //!!!
+  @extend .btn-group-justified; //!!!
 }
 
 .btn-view {
-  @extend .btn;
-  @extend .btn-default;
+  @extend .btn; //!!!
+  @extend .btn-default; //!!!
 }
 
 .btn-add-to-cart {
-  @extend .btn;
-  @extend .btn-primary;
-  @extend .btn-lg;
-  @extend .btn-block;
+  @extend .btn; //!!!
+  @extend .btn-primary; //!!!
+  @extend .btn-lg; //!!!
+  @extend .btn-block; //!!!
 }
 
 .cart-buttons {
-  @extend .btn-group;
+  @extend .btn-group; //!!!
 }
 
 .btn-update-cart {
-  @extend .btn;
-  @extend .btn-default;
+  @extend .btn; //!!!
+  @extend .btn-default; //!!!
 }
 
 .btn-checkout {
-  @extend .btn;
-  @extend .btn-primary;
+  @extend .btn; //!!!
+  @extend .btn-primary; //!!!
 }
 // This file is purely for this one liquid settings so that it is placed right at the bottom of our stylesheet.
 {% unless settings.scss_overrides == blank %}{{ settings.scss_overrides }}{% endunless %}

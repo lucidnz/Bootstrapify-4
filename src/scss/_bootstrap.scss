@@ -1,8 +1,7 @@
-// Core variables and mixins
-@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/variables";
-
-// Mixins
+// Variables and Mixins
 // --------------------------------------------------
+
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/variables";
 
 // Utilities
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins/hide-text";
@@ -40,7 +39,8 @@
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid-framework";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid";
 
-
+// Styles
+// --------------------------------------------------
 
 // Reset and dependencies
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/normalize";

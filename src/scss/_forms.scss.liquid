@@ -1,6 +1,6 @@
 .add-to-cart-form, .cart-form, .contact-form, .newsletter-form {
   label {
-    @extend .control-label;
+    @extend .control-label; //!!!
   }
   
   input[type=text],
@@ -10,36 +10,36 @@
   input[type=number],
   select,
   textarea {
-    @extend .form-control;
+    @extend .form-control; //!!!
   }
   
   button {
-    @extend .btn;
-    @extend .btn-default;
+    @extend .btn; //!!!
+    @extend .btn-default; //!!!
   }
   
   .selector-wrapper {
-    @extend .form-group;
+    @extend .form-group; //!!!
   }
   
-  .errors, .note {
-    @extend .alert;
+  .errors, .note { // <!-- dont have controll over the errors ele
+    @extend .alert; //!!!
   }
   
-  .errors, .note.error {
-    @extend .alert-danger;
+  .errors, .note.error { // <!--dont have controll over the errors ele
+    @extend .alert-danger; //!!!
   }
   
   .note.success {
-    @extend .alert-success;
+    @extend .alert-success; //!!!
   }
 }
 
 .add-to-cart-message, .cart-message {
   .note {
-    @extend .alert;
+    @extend .alert; //!!!
   }
   .note.success {
-    @extend .alert-success;
+    @extend .alert-success; //!!!
   }
 }

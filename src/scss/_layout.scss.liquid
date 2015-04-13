@@ -25,7 +25,7 @@
 }
 
 .group-item {
-  @extend .thumbnail;
+  @extend .thumbnail; //!!!
   img {
     margin-left: auto;
     margin-right: auto;
@@ -42,7 +42,7 @@
 }
 
 table {
-  @extend .table;
+  @extend .table; //!!!
 
   .money {
     text-align: right;
@@ -245,7 +245,7 @@ body[class*="collection"] {
   }
   
   .product-images {
-    @extend .text-center;
+    @extend .text-center; //!!!
     @media (min-width: $grid-float-breakpoint) {
       float: left;
       margin-top: ($line-height-computed * 3); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
@@ -280,8 +280,8 @@ body[class*="collection"] {
     margin-bottom: $grid-gutter-width;
   }
   .product-image-thumbs {
-    @extend .list-unstyled;
-    @extend .list-inline;
+    @extend .list-unstyled; //!!!
+    @extend .list-inline; //!!!
     @include make-row();
     li {
       @include make-xs-column(6);
@@ -342,7 +342,7 @@ body[class*="collection"] {
   
   .cart-item-label-mini {
     display: none;
-    @extend .text-muted;
+    @extend .text-muted; //!!!
   }
 
   // Display cart table as a list on mobiles
