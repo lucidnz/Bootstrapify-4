@@ -6950,6 +6950,9 @@ body[class*="collection"] {
   }
 
   @media (min-width: $grid-float-breakpoint) {
+    .cart-table td {
+      vertical-align: middle;
+    }
     .cart-item a {
       display: table-row;
     }
@@ -7190,6 +7193,9 @@ h6 {
   .selector-wrapper {
     // added in by shopify's js
     @extend .form-group;
+    select {
+      @extend .form-control;
+    }
   }
   
   // notes and errors are eith created by Shopify or JS
