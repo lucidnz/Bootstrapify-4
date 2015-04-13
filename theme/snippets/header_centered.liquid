@@ -1,14 +1,10 @@
 <div id="header-layout-centered">
   <!-- Header markup for smaller screen sizes i.e. mobiles -->
-  <div class="header-small">
+  <div class="header-small navbar navbar-default visible-xs-block">
     <div class="sheet">
-      
-      {% comment %}
-        .navigation-toggle and .navigation need the .collapsed and .collapse links to get the BS transitions to work.
-      {% endcomment %}
-      
-      <div class="navigation-header">
-        <button type="button" class="navigation-toggle collapsed" data-toggle="collapse" data-target="#navigation-collapse">
+    
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle pull-left collapsed" data-toggle="collapse" data-target="#navigation-collapse">
           <span class="sr-only">Toggle navigation</span>
           <span class="fa fa-bars"></span>
           Menu
@@ -18,7 +14,7 @@
         {% include 'nav_list' %}
       </div>
       
-      <div class="navigation collapse" id="navigation-collapse">
+      <div class="navigation navbar-collapse collapse" id="navigation-collapse">
         {% assign navbar_nav = true %}
         {% unless settings.main_menu_linklist == blank %} {% include 'nav_list' with settings.main_menu_linklist %} {% endunless %}
 
@@ -35,15 +31,15 @@
   
   <!-- Header markup for larger screen sizes i.e. desktops --> 
   <div class="header-large">  
-    <section class="navigation-top">
+    <section class="navigation-top hidden-xs">
       <div class="sheet">
         {% unless settings.secondary_menu_linklist == blank %}
-          <nav class="secondary-nav">
+          <nav class="secondary-nav pull-left">
             {% include 'nav_list' with settings.secondary_menu_linklist %}
           </nav>
         {% endunless %}
         
-        <nav class="tertiary-nav">
+        <nav class="tertiary-nav pull-right">
           {% assign nav_list_items = 'accounts,cart,search' %}
           {% include 'nav_list' with settings.tertiary_menu_linklist %}
         </nav>
@@ -56,7 +52,7 @@
     </section>
     
     {% unless settings.main_menu_linklist == blank %}
-    <section class="navigation-main">
+    <section class="navigation-main hidden-xs">
       <nav class="main-nav">
         {% include 'nav_list' with settings.main_menu_linklist %}
       </nav>

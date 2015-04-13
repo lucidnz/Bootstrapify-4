@@ -6613,7 +6613,6 @@ body:after {
 }
 
 .group-item {
-  @extend .thumbnail; //!!!
   img {
     margin-left: auto;
     margin-right: auto;
@@ -6630,8 +6629,6 @@ body:after {
 }
 
 table {
-  @extend .table; //!!!
-
   .money {
     text-align: right;
   }
@@ -6833,7 +6830,7 @@ body[class*="collection"] {
   }
   
   .product-images {
-    @extend .text-center; //!!!
+    text-align: center;
     @media (min-width: $grid-float-breakpoint) {
       float: left;
       margin-top: ($line-height-computed * 3); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
@@ -6868,8 +6865,6 @@ body[class*="collection"] {
     margin-bottom: $grid-gutter-width;
   }
   .product-image-thumbs {
-    @extend .list-unstyled; //!!!
-    @extend .list-inline; //!!!
     @include make-row();
     li {
       @include make-xs-column(6);
@@ -6930,7 +6925,6 @@ body[class*="collection"] {
   
   .cart-item-label-mini {
     display: none;
-    @extend .text-muted; //!!!
   }
 
   // Display cart table as a list on mobiles
@@ -7023,35 +7017,14 @@ h6 {
   }
 }
 
-.group-item-details {
-  @extend .caption; //!!!
-}
-
 .group-item-title,
 .cart-item-title {
-  @extend .h5; //!!!
+  @extend .h5;
   font-weight: $strong-weight;
   
   .list-collections & {
   	font-size: $font-size-h3;
   }
-}
-
-.compare-at-price {
-  @extend .small; //!!!
-  @extend .text-muted; //!!!
-}
-
-.product-details .product-price {
-  @extend .h3; //!!!
-/*
-  .price {
-    @extend .pull-left;
-  }
-  .compare-at-price {
-    @extend .pull-right;
-  }
-*/
 }
 
 .cart-table {
@@ -7096,7 +7069,6 @@ h6 {
 }
 
 .article-list {
-  @extend .nav; //!!!
   > li > a {
     padding-left: 0;
   }
@@ -7109,7 +7081,6 @@ h6 {
     margin-top: 0;
   }
   .article-list-meta {
-    @extend .small; //!!!
     .separator {
       margin: 0 $grid-gutter-width / 8;
     }
@@ -7117,39 +7088,27 @@ h6 {
 }
 /* General styles for all navigations */
 
-.nav-inline { // Placeholder?
+.nav-inline {
   @extend .list-inline;
   & > li {
     display: inline-block;
   }
 }
 
-[data-cart-display] > span {
-  @extend .hidden-xs; //!!!
-}
-
-.collection-controls {
-  @extend .clearfix; //!!!
+[data-cart-display] > span { // this span is in the translations not in the actual theme markup
+  @extend .hidden-xs;
 }
 
 .collection-sort-by {
   float: right;
   margin-right: $grid-gutter-width;
-  button {
-    @extend .btn; //!!!
-    @extend .btn-default; //!!!
-  }
 }
 
 .collection-template-switcher {
   float: right;
-  ul {
-    @extend .nav; //!!!
-    @extend .nav-inline; //%?
-    & > li > a {
-      padding-left: $grid-gutter-width / 4;
-      padding-right: $grid-gutter-width / 4;
-    }
+  ul > li > a {
+    padding-left: $grid-gutter-width / 4;
+    padding-right: $grid-gutter-width / 4;
   }
 }
 
@@ -7159,10 +7118,6 @@ h6 {
 }
 
 .social-links {
-  ul {
-    @extend .nav; //!!!
-    @extend .nav-inline; //%?
-  }
   ul > li > a {
     padding-left: 0;
     padding-right: 0;
@@ -7171,45 +7126,42 @@ h6 {
     font-size: 1.5em;
   }
 }
-/* Styles for centered navigation snippet */
+/*
+  Styles for centered navigation snippet
+  
+  NOTE: @extends on navs are because we can't put these classes into the markup as the nav-list is reused in places other than inside a navbar
+*/
 
 #header-layout-centered {
   // Small screen sizes
   .header-small {
     margin-bottom: 0;
-    @extend .visible-xs-block; //!!!
-    @extend .navbar; //!!!
-    @extend .navbar-default; //!!!
   }
   
-  .navigation-header {
-    @extend .navbar-header; //!!!
+  .navbar-header {
     & > .nav {
-      @extend .navbar-nav; //!!!
-      @extend .nav-inline; //%?
-      @extend .pull-right; //!!!
+      @extend .navbar-nav;
+      @extend .nav-inline;
+      @extend .pull-right;
       margin-left: 0;
       margin-right: 0;
     }
   }
   
-  .navigation-toggle {
-    @extend .navbar-toggle; //!!!
-    @extend .pull-left; //!!!
+  .navbar-toggle {
     margin-left: $grid-gutter-width/2;
   }
   
   .navigation {
-    @extend .navbar-collapse; //!!!
     & > .nav {
-      @extend .navbar-nav; //!!!
+      @extend .navbar-nav;
       border-top: 1px solid $dropdown-divider-bg;
     }
   }
   
   // Large screen sizes
   .header-large {
-    @extend .text-center; //!!!
+    text-align: center;
   }
   
   .header-logo {
@@ -7218,23 +7170,11 @@ h6 {
       margin: 1em auto;
     }
   }
-  
-  .navigation-top, .navigation-main {
-    @extend .hidden-xs; //!!!
-  }
     
   .main-nav, .secondary-nav, .tertiary-nav {
     .nav {
-      @extend .nav-inline; //%?
+      @extend .nav-inline;
     }
-  }
-  
-  .secondary-nav {
-    @extend .pull-left; //!!!
-  }
-  
-  .tertiary-nav {
-    @extend .pull-right; //!!!
   }
   
   // Details
@@ -7242,19 +7182,7 @@ h6 {
     padding: 0 $grid-gutter-width/2;
   }
   .search-form {
-    @extend .navbar-form; //!!!
-  }
-  .input-group {
-    @extend .form-group; //!!!
-  }
-  input[type=search],
-  input[type=text] {
-    @extend .form-control; //!!!
-  }
-  input[type=submit],
-  button {
-    @extend .btn; //!!!
-    @extend .btn-default; //!!!
+    @extend .navbar-form;
   }
 }
 .add-to-cart-form, .cart-form, .contact-form, .newsletter-form {

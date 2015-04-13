@@ -33,7 +33,7 @@
 -->
           {% endcomment %}
         </div>
-        <ul class="product-image-thumbs">
+        <ul class="product-image-thumbs list-inline">
           
           {% comment %}
             Show thumbs for product image gallery.
@@ -63,8 +63,8 @@
         <link itemprop="availability" href="http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}">
         
         <div class="product-details-content">
-          <div class="product-price">
-            <p class="compare-at-price">
+          <div class="product-price h3">
+            <p class="compare-at-price small text-muted">
               {% comment %} Leave compare-at-price element in markup even if empty so we can grab it with JS if we need to {% endcomment %}
               {% if variant.compare_at_price > variant.price %}
                 {% capture price %}<span class="money" data-price="{{ variant.compare_at_price }}" data-currency="{{ shop.currency }}">{{ variant.compare_at_price | money }}</span>{% endcapture %}

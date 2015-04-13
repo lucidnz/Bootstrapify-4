@@ -1,42 +1,39 @@
-/* Styles for centered navigation snippet */
+/*
+  Styles for centered navigation snippet
+  
+  NOTE: @extends on navs are because we can't put these classes into the markup as the nav-list is reused in places other than inside a navbar
+*/
 
 #header-layout-centered {
   // Small screen sizes
   .header-small {
     margin-bottom: 0;
-    @extend .visible-xs-block; //!!!
-    @extend .navbar; //!!!
-    @extend .navbar-default; //!!!
   }
   
-  .navigation-header {
-    @extend .navbar-header; //!!!
+  .navbar-header {
     & > .nav {
-      @extend .navbar-nav; //!!!
-      @extend .nav-inline; //%?
-      @extend .pull-right; //!!!
+      @extend .navbar-nav;
+      @extend .nav-inline;
+      @extend .pull-right;
       margin-left: 0;
       margin-right: 0;
     }
   }
   
-  .navigation-toggle {
-    @extend .navbar-toggle; //!!!
-    @extend .pull-left; //!!!
+  .navbar-toggle {
     margin-left: $grid-gutter-width/2;
   }
   
   .navigation {
-    @extend .navbar-collapse; //!!!
     & > .nav {
-      @extend .navbar-nav; //!!!
+      @extend .navbar-nav;
       border-top: 1px solid $dropdown-divider-bg;
     }
   }
   
   // Large screen sizes
   .header-large {
-    @extend .text-center; //!!!
+    text-align: center;
   }
   
   .header-logo {
@@ -45,23 +42,11 @@
       margin: 1em auto;
     }
   }
-  
-  .navigation-top, .navigation-main {
-    @extend .hidden-xs; //!!!
-  }
     
   .main-nav, .secondary-nav, .tertiary-nav {
     .nav {
-      @extend .nav-inline; //%?
+      @extend .nav-inline;
     }
-  }
-  
-  .secondary-nav {
-    @extend .pull-left; //!!!
-  }
-  
-  .tertiary-nav {
-    @extend .pull-right; //!!!
   }
   
   // Details
@@ -69,18 +54,6 @@
     padding: 0 $grid-gutter-width/2;
   }
   .search-form {
-    @extend .navbar-form; //!!!
-  }
-  .input-group {
-    @extend .form-group; //!!!
-  }
-  input[type=search],
-  input[type=text] {
-    @extend .form-control; //!!!
-  }
-  input[type=submit],
-  button {
-    @extend .btn; //!!!
-    @extend .btn-default; //!!!
+    @extend .navbar-form;
   }
 }

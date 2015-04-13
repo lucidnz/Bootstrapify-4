@@ -27,35 +27,14 @@ h6 {
   }
 }
 
-.group-item-details {
-  @extend .caption; //!!!
-}
-
 .group-item-title,
 .cart-item-title {
-  @extend .h5; //!!!
+  @extend .h5;
   font-weight: $strong-weight;
   
   .list-collections & {
   	font-size: $font-size-h3;
   }
-}
-
-.compare-at-price {
-  @extend .small; //!!!
-  @extend .text-muted; //!!!
-}
-
-.product-details .product-price {
-  @extend .h3; //!!!
-/*
-  .price {
-    @extend .pull-left;
-  }
-  .compare-at-price {
-    @extend .pull-right;
-  }
-*/
 }
 
 .cart-table {
@@ -100,7 +79,6 @@ h6 {
 }
 
 .article-list {
-  @extend .nav; //!!!
   > li > a {
     padding-left: 0;
   }
@@ -113,7 +91,6 @@ h6 {
     margin-top: 0;
   }
   .article-list-meta {
-    @extend .small; //!!!
     .separator {
       margin: 0 $grid-gutter-width / 8;
     }

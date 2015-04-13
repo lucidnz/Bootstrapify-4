@@ -9,7 +9,7 @@
         <div class="cart-message hidden"></div>
         <form class="cart-form" action="/cart" method="post">
           <div class="cart-items">
-            <table class="cart-table">
+            <table class="cart-table table">
               <thead>
                 <tr>
                   <th class="cart-item-product-label">{{ 'cart.cart_table.product_label' | t }}</th>
@@ -53,12 +53,12 @@
                       {% capture item_price %}<span class="money" data-price="{{ item.price }}" data-currency="{{ shop.currency }}">{{ item.price | money }}</span>{% endcapture %}
                       {% capture item_price_with_currency %}<span class="money" data-price="{{ item.price }}" data-currency="{{ shop.currency }}">{{ item.price | money_with_currency }}</span>{% endcapture %}
                     {% endif %}
-                    <span class="cart-item-label-mini">{{ 'cart.cart_table.price_label' | t }}</span> {{ 'cart.price.item_price_html' | t: price: item_price, price_with_currency: item_price_with_currency }}
+                    <span class="cart-item-label-mini text-muted">{{ 'cart.cart_table.price_label' | t }}</span> {{ 'cart.price.item_price_html' | t: price: item_price, price_with_currency: item_price_with_currency }}
                   </td>
                   <td class="cart-item-total">
                     {% capture line_price %}<span class="money" data-price="{{ item.line_price }}" data-currency="{{ shop.currency }}">{{ item.line_price | money }}</span>{% endcapture %}
                     {% capture line_price_with_currency %}<span class="money" data-price="{{ item.line_price }}" data-currency="{{ shop.currency }}">{{ item.line_price | money_with_currency }}</span>{% endcapture %}
-                    <span class="cart-item-label-mini">{{ 'cart.cart_table.total_label' | t }}</span> {{ 'cart.price.item_price_html' | t: price: line_price, price_with_currency: line_price_with_currency }}
+                    <span class="cart-item-label-mini text-muted">{{ 'cart.cart_table.total_label' | t }}</span> {{ 'cart.price.item_price_html' | t: price: line_price, price_with_currency: line_price_with_currency }}
                   </td>
                 </tr>
                 {% endfor %}

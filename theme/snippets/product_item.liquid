@@ -15,12 +15,12 @@
 {% endif %}
 
 <div class="group-item-wrap">
-  <figure class="group-item">
+  <figure class="group-item thumbnail">
     <a href="{{ p.url }}" title="{{ p.title }}">
       <div class="group-item-image">
         {{ p.featured_image | img_url: '1024x1024' | img_tag }}
       </div>
-      <figcaption class="group-item-details">
+      <figcaption class="group-item-details caption">
         <h3 class="group-item-title">{{ p.title }}</h3>
         {% include 'product_price' %}
         {% include 'product_badges' %}

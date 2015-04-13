@@ -1,38 +1,26 @@
 /* General styles for all navigations */
 
-.nav-inline { // Placeholder?
+.nav-inline {
   @extend .list-inline;
   & > li {
     display: inline-block;
   }
 }
 
-[data-cart-display] > span {
-  @extend .hidden-xs; //!!!
-}
-
-.collection-controls {
-  @extend .clearfix; //!!!
+[data-cart-display] > span { // this span is in the translations not in the actual theme markup
+  @extend .hidden-xs;
 }
 
 .collection-sort-by {
   float: right;
   margin-right: $grid-gutter-width;
-  button {
-    @extend .btn; //!!!
-    @extend .btn-default; //!!!
-  }
 }
 
 .collection-template-switcher {
   float: right;
-  ul {
-    @extend .nav; //!!!
-    @extend .nav-inline; //%?
-    & > li > a {
-      padding-left: $grid-gutter-width / 4;
-      padding-right: $grid-gutter-width / 4;
-    }
+  ul > li > a {
+    padding-left: $grid-gutter-width / 4;
+    padding-right: $grid-gutter-width / 4;
   }
 }
 
@@ -42,10 +30,6 @@
 }
 
 .social-links {
-  ul {
-    @extend .nav; //!!!
-    @extend .nav-inline; //%?
-  }
   ul > li > a {
     padding-left: 0;
     padding-right: 0;

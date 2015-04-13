@@ -1,5 +1,5 @@
 {% if collection.products.size > 0 %}
-<div class="collection-controls">
+<div class="collection-controls clearfix">
   {% comment %}
     TODO: filter by tags
     note: does filter_by url filter take into account sort order and view url params?
@@ -37,7 +37,7 @@
   
   {% if enabled_templates.size > 1 %}
   <div class="collection-template-switcher">
-    <ul>
+    <ul class="nav nav-inline">
     {% for t in enabled_templates %}
       
       {% case t %}
@@ -68,7 +68,7 @@
   {% if settings.show_collection_sort_by %}
     <div class="collection-sort-by">
       <div class="btn-group">
-        <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{{ 'collections.sorting.title' | t }} <span class="caret"></span></button>
+        <button class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">{{ 'collections.sorting.title' | t }} <span class="caret"></span></button>
         
         {% comment %}
           Set the url taking into account another template might be currently in use

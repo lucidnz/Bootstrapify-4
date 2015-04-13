@@ -1,5 +1,5 @@
 <div class="group-item-wrap">
-  <figure class="group-item">
+  <figure class="group-item thumbnail">
     <a href="{{ c.url }}" title="{{ c.title }}">
       <div class="group-item-image">
         {% if c.image %}
@@ -10,7 +10,7 @@
           </svg>
         {% endif %}
       </div>
-      <figcaption class="group-item-details">
+      <figcaption class="group-item-details caption">
         <h3 class="group-item-title">{{ collection_title | default: c.title }}</h3>
         
         {% if settings.show_collection_product_count %}
