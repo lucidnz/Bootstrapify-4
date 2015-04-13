@@ -31,23 +31,12 @@
 }
 
 // Banner controls
-
 .banner-control-left, .banner-control-right {
   background-image: none;
-  @extend .carousel-control; //!!!
   [class*=icon] {
     font-family: FontAwesome;
   }
 }
-
-.banner-control-left {
-  @extend .left; //!!!
-}
-
-.banner-control-right {
-  @extend .right; //!!!
-}
-
 
 {% comment %}
   Setup individual slide styles
@@ -92,7 +81,7 @@
       
       @if $slide-size!= 'full_width' and $slide-size != 'full_screen' {
         .banner-content-wrap {
-          @extend .sheet; //!!!
+          @extend .sheet;
         }
       }
       
@@ -125,12 +114,12 @@
         
       } @else {
         .banner-content {
-          @extend .carousel-inner; //!!!
+          @extend .carousel-inner;
         }
 
         // TODO: caption alignment when not inside half container
         .banner-caption {
-          @extend .carousel-caption; //!!!
+          @extend .carousel-caption;
         }
       }
       
@@ -146,7 +135,6 @@
           color: $slide-text-colour;
         }
         .call-to-action {
-          @extend .btn; //!!!
           $slide-button-text-colour: button-text-color($slide-button-bg-colour);
           $slide-button-border-colour: border-color($slide-button-bg-colour);
           @include button-variant($slide-button-text-colour, $slide-button-bg-colour, $slide-button-border-colour);

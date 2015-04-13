@@ -76,7 +76,7 @@
                 <p>{{ settings[slide_text] }}</p>
               {% endunless %}
               {% unless settings[slide_button_text] == blank and settings[slide_button_link] == blank %}
-                <p><a class="call-to-action" href="{{ settings[slide_button_link] }}">{{ settings[slide_button_text] }}</a></p>
+                <p><a class="call-to-action btn" href="{{ settings[slide_button_link] }}">{{ settings[slide_button_text] }}</a></p>
               {% endunless %}
             </figcaption>
             <div class="banner-image">{{ slide_image | asset_url | img_tag: settings[slide_title] }}</div>
@@ -111,11 +111,11 @@
   
   {% if slide_count > 1 %}
   <!-- Controls -->
-  <a class="banner-control-left" href="#{{ banner_id }}" role="button" data-slide="prev">
+  <a class="banner-control-left carousel-control left" href="#{{ banner_id }}" role="button" data-slide="prev">
     <span class="icon-prev fa fa-chevron-left" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
   </a>
-  <a class="banner-control-right" href="#{{ banner_id }}" role="button" data-slide="next">
+  <a class="banner-control-right carousel-control right" href="#{{ banner_id }}" role="button" data-slide="next">
     <span class="icon-next fa fa-chevron-right" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>

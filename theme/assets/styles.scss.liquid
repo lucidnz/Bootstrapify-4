@@ -6536,7 +6536,7 @@ button.close {
 }
 
 img {
-  @extend .img-responsive; // mixin ?
+  @include img-responsive;
 }
 
 /*
@@ -7186,48 +7186,32 @@ h6 {
   }
 }
 .add-to-cart-form, .cart-form, .contact-form, .newsletter-form {
-  label {
-    @extend .control-label; //!!!
-  }
-  
-  input[type=text],
-  input[type=password],
-  input[type=email],
-  input[type=tel],
-  input[type=number],
-  select,
-  textarea {
-    @extend .form-control; //!!!
-  }
-  
-  button {
-    @extend .btn; //!!!
-    @extend .btn-default; //!!!
-  }
   
   .selector-wrapper {
-    @extend .form-group; //!!!
+    // added in by shopify's js
+    @extend .form-group;
   }
   
-  .errors, .note { // <!-- dont have controll over the errors ele
-    @extend .alert; //!!!
+  // notes and errors are eith created by Shopify or JS
+  .errors, .note {
+    @extend .alert;
   }
   
-  .errors, .note.error { // <!--dont have controll over the errors ele
-    @extend .alert-danger; //!!!
+  .errors, .note.error {
+    @extend .alert-danger;
   }
   
   .note.success {
-    @extend .alert-success; //!!!
+    @extend .alert-success;
   }
 }
 
 .add-to-cart-message, .cart-message {
   .note {
-    @extend .alert; //!!!
+    @extend .alert;
   }
   .note.success {
-    @extend .alert-success; //!!!
+    @extend .alert-success;
   }
 }
 .banner {
@@ -7263,23 +7247,12 @@ h6 {
 }
 
 // Banner controls
-
 .banner-control-left, .banner-control-right {
   background-image: none;
-  @extend .carousel-control; //!!!
   [class*=icon] {
     font-family: FontAwesome;
   }
 }
-
-.banner-control-left {
-  @extend .left; //!!!
-}
-
-.banner-control-right {
-  @extend .right; //!!!
-}
-
 
 {% comment %}
   Setup individual slide styles
@@ -7324,7 +7297,7 @@ h6 {
       
       @if $slide-size!= 'full_width' and $slide-size != 'full_screen' {
         .banner-content-wrap {
-          @extend .sheet; //!!!
+          @extend .sheet;
         }
       }
       
@@ -7357,12 +7330,12 @@ h6 {
         
       } @else {
         .banner-content {
-          @extend .carousel-inner; //!!!
+          @extend .carousel-inner;
         }
 
         // TODO: caption alignment when not inside half container
         .banner-caption {
-          @extend .carousel-caption; //!!!
+          @extend .carousel-caption;
         }
       }
       
@@ -7378,7 +7351,6 @@ h6 {
           color: $slide-text-colour;
         }
         .call-to-action {
-          @extend .btn; //!!!
           $slide-button-text-colour: button-text-color($slide-button-bg-colour);
           $slide-button-border-colour: border-color($slide-button-bg-colour);
           @include button-variant($slide-button-text-colour, $slide-button-bg-colour, $slide-button-border-colour);
@@ -7403,50 +7375,7 @@ $slide-count: 1;
   $slide-count: $slide-count + 1;
 }
 {% endunless %}
-/* Labels and Badges */
 
-.label-sale {
-  @extend .label-success; //!!!
-}
 
-.label-sold-out {
-  @extend .label-warning; //!!!
-}
-
-.btn-contact {
-  @extend .btn; //!!!
-  @extend .btn-default; //!!!
-}
-
-.product-buttons {
-  @extend .btn-group; //!!!
-  @extend .btn-group-justified; //!!!
-}
-
-.btn-view {
-  @extend .btn; //!!!
-  @extend .btn-default; //!!!
-}
-
-.btn-add-to-cart {
-  @extend .btn; //!!!
-  @extend .btn-primary; //!!!
-  @extend .btn-lg; //!!!
-  @extend .btn-block; //!!!
-}
-
-.cart-buttons {
-  @extend .btn-group; //!!!
-}
-
-.btn-update-cart {
-  @extend .btn; //!!!
-  @extend .btn-default; //!!!
-}
-
-.btn-checkout {
-  @extend .btn; //!!!
-  @extend .btn-primary; //!!!
-}
 // This file is purely for this one liquid settings so that it is placed right at the bottom of our stylesheet.
 {% unless settings.scss_overrides == blank %}{{ settings.scss_overrides }}{% endunless %}

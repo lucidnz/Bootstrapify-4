@@ -39,9 +39,9 @@
                   </td>
                   <td class="cart-item-quantity">
                     <div class="input-group">
-                      <input type="number" name="updates[{{ item.id }}]" value="{{ item.quantity }}" data-update-item="{{ forloop.index }}">
+                      <input class="form-control" type="number" name="updates[{{ item.id }}]" value="{{ item.quantity }}" data-update-item="{{ forloop.index }}">
                       <div class="input-group-btn">
-                        <button type="button" class="btn btn-default" title="Remove {{ item.title }}" data-remove-item="{{ forloop.index }}"><span class="fa fa-times"></span><span class="sr-only">Remove {{ item.title }}</span></button>
+                        <button class="btn btn-default" type="button" title="Remove {{ item.title }}" data-remove-item="{{ forloop.index }}"><span class="fa fa-times"></span><span class="sr-only">Remove {{ item.title }}</span></button>
                       </div>
                     </div>
                   </td>
@@ -70,8 +70,8 @@
             <div class="cart-extras-content">
               
               <div class="cart-instructions">
-                <label for="cart-instructions-input">{{ 'cart.cart_page.customer_note_label' | t }}</label>
-                <textarea name="note" id="cart-instructions-input">{{ cart.note }}</textarea>
+                <label class="control-label" for="cart-instructions-input">{{ 'cart.cart_page.customer_note_label' | t }}</label>
+                <textarea class="form-control" name="note" id="cart-instructions-input">{{ cart.note }}</textarea>
               </div>
               
               {% comment %}
@@ -92,9 +92,9 @@
             <div class="cart-shipping-note">
               <p><em>{{ 'cart.cart_page.shipping_note' | t }}</em></p>
             </div>
-            <div class="cart-buttons">
-              <input class="btn-update-cart" type="submit" name="update" value="{{ 'cart.buttons.update' | t }}">
-              <input class="btn-checkout" type="submit" name="checkout" value="{{ 'cart.buttons.checkout' | t }}">
+            <div class="cart-buttons btn-group">
+              <input class="btn-update-cart btn btn-default" type="submit" name="update" value="{{ 'cart.buttons.update' | t }}">
+              <input class="btn-checkout btn btn-primary" type="submit" name="checkout" value="{{ 'cart.buttons.checkout' | t }}">
             </div>
             
             {% if additional_checkout_buttons %}

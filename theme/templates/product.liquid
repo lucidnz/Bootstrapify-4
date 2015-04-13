@@ -92,7 +92,7 @@
           
           <form class="add-to-cart-form" action="/cart/add" method="post" enctype="multipart/form-data">
             <div class="form-group">
-              <select class="product-select" id="product-select" name="id">
+              <select class="product-select form-control" id="product-select" name="id">
               {% for variant in product.variants %}
                 {% if variant.available %}
                   <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
@@ -106,11 +106,11 @@
             </div>
 
             <div class="form-group product-quantity">
-              <label for="quantity" class="quantity-selector">{{ 'products.form.quantity' | t }}</label>
-              <input type="number" id="quantity" name="quantity" value="1" min="1" class="quantity-selector">
+              <label class="quantity-selector control-label" for="quantity">{{ 'products.form.quantity' | t }}</label>
+              <input class="quantity-selector form-control" type="number" id="quantity" name="quantity" value="1" min="1">
             </div>
   
-            <input type="submit" name="add" class="btn-add-to-cart" value="{{ 'products.buttons.add_to_cart' | t }}">
+            <input class="btn-add-to-cart btn btn-primary btn-lg btn-block" type="submit" name="add" value="{{ 'products.buttons.add_to_cart' | t }}">
           </form>
           <div class="add-to-cart-message hidden"></div>
         </div>
@@ -225,7 +225,7 @@
 
     // Add label if only one product option and it isn't 'Title'. Could be 'Size'.
     {% if product.options.size == 1 and product.options.first != 'Title' %}
-      $('.selector-wrapper:eq(0)').prepend('<label for="productSelect-option-0">{{ product.options.first | escape }}</label>');
+      $('.selector-wrapper:eq(0)').prepend('<label class="control-label" for="productSelect-option-0">{{ product.options.first | escape }}</label>');
     {% endif %}
 
     // Hide selectors if we only have 1 variant and its title contains 'Default'.
