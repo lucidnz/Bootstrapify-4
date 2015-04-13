@@ -1,0 +1,48 @@
+{% capture share_links %}{% endcapture %}
+
+{% if settings.product_social_share_facebook %}
+  {% capture share_links %}{{ share_links }}<li><a href="https://www.facebook.com/sharer/sharer.php?u={{ canonical_url }}" target="_blank"><i class="fa fa-facebook fa-lg fa-fw"></i></a></li>{% endcapture %}
+{% endif %}
+  
+{% if settings.product_social_share_twitter %}
+  {% capture twitter_handle %}{% unless settings.social_links_twitter == blank %}@{{ settings.social_links_twitter | split: '/' | last }}{% endunless %}{% endcapture %}
+  {% capture tweet %}https://twitter.com/intent/tweet?text={{ 'products.social_links.twitter_message' | t: product_title: product.title, url: canonical_url, handle: twitter_handle }}{% endcapture %}
+  {% capture share_links %}{{ share_links }}<li><a href="{{ tweet | replace: ' ','%20' }}" target="_blank"><i class="fa fa-twitter fa-lg fa-fw"></i></a></li>{% endcapture %}
+{% endif %}
+
+{% if settings.product_social_share_pinterest %}
+  {% capture share_links %}{{ share_links }}<li><a href="http://pinterest.com/pin/create/button/?url={{ canonical_url }}&media={{ product.selected_or_first_available_variant.featured_image.src | product_img_url: '2048x2048' }}&description={{ page_title | replace: ' ','%20' }}" target="_blank"><i class="fa fa-pinterest fa-lg fa-fw"></i></a></li>{% endcapture %}
+{% endif %}
+
+{% if settings.product_social_share_email %}
+
+{% endif %}
+  
+{% unless share_links == blank %}
+<div class="social-share-links">
+  <ul class="nav nav-inline">
+    {{ share_links }}
+  </ul>
+</div>
+{% endunless %}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  {% comment %}
+  {% capture tweet %}https://twitter.com/intent/tweet?text={% include '__localize' with 'Check out' %} {{ page_title }}—{{ canonical_url }}{% unless settings.social-links-twitter == blank %} (via @{{ settings.social-links-twitter | split: '/' | last }}){% endunless %}{% endcapture %}
+  {% capture email_subject %}{% include '__localize' with 'Check out' %} {{ page_title }}{% endcapture %}
+  {% capture email_body %}{% include '__localize' with 'Hey' %}, {% include '__localize' with 'I was just looking at' %} {{ page_title }} {% include '__localize' with 'on' %} {{ shop.name }} {% include '__localize' with 'and wanted to share it with you' %}. {% include '__localize' with 'Check out' %} {{ canonical_url }}{% endcapture %}
+  Share: 
+  <a href="{{ tweet | replace: ' ','%20' }}" target="_blank"><i class="fa fa-twitter fa-fw"></i></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u={{ canonical_url }}" target="_blank"><i class="fa fa-facebook fa-fw"></i></a>
+  <a href="http://pinterest.com/pin/create/button/?url={{ canonical_url }}&media={{ product.featured_image.src | product_img_url: '2048x2048' }}&description={{ page_title | replace: ' ','%20' }}" target="_blank"><i class="fa fa-pinterest fa-fw"></i></a>
+  <a href="mailto:?subject={{ email_subject | replace: ' ','%20' }}&body={{ email_body }}" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+  {% endcomment %}

@@ -59,6 +59,11 @@
       "add_another" : "Add Another",
       "sold_out" : "Sold Out",
       "unavailable" : "Unavailable"
+    },
+    "social_links" : {
+      "twitter_message" : "Check out {{ product_title }} - {{ url }} (via {{ handle }})",
+      "email_subject" : "",
+      "email_message" : ""
     }
   },
   "cart" : {
