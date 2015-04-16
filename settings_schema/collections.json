@@ -36,6 +36,19 @@
       "default": true
     },
     {
+      "label": "Enable collections to be filtered",
+      "id": "show_collection_filter_by",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "label": "Allow collections to be filtered by more than one tag",
+      "id": "filter_collection_by_multiple_tags",
+      "type": "checkbox",
+      "default": true,
+      "info": "If left unchecked collections will be filtered by only one tag at a time"
+    },
+    {
       "type": "header",
       "content": "Collection Template Switcher"
     },

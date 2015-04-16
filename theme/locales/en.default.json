@@ -10,10 +10,11 @@
   },
   "collections" : {
     "general": {
-      "empty_message_html": "<p>There are no items in this collection. You could try viewing <a href='/collections/all'>all&nbsp;products</a> or <a href='/search'>searching&nbsp;the&nbsp;site</a>.</p>"
+      "empty_message_title": "Whoa! There are no items in this collection",
+      "empty_message_html": "You could try viewing <a href='/collections/all'>all&nbsp;products</a> or <a href='/search'>searching&nbsp;the&nbsp;site</a>."
     },
     "sorting": {
-      "title": "Sort by",
+      "sort_by_title": "Sort by",
       "featured": "Featured",
       "best_selling": "Best Selling",
       "title_ascending": "A-Z",
@@ -22,6 +23,14 @@
       "price_descending": "Highest Price",
       "date_ascending": "Newest",
       "date_descending": "Oldest"
+    },
+    "filtering": {
+      "filter_by_title": "Filter by",
+      "empty_message_title": "Whoops! You might need to broaden your search",
+      "empty_message_html": {
+        "one": "There is <strong>one</strong> product in the <strong>'{{ collection_title }}'</strong> collection &mdash; Try removing some filters.",
+        "other": "There are <strong>{{ count }}</strong> products in the <strong>'{{ collection_title }}'</strong> collection &mdash; Try removing some filters."
+      }
     },
     "collection_controls": {
       "switcher_title": "View {{ collection_title }} as {{ template_type }}"

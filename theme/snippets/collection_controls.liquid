@@ -1,13 +1,5 @@
-{% if collection.products.size > 0 %}
+{% if collection.all_products_count > 0 %}
 <div class="collection-controls clearfix">
-  {% comment %}
-    TODO: filter by tags
-    note: does filter_by url filter take into account sort order and view url params?
-  {% endcomment %}
-  
-  
-  
-  
   {% comment %}
     Collection template switcher
     
@@ -16,7 +8,6 @@
     - Current template
     - Enabled templates list
   {% endcomment %}
-  
   {% if collection %}
     {% assign default_template = collection.template_suffix | default: 'grid' %}
   {% endif %}
@@ -60,15 +51,13 @@
   </div>
   {% endif %}
   
-  
   {% comment %}
     Collection Sort By
   {% endcomment %}
-  
   {% if settings.show_collection_sort_by %}
     <div class="collection-sort-by">
       <div class="btn-group">
-        <button class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">{{ 'collections.sorting.title' | t }} <span class="caret"></span></button>
+        <button class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">{{ 'collections.sorting.sort_by_title' | t }} <span class="caret"></span></button>
         
         {% comment %}
           Set the url taking into account another template might be currently in use
@@ -100,6 +89,32 @@
           
           <li {% if current_sort_by == so %}class="active"{% endif %}><a href="{{ sort_by_url }}sort_by={{ so }}">{{ sort_by_translation_key | t }}</a></li>
         {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+  
+  {% comment %}
+    Collection Filter by Tags
+    note: link_to_tag url filter will take into account the sort order and view url params
+  {% endcomment %}
+  {% if settings.show_collection_filter_by %}
+    <div class="collection-filter-by">
+      <div class="btn-group">
+        <button class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">{{ 'collections.filtering.filter_by_title' | t }} <span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu">
+        {% for tag in collection.all_tags %}
+          {% if settings.filter_collection_by_multiple_tags %}
+            {% if current_tags contains tag %}
+              {% capture tag_text %}{{ tag }} <span class="fa fa-times-circle"></span><span class="sr-only">remove</span>{% endcapture %}
+              <li class="active">{{ tag_text | link_to_remove_tag: tag }}</li>
+            {% else %}
+              <li>{{ tag | link_to_add_tag: tag }}</li>
+            {% endif %}
+          {% else %}
+            <li {% if current_tags contains tag %}class="active"{% endif %}>{{ tag | link_to_tag: tag }}</li>
+          {% endif %}
+        {% endfor %} 
         </ul>
       </div>
     </div>

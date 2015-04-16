@@ -1,7 +1,3 @@
-{% comment %}
-  TODO: pagination
-{% endcomment%}
-
 <main role="main">
   <div class="sheet">
     <header class="sheet-header">
@@ -12,7 +8,30 @@
   </div>
   
   <div class="sheet {% if collection.products.size > 0 %}products-wrap{% endif %}">
-  {% if collection.products.size > 0 %}
+  {% if collection.all_products_count == 0 %}
+    <section class="sheet-content">
+      <div class="collection-message">
+        <h3>{{ 'collections.general.empty_message_title' | t }}</h3>
+        <p>{{ 'collections.general.empty_message_html' | t }}</p>
+      </div>
+    </section>
+    
+  {% elsif collection.products_count == 0 %}
+    {% comment %} The collection has products in it but we have filtered it down to far {% endcomment%}
+    <section class="sheet-content">
+      <div class="collection-message">
+        <h3>{{ 'collections.filtering.empty_message_title' | t }}</h3>
+        <p>{{ 'collections.filtering.empty_message_html' | t: count: collection.all_products_count, collection_title: collection.title }}</p>
+        <ul class="list-unstyled">
+    		{% for tag in current_tags %}
+          {% capture tag_text %}<span class="fa fa-times-circle"></span><span class="sr-only">remove</span> {{ tag }}{% endcapture %}
+      		<li>{{ tag_text | link_to_remove_tag: tag }}</li>
+    		{% endfor %}
+      	</ul>
+      </div>
+    </section>
+    
+  {% else %}
     {% include 'pagination_limit' with 'products' %}
     {% paginate collection.products by pagination_limit %}
       <section class="group products" data-products-size="{% if collection.products.size < pagination_limit %}{{ collection.products.size }}{% else %}{{ pagination_limit }}{% endif %}">
@@ -29,12 +48,6 @@
         <a href="#" data-gallery-direction="right" data-scroll-to=""><span class="fa fa-chevron-right"></span></a>
       </div>
     {% endif %}
-  {% else %}
-    <section class="sheet-content">
-      <div class="collection-message">
-        {{ 'collections.general.empty_message_html' | t }}
-      </div>
-    </section>  
   {% endif %}
   </div>
 </main>
