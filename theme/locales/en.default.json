@@ -63,7 +63,7 @@
     "social_links" : {
       "twitter_message" : "Check out {{ product_title }} - {{ url }} (via {{ handle }})",
       "email_subject" : "",
-      "email_message" : ""
+      "email_body" : ""
     }
   },
   "cart" : {

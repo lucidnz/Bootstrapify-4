@@ -273,6 +273,14 @@ body[class*="collection"] {
     @include make-sm-column(12);
   }
   
+  .social-share-links {
+    @include make-row();
+    & .nav {
+      text-align: center;
+      @include make-sm-column(6);
+    }
+  }
+  
   .product-image-main {
     margin-bottom: $grid-gutter-width;
   }
