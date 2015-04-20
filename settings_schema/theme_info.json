@@ -1,5 +1,6 @@
 {
-  "name": "Welcome",
+  "name": "theme_info",
+  "logo": "https:\/\/cdn.shopify.com\/s\/files\/1\/0000\/1712\/files\/Lucid-logo-03-512px.png",
   "settings": [
     {
       "type": "header",

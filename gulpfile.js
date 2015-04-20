@@ -157,7 +157,7 @@ gulp.task('shopify_theme_settings', function () {
   
   // list of settings files to include, in order of inclusion
   var settings = [
-    'welcome',
+    'theme_info',
     'general',
     'layout',
     'navigation',
