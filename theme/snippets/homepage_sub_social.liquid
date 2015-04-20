@@ -1,0 +1,16 @@
+{% capture social_service %}{% include 'social_service' with homepage_sub_social.url %}{% endcapture %}
+{% capture social_feed %}{% include 'social_feed' with homepage_sub_social.url %}{% endcapture %}
+{% capture params %}{{ social_service }}||{{ homepage_sub_social.title }}{% endcapture %}
+{% include 'social_content' with params %}
+
+{% unless social_feed == blank %}
+<div class="group-item-wrap">
+  <div class="group-item thumbnail social-feed" id="{{ homepage_sub_social.handle }}">
+    <h4>{{ social_title }}</h4>
+    {% unless social_description == blank %}<p>{{ social_description }}</p>{% endunless %}
+    <div class="social-feed-{{ social_service }}">
+      {{ social_feed }}
+    </div>
+  </div>
+</div>
+{% endunless %}

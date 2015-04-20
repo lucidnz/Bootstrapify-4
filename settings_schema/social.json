@@ -35,6 +35,19 @@
       "id": "social_links_rss",
       "type": "blog",
       "info": "Select a blog to link to an RSS feed"
+    },
+    {
+      "type": "header",
+      "content": "Instagram Feed"
+    },
+    {
+      "type": "paragraph",
+      "content": "To include an instagram feed on your site you will need a client id. You can get a client id by registering a new Instagram API client app at [http://instagram.com/developer/clients/register/](http://instagram.com/developer/clients/register/)"
+    },
+    {
+      "label": "Client ID",
+      "id": "instagram_client_id",
+      "type": "text"
     }
   ]
 }

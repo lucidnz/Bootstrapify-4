@@ -1,0 +1,23 @@
+{% comment %}
+  Load a feed of images from instagram.
+  A feed can either be from:
+   - a user's profile
+   - a hashtag
+   
+  To load a users feed pass a parameter into this snippet that is a url in the format of:
+    instagram.com/{ user_name }
+   
+  To load a feed basied on a hashtag pass a parameter into this snippet that is a url in the format of:
+    instagram.com/#{ hash_tag }
+    
+  TODO: default/fallback hashtag, image blacklist, image count
+{% endcomment %}
+
+{% unless settings.instagram_client_id == blank %}
+  {% if social_feed_instagram contains '#' %}
+    {% capture data_query %}data-hashtag="{{ social_feed_instagram | split: '.com/#' | last | remove: '/' | escape }}"{% endcapture %}
+  {% else %}
+    {% capture data_query %}data-user="{{ social_feed_instagram | split: '.com/' | last | remove: '/' | escape }}"{% endcapture %}
+  {% endif %}
+  <div data-social-feed="instagram" data-client-id="{{ settings.instagram_client_id }}" {{ data_query }} data-empty-message="{{ 'social_and_newsletter.homepage_advanced_layout.instagram_empty_message' | t }}"></div>
+{% endunless %}

@@ -1,0 +1,16 @@
+{% capture social_service %}{% include 'social_service' with homepage_social.url %}{% endcapture %}
+{% capture social_feed %}{% include 'social_feed' with homepage_social.url %}{% endcapture %}
+{% capture params %}{{ social_service }}||{{ homepage_social.title }}{% endcapture %}
+{% include 'social_content' with params %}
+
+{% unless social_feed == blank %}
+{% endunless %}
+<div class="sheet social-feed">
+  <header class="sheet-header">
+    <h3>{{ social_title }}</h3>
+    {% unless social_description == blank %}<p>{{ social_description }}</p>{% endunless %}
+  </header>
+  <section class="social-feed-{{ social_service }}">
+    {{ social_feed }}
+  </section>
+</div>

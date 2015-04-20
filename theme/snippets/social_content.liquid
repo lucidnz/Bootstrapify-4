@@ -1,0 +1,28 @@
+{% capture function %}
+  {% comment %}
+    Function returns a heading and description.
+    Takes two parameters:
+      - a service name or url
+      - a default title
+    Parameters are split on a double pipe (||)
+    Returns two variables (to the global scope):
+      - social_title
+      - social_description
+    
+  {% endcomment %}
+  
+  {% assign params = social_content | split: '||' %}
+  {% assign service = params[0] %}
+  {% if service contains '.' %}
+    {% comment %} if the service is a url strip the service name out of it {% endcomment %}
+    {% capture service %}{% include 'social_service' with service %}{% endcapture %}
+  {% endif %}
+  
+  {% assign default_title = params[1] %}
+  
+  {% capture title_translation %}social_and_newsletter.homepage_advanced_layout.{{ service }}_title_html{% endcapture %}
+  {% capture description_translation %}social_and_newsletter.homepage_advanced_layout.{{ service }}_description_html{% endcapture %}
+  
+  {% capture social_title %}{{ title_translation | t | default: default_title }}{% endcapture %}
+  {% capture social_description %}{{ description_translation | t }}{% endcapture %}
+{% endcapture %}

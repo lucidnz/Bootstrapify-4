@@ -106,7 +106,7 @@
         {% for tag in collection.all_tags %}
           {% if settings.filter_collection_by_multiple_tags %}
             {% if current_tags contains tag %}
-              {% capture tag_text %}{{ tag }} <span class="fa fa-times-circle"></span><span class="sr-only">remove</span>{% endcapture %}
+              {% capture tag_text %}{{ tag }} <span class="fa fa-times-circle"></span><span class="sr-only">Remove</span>{% endcapture %}
               <li class="active">{{ tag_text | link_to_remove_tag: tag }}</li>
             {% else %}
               <li>{{ tag | link_to_add_tag: tag }}</li>

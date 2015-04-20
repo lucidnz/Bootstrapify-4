@@ -1,0 +1,11 @@
+{% capture function %}
+  {% comment %}
+    Function that extracts the a social services name from a url.
+    Takes one parameter which is url to extract the service name from.
+    Returns a variable which is assigned and output so that it can be captured inside the snippet that includes it.
+  {% endcomment %}
+  
+  {% assign strip_url_protocol = social_service | remove: 'https://' | remove: 'http://' | remove: '//' | remove: 'www.' %}
+  {% assign service = strip_url_protocol | split: '.' | first | downcase %}
+
+{% endcapture %}{{ service }}

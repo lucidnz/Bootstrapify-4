@@ -54,6 +54,9 @@ var App = function () {
       Bsify.Thumbnails.orderly();
     };
   }
+  
+  // init social feeds
+  Bsify.SocialFeeds.init();
 };
 
 // initiate the app and expose it to the browser

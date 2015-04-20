@@ -118,13 +118,13 @@
           {% when 'http_link' %}
             {% comment %}
               SOCIAL LINKS
-              
               i.e.
               - url contains instagram.com/username or instagram.com/#hashtag then show a feed of images
               - url contains twitter.com/username then show a feed of tweets
               - url contains youtube.com/video or vimeo.com/video then embed the video
-              
             {% endcomment %}
+            {% assign homepage_section_id = advanced_section_link.handle %}
+            {% capture homepage_section_content %}{% include 'homepage_social' with advanced_section_link %}{% endcapture %}
             
           {% endcase %}
         
@@ -174,13 +174,13 @@
             {% when 'http_link' %}
               {% comment %}
                 SOCIAL LINKS
-                
                 i.e.
                 - url contains instagram.com/username or instagram.com/#hashtag then show a feed of images
                 - url contains twitter.com/username then show a feed of tweets
                 - url contains youtube.com/video or vimeo.com/video then embed the video
-                
               {% endcomment %}
+              {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'homepage_sub_social' with advanced_section_child_link %}{% endcapture %}
+              
             {% endcase %}
         
           {% endfor %}
