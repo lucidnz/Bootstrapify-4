@@ -18,7 +18,7 @@
   <figure class="group-item thumbnail">
     <a href="{{ p.url }}" title="{{ p.title }}">
       <div class="group-item-image">
-        {{ p.featured_image | img_url: '1024x1024' | img_tag }}
+        {{ p.featured_image | img_url: '1024x1024' | img_tag: p.title }}
       </div>
       <figcaption class="group-item-details caption">
         <h3 class="group-item-title">{{ p.title }}</h3>

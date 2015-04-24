@@ -3,7 +3,7 @@
     <a href="{{ c.url }}" title="{{ c.title }}">
       <div class="group-item-image">
         {% if c.image %}
-          {{ c.image | img_url: '1024x1024' | img_tag }}
+          {{ c.image | img_url: '1024x1024' | img_tag: c.title }}
         {% else %}
           <svg xmlns="http://www.w3.org/2000/svg" class="svg" viewBox="0 0 800 1200" width="800px" height="1200px">
             <rect class="svg-rect" width="100%" height="100%">

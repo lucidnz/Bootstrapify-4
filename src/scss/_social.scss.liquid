@@ -1,0 +1,39 @@
+/* Styles for socail links and feeds */
+
+.social-links, .social-share-links {
+  ul > li > a {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  & .fa {
+    font-size: 1.5em;
+  }
+}
+
+[data-social-feed="instagram"] {
+  & > p {
+    @extend .text-muted;
+    margin-bottom: 3em;
+  }
+  .group-item-wrap {
+    @include make-xs-column(6);
+    @include make-sm-column(3);
+    @include make-md-column(2);
+  }
+  
+  .group-item .group-item-details {
+    padding: 1em;
+    font-size: 0.85em;
+    p {
+      overflow: hidden;
+      height: 100%;
+      margin: 0;
+    }
+    .user {
+      display: block;
+      font-weight: bold;
+    }
+  }
+  
+  @include hover-captions;
+}

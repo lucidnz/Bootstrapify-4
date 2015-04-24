@@ -1,3 +1,5 @@
+/*jshint multistr: true */
+
 var InstagramFeed = function (ele) {
   this.ele = ele;
   this.$ele = $(this.ele);
@@ -111,7 +113,50 @@ InstagramFeed.prototype._request = function () {
 };
 
 InstagramFeed.prototype._build_feed = function (data) {
-  console.log('done', data);
+  var markup,
+    filtered_data = this._filter_data(data);
+    
+  if (filtered_data.length > 0) {
+    markup = this._build_feed_markup(filtered_data);
+    this.$ele.addClass('group').attr('data-group-size', filtered_data.length);
+  } else {
+    markup = this._build_error_markup();
+  }
+  
+  this.$ele.append(markup);
+};
+
+InstagramFeed.prototype._filter_data = function (data) {
+  /* TODO: remove blacklisted images */
+  return data;
+};
+
+InstagramFeed.prototype._build_feed_markup = function (data) {
+  var markup = '';
+  for (var i = 0; i < data.length; i++) {
+    var item = data[i];
+    markup += this._build_item_markup(item);
+  }
+  return markup;
+};
+  
+InstagramFeed.prototype._build_item_markup = function (data) {
+  return '<div class="group-item-wrap">\
+    <figure class="group-item thumbnail">\
+      <a href="'+ data.link +'">\
+        <div class="group-item-image">\
+          <img src="' + data.images.standard_resolution.url + '" alt="' + data.caption.text + '">\
+        </div>\
+        <figcaption class="group-item-details caption">\
+          <p><span class="user">' + data.caption.from.username + '</span> ' + data.caption.text + '</p>\
+        </figcaption>\
+      </a>\
+    </figure>\
+  </div>';
+};
+
+InstagramFeed.prototype._build_error_markup = function (data) {
+  return '<p>' + this.$ele.data('empty-message') + '</p>';
 };
 
 module.exports = InstagramFeed;
