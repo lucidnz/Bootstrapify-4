@@ -244,7 +244,6 @@ body[class*="collection"] {
   .product-images {
     text-align: center;
     @media (min-width: $grid-float-breakpoint) {
-      float: left;
       margin-top: ($line-height-computed * 3); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
     }
     img {
@@ -252,11 +251,29 @@ body[class*="collection"] {
     }
   }
   
+  {% if settings.product_image_layout == 'left' %}
   .product-header, .product-details, .product-description {
     @media (min-width: $grid-float-breakpoint) {
       float: right;
     }
   }
+  .product-images {
+    @media (min-width: $grid-float-breakpoint) {
+      float: left;
+    }
+  }
+  {% else %}
+  .product-header, .product-details, .product-description {
+    @media (min-width: $grid-float-breakpoint) {
+      float: left;
+    }
+  }
+  .product-images {
+    @media (min-width: $grid-float-breakpoint) {
+      float: right;
+    }
+  }
+  {% endif %}
   
   .product-price {
     margin-top: $line-height-computed / 2;

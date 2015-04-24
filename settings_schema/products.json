@@ -3,6 +3,20 @@
   "settings": [
     {
       "type": "header",
+      "content": "Layout"
+    },
+    {
+      "label": "Image layout",
+      "id": "product_image_layout",
+      "type": "select",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
       "content": "Social share links"
     },
     {
