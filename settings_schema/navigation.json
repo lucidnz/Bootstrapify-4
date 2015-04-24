@@ -2,6 +2,10 @@
   "name": "Navigation",
   "settings": [
     {
+      "type": "paragraph",
+      "content": "If all menus are set to none then the main menu will default to the linklist with the handle 'main-menu'."
+    },
+    {
       "label": "Main Menu",
       "id": "main_menu_linklist",
       "type": "link_list"

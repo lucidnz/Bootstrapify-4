@@ -51,12 +51,14 @@
       <h1><a href="/">{{ shop.name }}</a></h1>
     </section>
     
-    {% unless settings.main_menu_linklist == blank %}
     <section class="navigation-main hidden-xs">
       <nav class="main-nav">
-        {% include 'nav_list' with settings.main_menu_linklist %}
+        {% if settings.main_menu_linklist == blank and settings.secondary_menu_linklist == blank and settings.tertiary_menu_linklist == blank %}
+          {% include 'nav_list' with 'main-menu' %}
+        {% else %}
+          {% include 'nav_list' with settings.main_menu_linklist %}
+        {% endif %}
       </nav>
     </section>
-    {% endunless %}
   </div>
 </div>
