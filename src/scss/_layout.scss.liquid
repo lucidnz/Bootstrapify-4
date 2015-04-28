@@ -262,7 +262,7 @@ body[class*="collection"] {
       float: left;
     }
   }
-  {% else %}
+  {% elsif settings.product_image_layout == 'right' %}
   .product-header, .product-details, .product-description {
     @media (min-width: $grid-float-breakpoint) {
       float: left;
@@ -273,6 +273,8 @@ body[class*="collection"] {
       float: right;
     }
   }
+  {% elsif settings.product_image_layout == 'center' %}
+    // TODO: Centered product layout
   {% endif %}
   
   .product-price {
