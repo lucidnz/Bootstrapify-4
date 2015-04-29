@@ -6845,49 +6845,67 @@ body[class*="collection"] {
 }
 
 .product {
+  {% assign centered = false %}
+  {% if settings.product_image_layout == 'center' %}
+    {% assign is_centered = true %}
+  {% endif %}
+  
   .sheet-content, .product-details-content {
     @include make-row();
   }
   
   .product-header, .product-images, .product-details, .product-description {
-    @include make-sm-column(6);
     margin-bottom: $line-height-computed;
   }
   
   .product-images {
     text-align: center;
-    @media (min-width: $grid-float-breakpoint) {
-      margin-top: ($line-height-computed * 3); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
-    }
     img {
       margin: auto;
     }
+    {% unless is_centered %}
+    @media (min-width: $grid-float-breakpoint) {
+      margin-top: ($line-height-computed * 3); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
+    }
+    {% endunless %}
   }
   
   {% if settings.product_image_layout == 'left' %}
-  .product-header, .product-details, .product-description {
-    @media (min-width: $grid-float-breakpoint) {
-      float: right;
+    .product-header, .product-details, .product-description {
+      @include make-sm-column(6);
+      @media (min-width: $grid-float-breakpoint) {
+        float: right;
+      }
     }
-  }
-  .product-images {
-    @media (min-width: $grid-float-breakpoint) {
-      float: left;
+    .product-images {
+      @include make-sm-column(6);
+      @media (min-width: $grid-float-breakpoint) {
+        float: left;
+      }
     }
-  }
   {% elsif settings.product_image_layout == 'right' %}
-  .product-header, .product-details, .product-description {
-    @media (min-width: $grid-float-breakpoint) {
-      float: left;
+    .product-header, .product-details, .product-description {
+      @include make-sm-column(6);
+      @media (min-width: $grid-float-breakpoint) {
+        float: left;
+      }
     }
-  }
-  .product-images {
-    @media (min-width: $grid-float-breakpoint) {
-      float: right;
+    .product-images {
+      @include make-sm-column(6);
+      @media (min-width: $grid-float-breakpoint) {
+        float: right;
+      }
     }
-  }
   {% elsif settings.product_image_layout == 'center' %}
-    // TODO: Centered product layout
+    .product-header, .product-images {
+      @include make-sm-column(12);
+    }
+    .product-details, .product-description {
+      @include make-sm-column(6);
+      @media (min-width: $grid-float-breakpoint) {
+        float: right;
+      }
+    }
   {% endif %}
   
   .product-price {
@@ -6896,20 +6914,28 @@ body[class*="collection"] {
     @include make-sm-column(12);
   }
   
-  .add-to-cart-form {
-    margin-bottom: $line-height-computed;
-    @include make-sm-column(6);
-  }
-  
   .add-to-cart-message {
     @include make-sm-column(12);
+  }
+  
+  .add-to-cart-form {
+    margin-bottom: $line-height-computed;
+    {% if is_centered %}
+      @include make-sm-column(12);
+    {% else %}
+      @include make-sm-column(6);
+    {% endif %}
   }
   
   .social-share-links {
     @include make-row();
     & .nav {
       text-align: center;
-      @include make-sm-column(6);
+      {% if is_centered %}
+        @include make-sm-column(12);
+      {% else %}
+        @include make-sm-column(6);
+      {% endif %}
     }
   }
   

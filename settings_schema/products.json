@@ -11,7 +11,7 @@
       "type": "select",
       "options": [
         { "value": "left", "label": "Left" },
-        { "value": "center", "label": "center" },
+        { "value": "center", "label": "Center" },
         { "value": "right", "label": "Right" }
       ],
       "default": "left"
