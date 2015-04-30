@@ -7497,3 +7497,14 @@ $slide-count: 1;
 
 // This file is purely for this one liquid settings so that it is placed right at the bottom of our stylesheet.
 {% unless settings.scss_overrides == blank %}{{ settings.scss_overrides }}{% endunless %}
+.builder-display {
+  border: red solid 1px;
+  
+  .builder-content {
+    border: blue solid 1px;
+  }
+  
+  .builder-items {
+    border: green solid 1px;
+  }
+}

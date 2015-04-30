@@ -1,0 +1,67 @@
+{% comment %}
+  PHD specific collection template
+{% endcomment %}
+
+<main role="main">
+  <section class="collection-header">
+    <div class="sheet">
+      <header class="sheet-header">
+        <h1>{{ collection.title }}</h1>
+        {% include 'collection_controls'%}
+        {{ collection.description }}
+      </header>
+    </div>
+  </section>
+  
+  <section class="builder-display">
+    <div class="builder-content">
+      <div class="sheet">
+          test content
+      </div>
+    </div>
+    <div class="builder-items" data-spy="affix">
+      <div class="sheet">
+          test
+      </div>
+    </di>
+  </section>
+    
+  <section class="collection-content">
+    <div class="sheet {% if collection.products.size > 0 %}products-wrap{% endif %}">
+    {% if collection.all_products_count == 0 %}
+      <section class="sheet-content">
+        <div class="collection-message">
+          <h3>{{ 'collections.general.empty_message_title' | t }}</h3>
+          <p>{{ 'collections.general.empty_message_html' | t }}</p>
+        </div>
+      </section>
+      
+    {% elsif collection.products_count == 0 %}
+      {% comment %} The collection has products in it but we have filtered it down to far {% endcomment%}
+      <section class="sheet-content">
+        <div class="collection-message">
+          <h3>{{ 'collections.filtering.empty_message_title' | t }}</h3>
+          <p>{{ 'collections.filtering.empty_message_html' | t: count: collection.all_products_count, collection_title: collection.title }}</p>
+          <ul class="list-unstyled">
+      		{% for tag in current_tags %}
+            {% capture tag_text %}<span class="fa fa-times-circle"></span><span class="sr-only">remove</span> {{ tag }}{% endcapture %}
+        		<li>{{ tag_text | link_to_remove_tag: tag }}</li>
+      		{% endfor %}
+        	</ul>
+        </div>
+      </section>
+      
+    {% else %}
+    
+      <section class="group products" data-products-size="{{ collection.products.size }}">
+        {% for p in collection.products %}
+          {% include 'phd_product_item_single' %}
+        {% endfor %}
+      </section>
+    
+    {% endif %}
+    </div>
+  </section>
+</main>
+
+{% include 'site_aside' %}
