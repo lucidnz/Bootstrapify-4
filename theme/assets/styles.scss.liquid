@@ -6733,6 +6733,7 @@ footer {
       position: absolute;
       top: 50%;
       -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
     	transform: translateY(-50%);
     	padding: 0 $grid-gutter-width;
     }
@@ -6826,6 +6827,8 @@ body[class*="collection"] {
     
     [data-gallery-direction] {
       top: 50%;
+      -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
       transform: translateY(-50%);
       &.disabled, &.disabled:hover {
         color: rgba(0,0,0,.3);
@@ -7441,6 +7444,8 @@ h6 {
           .banner-caption {
             position: absolute;
             top: 50%;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
           	transform: translateY(-50%);
           }
           .banner-image {
