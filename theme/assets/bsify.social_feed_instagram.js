@@ -17,7 +17,8 @@ var InstagramFeed = function (ele) {
 
 InstagramFeed.prototype._get_data = function () {
   this.client_id = this.$ele.data('client-id');
-  this.image_count = ( this.$ele.data('image-count') || this.image_count_default ) + this.image_count_buffer;
+  this.image_count = ( this.$ele.data('image-count') || this.image_count_default );
+  this.image_total = this.image_count + this.image_count_buffer;
   
   this.hashtag = this.$ele.data('hashtag');
   this.user = this.$ele.data('user');
@@ -60,7 +61,7 @@ InstagramFeed.prototype._build_request = function (type) {
     case 'user':
       request.url = this.api_url + '/users/' + this.user_id + '/media/recent';
       request.data = $.extend(request.data, {
-        count: this.image_count
+        count: this.image_total
       });
       request.callback = function (response) {
         this._build_feed(response.data);
@@ -70,7 +71,7 @@ InstagramFeed.prototype._build_request = function (type) {
     case 'hashtag':
       request.url = this.api_url + '/tags/' + this.hashtag + '/media/recent';
       request.data = $.extend(request.data, {
-        count: this.image_count
+        count: this.image_total
       });
       request.callback = function (response) {
         this._build_feed(response.data);
@@ -133,9 +134,13 @@ InstagramFeed.prototype._filter_data = function (data) {
 
 InstagramFeed.prototype._build_feed_markup = function (data) {
   var markup = '';
-  for (var i = 0; i < data.length; i++) {
+  var count = (data.length < this.image_count)? data.length : this.image_count;
+  
+  for (var i = 0; i < count; i++) {
     var item = data[i];
-    markup += this._build_item_markup(item);
+    if (item) {
+      markup += this._build_item_markup(item);
+    }
   }
   return markup;
 };
