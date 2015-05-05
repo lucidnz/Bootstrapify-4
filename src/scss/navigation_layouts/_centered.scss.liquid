@@ -61,9 +61,8 @@
     text-align: center;
 
     img {
-      max-height: 150px;
-      margin-left: auto;
-      margin-right: auto;
+      max-height: {% if settings.logo_max_height == blank %}150px{% else %}{{ settings.logo_max_height }}{% endif %};
+      margin: ($grid-gutter-width / 2) auto;
     }
   }
 }

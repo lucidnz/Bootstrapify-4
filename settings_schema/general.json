@@ -12,9 +12,15 @@
     },
     {
       "label": "Use logo image",
-      "id": "use_logo_image",
+      "id": "logo_enabled",
       "type": "checkbox",
       "default": false
+    },
+    {
+      "label": "Max height",
+      "id": "logo_max_height",
+      "type": "text",
+      "default": "150px"
     },
     {
       "type": "paragraph",
