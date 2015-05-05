@@ -6,6 +6,17 @@
       "content": "Branding"
     },
     {
+      "label": "Logo image",
+      "id": "logo.png",
+      "type": "image"
+    },
+    {
+      "label": "Use logo image",
+      "id": "use_logo_image",
+      "type": "checkbox",
+      "default": false
+    },
+    {
       "type": "paragraph",
       "content": "TODO: Logos and colours"
     },
