@@ -7,9 +7,11 @@ var CartJS = require('shopify-cartjs');
 var Lookbook = require('./bsify.lookbook_gallery.js');
 
 var App = function () {
+  $("div").fitVids();
+
   // init CartJS
   CartJS.init(Bsify.cart, Bsify.money_formats);
-  
+
   // init product template js
   if (Bsify.product) {
     // Preload images and call image switcher init
@@ -17,7 +19,7 @@ var App = function () {
     Bsify.ImageSwitcher.image_swticher();
     // Initialise the image_variant_switcher
     Bsify.VariantOptionSwitcher.image_variant_switcher();
-    
+
     // Call linkOptionSelectors
     // Check that we want to use the linked product options
     if (Bsify.linked_product_options) {
@@ -27,18 +29,18 @@ var App = function () {
       }
     }
   }
-  
+
   // init ajax add to cart
   if (Bsify.ajax_add_to_cart) {
     Bsify.Cart.init();
   }
-  
+
   // load uniform thumbs and orderly
   Bsify.Thumbnails.init();
-  
+
   // init event listeners for banner
   Bsify.Banner.init();
-  
+
   // init lookbook gallery
   if ($('.collection-lookbook').length > 0) {
     var lookbook = new Lookbook({
@@ -46,15 +48,15 @@ var App = function () {
       item_wrapper: '.group-item-wrap',
       controls_wrapper: '.lookbook-controls'
     });
-    
+
     lookbook.on_loaded = function () {
       var item_height = $('.group-item-image').height();
       $('.lookbook-controls').height(item_height);
-      
+
       Bsify.Thumbnails.orderly();
     };
   }
-  
+
   // init social feeds
   Bsify.SocialFeeds.init();
 };

@@ -27,7 +27,7 @@
 
     <!-- Second round of JS -->
     <!-- Use up-to-date jQuery for modern browsers but fallback to 1.x for leagacy IE -->
-    
+
     <!--[if !(lt IE 9)]><!-->
     {{ 'jquery.min.js' | asset_url | script_tag }}
     <!--<![endif]-->
@@ -61,7 +61,7 @@
         All header layouts can be selected from the theme settings.
         Header snippets are prefixed with 'header_'.
       {% endcomment %}
-      
+
       {% assign header_layout = settings.header_layout | default: 'header_centered' %}
       {% include header_layout %}
     </header>
@@ -69,7 +69,7 @@
     {% comment %}
       Because we want to keep this theme as lean as possible we don't define secondary content here (i.e. sidebars etc.)
       Secondary content will be applied inside each template on a 'when applicable' basis as it might not be needed for each template.
-      
+
       Also to keep the markup as flexible as possible template content is wrapped inside each template like so:
       <main>
         <section>
@@ -77,24 +77,24 @@
             ...
           </div>
         </section>
-        
+
         <section>
           <div class="sheet">
             ...
           </div>
         </section>
       </main>
-        
+
         section can be used for extending things out to the full width of the screen if needed.
         .sheet will constrain the content for that section for nice view widths.
-        
+
       Sections can be easily stacked to define new areas and allow for more interesting layout options.
     {% endcomment %}
 
     <div class="site-content">
       {{ content_for_layout }}
     </div>
-    
+
     <footer class="site-footer">
       {% include 'site_footer' %}
     </footer>
@@ -105,10 +105,10 @@
       Because of performance we build and minify our javascript files into app.min.js,
       but for clarity, sanity and future development we've included a copy of each un-minified file in the assets folder
       for you to see whats going on inside.
-      
+
       Note: that changing anything inside these files won't actually have an effect on your theme.
       If you do need to change these you will need to rebuild and minify them into app.min.js using browserify.
-      
+
       app.min.js includes the following files:
       - app.js
       - bsify.js
@@ -124,7 +124,8 @@
     {% endcomment %}
     <script src="{{ 'app.min.js' | asset_url }}" async></script>
     <script src="{{ 'bootstrap.min.js' | asset_url }}" async></script>
-    
+    <script src="{{ 'jquery.fitvids.js' | asset_url }}" async></script>
+
     {% unless settings.footer_code == blank %}
     <!-- Additional custom footer code -->
       {{ settings.footer_code }}
