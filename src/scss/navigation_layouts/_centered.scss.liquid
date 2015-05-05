@@ -1,6 +1,6 @@
 /*
   Styles for centered navigation snippet
-  
+
   NOTE: @extends on navs are because we can't put these classes into the markup as the nav-list is reused in places other than inside a navbar
 */
 
@@ -9,7 +9,7 @@
   .header-small {
     margin-bottom: 0;
   }
-  
+
   .navbar-header {
     & > .nav {
       @extend .navbar-nav;
@@ -19,41 +19,51 @@
       margin-right: 0;
     }
   }
-  
+
   .navbar-toggle {
     margin-left: $grid-gutter-width/2;
   }
-  
+
   .navigation {
     & > .nav {
       @extend .navbar-nav;
       border-top: 1px solid $dropdown-divider-bg;
     }
   }
-  
+
   // Large screen sizes
   .header-large {
     text-align: center;
   }
-  
+
   .header-logo {
     overflow: auto;
     h1 {
       margin: 1em auto;
     }
   }
-    
+
   .main-nav, .secondary-nav, .tertiary-nav {
     .nav {
       @extend .nav-inline;
     }
   }
-  
+
   // Details
   .navigation-form {
     padding: 0 $grid-gutter-width/2;
   }
   .search-form {
     @extend .navbar-form;
+  }
+
+  .header-logo {
+    text-align: center;
+
+    img {
+      max-height: 150px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }

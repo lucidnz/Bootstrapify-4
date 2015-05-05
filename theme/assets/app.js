@@ -7,8 +7,6 @@ var CartJS = require('shopify-cartjs');
 var Lookbook = require('./bsify.lookbook_gallery.js');
 
 var App = function () {
-  $("div").fitVids();
-
   // init CartJS
   CartJS.init(Bsify.cart, Bsify.money_formats);
 

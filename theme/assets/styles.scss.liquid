@@ -7153,25 +7153,6 @@ h6 {
   }
 }
 
-.logo-image {
-  @include img-responsive;
-
-  @include make-xs-column(8);
-  @include make-xs-column-offset(2);
-
-  @include make-sm-column(6);
-  @include make-sm-column-offset(3);
-
-  @include make-md-column(4);
-  @include make-md-column-offset(4);
-
-  @include make-lg-column(2);
-  @include make-lg-column-offset(5);
-
-  padding-top: $grid-gutter-width;
-  padding-bottom: $grid-gutter-width;
-}
-
 /* General styles for all navigations */
 
 .nav-inline {
@@ -7219,7 +7200,7 @@ h6 {
 }
 /*
   Styles for centered navigation snippet
-  
+
   NOTE: @extends on navs are because we can't put these classes into the markup as the nav-list is reused in places other than inside a navbar
 */
 
@@ -7228,7 +7209,7 @@ h6 {
   .header-small {
     margin-bottom: 0;
   }
-  
+
   .navbar-header {
     & > .nav {
       @extend .navbar-nav;
@@ -7238,36 +7219,36 @@ h6 {
       margin-right: 0;
     }
   }
-  
+
   .navbar-toggle {
     margin-left: $grid-gutter-width/2;
   }
-  
+
   .navigation {
     & > .nav {
       @extend .navbar-nav;
       border-top: 1px solid $dropdown-divider-bg;
     }
   }
-  
+
   // Large screen sizes
   .header-large {
     text-align: center;
   }
-  
+
   .header-logo {
     overflow: auto;
     h1 {
       margin: 1em auto;
     }
   }
-    
+
   .main-nav, .secondary-nav, .tertiary-nav {
     .nav {
       @extend .nav-inline;
     }
   }
-  
+
   // Details
   .navigation-form {
     padding: 0 $grid-gutter-width/2;
@@ -7275,7 +7256,18 @@ h6 {
   .search-form {
     @extend .navbar-form;
   }
+
+  .header-logo {
+    text-align: center;
+
+    img {
+      max-height: 150px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 }
+
 /* Styles for socail links and feeds */
 
 .social-links, .social-share-links {
