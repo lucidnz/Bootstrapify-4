@@ -6,6 +6,23 @@
       "content": "Branding"
     },
     {
+      "label": "Logo image",
+      "id": "logo.png",
+      "type": "image"
+    },
+    {
+      "label": "Use logo image",
+      "id": "logo_enabled",
+      "type": "checkbox",
+      "default": false
+    },
+    {
+      "label": "Max height",
+      "id": "logo_max_height",
+      "type": "text",
+      "default": "150px"
+    },
+    {
       "type": "paragraph",
       "content": "TODO: Logos and colours"
     },

@@ -7,7 +7,7 @@
     },
     {
       "type": "paragraph",
-      "content": "The 'default image file' takes a .jpg, .png or .gif, however the image will be turned into a .png when used for the banner. This is so that you can use png's with transparancy for your banner images."
+      "content": "Images will be converted to JPEGs. Best to convert before you upload if possible."
     },
     {
       "type": "paragraph",
@@ -51,7 +51,7 @@
       "default": false,
       "info": "If selected this will automatically start the banner transitioning through each slide as soon as the page has loaded."
     },
-    
+
     {
       "type": "header",
       "content": "Slide 1"
@@ -64,7 +64,7 @@
     },
     {
       "label": "Default image file",
-      "id": "banner_slide_1.png",
+      "id": "banner_slide_1.jpg",
       "type": "image"
     },
     {
@@ -127,7 +127,7 @@
       "id": "banner_slide_1_background_colour",
       "type": "color"
     },
-    
+
     {
       "type": "header",
       "content": "Slide 2"
@@ -140,7 +140,7 @@
     },
     {
       "label": "Default image file",
-      "id": "banner_slide_2.png",
+      "id": "banner_slide_2.jpg",
       "type": "image"
     },
     {
@@ -203,7 +203,7 @@
       "id": "banner_slide_2_background_colour",
       "type": "color"
     },
-    
+
     {
       "type": "header",
       "content": "Slide 3"
@@ -216,7 +216,7 @@
     },
     {
       "label": "Default image file",
-      "id": "banner_slide_3.png",
+      "id": "banner_slide_3.jpg",
       "type": "image"
     },
     {
@@ -279,7 +279,7 @@
       "id": "banner_slide_3_background_colour",
       "type": "color"
     },
-    
+
     {
       "type": "header",
       "content": "Slide 4"
@@ -292,7 +292,7 @@
     },
     {
       "label": "Default image file",
-      "id": "banner_slide_4.png",
+      "id": "banner_slide_4.jpg",
       "type": "image"
     },
     {
@@ -355,7 +355,7 @@
       "id": "banner_slide_4_background_colour",
       "type": "color"
     },
-    
+
     {
       "type": "header",
       "content": "Slide 5"
@@ -368,7 +368,7 @@
     },
     {
       "label": "Default image file",
-      "id": "banner_slide_5.png",
+      "id": "banner_slide_5.jpg",
       "type": "image"
     },
     {
@@ -431,6 +431,6 @@
       "id": "banner_slide_5_background_colour",
       "type": "color"
     }
-    
+
   ]
 }
