@@ -74,6 +74,9 @@ gulp.task('build', ['js', 'sass', 'settings', 'assets', 'zip']);
 gulp.task('sass_concat', function () {
   var paths = new SassImport('./src/scss/styles.scss');
   return gulp.src(paths)
+    .pipe(plumber({
+      errorHandler: onError
+    }))
     .pipe(concat('styles.scss.liquid'))
     .pipe(gulp.dest('./theme/assets/'));
 });
