@@ -49,9 +49,9 @@
     <section class="header-logo">
       {% comment %} *** TODO: Logos -> text / img / svg / font / etc *** {% endcomment %}
       {% if settings.logo_enabled %}
-      <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name | escape }}" class="logo-image">
+      <a href="/" title="{{ shop.name }}"><img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name | escape }}" class="logo-image"></a>
       {% else %}
-      <h1><a href="/">{{ shop.name }}</a></h1>
+      <h1><a href="/" title="{{ shop.name }}">{{ shop.name }}</a></h1>
       {% endif %}
     </section>
 
