@@ -11,9 +11,21 @@
   @extend .hidden-xs;
 }
 
+.collection-controls {
+  & > div {
+    margin-bottom: 0.5em;
+    @media (min-width: $grid-float-breakpoint) {
+      float: right;
+      margin-right: $grid-gutter-width;
+      margin-bottom: 0;
+      &:first-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
 .collection-sort-by, .collection-filter-by {
-  float: right;
-  margin-right: $grid-gutter-width;
   .fa {
     float: right;
     padding: 0.2em 0;
@@ -21,7 +33,6 @@
 }
 
 .collection-template-switcher {
-  float: right;
   ul > li > a {
     padding-left: $grid-gutter-width / 4;
     padding-right: $grid-gutter-width / 4;
