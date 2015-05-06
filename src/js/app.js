@@ -5,6 +5,7 @@
 var Bsify = require('./bsify.js');
 var CartJS = require('shopify-cartjs');
 var Lookbook = require('./bsify.lookbook_gallery.js');
+var Phd = require('./phd.js');
 
 var App = function () {
   // init CartJS
@@ -57,6 +58,9 @@ var App = function () {
 
   // init social feeds
   Bsify.SocialFeeds.init();
+  
+  // custom phd code
+  new Phd();
 };
 
 // initiate the app and expose it to the browser
