@@ -2,13 +2,15 @@
 var PhdSticky = function () {
   var $ele = $('[data-phd="sticky"]');
   
-  // bootstrap affix
-  $ele.affix({
-    offset: {
-      top: $ele.offset().top,
-      bottom: 30
-    }
-  });
+  if ($ele.length > 0) {
+    // bootstrap affix
+    $ele.affix({
+      offset: {
+        top: $ele.offset().top,
+        bottom: 30
+      }
+    });
+  }
 };
 
 module.exports = PhdSticky;

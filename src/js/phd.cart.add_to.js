@@ -1,5 +1,4 @@
-/*
-var Eventer = require('./eventer.js');
+var Eventer = require('./_eventer.js');
 
 var PhdAddTo = function (ele) {
   this.ele = $(ele);
@@ -17,6 +16,7 @@ PhdAddTo.prototype._add_event_listeners = function () {
     // update button text
     
     _this._trigger_add_to();
+    _this.ele.blur();
   });
 };
 
@@ -29,4 +29,3 @@ PhdAddTo.prototype._trigger_add_to = function () {
 };
 
 module.exports = PhdAddTo;
-*/
