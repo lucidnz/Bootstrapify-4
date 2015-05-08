@@ -1,11 +1,12 @@
+// When the element hits the top of the page make it stick to it
 var PhdSticky = function () {
-  var target_ele = '[data-phd="sticky"]';
-  var $ele = $(target_ele);
+  var $ele = $('[data-phd="sticky"]');
   
+  // bootstrap affix
   $ele.affix({
     offset: {
-      top: 333,
-      bottom: 100
+      top: $ele.offset().top,
+      bottom: 30
     }
   });
 };

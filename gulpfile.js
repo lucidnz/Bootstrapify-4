@@ -7,6 +7,7 @@ var gulp        = require('gulp'),
   zip           = require('gulp-zip'),
   plumber       = require('gulp-plumber'),
   jshint        = require('gulp-jshint'),
+  jasmine       = require('gulp-jasmine'),
   vsource       = require('vinyl-source-stream'),
   browserify    = require('browserify'),
   concat        = require('gulp-concat'),
@@ -41,7 +42,8 @@ gulp.task('default', function () {
 
   // watch for js changes
   gulp.watch([
-    './src/js/*.js'
+    './src/js/*.js',
+    './spec/*_spec.js'
   ], ['js']);
 
   // watch for settings changes
@@ -52,7 +54,7 @@ gulp.task('default', function () {
 });
 
 // Helper for js tasks
-gulp.task('js', ['js_lint', 'js_modernizr', 'js_browserify']);
+gulp.task('js', ['js_lint', 'js_test', 'js_modernizr', 'js_browserify']);
 
 // Helper for sass tasks
 gulp.task('sass', ['sass_concat']);
@@ -91,6 +93,14 @@ gulp.task('js_lint', function () {
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(gulp.dest('./theme/assets/'));
+});
+
+gulp.task('js_test', function () {
+  return gulp.src('./spec/*_spec.js')
+    .pipe(plumber({
+      errorHandler: onError
+    }))
+    .pipe(jasmine());
 });
 
 // JS_BROWSERIFY: Build our js files ready for use in the browser

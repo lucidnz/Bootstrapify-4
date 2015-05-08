@@ -16,7 +16,7 @@
 
 <div class="group-item-wrap">
   <figure class="group-item thumbnail">
-    <a href="{{ p.url }}" title="{{ p.title }}">
+    <a href="{{ p.url }}" title="{{ p.title | escape }}">
       <div class="group-item-image">
         {{ p.featured_image | img_url: '1024x1024' | img_tag: p.title }}
       </div>
