@@ -8624,18 +8624,47 @@ $slide-count: 1;
 // This file is purely for this one liquid settings so that it is placed right at the bottom of our stylesheet.
 {% unless settings.scss_overrides == blank %}{{ settings.scss_overrides }}{% endunless %}
 .builder-display {
-  border: red solid 1px;
+  margin-bottom: 1em;
+//   border: red solid 1px;
   
   .builder-content {
-    border: blue solid 1px;
+//     border: blue solid 1px;
   }
   
   .builder-items {
-    border: green solid 1px;
+    background-color: #fff;
+//     border: green solid 1px;
     &.affix {
       top: 0;
       width: 100%;
       z-index: 1;
+    }
+  }
+}
+
+[data-phd-holding] {
+  [data-phd-holding-items] {
+    @include make-xs-column(10);
+  }
+  .phd-add-to-cart-form {
+    @include make-xs-column(2);
+    
+    .btn{
+      @extend .btn-success;
+      &:disabled {
+        @extend .btn-default;
+      }
+    }
+  }
+  
+  .holding-item {
+    @include make-xs-column(2);
+    border: green solid 1px;
+    background-color: #E0F0D9;
+    
+    &.holding-item-disabled {
+      border: grey solid 1px;
+      background-color: #F7F7F9;
     }
   }
 }

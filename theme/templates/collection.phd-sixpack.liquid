@@ -20,7 +20,12 @@
     </div>
     <div class="builder-items" data-phd="sticky">
       <div class="sheet">
-        <div data-phd-holding-item></div>
+        <div class="row">
+          <div data-phd-holding-items></div>
+          <form class="phd-add-to-cart-form" action="/cart/add" method="post" enctype="multipart/form-data">
+            <input class="btn btn-block btn-lg" type="submit" data-phd-variant-id="" data-phd-add-to="cart" disabled="disabled">
+          </form>
+        </div>
       </div>
     </di>
   </section>

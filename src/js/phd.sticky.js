@@ -1,6 +1,8 @@
 // When the element hits the top of the page make it stick to it
 var PhdSticky = function () {
   var $ele = $('[data-phd="sticky"]');
+  var $parent = $ele.parent();
+  var parent_orig_margin_bottom = parseInt($parent.css('margin-bottom'));
   
   if ($ele.length > 0) {
     // bootstrap affix
@@ -9,6 +11,13 @@ var PhdSticky = function () {
         top: $ele.offset().top,
         bottom: 30
       }
+      
+    }).on('affixed.bs.affix', function () {      
+      $ele.parent().css({ 'margin-bottom': (parent_orig_margin_bottom + $ele.height()) });
+      
+    }).on('affixed-top.bs.affix', function () {
+      $ele.parent().css({ 'margin-bottom': parent_orig_margin_bottom });
+      
     });
   }
 };
