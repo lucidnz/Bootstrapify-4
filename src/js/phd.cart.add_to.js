@@ -8,14 +8,14 @@ var PhdAddTo = function (ele) {
   this._add_event_listeners();
 };
 
+PhdAddTo.prototype.args = function () {
+  return [];
+};
+
 PhdAddTo.prototype._add_event_listeners = function () {
   var _this = this;
-      
-      // TODO:
-      // update button text
   
   if (_this._ele_tag_name() === 'a') {
-    
     _this.$ele.on('click', function (e) {
       e.preventDefault();
       _this._trigger_add_to();
@@ -23,7 +23,6 @@ PhdAddTo.prototype._add_event_listeners = function () {
     });
     
   } else { // is input
-    
     _this.$ele.closest('form').on('submit', function (e) {
       e.preventDefault();
       _this._trigger_add_to();
@@ -33,13 +32,7 @@ PhdAddTo.prototype._add_event_listeners = function () {
 };
 
 PhdAddTo.prototype._trigger_add_to = function () {
-  var args = [
-    this.$ele.data('phd-add-to'),
-    {
-      id: this.$ele.data('phd-variant-id'),
-      title: this.$ele.attr('title')
-    }
-  ];
+  var args = this.args();
   this.trigger('addTo', args);
 };
 

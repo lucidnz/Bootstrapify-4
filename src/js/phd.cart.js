@@ -1,16 +1,54 @@
-var AddTo = require('./phd.cart.add_to.js');
-var HoldingCart = require('./phd.cart.holding.js');
+//var AddTo = require('./phd.cart.add_to.js');
+//var HoldingCart = require('./phd.cart.holding.js');
+var HoldingCart = require('./phd.cart.add_to.holding.js');
 var ShoppingCart = require('./phd.cart.shopping.js');
 
 var PhdCart = function () {
-  this.cart_action_ele = $('[data-phd-add-to]');
+//   this.cart_action_ele = $('[data-phd-add-to]');
   
-  this.holding_cart = new HoldingCart();
+  new HoldingCart();
+  
+  //this.holding_cart = new HoldingCart();
   this.shopping_cart = new ShoppingCart();
   
-  this._init_cart_actions();
+  //var _this = this;
+  
+  
+  
+  
+  // make this into it's own class
+  
+/*
+  $('[data-phd-add-to="holding"]').each(function () {
+    var cart_action = new AddTo(this);
+    
+    cart_action.args = function () {
+      return [
+        {
+          id: cart_action.$ele.data('phd-variant-id'),
+          title: cart_action.$ele.attr('title')
+        }
+      ];
+    };
+    
+    cart_action.on('addTo', function (variant) {
+      _this.holding_cart.add_product(variant);
+      
+      // update button stuffs
+    });
+  });
+*/
+  
+  
+  
+  
+  
+  
+  
+//   this._init_cart_actions();
 };
 
+/*
 PhdCart.prototype._init_cart_actions = function () {
   var _this = this;
   // make each cart action on the page an AddTo class
@@ -31,5 +69,6 @@ PhdCart.prototype._init_cart_actions = function () {
     });
   });
 };
+*/
 
 module.exports = PhdCart;
