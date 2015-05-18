@@ -111,6 +111,8 @@
             </div>
 
             <input class="btn-add-to-cart btn btn-primary btn-lg btn-block" type="submit" name="add" value="{{ 'products.buttons.add_to_cart' | t }}">
+
+            {% include 'product_inventory_level' with product %}
           </form>
           <div class="add-to-cart-message hidden"></div>
         </div>

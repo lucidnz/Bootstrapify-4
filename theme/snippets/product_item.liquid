@@ -24,6 +24,7 @@
         <h3 class="group-item-title">{{ p.title }}</h3>
         {% include 'product_price' %}
         {% include 'product_badges' %}
+        {% include 'product_inventory_level' with p %}
         <span class="shopify-product-reviews-badge" data-id="{{ p.id }}"></span>
       </figcaption>
     </a>

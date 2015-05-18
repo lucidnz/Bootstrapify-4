@@ -1,0 +1,19 @@
+{% assign total_inventory = 0 %}
+{% for all_products in collections.all.products %}
+  {% for all_products_v in all_products.variants %}
+    {% assign total_inventory = total_inventory | plus: all_products_v.inventory_quantity %}
+  {% endfor %}
+{% endfor %}
+{% assign total_inventory = total_inventory | times: -1 %}
+
+{% assign inventory = 0 %}
+{% for v in product_inventory_level.variants %}
+  {% assign inventory = inventory | plus: v.inventory_quantity %}
+{% endfor %}
+{% assign inventory = inventory | times: -1 %}
+
+<div class="progress">
+  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ inventory }}" aria-valuemin="0" aria-valuemax="{{ total_inventory }}" style="width: {{ inventory | times: 200 | divided_by: total_inventory }}%;">
+    {{ inventory }} donated
+  </div>
+</div>
