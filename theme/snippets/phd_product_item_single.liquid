@@ -1,15 +1,29 @@
 {% assign variant = p.first_available_variant %}
 <div class="group-item-wrap">
-  <figure class="group-item thumbnail">
+  <figure class="group-item thumbnail" data-phd-variant-id="{{ variant.id }}" data-phd-product-title="{{ p.title | escape }}" data-phd-six-pack="item">
     <div class="group-item-image">
       {{ p.featured_image | img_url: '1024x1024' | img_tag: p.title }}
     </div>
     <figcaption class="group-item-details caption">
       <h3 class="group-item-title">{{ p.title }}</h3>
-      <a class="btn btn-default btn-block" href="{{ p.url }}" title="{{ p.title | escape }}" data-phd-variant-id="{{ variant.id }}" data-phd-add-to="holding">
-        <span data-phd-item-count="0"></span>
+      
+      <div class="input-group">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" data-phd-remove-item><span class="fa fa-minus"></span></button>
+        </span>
+        <input type="number" class="form-control" min="0" placeholder="0" data-phd-edit-item data-phd-item-{{ forloop.index0 }}-count>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" data-phd-add-item><span class="fa fa-plus"></span></button>
+        </span>
+      </div>
+      
+      
+<!--
+      <a class="btn btn-default btn-block" href="{{ p.url }}" title="{{ p.title | escape }}">
+        <span class="badge" data-phd-item-{{ forloop.index0 }}-count></span>
         {{ 'products.buttons.add_to_cart' | t }}
       </a>
+-->
     </figcaption>
   </figure>
 </div>

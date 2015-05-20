@@ -12,14 +12,9 @@ describe('DataModel', function () {
     $ = cheerio.load(fixture);
   });
   
-  it('takes a string as an id', function () {
-    var my_model = new DataModel('my_model');
-    
-    expect(my_model.id).toBe('my_model');
-  });
-  
-  it('takes an object of properties that contain a value and element selector to bind to', function () {
-    var my_model = new DataModel('my_model', {
+  it('takes an object of properties that contain a value and element selector to bind to and extends another object', function () {
+    var my_model = {};
+    new DataModel(my_model, {
       my_property: '[data-my-property]',
       my_property_2: '[data-my-property-2]',
       my_property_3: '[data-my-property-3]'

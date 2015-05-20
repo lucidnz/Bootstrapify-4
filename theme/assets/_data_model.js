@@ -1,8 +1,5 @@
-//var Eventer = require('./_eventer.js');
-
-var DataModel = function (id, properties) {
-  //new Eventer(this);
-  this.id = id;
+var DataModel = function (obj, properties) {
+  this.obj = obj;
   this._build_properties(properties);
 };
 
@@ -18,12 +15,13 @@ DataModel.prototype._build_properties = function (properties) {
 
 DataModel.prototype._build_property_methods = function (key, selector) {
   var selector_key = key+'_selector';
-  Object.defineProperty(this, selector_key, {
+  Object.defineProperty(this.obj, selector_key, {
     value: selector
   });
   
   var value;
-  Object.defineProperty(this, key, {
+  var _this = this;
+  Object.defineProperty(this.obj, key, {
     enumerable: true,
     configurable: true,
     get: function () {
@@ -32,8 +30,7 @@ DataModel.prototype._build_property_methods = function (key, selector) {
     set: function (new_value) {
       if (value !== new_value) {
         value = new_value;
-        this._update_elements(selector, value);
-        //this._trigger_property_set(key, value);
+        _this._update_elements(selector, value);
       }
     }
   });
@@ -59,13 +56,5 @@ DataModel.prototype._is_input = function (element) {
   var tag_name = element.tagName.toLowerCase();
   return tag_name === 'input' || tag_name === 'select' || tag_name === 'textarea';
 };
-
-/*
-DataModel.prototype._trigger_property_set = function (property, value) {
-  var event_name = this.id +'.'+ property+'.set';
-  var args = [value];
-  this.trigger(event_name, args);
-};
-*/
 
 module.exports = DataModel;
