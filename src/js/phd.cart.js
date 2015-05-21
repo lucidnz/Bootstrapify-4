@@ -7,12 +7,12 @@ var MultiStepBuilder = require('./phd.cart.multistep.js');
 var StandardCart = require('./phd.cart.standard.js');
 
 var PhdCart = function () {
-  var standard_cart = new StandardCart();
+  new StandardCart();
   
   // TODO: only load the appropriate classes that are needed for the page
   
-  new SixPackBuilder(standard_cart);
-  new MultiStepBuilder(standard_cart);
+  new SixPackBuilder();
+  new MultiStepBuilder();
 };
 
 module.exports = PhdCart;

@@ -1,3 +1,7 @@
+/*
+  TODO: make prototyple inheritence
+*/
+
 var DataModel = function (obj, properties) {
   this.obj = obj;
   this._build_properties(properties);

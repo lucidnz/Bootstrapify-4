@@ -8637,12 +8637,12 @@ $slide-count: 1;
     &.affix {
       top: 0;
       width: 100%;
-      z-index: 1;
+      z-index: 3;
     }
   }
 }
 
-[data-phd-holding] {
+[data-phd-six-pack="holding"] {
   [data-phd-holding-items] {
     @include make-xs-column(10);
   }
@@ -8658,8 +8658,8 @@ $slide-count: 1;
   }
   
   .holding-item {
-    @include make-xs-column(2);
-    height: 4em;
+    //@include make-xs-column(2);
+    //height: 4em;
     border: green solid 1px;
     background-color: #E0F0D9;
     

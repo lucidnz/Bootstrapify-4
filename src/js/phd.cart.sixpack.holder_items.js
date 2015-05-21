@@ -1,69 +1,83 @@
+var Eventer = require('./_eventer.js');
+
 var SixPackHolderItems = function (limit_multiple) {
-  this.items = {};
-  this.items_are_addable = false;
+  new Eventer(this);
+  
+  this.products = [];
+  this.products_are_addable = false;
   this.limit_multiple = limit_multiple;
-  this.total_count = 0;
 };
 
 SixPackHolderItems.prototype.add_item = function (product) {
-  if (this.items[product.id]) {
-    this.items[product.id].qty += 1;
-  } else {
-    this.items[product.id] = product;
-    this.items[product.id].qty = 1;
-  }
-  this._update_items_count();
+  this.products.push(product);
+  this._update_is_addable_and_trigger('ItemAdded');
 };
 
 SixPackHolderItems.prototype.remove_item = function (product_id) {
-  if (this.items[product_id]) {
-    this.items[product_id].qty -= 1;
-    
-    // remove item if it's qty is 0
-    if (this.items[product_id].qty < 1) {
-      delete this.items[product_id];
+  for (var i = this.total_count() - 1; i > -1; i--) { // loop backwards to remove the last added item
+    var removed = this._remove_product_from_stack(product_id, i);
+    if (removed) {
+      break;
     }
   }
-  this._update_items_count();
+  this._update_is_addable_and_trigger('ItemRemoved');
 };
 
 SixPackHolderItems.prototype.update_item = function (product, qty) {
+  
+  console.log('update_item', qty);
+  
+  // remove all items for a clean slate
+  for (var i = 0; i < this.products.length; i++) {
+    this._remove_product_from_stack(product.id, i);
+  }
+  // re add the products if we have them
   if (qty > 0) {
-    if (!this.items[product.id]) {
-      this.items[product.id] = product;
-    }
-    this.items[product.id].qty = qty;
-  } else {
-    if (this.items[product.id]) {
-      delete this.items[product.id];
+    for (var j = 0; j < qty; j++) {
+      this.products.push(product);
     }
   }
-  this._update_items_count();
+  this._update_is_addable_and_trigger('ItemUpdated');
 };
 
 SixPackHolderItems.prototype.item_count = function (product_id) {
-  return (this.items[product_id]) ? this.items[product_id].qty : 0;
-};
-
-// Private
-
-SixPackHolderItems.prototype._update_items_count = function () {
-  this.total_count = this._total_items_count();
-  this.items_are_addable = this._are_items_addable();
-};
-
-SixPackHolderItems.prototype._total_items_count = function () {
   var count = 0;
-  for (var key in this.items) {
-    var item = this.items[key];
-    count += item.qty;
+  for (var i = 0; i < this.products.length; i++) {
+    if (this.products[i].id === product_id) {
+      count++;
+    }
   }
   return count;
 };
 
-SixPackHolderItems.prototype._are_items_addable = function () {
-  var items_mod = this.total_count % this.limit_multiple;
-  return this.total_count > 0 && items_mod === 0;
+SixPackHolderItems.prototype.total_count = function () {
+  return this.products.length;
+};
+
+SixPackHolderItems.prototype.product_by_index = function (index) {
+  return this.products[index];
+};
+
+// Private
+
+SixPackHolderItems.prototype._remove_product_from_stack = function (product_id, i) {
+  var removed = [];
+  if (this.products[i].id === product_id) {
+    removed = this.products.splice(i, 1);
+  }
+  return removed.length > 0;
+};
+
+SixPackHolderItems.prototype._update_is_addable_and_trigger = function (custom_event) {
+  this.products_are_addable = this._is_addable();
+  this.trigger(custom_event);
+  this.trigger('ItemsUpdated');
+};
+
+SixPackHolderItems.prototype._is_addable = function () {
+  var total_count = this.total_count();
+  var products_mod = total_count % this.limit_multiple;
+  return total_count > 0 && products_mod === 0;
 };
 
 module.exports = SixPackHolderItems;

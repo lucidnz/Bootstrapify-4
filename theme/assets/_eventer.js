@@ -1,3 +1,7 @@
+/*
+  TODO: make prototyple inheritence
+*/
+
 var Eventer = function (caller) {
   this.caller = caller;
   this.caller._events = {};
