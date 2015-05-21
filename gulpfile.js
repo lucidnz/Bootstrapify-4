@@ -10,6 +10,7 @@ var gulp        = require('gulp'),
   jasmine       = require('gulp-jasmine'),
   vsource       = require('vinyl-source-stream'),
   browserify    = require('browserify'),
+  argv          = require('yargs').argv,
   concat        = require('gulp-concat'),
   jsoncombine   = require('gulp-jsoncombine'),
   rename        = require('gulp-rename'),
@@ -106,8 +107,7 @@ gulp.task('js_test', function () {
 // JS_BROWSERIFY: Build our js files ready for use in the browser
 gulp.task('js_browserify', function () {
   return browserify('./src/js/app.js', {
-      debug: true, // output source maps for easy debuging
-      //standalone: 'app'
+      debug: argv.dev, // to output source maps for easy debuging run task with --dev flag
     })
     .transform('debowerify') // require js files from bower packages
     .transform({ global: true }, 'uglifyify')
