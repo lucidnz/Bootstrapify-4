@@ -1,11 +1,13 @@
 {% assign variant = p.first_available_variant %}
 <div class="group-item-wrap">
-  <figure class="group-item thumbnail" data-phd-variant-id="{{ variant.id }}" data-phd-product-title="{{ p.title | escape }}" data-phd-six-pack="item">
-    <div class="group-item-image">
-      {{ p.featured_image | img_url: '1024x1024' | img_tag: p.title }}
-    </div>
+  <figure class="group-item thumbnail" data-phd-variant-id="{{ variant.id }}" data-phd-product-title="{{ p.title | escape }}" data-phd-product-color="{{ p.metafields.phd.color }}" data-phd-six-pack="item">
+    <a href="{{ p.url | append: '?view=phd-modal' }}" data-phd-modal>
+      <div class="group-item-image">
+        {{ p.featured_image | img_url: '1024x1024' | img_tag: p.title }}
+      </div>
+    </a>
     <figcaption class="group-item-details caption">
-      <h3 class="group-item-title">{{ p.title }}</h3>
+      <h3 class="group-item-title"><a href="{{ p.url | append: '?view=phd-modal' }}" data-phd-modal>{{ p.title }}</a></h3>
       
       <div class="input-group">
         <span class="input-group-btn">

@@ -1,5 +1,5 @@
 .builder-display {
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
 //   border: red solid 1px;
   
   .builder-content {
@@ -7,6 +7,7 @@
   }
   
   .builder-items {
+    padding: 1em 0;
     background-color: #fff;
 //     border: green solid 1px;
     &.affix {
@@ -19,10 +20,12 @@
 
 [data-phd-six-pack="holding"] {
   [data-phd-holding-items] {
-    @include make-xs-column(10);
+    @include make-xs-column(12);
+    @include make-sm-column(10);
   }
   .phd-add-to-cart-form {
-    @include make-xs-column(2);
+    @include make-xs-column(12);
+    @include make-sm-column(2);
     
     .btn{
       @extend .btn-success;
@@ -33,14 +36,21 @@
   }
   
   .holding-item {
-    //@include make-xs-column(2);
-    //height: 4em;
-    border: green solid 1px;
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    margin: 0.65em 1px 0;
     background-color: #E0F0D9;
+    border: rgba(0,0,0,0.3) solid 2px;
+    border-radius: 1em;
     
     &.holding-item-disabled {
-      border: grey solid 1px;
-      background-color: #F7F7F9;
+      background-color: #fff;
+      border: #bbb dashed 2px;
     }
+  }
+  .holding-item-spacer {
+    display: inline-block;
+    width: 1em;
   }
 }

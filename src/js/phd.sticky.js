@@ -2,6 +2,7 @@
 var PhdSticky = function () {
   var $ele = $('[data-phd="sticky"]');
   var $parent = $ele.parent();
+  var $window = $(window);
   var parent_orig_margin_bottom = parseInt($parent.css('margin-bottom'));
   
   var set_margin = function (margin) {
