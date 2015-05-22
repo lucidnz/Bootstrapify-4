@@ -1,9 +1,13 @@
 /* ToDo: check the modal isn't already open */
+var DataModel = require('./_data_model.js');
 
-var PhdModal = function (content, selector) {
-  this.content = content;
+var PhdModal = function (selector) {
   this.selector = selector || '[data-bsify-modal]';
   this.$ele = $(this.selector);
+  
+  new DataModel(this, {
+    content: this.selector+' .modal-content'
+  });
   
   this.$ele.modal({
     show: false
@@ -13,7 +17,6 @@ var PhdModal = function (content, selector) {
 };
 
 PhdModal.prototype.open = function () {
-  this.$ele.find('.modal-content').html(this.content);
   this.$ele.modal('show');
 };
 
@@ -23,9 +26,8 @@ PhdModal.prototype.close = function () {
 };
 
 PhdModal.prototype.destroy = function () {
-  // TODO: init on close callback
-  
-  this.$ele.find('.modal-content').html('');
+  // TODO: init on_close callback
+  this.content = '';
 };
 
 // Private

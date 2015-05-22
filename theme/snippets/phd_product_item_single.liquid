@@ -3,6 +3,7 @@
   <figure class="group-item thumbnail" data-phd-variant-id="{{ variant.id }}" data-phd-product-title="{{ p.title | escape }}" data-phd-product-color="{{ p.metafields.phd.color }}" data-phd-six-pack="item">
     <a href="{{ p.url | append: '?view=phd-modal' }}" data-phd-modal>
       <div class="group-item-image">
+        <span class="fa fa-info-circle fa-2x"></span>
         {{ p.featured_image | img_url: '1024x1024' | img_tag: p.title }}
       </div>
     </a>
