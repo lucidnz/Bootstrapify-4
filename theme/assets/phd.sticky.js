@@ -11,13 +11,14 @@ var PhdSticky = function () {
         top: $ele.offset().top,
         bottom: 30
       }
-      
-    }).on('affixed.bs.affix', function () {      
-      $ele.parent().css({ 'margin-bottom': (parent_orig_margin_bottom + $ele.height()) });
-      
+    }).on('affixed.bs.affix', function () {
+      if ($ele.css('postition') !== 'relative') {
+        $ele.parent().css({ 'margin-bottom': (parent_orig_margin_bottom + $ele.height()) });
+      }
     }).on('affixed-top.bs.affix', function () {
-      $ele.parent().css({ 'margin-bottom': parent_orig_margin_bottom });
-      
+      if ($ele.css('postition') !== 'relative') {
+        $ele.parent().css({ 'margin-bottom': parent_orig_margin_bottom });
+      }
     });
   }
 };

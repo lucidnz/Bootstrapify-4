@@ -14,7 +14,8 @@ SixPackHolderItems.prototype.add_item = function (product) {
 };
 
 SixPackHolderItems.prototype.remove_item = function (product_id) {
-  for (var i = this.total_count() - 1; i > -1; i--) { // loop backwards to remove the last added item
+  var total_count = this.total_count();
+  for (var i = total_count - 1; i > -1; i--) { // loop backwards to remove the last added item
     var removed = this._remove_product_from_stack(product_id, i);
     if (removed) {
       break;
@@ -24,11 +25,9 @@ SixPackHolderItems.prototype.remove_item = function (product_id) {
 };
 
 SixPackHolderItems.prototype.update_item = function (product, qty) {
-  
-  console.log('update_item', qty);
-  
   // remove all items for a clean slate
-  for (var i = 0; i < this.products.length; i++) {
+  var total_count = this.total_count();
+  for (var i = total_count - 1; i > -1; i--) { // loop backwards to remove the last added item
     this._remove_product_from_stack(product.id, i);
   }
   // re add the products if we have them
