@@ -3,6 +3,9 @@
     "site" : {
       "page_title_seperator" : "|"
     },
+    "navigation": {
+      "mobile_menu_button" : "Menu"
+    },
     "pagination": {
       "previous_html": "&laquo; Previous",
       "next_html": "Next &raquo;"
