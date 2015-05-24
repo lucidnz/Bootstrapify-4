@@ -10,6 +10,7 @@ var gulp        = require('gulp'),
   vsource       = require('vinyl-source-stream'),
   browserify    = require('browserify'),
   argv          = require('yargs').argv,
+  gulpif        = require('gulp-if'),
   concat        = require('gulp-concat'),
   jsoncombine   = require('gulp-jsoncombine'),
   rename        = require('gulp-rename'),
@@ -91,7 +92,7 @@ gulp.task('js_lint', function () {
     }))
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    .pipe(gulp.dest('./theme/assets/'));
+    .pipe(gulpif(!argv.dev, gulp.dest('./theme/assets/')));
 });
 
 // JS_BROWSERIFY: Build our js files ready for use in the browser
