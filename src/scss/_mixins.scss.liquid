@@ -8,28 +8,32 @@
   @return if( $colour != transparent, darken( $colour, 5% ), transparent );
 }
 
-@mixin adaptive-columns {
+@mixin adaptive-columns ( $column-selector ) {
   /*
     Display cols based on the amount of content in them:
       1 item shows 1x12 col
       2 items shows 2x6 cols
       3 items shows 3x4 cols
       4 or more items shows 4x3 cols
+      
+    You must pass in the column element selector to target. This helps keep the selector from getting all junked up if it's nested inside things
   */
-  @include make-xs-column(12);
-  @include make-sm-column(6);
-  @include make-md-column(3);
+  #{$column-selector} {
+    @include make-xs-column(12);
+    @include make-sm-column(6);
+    @include make-md-column(3);
+  }
   
-  [data-group-size="0"] &,
-  [data-products-size="0"] &,
-  [data-collections-size="0"] & {
+  [data-group-size="0"] #{$column-selector},
+  [data-products-size="0"] #{$column-selector},
+  [data-collections-size="0"] #{$column-selector} {
     display: none;
   }
 
   @for $i from 1 through 3 {
-    [data-group-size="#{$i}"] &,
-    [data-products-size="#{$i}"] &,
-    [data-collections-size="#{$i}"] & {
+    [data-group-size="#{$i}"] #{$column-selector},
+    [data-products-size="#{$i}"] #{$column-selector},
+    [data-collections-size="#{$i}"] #{$column-selector} {
       @include make-sm-column(12 / $i);
       @include make-md-column(12 / $i);
     }

@@ -92,15 +92,11 @@ footer {
 */
 
 .index {
-  .group-item-wrap {
-    @include adaptive-columns();
-  }
+  @include adaptive-columns('.group-item-wrap');
 }
 
 .list-collections {
-  .group-item-wrap {
-    @include adaptive-columns();
-  }
+  @include adaptive-columns('.group-item-wrap');
   
   .group-item {
     position: relative;
