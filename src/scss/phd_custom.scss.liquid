@@ -64,4 +64,18 @@
     left: 0;
     top: 0;
   }
+  
+  // make inputs lrg on smll screens
+  @media (max-width: $screen-sm-max) {
+    @include input-size('.group-item .form-control', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $input-border-radius-large);
+    .group-item .btn {
+      @include button-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-large);
+    }
+    .group-item .input-group-btn:first-child > .btn {
+      @include border-right-radius(0);
+    }
+    .group-item .input-group-btn:last-child > .btn {
+      @include border-left-radius(0);
+    }
+  }
 }

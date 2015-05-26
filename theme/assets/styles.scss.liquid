@@ -3,6 +3,7 @@
   This would cause buttons in input groups to not be lined up correctly with inputs
 */
 $line-height-base:    1.42858;
+$line-height-large:   1.5;
 
 
 /* SCSS Variables */
@@ -8688,5 +8689,19 @@ $slide-count: 1;
     position: absolute;
     left: 0;
     top: 0;
+  }
+  
+  // make inputs lrg on smll screens
+  @media (max-width: $screen-sm-max) {
+    @include input-size('.group-item .form-control', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $input-border-radius-large);
+    .group-item .btn {
+      @include button-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-large);
+    }
+    .group-item .input-group-btn:first-child > .btn {
+      @include border-right-radius(0);
+    }
+    .group-item .input-group-btn:last-child > .btn {
+      @include border-left-radius(0);
+    }
   }
 }
