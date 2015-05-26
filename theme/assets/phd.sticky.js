@@ -2,7 +2,12 @@
 var PhdSticky = function () {
   var $ele = $('[data-phd="sticky"]');
   var $parent = $ele.parent();
+  var $window = $(window);
   var parent_orig_margin_bottom = parseInt($parent.css('margin-bottom'));
+  
+  var set_margin = function (margin) {
+    $ele.parent().css({ 'margin-bottom': margin });
+  };
   
   if ($ele.length > 0) {
     // bootstrap affix
@@ -12,13 +17,10 @@ var PhdSticky = function () {
         bottom: 30
       }
     }).on('affixed.bs.affix', function () {
-      if ($ele.css('postition') !== 'relative') {
-        $ele.parent().css({ 'margin-bottom': (parent_orig_margin_bottom + $ele.height()) });
-      }
+      var margin = ($ele.css('position') !== 'relative') ? (parent_orig_margin_bottom + $ele.height()) : parent_orig_margin_bottom;
+      set_margin(margin);
     }).on('affixed-top.bs.affix', function () {
-      if ($ele.css('postition') !== 'relative') {
-        $ele.parent().css({ 'margin-bottom': parent_orig_margin_bottom });
-      }
+      set_margin(parent_orig_margin_bottom);
     });
   }
 };

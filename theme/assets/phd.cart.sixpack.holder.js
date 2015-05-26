@@ -1,6 +1,7 @@
 var Eventer = require('./_eventer.js');
 var ItemsHolder = require('./phd.cart.sixpack.holder_items.js');
 var ItemsDisplay = require('./phd.cart.sixpack.holder_display.js');
+var ItemSubmitter = require('./phd.cart.sixpack.holder_submitter.js');
 
 // TODO: submitter class
 
@@ -10,9 +11,11 @@ var SixPackHolder = function ($ele) {
   
   var limit_multiple = this.$ele.data('phd-holding-limit-multiple') || 6;
   var display_element = this.$ele.find('[data-phd-holding-items]');
+  var submitter_element = this.$ele.find('form');
   
   this.items = new ItemsHolder(limit_multiple);
   this.items_display = new ItemsDisplay(display_element, limit_multiple, this.items);
+  this.submitter = new ItemSubmitter(submitter_element, this.items);
   
   this._add_event_listeners();
 };

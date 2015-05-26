@@ -1,7 +1,8 @@
 var ProductItem = require('./phd.cart.sixpack.item.js');
 var ProductHolder = require('./phd.cart.sixpack.holder.js');
 
-var SixPackBuilder = function () {
+var SixPackBuilder = function (cart) {
+  this.cart = cart;
   this.holding_ele_selector = '[data-phd-six-pack="holding"]';
   this.item_ele_selector = '[data-phd-six-pack="item"]';
   
@@ -10,8 +11,12 @@ var SixPackBuilder = function () {
 };
 
 SixPackBuilder.prototype._init_holder = function () {
+  var _this = this;
   var $holding_element = $(this.holding_ele_selector);
   this.product_holder = new ProductHolder($holding_element);
+  this.product_holder.on('AddToCart', function (products) {
+//     _this.cart.
+  });
 };
 
 SixPackBuilder.prototype._init_items = function () {

@@ -12,8 +12,15 @@ var SixPackHolderItemsDisplay = function ($ele, limit_multiple, items) {
 };
 
 SixPackHolderItemsDisplay.prototype.update = function () {
+  this._clear_display_items();
   this._redraw_display_items();
   this._update_display_items();
+  this._add_tooltips();
+};
+
+SixPackHolderItemsDisplay.prototype.reset = function () {
+  this._clear_display_items();
+  this._build_empty_display_items();
   this._add_tooltips();
 };
 
@@ -27,8 +34,6 @@ SixPackHolderItemsDisplay.prototype._add_event_listeners = function () {
 };
 
 SixPackHolderItemsDisplay.prototype._redraw_display_items = function () {
-  this._remove_tooltips();
-  this.$ele.html('');
   var items_count = this.items.total_count();
   var limit = Math.floor(items_count / this.limit_multiple) + 1;
   for (var j = 0; j < limit; j++) {
@@ -37,6 +42,11 @@ SixPackHolderItemsDisplay.prototype._redraw_display_items = function () {
     }
     this._build_empty_display_items();
   }
+};
+
+SixPackHolderItemsDisplay.prototype._clear_display_items = function () {
+  this._remove_tooltips();
+  this.$ele.html('');
 };
 
 SixPackHolderItemsDisplay.prototype._build_empty_display_items = function () {
