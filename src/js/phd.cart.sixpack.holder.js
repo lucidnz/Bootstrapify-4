@@ -38,6 +38,17 @@ SixPackHolder.prototype.update_item_in_holding = function (product, qty) {
 // Private
 
 SixPackHolder.prototype._add_event_listeners = function () {
+  var _this = this;
+  
+  // remove an item from holding, but from inside its display
+  _this.items_display.on('RemoveDisplayItem', function (product_id) {
+    _this.items.remove_item(product_id);
+    var args = [
+      product_id,
+      this.items.item_count(product_id)
+    ];
+    _this.trigger('RemoveItem', args);
+  });
 };
 
 module.exports = SixPackHolder;

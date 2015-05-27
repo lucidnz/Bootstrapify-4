@@ -19,9 +19,10 @@
 }
 
 [data-phd-six-pack="holding"] {
-  [data-phd-holding-items] {
+  .holding-item-wrapper {
     @include make-xs-column(12);
     @include make-sm-column(10);
+    z-index: 1;
   }
   .phd-add-to-cart-form {
     @include make-xs-column(12);
@@ -35,23 +36,65 @@
     }
   }
   
-  .holding-item {
+  [data-phd-holding-items] {
+    line-height: 1.5;
+    width: 102%;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .holding-item-group {
     display: inline-block;
-    width: 2em;
-    height: 2em;
-    margin: 0.65em 1px 0;
-    background-color: #E0F0D9;
-    border: rgba(0,0,0,0.3) solid 2px;
-    border-radius: 1em;
+    overflow: hidden;
+    margin-right: 1em;
+  }
+  
+  .holding-item {
+    position: relative;
+    display: block;
+    float: left;
+    width: 1.5em;
+    margin: 0 0.25em 0 0;
+    line-height: 1.75em;
+    text-align: center;
+    cursor: pointer;
+    
+    svg {
+      display: block;
+    }
+    
+    path {
+      fill: $brand-primary;
+    }
+    
+    span {
+      color: #fff;
+      visibility: hidden;
+      position: absolute;
+      left: 6px;
+      top: 26px;
+    }
+    
+    &:hover span,
+    &:focus span,
+    &:active span {
+      visibility: visible;
+    }
     
     &.holding-item-disabled {
-      background-color: #fff;
-      border: #bbb dashed 2px;
+      &:hover span {
+        visibility: hidden;
+      }
+      
+      path {
+        fill: transparent;
+        stroke: #ddd;
+        stroke-position: inside;
+        stroke-width: 8px;
+      }
     }
-  }
-  .holding-item-spacer {
-    display: inline-block;
-    width: 1em;
   }
 }
 

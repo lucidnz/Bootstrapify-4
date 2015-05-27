@@ -8,7 +8,14 @@ var SixPackHolderItemSubmitter = function ($ele, items) {
   this.$ele = $ele;
   this.items = items;
   this.$submit = $ele.find('[type="submit"]');
-  this.modal = new Modal();
+  this.modal = new Modal({
+    on_open: function () {
+      console.log('submitter modal open');
+    },
+    on_close: function () {
+      console.log('submitter modal close');
+    }
+  });
   
   this._add_event_listeners();
 };
