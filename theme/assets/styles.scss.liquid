@@ -8647,15 +8647,22 @@ $slide-count: 1;
 [data-phd-six-pack="holding"] {
   .holding-item-wrapper {
     @include make-xs-column(12);
-    @include make-sm-column(10);
+    @include make-sm-column(7);
     z-index: 1;
   }
+  .builder-total {
+    @include make-xs-column(7);
+    @include make-sm-column(3);
+    @extend .h1;
+    margin: 0;
+    text-align: center;
+  }
   .phd-add-to-cart-form {
-    @include make-xs-column(12);
+    @include make-xs-column(5);
     @include make-sm-column(2);
     
     .btn{
-      @extend .btn-success;
+      @extend .btn-primary;
       &:disabled {
         @extend .btn-default;
       }
