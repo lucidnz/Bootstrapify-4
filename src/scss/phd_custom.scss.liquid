@@ -28,11 +28,13 @@
     @include make-xs-column(7);
     @include make-sm-column(3);
     
-    @include vertical-center('p');
-    
     p {
       margin: 0;
       text-align: center;
+      font-size: $font-size-h3;
+      @media (min-width: $screen-sm-min) {
+        font-size: $font-size-h1;
+      }
     }
   }
   .phd-add-to-cart-form {
@@ -47,9 +49,19 @@
     }
   }
   
+  // verticaly center all divs in a row
+  // note: requires white space to be removed from between col elements
+  .holding-item-wrapper,
+  .builder-total,
+  .phd-add-to-cart-form {
+    display: inline-block;
+    float: none;
+    vertical-align: middle;
+  }
+  
   [data-phd-holding-items] {
     line-height: 1.5;
-    width: 102%;
+    width: 100%;
     white-space: nowrap;
     overflow-x: scroll;
     overflow-y: visible;
