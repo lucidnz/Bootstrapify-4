@@ -29,11 +29,13 @@
     @include make-sm-column(3);
     
     p {
-      margin: 0;
       text-align: center;
-      font-size: $font-size-h3;
-      @media (min-width: $screen-sm-min) {
-        font-size: $font-size-h1;
+      margin: 0;
+      &.price {
+        font-size: $font-size-h3;
+        @media (min-width: $screen-sm-min) {
+          font-size: $font-size-h1;
+        }
       }
     }
   }

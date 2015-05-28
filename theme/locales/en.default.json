@@ -173,5 +173,10 @@
   "date_formats": {
     "article_short": "%-d %b %Y",
     "article_long": "%a, %-d %B %Y"
+  },
+  "phd": {
+    "six_pack": {
+      "items": "Items"
+    }
   }
 }
