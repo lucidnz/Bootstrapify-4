@@ -15,12 +15,14 @@ var SixPackHolderItemsDisplay = function ($ele, limit_multiple, items) {
   this.reset();
 };
 
-SixPackHolderItemsDisplay.prototype.update = function () {
+SixPackHolderItemsDisplay.prototype.update = function (action) {
   this._clear_display_items();
   this._redraw_display_items();
   this._update_display_items();
   this._add_tooltips();
-  this._scroll_container();
+  if (action && action === 'added') {
+    this._scroll_container();
+  }
 };
 
 SixPackHolderItemsDisplay.prototype.reset = function () {
@@ -33,8 +35,8 @@ SixPackHolderItemsDisplay.prototype.reset = function () {
 
 SixPackHolderItemsDisplay.prototype._add_event_listeners = function () {
   var _this = this;
-  _this.items.on('ItemsUpdated', function () {
-    _this.update();
+  _this.items.on('ItemsUpdated', function (product_id, action) {
+    _this.update(action);
   });
   
   _this.$ele.on('click', '.holding-item', function (e) {

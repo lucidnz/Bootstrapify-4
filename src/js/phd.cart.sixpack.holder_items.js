@@ -10,7 +10,7 @@ var SixPackHolderItems = function (limit_multiple) {
 
 SixPackHolderItems.prototype.add_item = function (product) {
   this.products.push(product);
-  this._update_is_addable_and_trigger('ItemAdded');
+  this._update_is_addable_and_trigger('ItemAdded', [product.id, 'added']);
 };
 
 SixPackHolderItems.prototype.remove_item = function (product_id) {
@@ -21,10 +21,11 @@ SixPackHolderItems.prototype.remove_item = function (product_id) {
       break;
     }
   }
-  this._update_is_addable_and_trigger('ItemRemoved');
+  this._update_is_addable_and_trigger('ItemRemoved', [product_id, 'removed']);
 };
 
 SixPackHolderItems.prototype.update_item = function (product, qty) {
+  var item_count = this.item_count(product.id);
   // remove all items for a clean slate
   var total_count = this.total_count();
   for (var i = total_count - 1; i > -1; i--) { // loop backwards to remove the last added item
@@ -36,7 +37,8 @@ SixPackHolderItems.prototype.update_item = function (product, qty) {
       this.products.push(product);
     }
   }
-  this._update_is_addable_and_trigger('ItemUpdated');
+  var action = (item_count > qty) ? 'removed' : 'added';
+  this._update_is_addable_and_trigger('ItemUpdated', [product.id, action]);
 };
 
 SixPackHolderItems.prototype.item_count = function (product_id) {
@@ -76,10 +78,10 @@ SixPackHolderItems.prototype._remove_product_from_stack = function (product_id, 
   return removed.length > 0;
 };
 
-SixPackHolderItems.prototype._update_is_addable_and_trigger = function (custom_event) {
+SixPackHolderItems.prototype._update_is_addable_and_trigger = function (custom_event, custom_event_args) {
   this.products_are_addable = this._is_addable();
-  this.trigger(custom_event);
-  this.trigger('ItemsUpdated');
+  this.trigger(custom_event, custom_event_args);
+  this.trigger('ItemsUpdated', custom_event_args);
 };
 
 SixPackHolderItems.prototype._is_addable = function () {
