@@ -27,9 +27,11 @@
   .builder-total {
     @include make-xs-column(7);
     @include make-sm-column(3);
-    @extend .h1;
-    margin: 0;
-    text-align: center;
+    
+    p {
+      margin: 0;
+      text-align: center;
+    }
   }
   .phd-add-to-cart-form {
     @include make-xs-column(5);

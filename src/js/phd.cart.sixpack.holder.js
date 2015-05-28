@@ -1,4 +1,5 @@
 var Eventer = require('./_eventer.js');
+var ItemsTotal = require('./phd.cart.sixpack.holder_total.js');
 var ItemsHolder = require('./phd.cart.sixpack.holder_items.js');
 var ItemsDisplay = require('./phd.cart.sixpack.holder_display.js');
 var ItemSubmitter = require('./phd.cart.sixpack.holder_submitter.js');
@@ -14,6 +15,7 @@ var SixPackHolder = function ($ele) {
   var submitter_element = this.$ele.find('form');
   
   this.items = new ItemsHolder(limit_multiple);
+  this.total_display = new ItemsTotal(this.items);
   this.items_display = new ItemsDisplay(display_element, limit_multiple, this.items);
   this.submitter = new ItemSubmitter(submitter_element, this.items);
   

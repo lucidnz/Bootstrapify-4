@@ -80,6 +80,10 @@ $lookbook-min-height-lg: 1000px;
     opacity: 1;
   }
 }
+
+@mixin vertical-center () {
+  
+}
 $bootstrap-sass-asset-helper: false !default;
 //
 // Variables
@@ -8653,9 +8657,11 @@ $slide-count: 1;
   .builder-total {
     @include make-xs-column(7);
     @include make-sm-column(3);
-    @extend .h1;
-    margin: 0;
-    text-align: center;
+    
+    p {
+      margin: 0;
+      text-align: center;
+    }
   }
   .phd-add-to-cart-form {
     @include make-xs-column(5);
