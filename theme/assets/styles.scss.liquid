@@ -32,28 +32,32 @@ $lookbook-min-height-lg: 1000px;
   @return if( $colour != transparent, darken( $colour, 5% ), transparent );
 }
 
-@mixin adaptive-columns {
+@mixin adaptive-columns ( $column-selector ) {
   /*
     Display cols based on the amount of content in them:
       1 item shows 1x12 col
       2 items shows 2x6 cols
       3 items shows 3x4 cols
       4 or more items shows 4x3 cols
+      
+    You must pass in the column element selector to target. This helps keep the selector from getting all junked up if it's nested inside things
   */
-  @include make-xs-column(12);
-  @include make-sm-column(6);
-  @include make-md-column(3);
+  #{$column-selector} {
+    @include make-xs-column(12);
+    @include make-sm-column(6);
+    @include make-md-column(3);
+  }
   
-  [data-group-size="0"] &,
-  [data-products-size="0"] &,
-  [data-collections-size="0"] & {
+  [data-group-size="0"] #{$column-selector},
+  [data-products-size="0"] #{$column-selector},
+  [data-collections-size="0"] #{$column-selector} {
     display: none;
   }
 
   @for $i from 1 through 3 {
-    [data-group-size="#{$i}"] &,
-    [data-products-size="#{$i}"] &,
-    [data-collections-size="#{$i}"] & {
+    [data-group-size="#{$i}"] #{$column-selector},
+    [data-products-size="#{$i}"] #{$column-selector},
+    [data-collections-size="#{$i}"] #{$column-selector} {
       @include make-sm-column(12 / $i);
       @include make-md-column(12 / $i);
     }
@@ -81,8 +85,15 @@ $lookbook-min-height-lg: 1000px;
   }
 }
 
-@mixin vertical-center () {
-  
+@mixin vertical-center ($target-child) {
+  position: relative;
+  & > #{$target-child} {
+    position: absolute;
+    top: 0;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
 }
 $bootstrap-sass-asset-helper: false !default;
 //
@@ -7810,15 +7821,11 @@ footer {
 */
 
 .index {
-  .group-item-wrap {
-    @include adaptive-columns();
-  }
+  @include adaptive-columns('.group-item-wrap');
 }
 
 .list-collections {
-  .group-item-wrap {
-    @include adaptive-columns();
-  }
+  @include adaptive-columns('.group-item-wrap');
   
   .group-item {
     position: relative;
@@ -8461,8 +8468,18 @@ h6 {
     @extend .alert-success;
   }
 }
+
+.homepage-search {
+  margin: 1.5em auto;
+  text-align: center;
+  .form-control {
+    @extend .input-lg;
+  }
+  .btn {
+    @extend .btn-lg;
+  }
+}
 .banner {
-  
   // create the fade transition
   &.fade {
     opacity: 1;
@@ -8542,8 +8559,9 @@ h6 {
   @if $slide-enabled {
     [data-banner="#{$slide-count}"] {
       
-      @if $slide-size!= 'full_width' and $slide-size != 'full_screen' {
-        .banner-content-wrap {
+      .banner-content-wrap {
+        position: relative;
+        @if $slide-size!= 'full_width' and $slide-size != 'full_screen' {
           @extend .sheet;
         }
       }
@@ -8657,6 +8675,8 @@ $slide-count: 1;
   .builder-total {
     @include make-xs-column(7);
     @include make-sm-column(3);
+    
+    @include vertical-center('p');
     
     p {
       margin: 0;

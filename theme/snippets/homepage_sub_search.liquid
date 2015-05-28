@@ -1,0 +1,12 @@
+{% capture search_title %}{{ 'search.homepage.title_html' | t }}{% endcapture %}
+{% capture search_description %}{{ 'search.homepage.description_html' | t }}{% endcapture %}
+
+<div class="group-item-wrap">
+  <div class="group-item thumbnail" id="site_search">
+    {% unless search_title == blank %}<h4>{{ search_title }}</h4>{% endunless %}
+    {% unless search_description == blank %}<p>{{ search_description }}</p>{% endunless %}
+    <div class="homepage-search">
+      {% include 'search_form' %}
+    </div>
+  </div>
+</div>

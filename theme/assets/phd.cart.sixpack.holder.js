@@ -1,4 +1,5 @@
 var Eventer = require('./_eventer.js');
+var ItemsTotal = require('./phd.cart.sixpack.holder_total.js');
 var ItemsHolder = require('./phd.cart.sixpack.holder_items.js');
 var ItemsDisplay = require('./phd.cart.sixpack.holder_display.js');
 var ItemSubmitter = require('./phd.cart.sixpack.holder_submitter.js');
@@ -14,6 +15,7 @@ var SixPackHolder = function ($ele) {
   var submitter_element = this.$ele.find('form');
   
   this.items = new ItemsHolder(limit_multiple);
+  this.total_display = new ItemsTotal(this.items);
   this.items_display = new ItemsDisplay(display_element, limit_multiple, this.items);
   this.submitter = new ItemSubmitter(submitter_element, this.items);
   
@@ -38,6 +40,17 @@ SixPackHolder.prototype.update_item_in_holding = function (product, qty) {
 // Private
 
 SixPackHolder.prototype._add_event_listeners = function () {
+  var _this = this;
+  
+  // remove an item from holding, but from inside its display
+  _this.items_display.on('RemoveDisplayItem', function (product_id) {
+    _this.items.remove_item(product_id);
+    var args = [
+      product_id,
+      this.items.item_count(product_id)
+    ];
+    _this.trigger('RemoveItem', args);
+  });
 };
 
 module.exports = SixPackHolder;

@@ -13,12 +13,10 @@
 
     <!-- First round of JS -->
     {{ 'modernizr.js' | asset_url | script_tag }}
-<!--
     <script>
-      // Picture element HTML5 shiv - do we even need this if we are using srcset on img instead?
+      // Picture element HTML5 shiv - add this to allow older browsers to recognize picture elements if it encounters them in the page before Picturefill has finished loading.
       document.createElement( "picture" );
     </script>
--->
     <script src="{{ 'picturefill.min.js' | asset_url }}" async></script>
 
     <!-- Stylesheets -->
@@ -103,6 +101,8 @@
     {% comment %}
       Want to use a modal for something?
       Here is an empty one. Just invoke this in your javascript and give it the content you need.
+      
+      Try adapting this technique for loading dynamic content to add to your modals: http://www.shopify.com/partners/blog/28500611-using-javascript-to-super-power-your-clients-shopify-site
       
       Remember, be a tidy kiwi:
       Don't litter the theme with lots of crazy modals,

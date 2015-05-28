@@ -15,11 +15,13 @@ var SixPackItem = function ($ele, id) {
   
   this.variant_id = this.$ele.data('phd-variant-id');
   this.product_title = this.$ele.data('phd-product-title');
+  this.product_price = this.$ele.data('phd-product-price');
   this.product_color = this.$ele.data('phd-product-color');
   
   this.product = {
     id: this.variant_id,
     title: this.product_title,
+    price: this.product_price,
     color: this.product_color
   };
   

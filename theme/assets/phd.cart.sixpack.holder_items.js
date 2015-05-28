@@ -53,6 +53,15 @@ SixPackHolderItems.prototype.total_count = function () {
   return this.products.length;
 };
 
+SixPackHolderItems.prototype.total_price = function () {
+  var total_price = 0;
+  for (var i = 0; i < this.products.length; i++) {
+    var product = this.products[i];
+    total_price += product.price;
+  };
+  return Shopify.formatMoney(total_price, Bsify.money_formats.moneyFormat);;
+};
+
 SixPackHolderItems.prototype.product_by_index = function (index) {
   return this.products[index];
 };
