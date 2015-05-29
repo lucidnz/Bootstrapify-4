@@ -298,9 +298,6 @@ $input-height-large:             (ceil($font-size-large * $line-height-large) + 
 //** Small `.form-control` height
 $input-height-small:             (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2) !default;
 
-//** `.form-group` margin
-$form-group-margin-bottom:       15px !default;
-
 $legend-color:                   $gray-dark !default;
 $legend-border-color:            #e5e5e5 !default;
 
@@ -360,8 +357,7 @@ $zindex-dropdown:          1000 !default;
 $zindex-popover:           1060 !default;
 $zindex-tooltip:           1070 !default;
 $zindex-navbar-fixed:      1030 !default;
-$zindex-modal-background:  1040 !default;
-$zindex-modal:             1050 !default;
+$zindex-modal:             1040 !default;
 
 
 //== Media queries breakpoints
@@ -2644,17 +2640,6 @@ hr {
   }
 }
 
-
-// iOS "clickable elements" fix for role="button"
-//
-// Fixes "clickability" issue (and more generally, the firing of events such as focus as well)
-// for traditionally non-focusable elements with role="button"
-// see https://developer.mozilla.org/en-US/docs/Web/Events/click#Safari_Mobile
-// Upstream patch for normalize.css submitted: https://github.com/necolas/normalize.css/pull/379 - remove this fix once that is merged
-
-[role="button"] {
-  cursor: pointer;
-}
 //
 // Typography
 // --------------------------------------------------
@@ -2891,7 +2876,7 @@ abbr[data-original-title] {
 }
 .initialism {
   font-size: 90%;
-  @extend .text-uppercase;
+  text-transform: uppercase;
 }
 
 // Blockquotes
@@ -3487,13 +3472,9 @@ output {
   &[disabled],
   &[readonly],
   fieldset[disabled] & {
+    cursor: $cursor-disabled;
     background-color: $input-bg-disabled;
     opacity: 1; // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655
-  }
-
-  &[disabled],
-  fieldset[disabled] & {
-    cursor: $cursor-disabled;
   }
 
   // [converter] extracted textarea& to textarea.form-control
@@ -3550,7 +3531,7 @@ input[type="search"] {
 // horizontal forms, use the predefined grid classes.
 
 .form-group {
-  margin-bottom: $form-group-margin-bottom;
+  margin-bottom: 15px;
 }
 
 
@@ -3590,7 +3571,6 @@ input[type="search"] {
 // Radios and checkboxes on same line
 .radio-inline,
 .checkbox-inline {
-  position: relative;
   display: inline-block;
   padding-left: 20px;
   margin-bottom: 0;
@@ -3647,7 +3627,6 @@ input[type="checkbox"] {
   padding-bottom: ($padding-base-vertical + 1);
   // Remove default margin from `p`
   margin-bottom: 0;
-  min-height: ($line-height-computed + $font-size-base);
 
   &.input-lg,
   &.input-sm {
@@ -3675,7 +3654,6 @@ input[type="checkbox"] {
     padding: $padding-small-vertical $padding-small-horizontal;
     font-size: $font-size-small;
     line-height: $line-height-small;
-    min-height: ($line-height-computed + $font-size-small);
   }
 }
 
@@ -3689,7 +3667,6 @@ input[type="checkbox"] {
     padding: $padding-large-vertical $padding-large-horizontal;
     font-size: $font-size-large;
     line-height: $line-height-large;
-    min-height: ($line-height-computed + $font-size-large);
   }
 }
 
@@ -4103,8 +4080,9 @@ input[type="button"] {
 
 .collapse {
   display: none;
+  visibility: hidden;
 
-  &.in      { display: block; }
+  &.in      { display: block; visibility: visible; }
   // [converter] extracted tr&.in to tr.collapse.in
   // [converter] extracted tbody&.in to tbody.collapse.in
 }
@@ -4134,7 +4112,7 @@ tbody.collapse.in { display: table-row-group; }
   height: 0;
   margin-left: 2px;
   vertical-align: middle;
-  border-top:   $caret-width-base dashed;
+  border-top:   $caret-width-base solid;
   border-right: $caret-width-base solid transparent;
   border-left:  $caret-width-base solid transparent;
 }
@@ -4973,9 +4951,11 @@ tbody.collapse.in { display: table-row-group; }
 .tab-content {
   > .tab-pane {
     display: none;
+    visibility: hidden;
   }
   > .active {
     display: block;
+    visibility: visible;
   }
 }
 
@@ -5060,6 +5040,7 @@ tbody.collapse.in { display: table-row-group; }
 
     &.collapse {
       display: block !important;
+      visibility: visible !important;
       height: auto !important;
       padding-bottom: 0; // Override default setting
       overflow: visible !important;
@@ -5922,9 +5903,8 @@ a.label {
     position: relative;
     top: -1px;
   }
-
-  .btn-xs &,
-  .btn-group-xs > .btn & {
+  
+  .btn-xs & {
     top: 0;
     padding: 1px 5px;
   }
@@ -5937,15 +5917,15 @@ a.label {
     color: $badge-active-color;
     background-color: $badge-active-bg;
   }
-
+  
   .list-group-item > & {
     float: right;
   }
-
+  
   .list-group-item > & + & {
     margin-right: 5px;
   }
-
+  
   .nav-pills > li > a > & {
     margin-left: 3px;
   }
@@ -5976,7 +5956,7 @@ a.badge {
   .h1 {
     color: $jumbotron-heading-color;
   }
-
+  
   p {
     margin-bottom: ($jumbotron-padding / 2);
     font-size: $jumbotron-font-size;
@@ -6071,7 +6051,7 @@ a.thumbnail.active {
     // Specified for the h4 to prevent conflicts of changing $headings-color
     color: inherit;
   }
-
+  
   // Provide class for links that match alerts
   .alert-link {
     font-weight: $alert-link-font-weight;
@@ -6082,7 +6062,7 @@ a.thumbnail.active {
   > ul {
     margin-bottom: 0;
   }
-
+  
   > p + p {
     margin-top: 5px;
   }
@@ -6690,16 +6670,16 @@ a.list-group-item {
     width: 100%;
     border: 0;
   }
-}
 
-// Modifier class for 16:9 aspect ratio
-.embed-responsive-16by9 {
-  padding-bottom: 56.25%;
-}
+  // Modifier class for 16:9 aspect ratio
+  &.embed-responsive-16by9 {
+    padding-bottom: 56.25%;
+  }
 
-// Modifier class for 4:3 aspect ratio
-.embed-responsive-4by3 {
-  padding-bottom: 75%;
+  // Modifier class for 4:3 aspect ratio
+  &.embed-responsive-4by3 {
+    padding-bottom: 75%;
+  }
 }
 
 //
@@ -6833,12 +6813,10 @@ button.close {
 
 // Modal background
 .modal-backdrop {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
-  bottom: 0;
   left: 0;
-  z-index: $zindex-modal-background;
   background-color: $modal-backdrop-bg;
   // Fade for backdrop
   &.fade { @include opacity(0); }
@@ -6930,6 +6908,7 @@ button.close {
   position: absolute;
   z-index: $zindex-tooltip;
   display: block;
+  visibility: visible;
   // Reset font and text properties given new insertion method
   font-family: $font-family-base;
   font-size: $font-size-small;
@@ -7475,6 +7454,7 @@ button.close {
 
 .hidden {
   display: none !important;
+  visibility: hidden !important;
 }
 
 
@@ -7766,7 +7746,7 @@ table {
 
 footer {
   overflow: hidden;
-  
+
   .sheet-content {
     @include make-row();
     margin-bottom: 0;
@@ -7780,7 +7760,7 @@ footer {
   [data-col-count="0"] {
     display: none;
   }
-  
+
   @for $i from 1 through 4 {
     [data-col-count="#{$i}"] {
       [class*="footer-col"] {
@@ -7788,13 +7768,7 @@ footer {
       }
     }
   }
-  
-  .footer-linklist {
-    .nav a {
-      padding-left: 0;
-    }
-  }
-  
+
   .site-credits {
     text-align: center;
     @media (min-width: $grid-float-breakpoint) {
@@ -7815,21 +7789,21 @@ footer {
 
 .list-collections {
   @include adaptive-columns('.group-item-wrap');
-  
+
   .group-item {
     position: relative;
-  
+
     .group-item-image .svg {
       display: block;
       height: auto;
       max-width: 100%;
       max-height: 100%;
     }
-    
+
     .group-item-image .svg-rect {
       fill: lighten($brand-primary, 30%);
     }
-    
+
     .group-item-details {
       position: absolute;
       top: 50%;
@@ -7838,7 +7812,7 @@ footer {
     	transform: translateY(-50%);
     	padding: 0 $grid-gutter-width;
     }
-    
+
   }
 }
 
@@ -7877,7 +7851,7 @@ body[class*="collection"] {
     display: block;
     height: auto;
   }
-  
+
   // Image scroller
   .js & .products-wrap {
     // make the products span the whole of the page but hide the ones that go off the edge
@@ -7886,13 +7860,13 @@ body[class*="collection"] {
     position: relative;
     opacity: 0;
     margin-bottom: $line-height-computed * 2;
-  
+
     .group-item-wrap {
       background-color: #fff; // TODO: use site background color
       transition: margin 1s ease;
       // override grid cols for lookbook
       @include make-xs-column(3);
-      
+
       width: $lookbook-item-max-width-xs;
       @media (orientation: portrait) {
         width: $lookbook-item-max-width-sm;
@@ -7907,7 +7881,7 @@ body[class*="collection"] {
         width: $lookbook-item-max-width-lg;
       }
     }
-  
+
     .lookbook-controls {
       position: absolute;
       top: 0;
@@ -7915,7 +7889,7 @@ body[class*="collection"] {
       width: 100%;
       height: 100%;
     }
-    
+
     [data-gallery-direction] {
       position: absolute;
       font-size: 2.75em;
@@ -7925,7 +7899,7 @@ body[class*="collection"] {
         color: #fff;
       }
     }
-    
+
     [data-gallery-direction] {
       top: 50%;
       -webkit-transform: translateY(-50%);
@@ -7937,11 +7911,11 @@ body[class*="collection"] {
         cursor: not-allowed;
       }
     }
-    
+
     [data-gallery-direction="left"] {
       left: 2.5%;
     }
-    
+
     [data-gallery-direction="right"] {
       right: 2.5%;
     }
@@ -7953,15 +7927,15 @@ body[class*="collection"] {
   {% if settings.product_image_layout == 'center' %}
     {% assign is_centered = true %}
   {% endif %}
-  
+
   .sheet-content, .product-details-content {
     @include make-row();
   }
-  
+
   .product-header, .product-images, .product-details, .product-description {
     margin-bottom: $line-height-computed;
   }
-  
+
   .product-images {
     text-align: center;
     img {
@@ -7973,7 +7947,7 @@ body[class*="collection"] {
     }
     {% endunless %}
   }
-  
+
   {% if settings.product_image_layout == 'left' %}
     .product-header, .product-details, .product-description {
       @include make-sm-column(6);
@@ -8011,17 +7985,17 @@ body[class*="collection"] {
       }
     }
   {% endif %}
-  
+
   .product-price {
     margin-top: $line-height-computed / 2;
     margin-bottom: $line-height-computed;
     @include make-sm-column(12);
   }
-  
+
   .add-to-cart-message {
     @include make-sm-column(12);
   }
-  
+
   .add-to-cart-form {
     margin-bottom: $line-height-computed;
     {% if is_centered %}
@@ -8030,7 +8004,7 @@ body[class*="collection"] {
       @include make-sm-column(6);
     {% endif %}
   }
-  
+
   .social-share-links {
     @include make-row();
     & .nav {
@@ -8042,7 +8016,7 @@ body[class*="collection"] {
       {% endif %}
     }
   }
-  
+
   .product-image-main {
     margin-bottom: $grid-gutter-width;
   }
@@ -8060,18 +8034,18 @@ body[class*="collection"] {
   .sheet-content {
     @include make-row();
   }
-  
+
   .cart-items,
   .cart-details,
   .cart-extras {
     margin: $grid-gutter-width auto;
   }
-  
+
   .cart-items {
     @include make-xs-column(12);
     margin-top: 0;
   }
-  
+
   .cart-details {
     @include make-sm-column(6);
     @include make-md-column(4);
@@ -8084,15 +8058,15 @@ body[class*="collection"] {
       margin: ($grid-gutter-width / 2) auto;
     }
   }
-  
+
   .cart-extras {
     @include make-sm-column(6);
     @include make-md-column(8);
-    
+
     .cart-extras-content {
       @include make-row();
     }
-    
+
     .cart-instructions {
       @include make-md-column(6);
       textarea {
@@ -8100,11 +8074,11 @@ body[class*="collection"] {
       }
     }
   }
-    
+
   .cart-message {
     @include make-sm-column(12);
   }
-  
+
   .cart-item-label-mini {
     display: none;
   }
@@ -8155,14 +8129,14 @@ body[class*="collection"] {
       width: 20%;
     }
   }
-  
+
 }
 
 .page-contact {
   .sheet-content {
     @include make-row();
   }
-  
+
   .page-content, .contact-content {
     @include make-sm-column(6);
   }
@@ -8173,6 +8147,7 @@ body[class*="collection"] {
     @include make-sm-column-pull(6);
   }
 }
+
 /* Typograhical Styles */
 
 a:hover,
@@ -8317,6 +8292,13 @@ h6 {
   @include make-xs-column(12);
   text-align: center;
 }
+
+.list-links {
+  li + li {
+    margin-top: 0.5em;
+  }
+}
+
 /*
   Styles for centered navigation snippet
 

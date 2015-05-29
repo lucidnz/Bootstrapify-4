@@ -7,45 +7,45 @@
 {% assign max_col_count = 0 %}
 
 {% for i in (1..4) %}
-  
+
   {% capture footer_col_content %}{% endcapture %}
   {% assign footer_col = 'footer_col_' | append: forloop.index %}
-  
+
   {% assign footer_col_text_key = footer_col | append: '_text' %}
   {% assign footer_col_text = settings[footer_col_text_key] %}
-  
+
   {% assign footer_col_blog_key = footer_col | append: '_blog' %}
   {% assign footer_col_blog_setting = settings[footer_col_blog_key] %}
   {% assign footer_col_blog = blogs[footer_col_blog_setting] %}
-  
+
   {% assign footer_col_linklist_key = footer_col | append: '_linklist' %}
   {% assign footer_col_linklist_setting = settings[footer_col_linklist_key] %}
   {% assign footer_col_linklist = linklists[footer_col_linklist_setting] %}
-  
+
   {% assign footer_col_social_key = footer_col | append: '_social' %}
   {% assign footer_col_social = settings[footer_col_social_key] %}
-  
+
   {% assign footer_col_newsletter_key = footer_col | append: '_newsletter' %}
   {% assign footer_col_newsletter = settings[footer_col_newsletter_key] %}
-  
+
   {% if footer_col_text != blank or footer_col_blog.articles != blank or footer_col_linklist.links != blank or footer_col_social or footer_col_newsletter %}
     {% comment %}
       We have footer content so collect it
     {% endcomment %}
-  
+
     {% if footer_col_text != blank %}
       {% capture footer_col_content %}
         <div class="footer-text">{{ footer_col_text }}</div>
       {% endcapture %}
     {% endif %}
-    
+
     {% if footer_col_blog.articles != blank %}
       {% capture footer_col_content %}
         {{ footer_col_content }}
         <div class="footer-blog">{% include 'site_blog_list' with footer_col_blog %}</div>
       {% endcapture %}
     {% endif %}
-    
+
     {% if footer_col_linklist.links != blank %}
       {% capture footer_col_content %}
         {{ footer_col_content }}
@@ -55,12 +55,11 @@
             Nav list accepts the string name of the link_list, not the link_list object
             We also disable dropdowns here
           {% endcomment %}
-          {% assign nav_list_items = 'hide_dropdowns' %}
-          {% include 'nav_list' with footer_col_linklist_setting %}
+          {% include 'link_list' with footer_col_linklist_setting %}
         </div>
       {% endcapture %}
     {% endif %}
-    
+
     {% if footer_col_social %}
       {% capture footer_col_content %}
         {{ footer_col_content }}
@@ -71,7 +70,7 @@
         </div>
       {% endcapture %}
     {% endif %}
-    
+
     {% if footer_col_newsletter %}
       {% capture footer_col_content %}
         {{ footer_col_content }}
@@ -82,14 +81,14 @@
         </div>
       {% endcapture %}
     {% endif %}
-  
+
     {% assign max_col_count = forloop.index %}
   {% endif %}
 
   {% comment %}
     Capture each col weather it has content or not so we can include empty cols if they are in between ones with content.
   {% endcomment %}
-  
+
   {% capture footer_content %}
     {% unless footer_content == blank %}{{ footer_content }}[SPLIT]{% endunless %}
     <div class="footer-col-{{ forloop.index }}">
