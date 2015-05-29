@@ -1,0 +1,131 @@
+// NOTE / TODO: off canvas breaks affix
+
+// fix it on mobiles when we don't have a sticky footer
+html,
+body { height: 100%; }
+
+.js {
+  
+  $offscreen-main-xs: 100%;
+  $offscreen-main-sm: $offscreen-main-xs;
+  $offscreen-main-md: 76%;
+  $offscreen-main-lg: 81%;
+  
+  $offscreen-cart-xs: 95%;
+  $offscreen-cart-sm: 85%;
+  $offscreen-cart-md: 24%;
+  $offscreen-cart-lg: 19%;
+  
+  // override current table sticky footer
+  .offcanvas-wrapper {
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+  }
+  
+  .offcanvas-main-content {
+    display: table;
+    width: 100%;
+    height: 100%;
+  }
+  
+  // setup main content areas
+  .offcanvas-main,
+  .offcanvas-cart {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    transition: .3s ease all;
+  }
+  
+  // cart hidden - default state
+  .offcanvas-main {
+    width: $offscreen-main-xs;
+    left: 0;
+  }
+  
+  .offcanvas-cart {
+    width: $offscreen-cart-xs;
+    right: $offscreen-cart-xs * -1;
+    z-index: 999;
+    @media (min-width: $grid-float-breakpoint) {
+      width: $offscreen-cart-sm;
+      right: $offscreen-cart-sm * -1;
+    }
+    @media (min-width: $screen-md-min) {
+      width: $offscreen-cart-md;
+      right: $offscreen-cart-md * -1;
+    }    
+    @media (min-width: $screen-lg-min) {
+      width: $offscreen-cart-lg;
+      right: $offscreen-cart-lg * -1;
+    }
+  }
+  
+  .offcanvas-open {
+    // BS containers are bs and cause our main content to have horizontal scrollbars if they are bigger than the offscreen-main
+    // so we step them back down to the previous size untill we have room for them
+    // 
+    .container {
+      $oc-screen-md-min: strip-unit($container-sm) / (strip-unit($offscreen-main-md) / 100);
+      @media (min-width: '#{$oc-screen-md-min}px') {
+        width: $container-sm;
+      }
+      
+      $oc-screen-lg-min: strip-unit($container-md) / (strip-unit($offscreen-main-lg) / 100);
+      @media (min-width: '#{$oc-screen-lg-min}px') {
+        width: $container-md;
+      }
+      
+      $oc-screen-xl-min: strip-unit($container-lg) / (strip-unit($offscreen-main-lg) / 100); // $offscreen-main-lg: 81% is the width of the main container at the largest screen size
+      @media (min-width: '#{$oc-screen-xl-min}px') {
+        width: $container-lg;
+      }
+    }
+    
+    .offcanvas-main {
+      @media (max-width: $screen-sm-max) {
+        position: static;
+        &:before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0,0,0, 0.8);
+          z-index: 998;
+        }
+      }
+      
+      @media (min-width: $screen-md-min) {
+        width: $offscreen-main-md;
+      }
+      @media (min-width: $screen-lg-min) {
+        width: $offscreen-main-lg;
+      }
+    }
+    
+    .offcanvas-cart {
+      -webkit-transform: translateX(-100%);
+      -webkit-transform: translateX(-100%) translateZ(0);
+      -moz-transform: translateX(-100%);
+      -moz-transform: translateX(-100%) translateZ(0);
+      transform: translateX(-100%);
+      transform: translateX(-100%) translateZ(0);
+    }
+  }
+  
+  &.no-csstransforms.no-csstransitions {
+    .offcanvas-open {
+      .offcanvas-cart {
+        right: 0;
+      }
+    }
+  }
+}
+

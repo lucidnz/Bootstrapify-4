@@ -15,6 +15,11 @@
       </div>
 
       <div class="navigation navbar-collapse collapse" id="navigation-collapse">
+        {% comment %} Add fall back for no menu in settings {% endcomment %}
+        {% if settings.main_menu_linklist == blank and settings.secondary_menu_linklist == blank and settings.tertiary_menu_linklist == blank %}
+          {% include 'nav_list' with 'main-menu' %}
+        {% endif %}
+        
         {% assign navbar_nav = true %}
         {% unless settings.main_menu_linklist == blank %} {% include 'nav_list' with settings.main_menu_linklist %} {% endunless %}
 
@@ -40,7 +45,8 @@
         {% endunless %}
 
         <nav class="tertiary-nav pull-right">
-          {% assign nav_list_items = 'accounts,cart,search' %}
+          {% assign nav_list_items = 'accounts,cart' %}
+          {% if settings.search_in_navbar %}{% assign nav_list_items = nav_list_items | append: ',search' %}{% endif %}
           {% include 'nav_list' with settings.tertiary_menu_linklist %}
         </nav>
       </div>
@@ -57,6 +63,7 @@
 
     <section class="navigation-main hidden-xs">
       <nav class="main-nav">
+        {% comment %} Add fall back for no menu in settings {% endcomment %}
         {% if settings.main_menu_linklist == blank and settings.secondary_menu_linklist == blank and settings.tertiary_menu_linklist == blank %}
           {% include 'nav_list' with 'main-menu' %}
         {% else %}
