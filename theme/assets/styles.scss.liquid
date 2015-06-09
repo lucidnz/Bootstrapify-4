@@ -70,6 +70,16 @@ $lookbook-min-height-lg: 1000px;
       @include make-md-column(12 / $i);
     }
   }
+  
+  [data-group-size="5"] #{$column-selector},
+  [data-products-size="5"] #{$column-selector},
+  [data-collections-size="5"] #{$column-selector},
+  [data-group-size="6"] #{$column-selector},
+  [data-products-size="6"] #{$column-selector},
+  [data-collections-size="6"] #{$column-selector} {
+    @include make-sm-column(6);
+    @include make-md-column(4);
+  }
 }
 
 @mixin hover-captions {
@@ -7863,6 +7873,9 @@ footer {
 
 // all collection templates
 body[class*="collection"] {
+  
+  @include adaptive-columns('.group-item-wrap');
+  
   .sheet-content {
     @include make-row();
   }

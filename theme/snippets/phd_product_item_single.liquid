@@ -1,6 +1,13 @@
 {% assign variant = p.first_available_variant %}
+{% assign subscription_id = p.metafields.subscriptions.subscription_id %}
+{% if subscription_id %}
+  {% assign subscription_only = p.metafields.subscriptions.subscription_only %}
+  {% assign shipping_interval_frequency = p.metafields.subscriptions.shipping_interval_frequency %}
+  {% assign shipping_interval_unit_type = p.metafields.subscriptions.shipping_interval_unit_type %}
+{% endif %}
+
 <div class="group-item-wrap">
-  <figure class="group-item thumbnail" data-phd-variant-id="{{ variant.id }}" data-phd-product-title="{{ p.title | escape }}" data-phd-product-price="{{ variant.price }}" data-phd-product-color="{{ p.metafields.phd.color }}" data-phd-six-pack="item">
+  <figure class="group-item thumbnail" data-phd-variant-id="{{ variant.id }}" data-phd-product-title="{{ p.title | escape }}" data-phd-product-price="{{ variant.price }}" data-phd-product-color="{{ p.metafields.phd.color }}" data-phd-six-pack="item" {% if subscription_id %}data-phd-subscription-id="{{ subscription_id }}" data-phd-subscription-only="{{ subscription_only }}" data-phd-subscription-interval-frequency="{{ shipping_interval_frequency }}" data-phd-subscription-interval-unit-type="{{ shipping_interval_unit_type }}"{% endif %}>
     <a href="{{ p.url | append: '?view=phd-modal' }}" data-phd-modal>
       <div class="group-item-image">
         <span class="fa fa-info-circle fa-2x"></span>
