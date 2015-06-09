@@ -1,20 +1,20 @@
 {
-  "general" : {
-    "site" : {
-      "page_title_seperator" : "|"
+  "general": {
+    "site": {
+      "page_title_seperator": "|"
     },
     "navigation": {
-      "mobile_menu_button" : "Menu"
+      "mobile_menu_button": "Menu"
     },
     "pagination": {
       "previous_html": "&laquo; Previous",
       "next_html": "Next &raquo;"
     }
   },
-  "collections" : {
+  "collections": {
     "general": {
       "empty_message_title": "Whoa! There are no items in this collection",
-      "empty_message_html": "You could try viewing <a href='/collections/all'>all&nbsp;products</a> or <a href='/search'>searching&nbsp;the&nbsp;site</a>."
+      "empty_message_html": "You could try viewing <a href='\/collections\/all'>all&nbsp;products<\/a> or <a href='\/search'>searching&nbsp;the&nbsp;site<\/a>."
     },
     "sorting": {
       "sort_by_title": "Sort by",
@@ -31,118 +31,118 @@
       "filter_by_title": "Filter by",
       "empty_message_title": "Whoops! You might need to broaden your search",
       "empty_message_html": {
-        "one": "There is <strong>one</strong> product in the <strong>'{{ collection_title }}'</strong> collection &mdash; Try removing some filters.",
-        "other": "There are <strong>{{ count }}</strong> products in the <strong>'{{ collection_title }}'</strong> collection &mdash; Try removing some filters."
+        "one": "There is <strong>one<\/strong> product in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters.",
+        "other": "There are <strong>{{ count }}<\/strong> products in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters."
       }
     },
     "collection_controls": {
       "switcher_title": "View {{ collection_title }} as {{ template_type }}"
     },
-    "list_collections" : {
-      "title" : "All collections",
-      "description" : "",
+    "list_collections": {
+      "title": "All collections",
+      "description": "",
       "item_title_html": "{{ collection_title }}"
     }
   },
-  "products" : {
-    "price" : {
-      "standard_price_html" : "{{ price_with_currency }}",
-      "sale_price_html" : "now {{ price_with_currency }}",
-      "from_price_html" : "from {{ price_with_currency }}",
-      "compare_at_price_html" : "was {{ price_with_currency }}",
-      "unavailable" : "Unavailable",
-      "zero_price" : "Free"
+  "products": {
+    "price": {
+      "standard_price_html": "{{ price_with_currency }}",
+      "sale_price_html": "now {{ price_with_currency }}",
+      "from_price_html": "from {{ price_with_currency }}",
+      "compare_at_price_html": "was {{ price_with_currency }}",
+      "unavailable": "Unavailable",
+      "zero_price": "Free"
     },
-    "badges" : {
-      "on_sale" : "On Sale",
-      "sold_out" : "Sold Out"
+    "badges": {
+      "on_sale": "On Sale",
+      "sold_out": "Sold Out"
     },
-    "form" : {
-      "quantity" : "Quantity",
-      "after_product_added_message_html" : "<h4>Thanks! Your item <strong>&ldquo;{{ item_title }}&rdquo;</strong> was added to <a href='/cart'>the cart</a>.</h4><p><a href='/cart'>View your cart now</a> or <a href='/collections/all'>Continue&nbsp;shopping</a>.</p>",
-      "after_product_added_error_message_html" : "<h4>There was an error adding <strong>&ldquo;{{ item_title }}&rdquo;</strong> to <a href='/cart'>the cart</a>.</h4><p><em>{{ error_message }}</em></p><p>Please try again later, or feel free to <a href='/pages/contact'>contact us</a>.</p>",
-      "item_title_seperator" : " - "
+    "form": {
+      "quantity": "Quantity",
+      "after_product_added_message_html": "<h4>Thanks! Your item <strong>&ldquo;{{ item_title }}&rdquo;<\/strong> was added to <a href='\/cart'>the cart<\/a>.<\/h4><p><a href='\/cart'>View your cart now<\/a> or <a href='\/collections\/all'>Continue&nbsp;shopping<\/a>.<\/p>",
+      "after_product_added_error_message_html": "<h4>There was an error adding <strong>&ldquo;{{ item_title }}&rdquo;<\/strong> to <a href='\/cart'>the cart<\/a>.<\/h4><p><em>{{ error_message }}<\/em><\/p><p>Please try again later, or feel free to <a href='\/pages\/contact'>contact us<\/a>.<\/p>",
+      "item_title_seperator": " - "
     },
-    "buttons" : {
-      "view_product" : "View Product",
-      "add_to_cart" : "Add to Cart",
-      "adding_to_cart" : "Adding",
-      "added_to_cart" : "Added. Add Another",
-      "add_another" : "Add Another",
-      "sold_out" : "Sold Out",
-      "unavailable" : "Unavailable"
+    "buttons": {
+      "view_product": "View Product",
+      "add_to_cart": "Add to Cart",
+      "adding_to_cart": "Adding",
+      "added_to_cart": "Added. Add Another",
+      "add_another": "Add Another",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable"
     },
-    "social_links" : {
-      "twitter_message" : "Check out {{ product_title }} - {{ url }} (via {{ handle }})",
-      "email_subject" : "",
-      "email_body" : ""
+    "social_links": {
+      "twitter_message": "Check out {{ product_title }} - {{ url }} (via {{ handle }})",
+      "email_subject": "",
+      "email_body": ""
     }
   },
-  "cart" : {
-    "site_header" : {
-      "cart_link_html" : "Cart ({{ item_count }})<span class='cart-total'> &ndash; {{ cart_total_price_with_currency }}</span>"
+  "cart": {
+    "site_header": {
+      "cart_link_html": "Cart ({{ item_count }})<span class='cart-total'> &ndash; {{ cart_total_price_with_currency }}<\/span>"
     },
-    "cart_page" : {
-      "page_title" : "Cart",
-      "empty_message_html" : "<h3>Your cart is empty.</h3><p><a href='/collections/all'>Continue&nbsp;shopping</a></p>",
-      "subtotal_title" : "Subtotal",
-      "shipping_note" : "Shipping & taxes calculated at checkout",
-      "customer_note_label" : "Any comments or special instructions?"
+    "cart_page": {
+      "page_title": "Cart",
+      "empty_message_html": "<h3>Your cart is empty.<\/h3><p><a href='\/collections\/all'>Continue&nbsp;shopping<\/a><\/p>",
+      "subtotal_title": "Subtotal",
+      "shipping_note": "Shipping & taxes calculated at checkout",
+      "customer_note_label": "Any comments or special instructions?"
     },
-    "price" : {
-      "item_price_html" : "{{ price_with_currency }}",
-      "item_total_html" : "{{ price_with_currency }}",
-      "cart_total_html" : "{{ price_with_currency }}"
+    "price": {
+      "item_price_html": "{{ price_with_currency }}",
+      "item_total_html": "{{ price_with_currency }}",
+      "cart_total_html": "{{ price_with_currency }}"
     },
-    "cart_table" : {
-      "product_label" : "Item",
-      "price_label" : "Price",
-      "quantity_label" : "Quantity",
-      "total_label" : "Total",
-      "remove_item_message_html" : "<h4><strong>&ldquo;{{ item_title }}&rdquo;</strong> was removed from your cart.</h4>",
-      "remove_item_error_message_html" : "<h4>There was an error removing <strong>&ldquo;{{ item_title }}&rdquo;</strong> from your cart.</h4><p><em>{{ error_message }}</em></p><p>Please try again later, or feel free to <a href='/pages/contact'>contact us</a>.</p>"
+    "cart_table": {
+      "product_label": "Item",
+      "price_label": "Price",
+      "quantity_label": "Quantity",
+      "total_label": "Total",
+      "remove_item_message_html": "<h4><strong>&ldquo;{{ item_title }}&rdquo;<\/strong> was removed from your cart.<\/h4>",
+      "remove_item_error_message_html": "<h4>There was an error removing <strong>&ldquo;{{ item_title }}&rdquo;<\/strong> from your cart.<\/h4><p><em>{{ error_message }}<\/em><\/p><p>Please try again later, or feel free to <a href='\/pages\/contact'>contact us<\/a>.<\/p>"
     },
-    "buttons" : {
-      "update" : "Update Cart",
-      "checkout" : "Checkout"
+    "buttons": {
+      "update": "Update Cart",
+      "checkout": "Checkout"
     }
   },
-  "customer_accounts" : {
-    "site_header" : {
-      "welcome_note" : "Welcome, {{ first_name }}",
-      "sign_in" : "Sign in",
-      "sign_out" : "Sign out",
-      "register" : "Register"
+  "customer_accounts": {
+    "site_header": {
+      "welcome_note": "Welcome, {{ first_name }}",
+      "sign_in": "Sign in",
+      "sign_out": "Sign out",
+      "register": "Register"
     }
   },
-  "contact" : {
-    "form" : {
-      "name" : "Name",
-      "email" : "Email",
-      "phone" : "Phone",
-      "message" : "Message",
-      "send_button" : "Send",
-      "post_success" : "Thank you for your enquiry. We will be in contact&nbsp;shortly."
+  "contact": {
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "send_button": "Send",
+      "post_success": "Thank you for your enquiry. We will be in contact&nbsp;shortly."
     }
   },
-  "blog" : {
-    "article_list" : {
-      "published_date" : "{{ date }}",
-      "author" : "By {{ author }}",
-      "comments" : "{{ comments_count }} comments",
-      "separator" : "|"
+  "blog": {
+    "article_list": {
+      "published_date": "{{ date }}",
+      "author": "By {{ author }}",
+      "comments": "{{ comments_count }} comments",
+      "separator": "|"
     }
   },
-  "social_and_newsletter" : {
-    "newsletter" : {
-      "title" : "Get our newsletter",
-      "email_placeholder" : "Email",
-      "subscribe_button" : "Subscribe",
-      "success_message_html" : "Thank you for subscribing to our newsletter",
-      "error_message_html" : "There was an error subscribing you to our newsletter. Please try again later, or feel free to <a href='/pages/contact'>contact us</a>"
+  "social_and_newsletter": {
+    "newsletter": {
+      "title": "Get our newsletter",
+      "email_placeholder": "Email",
+      "subscribe_button": "Subscribe",
+      "success_message_html": "Thank you for subscribing to our newsletter",
+      "error_message_html": "There was an error subscribing you to our newsletter. Please try again later, or feel free to <a href='\/pages\/contact'>contact us<\/a>"
     },
-    "social_links" : {
-      "title" : "Follow us"
+    "social_links": {
+      "title": "Follow us"
     },
     "homepage_advanced_layout": {
       "instagram_title_html": "",
@@ -150,24 +150,24 @@
       "instagram_empty_message": "There are no images. Try again later."
     }
   },
-  "search" : {
-    "homepage" : {
-      "title_html" : "",
-      "description_html" : ""
+  "search": {
+    "homepage": {
+      "title_html": "",
+      "description_html": ""
     },
-    "search_form" : {
-      "field_placeholder" : "Search",
-      "button_text" : "Search"
+    "search_form": {
+      "field_placeholder": "Search",
+      "button_text": "Search"
     },
-    "results_page" : {
-      "page_title_with_search_term" : "Search results for &ldquo;{{ search_term }}&rdquo;",
-      "page_title" : "Search {{ shop_name }}"
+    "results_page": {
+      "page_title_with_search_term": "Search results for &ldquo;{{ search_term }}&rdquo;",
+      "page_title": "Search {{ shop_name }}"
     }
   },
-  "errors" : {
-    "404" : {
-      "page_title" : "404 - Page not found",
-      "not_found_message_html" : "Whoops! We couldn't find that&nbsp;page.<br>Don't worry though, if you <a href='/'>head back to the homepage</a> we're sure you'll find what you're looking&nbsp;for."
+  "errors": {
+    "404": {
+      "page_title": "404 - Page not found",
+      "not_found_message_html": "Whoops! We couldn't find that&nbsp;page.<br>Don't worry though, if you <a href='\/'>head back to the homepage<\/a> we're sure you'll find what you're looking&nbsp;for."
     }
   },
   "date_formats": {

@@ -1,4 +1,5 @@
-<main role="main">
+{%  include 'subscription-cart-footer' %} 
+ <main role="main">
   <article class="sheet">
     <header class="sheet-header">
       <h1>{{ 'cart.cart_page.page_title' | t }}</h1>
@@ -92,14 +93,19 @@
             <div class="cart-shipping-note">
               <p><em>{{ 'cart.cart_page.shipping_note' | t }}</em></p>
             </div>
+            {% include 'snippet-local-delivery-cart' %}
             <div class="cart-buttons btn-group">
               <input class="btn-update-cart btn btn-default" type="submit" name="update" value="{{ 'cart.buttons.update' | t }}">
               <input class="btn-checkout btn btn-primary" type="submit" name="checkout" value="{{ 'cart.buttons.checkout' | t }}">
             </div>
             
             {% if additional_checkout_buttons %}
+ <span class="additional-checkout-buttons"> 
+
               <div class="cart-additional-buttons">{{ content_for_additional_checkout_buttons }}</div>
-            {% endif %}
+            
+ </span> 
+{% endif %}
           </div>
         </form>
       {% else %}

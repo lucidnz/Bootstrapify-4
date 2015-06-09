@@ -44,6 +44,9 @@
       {{ settings.header_code }}
     {% endunless %}
     {% include 'site_js_vars' %}
+    
+    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="{{ 'geolocate.js' | asset_url }}"></script>
 
     {{ content_for_header }}
   </head>
@@ -155,5 +158,7 @@
     <!-- Additional custom footer code -->
       {{ settings.footer_code }}
     {% endunless %}
-  </body>
+              
+{% include 'subscription-theme-footer' %}
+</body>
 </html>

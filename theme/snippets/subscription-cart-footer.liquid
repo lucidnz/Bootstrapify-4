@@ -1,0 +1,105 @@
+{% comment %}
+    to install, insert:
+    {% include 'subscription-cart-footer' %} 
+    at the top of cart.liquid page 
+    
+    for best results, add this in the checkout button/input on templates/cart.liquid:
+    {% if cart_has_subscription_item == 'true' %} onclick="event.preventDefault(); saveCartNoteThenRedirect()" {% endif %}
+{% endcomment %}
+
+{% assign cart_has_subscription_item = 'false' %}    
+{% for i in cart.items %}
+    {% for p in i.properties  %}
+        {% if p.first == 'shipping_interval_frequency'%}
+            {% assign cart_has_subscription_item = 'true' %}   
+        {% endif%}    
+    {% endfor %}
+{% endfor %} 
+
+{% if cart_has_subscription_item == 'true' %}
+    
+    <style> .extra-checkout-buttons, .additional-checkout-buttons, #additional-checkout-buttons, .google-wallet-button-holder { display:none !important; } </style>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    
+    <script>
+    rjQuery = jQuery.noConflict( true );
+    
+    /*can use this by default or the onclick attribute directly*/
+    var checkout_button_selectors = "[name='checkout'], [href='/checkout'], form[action='/checkout'] input[type='submit']"
+    rjQuery('body').on('click',checkout_button_selectors, function(event) {
+       event.preventDefault();
+       saveCartNoteThenRedirect()
+    });
+    
+    function saveCartNoteThenRedirect() {
+
+      /*construct url */
+      function get_cookie(name){ return( document.cookie.match('(^|; )'+name+'=([^;]*)')||0 )[2] }
+      var token=get_cookie('cart')
+      var myshopify_domain='{{ shop.permanent_domain }}'
+      checkout_url= "https://shopifysubscriptions.com/r/checkout?myshopify_domain="+myshopify_domain+"&cart_token="+token;
+    
+      try {
+          data={}
+          rjQuery("[name*='attributes']").each(function() {
+              var input = rjQuery(this)
+              var input_type = rjQuery(this).attr('type')
+               
+              if( input.val() != '' && ( (input_type != 'radio' && input_type != 'checkbox') || ( input_type == 'radio' && input.is(':checked') ) || ( input_type == 'checkbox' && input.prop('checked')) ) ){
+                  var name_attr = input.attr('name')
+                  data[name_attr]= input.val()
+                  has_cart_note_or_attribute= true   
+               }
+          });
+          
+          if( rjQuery('[name="note"]').val() != undefined ){
+              data['note'] = rjQuery('[name="note"]').val();
+              has_cart_note_or_attribute= true
+          }
+          if( rjQuery('#terms, #agree').val() != undefined ){
+              data['terms_and_conditions'] = rjQuery('#terms, #agree').val();
+              has_cart_note_or_attribute= true
+          }
+          if (has_cart_note_or_attribute) {
+              rjQuery.ajax({
+                  type: 'POST',
+                  data: data,
+                  url: '/cart/update.js',
+                  dataType: 'json',
+                  success: function() { 
+                    window.location.href=checkout_url
+                  }
+              }); 
+          } else {
+               window.location.href=checkout_url
+          }
+      } catch (e) {
+          window.location.href=checkout_url
+      } //endtrycatch
+    
+    } //end saveCartNoteThenRedirect
+    
+    function update_urls() {
+        /** map hidden product handles back to their original product handle **/
+        {% for item in cart.items %}
+            {% if item.product.metafields.subscriptions.original_handle %}
+                  var handle = "{{item.product.url}}";
+                  var original_product_handle = "{{item.product.metafields.subscriptions.original_handle }}";
+                  var elements_to_update = rjQuery('a[href*="'+handle+'"]')
+                  elements_to_update.each(function(){
+                     rjQuery(this).attr('href',"products/"+original_product_handle);      
+                  })
+            {% endif %}        
+        {% endfor %}
+    }
+    
+    update_urls()
+    
+    $(document).ready(function() { 
+        update_urls()
+    })
+        
+    </script>
+
+{% endif %}
