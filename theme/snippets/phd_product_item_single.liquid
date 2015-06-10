@@ -1,4 +1,9 @@
 {% assign variant = p.first_available_variant %}
+
+{% comment %}
+  Sub id's and frequency need to be set at the 6pack level.
+  we just add them here for debuging at this point
+{% endcomment %}
 {% assign subscription_id = p.metafields.subscriptions.subscription_id %}
 {% if subscription_id %}
   {% assign subscription_only = p.metafields.subscriptions.subscription_only %}

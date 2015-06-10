@@ -11,10 +11,14 @@ var SixPackHolder = function ($ele) {
   new Eventer(this);
   
   var limit_multiple = this.$ele.data('phd-holding-limit-multiple') || 6;
+  var subscription_id = this.$ele.data('phd-subscription-id');
+  var shipping_interval_frequency = this.$ele.data('phd-shipping-interval-frequency');
+  var shipping_interval_unit_type = this.$ele.data('phd-shipping-interval-unit-type');
+  
   var display_element = this.$ele.find('[data-phd-holding-items]');
   var submitter_element = this.$ele.find('form');
   
-  this.items = new ItemsHolder(limit_multiple);
+  this.items = new ItemsHolder(limit_multiple, subscription_id, shipping_interval_frequency, shipping_interval_unit_type);
   this.total_display = new ItemsTotal(this.items);
   this.items_display = new ItemsDisplay(display_element, limit_multiple, this.items);
   this.submitter = new ItemSubmitter(submitter_element, this.items);

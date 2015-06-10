@@ -4,6 +4,7 @@ var SixPackHolderTotal = function (items) {
   this.items = items;
   
   new DataModel(this, {
+    limit: '[data-phd-holding-items-limit]',
     total_items: '[data-phd-holding-total-items]',
     total_price: '[data-phd-holding-total-price]'
   });
@@ -15,6 +16,10 @@ var SixPackHolderTotal = function (items) {
 SixPackHolderTotal.prototype.update = function () {
   this.total_items = this.items.total_count();
   this.total_price = this.items.total_price();
+  
+  // total of limit
+  var limit = this.items.limit_multiple * (Math.ceil(this.total_items / this.items.limit_multiple));
+  this.limit = (limit > 0)? limit : this.items.limit_multiple;
 };
 
 // Private

@@ -4,19 +4,21 @@ var ItemsHolder = require('./phd.cart.sixpack.holder_items.js');
 var ItemsDisplay = require('./phd.cart.sixpack.holder_display.js');
 var ItemSubmitter = require('./phd.cart.sixpack.holder_submitter.js');
 
-// TODO: submitter class
-
 var SixPackHolder = function ($ele) {
   this.$ele = $ele;
   new Eventer(this);
   
   var limit_multiple = this.$ele.data('phd-holding-limit-multiple') || 6;
+  var subscription_id = this.$ele.data('phd-subscription-id');
+  var shipping_interval_frequency = this.$ele.data('phd-shipping-interval-frequency');
+  var shipping_interval_unit_type = this.$ele.data('phd-shipping-interval-unit-type');
+  
   var display_element = this.$ele.find('[data-phd-holding-items]');
   var submitter_element = this.$ele.find('form');
   
-  this.items = new ItemsHolder(limit_multiple);
-  this.total_display = new ItemsTotal(this.items);
+  this.items = new ItemsHolder(limit_multiple, subscription_id, shipping_interval_frequency, shipping_interval_unit_type);
   this.items_display = new ItemsDisplay(display_element, limit_multiple, this.items);
+  this.total_display = new ItemsTotal(this.items);
   this.submitter = new ItemSubmitter(submitter_element, this.items);
   
   this._add_event_listeners();
@@ -50,6 +52,15 @@ SixPackHolder.prototype._add_event_listeners = function () {
       this.items.item_count(product_id)
     ];
     _this.trigger('RemoveItem', args);
+  });
+  
+  // bubbling???
+  _this.submitter.on('AddToCart', function (purchase_type) {
+    _this.trigger('AddToCart', [purchase_type]);
+  });
+  
+  _this.items.on('ItemsCleared', function () {
+    _this.trigger('ItemsCleared');
   });
 };
 

@@ -1,11 +1,14 @@
 var Eventer = require('./_eventer.js');
 
-var SixPackHolderItems = function (limit_multiple) {
+var SixPackHolderItems = function (limit_multiple, subscription_id, shipping_interval_frequency, shipping_interval_unit_type) {
   new Eventer(this);
   
   this.products = [];
   this.products_are_addable = false;
   this.limit_multiple = limit_multiple;
+  this.subscription_id = subscription_id;
+  this.shipping_interval_frequency = shipping_interval_frequency;
+  this.shipping_interval_unit_type = shipping_interval_unit_type;
 };
 
 SixPackHolderItems.prototype.add_item = function (product) {
@@ -39,6 +42,16 @@ SixPackHolderItems.prototype.update_item = function (product, qty) {
   }
   var action = (item_count > qty) ? 'removed' : 'added';
   this._update_is_addable_and_trigger('ItemUpdated', [product.id, action]);
+};
+
+SixPackHolderItems.prototype.clear = function () {
+  // clear the entire lot
+  var products = this.products;
+  for (var i in this.products) {
+    var product = this.products[i];
+    this.update_item(product, 0);
+  }
+  this.trigger('ItemsCleared');
 };
 
 SixPackHolderItems.prototype.item_count = function (product_id) {

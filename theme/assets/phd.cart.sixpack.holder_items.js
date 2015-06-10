@@ -1,16 +1,19 @@
 var Eventer = require('./_eventer.js');
 
-var SixPackHolderItems = function (limit_multiple) {
+var SixPackHolderItems = function (limit_multiple, subscription_id, shipping_interval_frequency, shipping_interval_unit_type) {
   new Eventer(this);
   
   this.products = [];
   this.products_are_addable = false;
   this.limit_multiple = limit_multiple;
+  this.subscription_id = subscription_id;
+  this.shipping_interval_frequency = shipping_interval_frequency;
+  this.shipping_interval_unit_type = shipping_interval_unit_type;
 };
 
 SixPackHolderItems.prototype.add_item = function (product) {
   this.products.push(product);
-  this._update_is_addable_and_trigger('ItemAdded');
+  this._update_is_addable_and_trigger('ItemAdded', [product.id, 'added']);
 };
 
 SixPackHolderItems.prototype.remove_item = function (product_id) {
@@ -21,10 +24,11 @@ SixPackHolderItems.prototype.remove_item = function (product_id) {
       break;
     }
   }
-  this._update_is_addable_and_trigger('ItemRemoved');
+  this._update_is_addable_and_trigger('ItemRemoved', [product_id, 'removed']);
 };
 
 SixPackHolderItems.prototype.update_item = function (product, qty) {
+  var item_count = this.item_count(product.id);
   // remove all items for a clean slate
   var total_count = this.total_count();
   for (var i = total_count - 1; i > -1; i--) { // loop backwards to remove the last added item
@@ -36,7 +40,8 @@ SixPackHolderItems.prototype.update_item = function (product, qty) {
       this.products.push(product);
     }
   }
-  this._update_is_addable_and_trigger('ItemUpdated');
+  var action = (item_count > qty) ? 'removed' : 'added';
+  this._update_is_addable_and_trigger('ItemUpdated', [product.id, action]);
 };
 
 SixPackHolderItems.prototype.item_count = function (product_id) {
@@ -58,8 +63,8 @@ SixPackHolderItems.prototype.total_price = function () {
   for (var i = 0; i < this.products.length; i++) {
     var product = this.products[i];
     total_price += product.price;
-  };
-  return Shopify.formatMoney(total_price, Bsify.money_formats.moneyFormat);;
+  }
+  return Shopify.formatMoney(total_price, Bsify.money_formats.moneyFormat);
 };
 
 SixPackHolderItems.prototype.product_by_index = function (index) {
@@ -76,10 +81,10 @@ SixPackHolderItems.prototype._remove_product_from_stack = function (product_id, 
   return removed.length > 0;
 };
 
-SixPackHolderItems.prototype._update_is_addable_and_trigger = function (custom_event) {
+SixPackHolderItems.prototype._update_is_addable_and_trigger = function (custom_event, custom_event_args) {
   this.products_are_addable = this._is_addable();
-  this.trigger(custom_event);
-  this.trigger('ItemsUpdated');
+  this.trigger(custom_event, custom_event_args);
+  this.trigger('ItemsUpdated', custom_event_args);
 };
 
 SixPackHolderItems.prototype._is_addable = function () {

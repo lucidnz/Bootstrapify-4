@@ -13,7 +13,35 @@
     </div>
   </section>
   
-  <section class="builder-display" data-phd-six-pack="holding" data-phd-holding-limit-multiple="6">
+  {% if collection.all_products_count > 0 %}
+    
+    {% comment %}
+      The sixpack logic relies on all the products in the collection being of the same subscription,
+      otherwise things get super complicated.
+      
+      So we just assume that the first products subscription details are the same as the rest and is what we want.
+      We also assume that every product has the option of subscription or one-off purchases
+    {% endcomment %}
+  
+    {% assign subscriptions = collection.products | map: 'metafields' | map: 'subscriptions' %}
+    {% assign subscription_id = subscriptions | map: 'subscription_id' | first %}
+    {% assign shipping_interval_frequency = subscriptions | map: 'shipping_interval_frequency' | first %}
+    {% assign shipping_interval_unit_type = subscriptions | map: 'shipping_interval_unit_type' | first %}
+      
+      {% comment %}
+<!--
+      [{{ subscriptions }}]<br>
+      [{{ subscription_ids | join: ' - ' }}]<br>
+      [{{ subscriptions | map: 'shipping_interval_unit_type' }}]<br>
+      [{{ subscriptions | map: 'shipping_interval_frequency' }}]<br>
+      [{{ subscriptions | map: 'is_subscription_only' }}]<br>
+      [{{ subscriptions | map: 'has_subscription' }}]<br>
+      [{{ subscriptions | map: 'discount_product_id' }}]<br>
+      [{{ subscriptions | map: 'discount_percentage' }}]<br>
+-->
+      {% endcomment %}
+      
+  <section class="builder-display" data-phd-six-pack="holding" data-phd-holding-limit-multiple="6" data-phd-subscription-id="{{ subscription_id }}" data-phd-shipping-interval-frequency="{{ shipping_interval_frequency }}" data-phd-shipping-interval-unit-type="{{ shipping_interval_unit_type }}">
     <div class="builder-content">
       <div class="sheet">
       </div>
@@ -24,15 +52,16 @@
           <div class="holding-item-wrapper">
             <div data-phd-holding-items></div>
           </div><div class="builder-total">
-            <p><span data-phd-holding-total-items></span> {{ 'phd.six_pack.items' | t }}</p>
+            <p>{{ 'phd.six_pack.items_total_html' | t }}</p>
             <p class="price"><span data-phd-holding-total-price></span></p>
           </div><form class="phd-add-to-cart-form" action="/cart/add" method="post" enctype="multipart/form-data">
-            <input class="btn btn-block btn-lg" type="submit" disabled="disabled">
+            <button class="btn btn-block btn-lg" type="submit" disabled="disabled">{{ 'phd.six_pack.add_to_cart_disabled_html' | t }}</button>
           </form>
         </div>
       </div>
     </di>
   </section>
+  {% endif %}
     
   <section class="collection-content">
     <div class="sheet {% if collection.products.size > 0 %}products-wrap{% endif %}">

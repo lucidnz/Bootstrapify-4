@@ -12,15 +12,17 @@ var SixPackHolderItemsDisplay = function ($ele, limit_multiple, items) {
   new Eventer(this);
   
   this._add_event_listeners();
-  this._build_empty_display_items();
-  this._add_tooltips();
+  this.reset();
 };
 
-SixPackHolderItemsDisplay.prototype.update = function () {
+SixPackHolderItemsDisplay.prototype.update = function (action) {
   this._clear_display_items();
   this._redraw_display_items();
   this._update_display_items();
   this._add_tooltips();
+  if (action && action === 'added') {
+    this._scroll_container();
+  }
 };
 
 SixPackHolderItemsDisplay.prototype.reset = function () {
@@ -33,8 +35,8 @@ SixPackHolderItemsDisplay.prototype.reset = function () {
 
 SixPackHolderItemsDisplay.prototype._add_event_listeners = function () {
   var _this = this;
-  _this.items.on('ItemsUpdated', function () {
-    _this.update();
+  _this.items.on('ItemsUpdated', function (product_id, action) {
+    _this.update(action);
   });
   
   _this.$ele.on('click', '.holding-item', function (e) {
@@ -88,6 +90,19 @@ SixPackHolderItemsDisplay.prototype._update_display_items = function () {
       });
     }
   }
+};
+
+SixPackHolderItemsDisplay.prototype._scroll_container = function () {
+  var $group = $('.holding-item-group');
+  var group_margin = parseInt($group.css('margin-left')) + parseInt($group.css('margin-right'));
+  var group_combined_width = ($group.width() + group_margin) * $group.length;
+  
+  var $container = $group.parent();
+  var offset = group_combined_width - $container.width();
+  
+  this.$ele.animate({
+    scrollLeft: offset
+  }, 186);
 };
 
 SixPackHolderItemsDisplay.prototype._add_tooltips = function () {

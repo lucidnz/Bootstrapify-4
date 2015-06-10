@@ -49,6 +49,13 @@ SixPackItem.prototype._add_event_listeners = function () {
     _this._trigger_update_holding(qty);
   });
   
+  _this.$ele.on('keyup', '[data-phd-edit-item]', function (e) {
+    if (e.keyCode === 13){
+      var qty = parseInt(e.currentTarget.value);
+      _this._trigger_update_holding(qty);
+    }
+  });
+  
   _this.$ele.on('click', '[data-phd-modal]', function (e) {
     e.preventDefault();
     var $current_target = $(e.currentTarget);
