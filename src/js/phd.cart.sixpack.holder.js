@@ -16,7 +16,7 @@ var SixPackHolder = function ($ele) {
   var display_element = this.$ele.find('[data-phd-holding-items]');
   var submitter_element = this.$ele.find('form');
   
-  this.items = new ItemsHolder(limit_multiple, subscription_id, shipping_interval_frequency, shipping_interval_unit_type);
+  this.items = new ItemsHolder('sixpack builder', limit_multiple, subscription_id, shipping_interval_frequency, shipping_interval_unit_type);
   this.items_display = new ItemsDisplay(display_element, limit_multiple, this.items);
   this.total_display = new ItemsTotal(this.items);
   this.submitter = new ItemSubmitter(submitter_element, this.items);
@@ -54,14 +54,20 @@ SixPackHolder.prototype._add_event_listeners = function () {
     _this.trigger('RemoveItem', args);
   });
   
-  // bubbling???
   _this.submitter.on('AddToCart', function (purchase_type) {
-    _this.trigger('AddToCart', [purchase_type]);
+    var products = _this._build_products_for_cart(purchase_type);
+    _this.trigger('AddToCart', [products]);
   });
   
+  // bubbling???
   _this.items.on('ItemsCleared', function () {
     _this.trigger('ItemsCleared');
   });
+};
+
+SixPackHolder.prototype._build_products_for_cart = function (purchase_type) {
+  var include_subscription_details = (purchase_type === 'subscription');
+  return this.items.all_products_by_id(include_subscription_details);
 };
 
 module.exports = SixPackHolder;

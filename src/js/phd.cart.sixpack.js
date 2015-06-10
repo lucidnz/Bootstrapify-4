@@ -15,12 +15,9 @@ SixPackBuilder.prototype._init_holder = function () {
   var _this = this;
   var $holding_element = $(this.holding_ele_selector);
   _this.product_holder = new ProductHolder($holding_element);
-  _this.product_holder.on('AddToCart', function (purchase_type) {
-    console.log('ADD TO CART', purchase_type);
-    
+  _this.product_holder.on('AddToCart', function (products) {
+    _this.cart.add_products(products);
     _this.product_holder.items.clear();
-    
-//     _this.cart.add_products();
   });
   
   // update an item if it was removed from inside the holder

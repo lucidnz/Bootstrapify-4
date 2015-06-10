@@ -61,7 +61,7 @@ SixPackHolderItemSubmitter.prototype._add_to_cart_modal_markup = function () {
 SixPackHolderItemSubmitter.prototype._completed_modal_markup = function (purchase_type) {
   return '<div class="modal-header">\
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" aria-hidden="true"></span></button>\
-    <h1>Thanks, your order has been added to the cart</h1>\
+    <h1>Thanks, your order is being added to the cart</h1>\
   </div>\
   <div class="modal-body">\
     <p>'+purchase_type+'</p>\

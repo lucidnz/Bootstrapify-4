@@ -1,0 +1,18 @@
+<div class="side-cart-message">
+  {% if cart.item_count == 0 %}
+    {% include 'phd_side_cart_empty' %}
+  {% endif %}
+</div>
+<div class="side-cart-details">
+  {% if cart.item_count > 0 %}
+    {% include 'phd_side_cart_details' %}
+  {% endif %}
+</div>
+
+<script id="phd-side-cart-empty" type="text/template">
+  {% include 'phd_side_cart_empty' %}
+</script>
+
+<script id="phd-side-cart-details" type="text/template">
+  {% include 'phd_side_cart_details' %}
+</script>
