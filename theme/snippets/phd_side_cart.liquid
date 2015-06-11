@@ -3,9 +3,11 @@
     {% include 'phd_side_cart_empty' %}
   {% endif %}
 </div>
-<div class="side-cart-details">
+<div data-phd-side-cart-items>
   {% if cart.item_count > 0 %}
-    {% include 'phd_side_cart_details' %}
+    {% for item in cart.items %}
+      {% include 'phd_side_cart_item' %}
+    {% endfor %}
   {% endif %}
 </div>
 
@@ -13,6 +15,7 @@
   {% include 'phd_side_cart_empty' %}
 </script>
 
-<script id="phd-side-cart-details" type="text/template">
-  {% include 'phd_side_cart_details' %}
+<script id="phd-side-cart-item" type="text/template">
+  {% assign item = null %}
+  {% include 'phd_side_cart_item' %}
 </script>

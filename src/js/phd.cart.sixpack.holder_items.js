@@ -100,11 +100,9 @@ SixPackHolderItems.prototype.all_products_by_id = function (include_subscription
         }
       };
       if (include_subscription_details) {
-        products[product.id].properties = {
-          shipping_interval_frequency: this.shipping_interval_frequency,
-          shipping_interval_unit_type: this.shipping_interval_unit_type,
-          subscription_id: this.subscription_id
-        };
+        products[product.id].properties.shipping_interval_frequency = this.shipping_interval_frequency;
+        products[product.id].properties.shipping_interval_unit_type = this.shipping_interval_unit_type;
+        products[product.id].properties.subscription_id = this.subscription_id;
       }
     }
   }
