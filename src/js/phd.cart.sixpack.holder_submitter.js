@@ -26,7 +26,9 @@ SixPackHolderItemSubmitter.prototype._add_event_listeners = function () {
     var purchase_type = $current_target.data('phd-add-to-cart-as');
     
     _this.trigger('AddToCart', [purchase_type]);
-    _this.modal.content = _this._completed_modal_markup(purchase_type);
+    
+    //_this.modal.content = _this._completed_modal_markup(purchase_type); <-- update modal content
+    _this.modal.close();
   });
   
   _this.items.on('ItemsUpdated', function () {
@@ -47,6 +49,7 @@ SixPackHolderItemSubmitter.prototype._open_modal = function () {
   this.modal.open();
 };
 
+// TODO: Don't have this markup in here
 SixPackHolderItemSubmitter.prototype._add_to_cart_modal_markup = function () {
   return '<div class="modal-header">\
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" aria-hidden="true"></span></button>\

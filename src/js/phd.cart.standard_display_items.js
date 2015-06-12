@@ -1,3 +1,4 @@
+require('./_polyfills.js').objectKeys();
 var CartItem = require('./phd.cart.standard_display_item.js');
 
 var StandardCartDisplayItems = function (items_wrapper_selector, item_selector, item_template) {
@@ -33,6 +34,15 @@ StandardCartDisplayItems.prototype.has_item = function (item_id) {
   return has_item;
 };
 
+StandardCartDisplayItems.prototype.count = function () {
+  return Object.keys(this.items).length;
+};
+
+StandardCartDisplayItems.prototype.clear_items = function () {
+  this.items = {};
+  this.$items_wrapper.html('');
+};
+
 // Private
 
 StandardCartDisplayItems.prototype._add_new_item = function (item_id) {
@@ -43,7 +53,7 @@ StandardCartDisplayItems.prototype._collect_items_from_dom = function () {
   var _this = this;
   this.$items.each(function (i, item) {
     var $item = $(item);
-    var item_id = $item.data('phd-side-cart-item');
+    var item_id = $item.data(_this.item_id_data);
     if (!_this.has_item(item_id)) {
       _this._add_new_item(item_id);
     }
@@ -54,6 +64,7 @@ StandardCartDisplayItems.prototype._build_new_item = function (item) {
   var $item_markup = $(this.$item_template.html());
   $item_markup.data(this.item_id_data, item.id).attr(this.item_id_data_attr, item.id);
   this.$items_wrapper.append($item_markup);
+  
   this._add_new_item(item.id);
   this.items[item.id].update(item);
 };

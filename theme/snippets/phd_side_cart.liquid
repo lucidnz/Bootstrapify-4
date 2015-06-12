@@ -1,14 +1,47 @@
+{% comment %}
+  TODO: heading & message translations
+{% endcomment %}
+
 <div class="side-cart-message">
-  {% if cart.item_count == 0 %}
-    {% include 'phd_side_cart_empty' %}
-  {% endif %}
+  <div class="side-cart-empty" {% if cart.item_count != 0 %}style="display: none;"{% endif %}>
+    {{ 'cart.cart_page.empty_message_html' | t }}
+  </div>
 </div>
-<div data-phd-side-cart-items>
-  {% if cart.item_count > 0 %}
-    {% for item in cart.items %}
-      {% include 'phd_side_cart_item' %}
-    {% endfor %}
-  {% endif %}
+
+<div class="side-cart-details" {% if cart.item_count == 0 %}style="display: none;"{% endif %}>
+  <h3>Subscriptions</h3>
+  <div data-phd-side-cart-items-subscription>
+    {% assign section_count = 0 %}
+    {% if cart.item_count > 0 %}
+      {% for item in cart.items %}
+        {% if item.properties.subscription_id %}
+          {% include 'phd_side_cart_item' %}
+          {% assign section_count = section_count | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+  <div class="side-cart-section-empty" {% if section_count != 0 %}style="display: none;"{% endif %}>
+    <p class="text-muted">No subscriptions</p>
+  </div>
+  
+  <hr>
+  
+  <h3>One Off Purchases</h3>
+  <div data-phd-side-cart-items-one-off>
+    {% assign section_count = 0 %}
+    {% if cart.item_count > 0 %}
+      {% for item in cart.items %}
+        {% unless item.properties.subscription_id %}
+          {% include 'phd_side_cart_item' %}
+          {% assign section_count = section_count | plus: 1 %}
+        {% endunless %}
+      {% endfor %}
+    {% endif %}
+  </div>
+  <div class="side-cart-section-empty" {% if section_count != 0 %}style="display: none;"{% endif %}>
+    <p class="text-muted">No one off purchases</p>
+  </div>
 </div>
 
 <script id="phd-side-cart-empty" type="text/template">
