@@ -7,8 +7,6 @@ var StandardCart = function () {
   this.off_canvas = new CartOffCanvas(cart_action_selector);
   this.display = new CartDisplay();
   
-//   this.cached_cart = CartJS.cart;
-  
   this._add_event_listeners();
 };
 
@@ -25,9 +23,12 @@ StandardCart.prototype.add_products = function (products) {
 StandardCart.prototype.add_product = function (product) {
   var _this = this;
   
-  console.log('ADD', product);
+  // quick display update
+  // TODO: FUTURE STEWART!!!! QUICK ADD IS NOT QUICK ADDING 
+  _this.display.update_cart_item(product);
   
   
+  // actually add to cart
   CartJS.addItem(product.id, product.qty, product.properties, {
     success: function (data, textStatus, jqXHR) {
       _this._item_added_success(data, textStatus, jqXHR);

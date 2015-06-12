@@ -35,6 +35,10 @@ StandardCartDisplay.prototype.update = function (cart) {
 };
 
 StandardCartDisplay.prototype.update_cart_item = function (item) {
+  
+  console.log('update_cart_item', item);
+  
+  
   if (item.properties.subscription_id !== undefined) {
     this.subscription_items.update_cart_item(item);
   } else {
