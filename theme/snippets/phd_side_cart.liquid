@@ -8,13 +8,14 @@
   </div>
 </div>
 
+{% assign items = cart.items | sort: 'title' %}
 <div class="side-cart-details" {% if cart.item_count == 0 %}style="display: none;"{% endif %}>
   <form class="side-cart-form" action="/cart" method="post">
     <h3>Subscriptions</h3>
     <div data-phd-side-cart-items-subscription>
       {% assign section_count = 0 %}
       {% if cart.item_count > 0 %}
-        {% for item in cart.items %}
+        {% for item in items %}
           {% if item.properties.subscription_id %}
             {% include 'phd_side_cart_item' %}
             {% assign section_count = section_count | plus: 1 %}
@@ -32,7 +33,7 @@
     <div data-phd-side-cart-items-one-off>
       {% assign section_count = 0 %}
       {% if cart.item_count > 0 %}
-        {% for item in cart.items %}
+        {% for item in items %}
           {% unless item.properties.subscription_id %}
             {% include 'phd_side_cart_item' %}
             {% assign section_count = section_count | plus: 1 %}

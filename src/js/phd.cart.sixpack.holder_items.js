@@ -89,13 +89,15 @@ SixPackHolderItems.prototype.all_products_by_id = function (include_subscription
   for (var i = 0; i < this.products.length; i++) {
     var product = this.products[i];
     if (products[product.id]) {
-      products[product.id].qty++;
+      products[product.id].quantity++;
+      products[product.id].line_price = products[product.id].price * products[product.id].quantity;
     } else {
       products[product.id] = {
         id: product.id,
         title: product.title,
         price: product.price,
-        qty: 1,
+        line_price: product.price,
+        quantity: 1,
         properties: {
           added_by: this.id
         }

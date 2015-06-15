@@ -12,6 +12,11 @@ var StandardCart = function () {
 
 StandardCart.prototype.add_products = function (products) {
   // products is an array full of products that are ready to go
+  
+  // quick display of items
+  this.display.update_cart_items(products);
+  
+  // add products to cart
   for (var key in products) {
     if (products.hasOwnProperty(key)) {
       var product = products[key];
@@ -22,14 +27,7 @@ StandardCart.prototype.add_products = function (products) {
 
 StandardCart.prototype.add_product = function (product) {
   var _this = this;
-  
-  // quick display update
-  // TODO: FUTURE STEWART!!!! QUICK ADD IS NOT QUICK ADDING 
-  _this.display.update_cart_item(product);
-  
-  
-  // actually add to cart
-  CartJS.addItem(product.id, product.qty, product.properties, {
+  CartJS.addItem(product.id, product.quantity, product.properties, {
     success: function (data, textStatus, jqXHR) {
       _this._item_added_success(data, textStatus, jqXHR);
     },
@@ -44,8 +42,8 @@ StandardCart.prototype.add_product = function (product) {
 StandardCart.prototype._add_event_listeners = function () {
   var _this = this;
   $(document).on('cart.requestComplete', function(e, cart) {
-    console.log('cart.requestComplete', e, cart);
-    _this.display.update(cart);
+    // console.log('cart.requestComplete', e, cart);
+    _this.display.update_cart_items(cart.items);
   });
 };
 

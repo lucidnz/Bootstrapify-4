@@ -20,25 +20,22 @@ var StandardCartDisplay = function () {
   ];
 };
 
-StandardCartDisplay.prototype.update = function (cart) {
+StandardCartDisplay.prototype.update_cart_items = function (cart_items) {
   // pretty brutal but we wipe the cart items before we redraw them with the updated content
   this.clear();
 
-  // add the updated content
-  for (var i = 0; i < cart.items.length; i++) {
-    var item = cart.items[i];
-    this.update_cart_item(item);
+  // add cart items
+  if (cart_items.length === undefined) {
+    this._add_cart_items_as_object(cart_items);
+  } else {
+    this._add_cart_items_as_array(cart_items);
   }
   
-  // update the empty display message states
-  this._update_cart_empty_state();
+  // anything post that we need to do
+  this.post_update();
 };
 
 StandardCartDisplay.prototype.update_cart_item = function (item) {
-  
-  console.log('update_cart_item', item);
-  
-  
   if (item.properties.subscription_id !== undefined) {
     this.subscription_items.update_cart_item(item);
   } else {
@@ -52,7 +49,39 @@ StandardCartDisplay.prototype.clear = function () {
   });
 };
 
+StandardCartDisplay.prototype.post_update = function () {
+  // update the empty display message states
+  this._update_cart_empty_state();
+};
+
 // Private
+
+StandardCartDisplay.prototype._add_cart_items_as_object = function (cart_items) {
+  // if cart_items is an object then create an array from it and hand it off the the array method to sort and add
+  var items = [];
+  for (var key in cart_items) {
+    if (cart_items.hasOwnProperty(key)) {
+      var item = cart_items[key];
+      items.push(item);
+    }
+  }
+  this._add_cart_items_as_array(items);
+};
+
+StandardCartDisplay.prototype._add_cart_items_as_array = function (cart_items) {
+  // sort items by title
+  cart_items.sort(function (a, b) {
+    if (a.title > b.title) return 1;
+    if (a.title < b.title) return -1;
+    return 0;
+  });
+  
+  // add new items
+  for (var i = 0; i < cart_items.length; i++) {
+    var item = cart_items[i];
+    this.update_cart_item(item);
+  }
+};
 
 StandardCartDisplay.prototype._update_cart_empty_state = function () {
   var total_items = 0;
