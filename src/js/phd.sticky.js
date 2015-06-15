@@ -1,32 +1,37 @@
 // When the element hits the top of the page make it stick to it
 var PhdSticky = function () {
-  var $ele = $('[data-phd="sticky"]');
-  var $parent = $ele.parent();
-  var $window = $(window);
-  var parent_orig_margin_bottom = parseInt($parent.css('margin-bottom'));
+  this.$ele = $('[data-phd="sticky"]');
+  this.$parent = this.$ele.parent();
+  this.parent_orig_margin_bottom = this.css_to_int(this.$parent, 'margin-bottom');
   
-  var set_margin = function (margin) {
-    $ele.parent().css({ 'margin-bottom': margin });
-  };
-  
-  if ($ele.length > 0) {
-    
-    console.log('Make sticky');
-    
+  var _this = this;
+  if (_this.$ele.length > 0) {
     // bootstrap affix
-    $ele.affix({
+    _this.$ele.affix({
       offset: {
-        top: $ele.offset().top,
+        top: _this.$ele.offset().top,
         bottom: 30
       },
       target: '.offcanvas-main'
     }).on('affixed.bs.affix', function () {
-      var margin = ($ele.css('position') !== 'relative') ? (parent_orig_margin_bottom + $ele.height()) : parent_orig_margin_bottom;
-      set_margin(margin);
+      var margin = (_this.$ele.css('position') !== 'relative') ? (_this.parent_orig_margin_bottom + _this.ele_height()) : _this.parent_orig_margin_bottom;
+      _this.set_margin(margin);
     }).on('affixed-top.bs.affix', function () {
-      set_margin(parent_orig_margin_bottom);
+      _this.set_margin(_this.parent_orig_margin_bottom);
     });
   }
+};
+
+PhdSticky.prototype.set_margin = function (margin) {
+  this.$parent.css({ 'margin-bottom': margin });
+};
+
+PhdSticky.prototype.ele_height = function (margin) {
+  return this.$ele.height() + this.css_to_int(this.$ele, 'margin-top') + this.css_to_int(this.$ele, 'margin-bottom') + this.css_to_int(this.$ele, 'padding-top') + this.css_to_int(this.$ele, 'padding-bottom');
+};
+
+PhdSticky.prototype.css_to_int = function ($ele, prop) {
+  return parseInt($ele.css(prop));
 };
 
 module.exports = PhdSticky;
