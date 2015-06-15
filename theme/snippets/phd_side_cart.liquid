@@ -9,46 +9,44 @@
 </div>
 
 <div class="side-cart-details" {% if cart.item_count == 0 %}style="display: none;"{% endif %}>
-  <h3>Subscriptions</h3>
-  <div data-phd-side-cart-items-subscription>
-    {% assign section_count = 0 %}
-    {% if cart.item_count > 0 %}
-      {% for item in cart.items %}
-        {% if item.properties.subscription_id %}
-          {% include 'phd_side_cart_item' %}
-          {% assign section_count = section_count | plus: 1 %}
-        {% endif %}
-      {% endfor %}
-    {% endif %}
-  </div>
-  <div class="side-cart-section-empty" {% if section_count != 0 %}style="display: none;"{% endif %}>
-    <p class="text-muted">No subscriptions</p>
-  </div>
-  
-  <hr>
-  
-  <h3>One Off Purchases</h3>
-  <div data-phd-side-cart-items-one-off>
-    {% assign section_count = 0 %}
-    {% if cart.item_count > 0 %}
-      {% for item in cart.items %}
-        {% unless item.properties.subscription_id %}
-          {% include 'phd_side_cart_item' %}
-          {% assign section_count = section_count | plus: 1 %}
-        {% endunless %}
-      {% endfor %}
-    {% endif %}
-  </div>
-  <div class="side-cart-section-empty" {% if section_count != 0 %}style="display: none;"{% endif %}>
-    <p class="text-muted">No one off purchases</p>
-  </div>
+  <form class="side-cart-form" action="/cart" method="post">
+    <h3>Subscriptions</h3>
+    <div data-phd-side-cart-items-subscription>
+      {% assign section_count = 0 %}
+      {% if cart.item_count > 0 %}
+        {% for item in cart.items %}
+          {% if item.properties.subscription_id %}
+            {% include 'phd_side_cart_item' %}
+            {% assign section_count = section_count | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="side-cart-section-empty" {% if section_count != 0 %}style="display: none;"{% endif %}>
+      <p class="text-muted">No subscriptions</p>
+    </div>
+    
+    <hr>
+    
+    <h3>One Off Purchases</h3>
+    <div data-phd-side-cart-items-one-off>
+      {% assign section_count = 0 %}
+      {% if cart.item_count > 0 %}
+        {% for item in cart.items %}
+          {% unless item.properties.subscription_id %}
+            {% include 'phd_side_cart_item' %}
+            {% assign section_count = section_count | plus: 1 %}
+          {% endunless %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="side-cart-section-empty" {% if section_count != 0 %}style="display: none;"{% endif %}>
+      <p class="text-muted">No one off purchases</p>
+    </div>
+  </form>
 </div>
 
-<script id="phd-side-cart-empty" type="text/template">
-  {% include 'phd_side_cart_empty' %}
-</script>
-
-<script id="phd-side-cart-item" type="text/template">
+<script class="phd-side-cart-item-template" type="text/template">
   {% assign item = null %}
   {% include 'phd_side_cart_item' %}
 </script>

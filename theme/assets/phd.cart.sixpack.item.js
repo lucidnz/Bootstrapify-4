@@ -8,7 +8,7 @@ var SixPackItem = function ($ele, id) {
   
   new Eventer(this);
   new DataModel(this, {
-    holding_count: '[data-phd-item-'+this.id+'-count]'
+    count: '[data-phd-item-'+this.id+'-count]'
   });
   
   this.modal = new Modal();

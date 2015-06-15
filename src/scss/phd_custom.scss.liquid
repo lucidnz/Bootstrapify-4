@@ -10,23 +10,56 @@
     padding: $grid-gutter-width / 2;
   }
 }
+  
+.side-cart-item {
+  margin-bottom: $grid-gutter-width * 0.75;
+  h4 {
+    margin-top: 0;
+  }
+}
+[data-phd-side-cart-item-price],
+[data-phd-side-cart-item-line-price] {
+  text-align: right;
+}
+
+[data-phd-side-cart-item-title] {
+  @include make-xs-column(8);
+}
+[data-phd-side-cart-item-price] {
+  @include make-xs-column(4);
+  @extend .small;
+}
+[data-phd-side-cart-item-qty],
+[data-phd-side-cart-item-line-price] {
+  @include make-xs-column(6);
+}
+
+/*
+  SixPack Builder
+*/
 
 .builder-display {
   margin-bottom: 1.5em;
-//   border: red solid 1px;
   
   .builder-content {
-//     border: blue solid 1px;
   }
   
   .builder-items {
     padding: 1em 0;
     background-color: #fff;
-//     border: green solid 1px;
     &.affix {
       top: 0;
       width: 100%;
       z-index: 3;
+      
+      .offcanvas-open & {
+        @media (min-width: $screen-md-min) {
+          width: $offscreen-main-md;
+        }
+        @media (min-width: $screen-lg-min) {
+          width: $offscreen-main-lg;
+        }
+      }
     }
   }
 }

@@ -10,12 +10,16 @@ var PhdSticky = function () {
   };
   
   if ($ele.length > 0) {
+    
+    console.log('Make sticky');
+    
     // bootstrap affix
     $ele.affix({
       offset: {
         top: $ele.offset().top,
         bottom: 30
-      }
+      },
+      target: '.offcanvas-main'
     }).on('affixed.bs.affix', function () {
       var margin = ($ele.css('position') !== 'relative') ? (parent_orig_margin_bottom + $ele.height()) : parent_orig_margin_bottom;
       set_margin(margin);

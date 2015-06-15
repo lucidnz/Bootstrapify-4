@@ -94,6 +94,7 @@ SixPackHolderItems.prototype.all_products_by_id = function (include_subscription
       products[product.id] = {
         id: product.id,
         title: product.title,
+        price: product.price,
         qty: 1,
         properties: {
           added_by: this.id

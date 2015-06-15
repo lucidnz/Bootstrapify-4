@@ -6,7 +6,7 @@ var StandardCartDisplay = function () {
   this.$empty_message = $('.side-cart-empty');
   this.section_empty_message_selector = '.side-cart-section-empty';
   
-  var item_template = '#phd-side-cart-item';
+  var item_template = '.phd-side-cart-item-template';
   var item_selector = '[data-phd-side-cart-item]';
   var subscription_items_wrapper_selector = '[data-phd-side-cart-items-subscription]';
   var one_off_items_wrapper_selector = '[data-phd-side-cart-items-one-off]';

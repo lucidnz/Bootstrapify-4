@@ -23,11 +23,11 @@ PhdModal.prototype.open = function () {
 
 PhdModal.prototype.close = function () {
   this.$ele.modal('hide');
-  if (this.on_close) this.on_close();
   this.destroy();
 };
 
 PhdModal.prototype.destroy = function () {
+  if (this.on_close) this.on_close();
   this.content = '';
   this.$ele.data('bs.modal', null);
   this.$ele.data('modal_id', null);
@@ -40,7 +40,7 @@ PhdModal.prototype._add_event_listeners = function () {
   this.$ele.on('hidden.bs.modal', function () {
     // Only trigger this for the one object that invoked the modal
     if (_this.$ele.data('modal_id') === _this.id) {
-      _this.close();
+      _this.destroy();
     }
   });
 };

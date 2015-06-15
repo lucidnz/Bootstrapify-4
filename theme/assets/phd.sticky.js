@@ -10,6 +10,9 @@ var PhdSticky = function () {
   };
   
   if ($ele.length > 0) {
+    
+    console.log('Make sticky');
+    
     // bootstrap affix
     $ele.affix({
       offset: {

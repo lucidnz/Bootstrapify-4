@@ -1,8 +1,9 @@
 var Eventer = require('./_eventer.js');
 
-var SixPackHolderItems = function (limit_multiple, subscription_id, shipping_interval_frequency, shipping_interval_unit_type) {
+var SixPackHolderItems = function (id, limit_multiple, subscription_id, shipping_interval_frequency, shipping_interval_unit_type) {
   new Eventer(this);
   
+  this.id = id;
   this.products = [];
   this.products_are_addable = false;
   this.limit_multiple = limit_multiple;
@@ -44,6 +45,18 @@ SixPackHolderItems.prototype.update_item = function (product, qty) {
   this._update_is_addable_and_trigger('ItemUpdated', [product.id, action]);
 };
 
+SixPackHolderItems.prototype.clear = function () {
+  // clear the entire lot
+  var products = this.all_products_by_id();
+  for (var key in products) {
+    if (products.hasOwnProperty(key)) {
+      var product = products[key];
+      this.update_item(product, 0);
+    }
+  }
+  this.trigger('ItemsCleared');
+};
+
 SixPackHolderItems.prototype.item_count = function (product_id) {
   var count = 0;
   for (var i = 0; i < this.products.length; i++) {
@@ -69,6 +82,32 @@ SixPackHolderItems.prototype.total_price = function () {
 
 SixPackHolderItems.prototype.product_by_index = function (index) {
   return this.products[index];
+};
+
+SixPackHolderItems.prototype.all_products_by_id = function (include_subscription_details) {
+  var products = {};
+  for (var i = 0; i < this.products.length; i++) {
+    var product = this.products[i];
+    if (products[product.id]) {
+      products[product.id].qty++;
+    } else {
+      products[product.id] = {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        qty: 1,
+        properties: {
+          added_by: this.id
+        }
+      };
+      if (include_subscription_details) {
+        products[product.id].properties.shipping_interval_frequency = this.shipping_interval_frequency;
+        products[product.id].properties.shipping_interval_unit_type = this.shipping_interval_unit_type;
+        products[product.id].properties.subscription_id = this.subscription_id;
+      }
+    }
+  }
+  return products;
 };
 
 // Private

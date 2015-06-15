@@ -1,3 +1,25 @@
-<div data-phd-side-cart-item="{{ item.id }}">
-  <h4><span data-phd-side-cart-item-title>{{ item.title }}</span> <small>x <span data-phd-side-cart-item-qty>{{ item.quantity }}</span></small></h4>
+<div class="side-cart-item row" data-phd-side-cart-item="{{ item.id }}">
+  <h4 data-phd-side-cart-item-title>{{ item.title }}</h4>
+  
+  {% if item.price == 0 %}
+    {% capture item_price %}<span class="money" data-price="0" data-currency="{{ shop.currency }}">{{ 'products.price.zero_price' | t }}</span>{% endcapture %}
+    {% capture item_price_with_currency %}{{ item_price }}{% endcapture %}
+  {% else %}
+    {% capture item_price %}<span class="money" data-price="{{ item.price }}" data-currency="{{ shop.currency }}">{{ item.price | money }}</span>{% endcapture %}
+    {% capture item_price_with_currency %}<span class="money" data-price="{{ item.price }}" data-currency="{{ shop.currency }}">{{ item.price | money_with_currency }}</span>{% endcapture %}
+  {% endif %}
+  <p data-phd-side-cart-item-price>{{ 'cart.price.item_price_html' | t: price: item_price, price_with_currency: item_price_with_currency }}</p>
+  
+  <p data-phd-side-cart-item-qty>{{ item.quantity }}</p>
+  
+  
+  {% capture line_price %}<span class="money" data-price="{{ item.line_price }}" data-currency="{{ shop.currency }}">{{ item.line_price | money }}</span>{% endcapture %}
+  {% capture line_price_with_currency %}<span class="money" data-price="{{ item.line_price }}" data-currency="{{ shop.currency }}">{{ item.line_price | money_with_currency }}</span>{% endcapture %}
+  <p data-phd-side-cart-item-line-price>{{ 'cart.price.item_price_html' | t: price: line_price, price_with_currency: line_price_with_currency }}</p>
+
+  <script class="phd-side-cart-item-price-template" type="text/template">
+    {% capture empty_price %}<span class="money" data-price="[ITEM_PRICE_DATA]" data-currency="{{ shop.currency }}">[ITEM_PRICE]</span>{% endcapture %}
+    {% capture empty_price_with_currency %}<span class="money" data-price="[ITEM_PRICE_DATA]" data-currency="{{ shop.currency }}">[ITEM_PRICE_WITH_CURRENCY]</span>{% endcapture %}
+    {{ 'cart.price.item_price_html' | t: price: empty_price, price_with_currency: empty_price_with_currency }}
+  </script>
 </div>
