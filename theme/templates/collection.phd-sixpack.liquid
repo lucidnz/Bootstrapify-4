@@ -27,21 +27,9 @@
     {% assign subscription_id = subscriptions | map: 'subscription_id' | first %}
     {% assign shipping_interval_frequency = subscriptions | map: 'shipping_interval_frequency' | first %}
     {% assign shipping_interval_unit_type = subscriptions | map: 'shipping_interval_unit_type' | first %}
-      
-      {% comment %}
-<!--
-      [{{ subscriptions }}]<br>
-      [{{ subscription_ids | join: ' - ' }}]<br>
-      [{{ subscriptions | map: 'shipping_interval_unit_type' }}]<br>
-      [{{ subscriptions | map: 'shipping_interval_frequency' }}]<br>
-      [{{ subscriptions | map: 'is_subscription_only' }}]<br>
-      [{{ subscriptions | map: 'has_subscription' }}]<br>
-      [{{ subscriptions | map: 'discount_product_id' }}]<br>
-      [{{ subscriptions | map: 'discount_percentage' }}]<br>
--->
-      {% endcomment %}
-      
-  <section class="builder-display" data-phd-six-pack="holding" data-phd-holding-limit-multiple="6" data-phd-subscription-id="{{ subscription_id }}" data-phd-shipping-interval-frequency="{{ shipping_interval_frequency }}" data-phd-shipping-interval-unit-type="{{ shipping_interval_unit_type }}">
+  
+    {% assign limit_multiple = collection.metafields.phd.limit_multiple | default: 6 %}
+  <section class="builder-display" data-phd-six-pack="holding" data-phd-group-title="{{ 'phd.six_pack.group_title' | t: collection_title: collection.title, limit: limit_multiple }}" data-phd-holding-limit-multiple="{{ limit_multiple | times: 1 }}" data-phd-subscription-id="{{ subscription_id }}" data-phd-shipping-interval-frequency="{{ shipping_interval_frequency }}" data-phd-shipping-interval-unit-type="{{ shipping_interval_unit_type }}">
     <div class="builder-content">
       <div class="sheet">
       </div>

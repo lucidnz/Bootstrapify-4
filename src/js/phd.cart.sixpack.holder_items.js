@@ -1,12 +1,12 @@
 var Eventer = require('./_eventer.js');
 
-var SixPackHolderItems = function (id, limit_multiple, subscription_id, shipping_interval_frequency, shipping_interval_unit_type) {
+var SixPackHolderItems = function (limit_multiple, group_title, subscription_id, shipping_interval_frequency, shipping_interval_unit_type) {
   new Eventer(this);
   
-  this.id = id;
   this.products = [];
   this.products_are_addable = false;
   this.limit_multiple = limit_multiple;
+  this.builder_group_title = group_title;
   this.subscription_id = subscription_id;
   this.shipping_interval_frequency = shipping_interval_frequency;
   this.shipping_interval_unit_type = shipping_interval_unit_type;
@@ -99,7 +99,8 @@ SixPackHolderItems.prototype.all_products_by_id = function (include_subscription
         line_price: product.price,
         quantity: 1,
         properties: {
-          added_by: this.id
+          'group_title': this.builder_group_title,
+          'builder_group': new Date().getTime()
         }
       };
       if (include_subscription_details) {

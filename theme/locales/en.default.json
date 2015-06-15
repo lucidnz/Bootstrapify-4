@@ -176,6 +176,7 @@
   },
   "phd": {
     "six_pack": {
+      "group_title": "{{ collection_title }} {{ limit }} pack",
       "items_total_html": "<span data-phd-holding-total-items></span>/<span data-phd-holding-items-limit></span> Items",
       "add_to_cart_disabled_html": "Add Items",
       "add_to_cart_enabled_html": "Add To Cart"
