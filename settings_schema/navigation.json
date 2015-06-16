@@ -19,6 +19,16 @@
       "label": "Tertiary Menu",
       "id": "tertiary_menu_linklist",
       "type": "link_list"
+    },
+    {
+      "type": "header",
+      "content": "Site Search"
+    },
+    {
+      "label": "Search typeahead collection",
+      "id": "search_typeahead_collecton",
+      "type": "collection",
+      "info": "To help users search your site ... TODO"
     }
   ]
 }

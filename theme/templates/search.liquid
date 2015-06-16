@@ -10,6 +10,17 @@
     </header>
 
     <section class="sheet-content">
+            
+      <div class="search-lg">
+        {% include 'search_form' %}
+      </div>
+      
+      {% if search.results_count > 0 %}
+        
+      {% else %}
+      
+      {% endif %}
+      
       {% comment %}
         TODO: Search templates
       {% endcomment %}
