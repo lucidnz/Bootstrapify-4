@@ -20,8 +20,8 @@
       "sort_by_title": "Sort by",
       "featured": "Featured",
       "best_selling": "Best Selling",
-      "title_ascending": "A-Z",
-      "title_descending": "Z-A",
+      "title_ascending": "A–Z",
+      "title_descending": "Z–A",
       "price_ascending": "Lowest Price",
       "price_descending": "Highest Price",
       "date_ascending": "Newest",
@@ -61,7 +61,7 @@
       "quantity" : "Quantity",
       "after_product_added_message_html" : "<h4>Thanks! Your item <strong>&ldquo;{{ item_title }}&rdquo;</strong> was added to <a href='/cart'>the cart</a>.</h4><p><a href='/cart'>View your cart now</a> or <a href='/collections/all'>Continue&nbsp;shopping</a>.</p>",
       "after_product_added_error_message_html" : "<h4>There was an error adding <strong>&ldquo;{{ item_title }}&rdquo;</strong> to <a href='/cart'>the cart</a>.</h4><p><em>{{ error_message }}</em></p><p>Please try again later, or feel free to <a href='/pages/contact'>contact us</a>.</p>",
-      "item_title_seperator" : " - "
+      "item_title_seperator" : " — "
     },
     "buttons" : {
       "view_product" : "View Product",
@@ -73,7 +73,7 @@
       "unavailable" : "Unavailable"
     },
     "social_links" : {
-      "twitter_message" : "Check out {{ product_title }} - {{ url }} (via {{ handle }})",
+      "twitter_message" : "Check out {{ product_title }} — {{ url }} (via {{ handle }})",
       "email_subject" : "",
       "email_body" : ""
     }
@@ -166,7 +166,7 @@
   },
   "errors" : {
     "404" : {
-      "page_title" : "404 - Page not found",
+      "page_title" : "404 — Page not found",
       "not_found_message_html" : "Whoops! We couldn't find that&nbsp;page.<br>Don't worry though, if you <a href='/'>head back to the homepage</a> we're sure you'll find what you're looking&nbsp;for."
     }
   },
