@@ -53,9 +53,11 @@
       <li class="navigation-cart"><a href="/cart"><span class="fa fa-shopping-cart"></span> <span data-cart-display>{{ 'cart.site_header.cart_link_html' | t: item_count: cart.item_count, cart_total_price: cart_total_price, cart_total_price_with_currency: cart_total_price_with_currency }}</span></a></li>
       
     {% when 'search' %}
-      <li class="navigation-form">
-        {% include 'search_form' %}
-      </li>
+      {% if settings.enable_search %}
+        <li class="navigation-form">
+          {% include 'search_form' %}
+        </li>
+      {% endif %}
       
     {% endcase %}
   {% endfor %}
