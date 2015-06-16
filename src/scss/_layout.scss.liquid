@@ -89,21 +89,32 @@ footer {
   @include adaptive-columns('.group-item-wrap');
 }
 
+// all collection templates
+body[class*="collection"] {
+  
+  @include adaptive-columns('.group-item-wrap');
+  
+  .sheet-content {
+    @include make-row();
+  }
+  .collection-message {
+    @include make-sm-column(12);
+  }
+}
+
+// /collections template
 .list-collections {
   @include adaptive-columns('.group-item-wrap');
 
   .group-item {
     position: relative;
+    @include make-lg-column(6);
 
     .group-item-image .svg {
       display: block;
       height: auto;
       max-width: 100%;
       max-height: 100%;
-    }
-
-    .group-item-image .svg-rect {
-      fill: lighten($brand-primary, 30%);
     }
 
     .group-item-details {
@@ -115,19 +126,6 @@ footer {
     	padding: 0 $grid-gutter-width;
     }
 
-  }
-}
-
-// all collection templates
-body[class*="collection"] {
-  
-  @include adaptive-columns('.group-item-wrap');
-  
-  .sheet-content {
-    @include make-row();
-  }
-  .collection-message {
-    @include make-sm-column(12);
   }
 }
 
@@ -171,6 +169,9 @@ body[class*="collection"] {
       transition: margin 1s ease;
       // override grid cols for lookbook
       @include make-xs-column(3);
+      @include make-sm-column(3);
+      @include make-md-column(3);
+      @include make-lg-column(3);
 
       width: $lookbook-item-max-width-xs;
       @media (orientation: portrait) {
