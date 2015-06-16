@@ -92,7 +92,7 @@
     image_alignment: "{{ settings.thumbnail_images_alignment }}"
   };
   Bsify.thumbnail_selectors = Bsify.thumbnail_selectors || {
-    image_wrapper: '.group-item-image:not(.collection-lookbook .group-item-image)',
+    image_wrapper: '.group-item-image:not(.collection-lookbook .group-item-image, .list-collections  .group-item-image)',
     details_wrapper: '.group-item-details'
   };
 
