@@ -120,6 +120,9 @@ footer {
 
 // all collection templates
 body[class*="collection"] {
+  
+  @include adaptive-columns('.group-item-wrap');
+  
   .sheet-content {
     @include make-row();
   }
