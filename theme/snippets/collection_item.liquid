@@ -2,10 +2,11 @@
   <figure class="group-item thumbnail">
     <a href="{{ c.url }}" title="{{ c.title }}">
       <div class="group-item-image">
+        {% capture img_size %}{% if collections_size > 1 %}1024x1024{% else %}2048x2048{% endif %}{% endcapture %}
         {% if c.image %}
-          {{ c.image | img_url: '1024x1024' | img_tag: c.title }}
+          {{ c.image | img_url: img_size | img_tag: c.title }}
         {% elsif c.products.first.featured_image %}
-          {{ c.products.first.featured_image | img_url: '1024x1024' | img_tag: c.title }}
+          {{ c.products.first.featured_image | img_url: img_size | img_tag: c.title }}
         {% endif %}
       </div>
       <figcaption class="group-item-details caption">

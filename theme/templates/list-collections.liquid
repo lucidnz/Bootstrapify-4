@@ -9,7 +9,8 @@
   <div class="sheet">
     {% assign featured_collections = linklists[settings.list_collections_featured_collection] %}
     {% if featured_collections.links != blank %}
-      <section class="group collections" data-collections-size="{{ featured_collections.links.size }}">
+      {% assign collections_size = featured_collections.links.size | times: 1 %}
+      <section class="group collections" data-collections-size="{{ collections_size }}">
         {% for collection_link in featured_collections.links %}
           {% assign c = collection_link.object %}
           {% capture collection_title %}{{ 'collections.list_collections.item_title_html' | t: collection_title: c.title }}{% endcapture %}
@@ -22,7 +23,8 @@
           No featured collections so fallback to all collections
         {% endcomment %}
       
-      <section class="group collections" data-collections-size="{{ collections.size }}">
+      {% assign collections_size = collections.size | times: 1 %}
+      <section class="group collections" data-collections-size="{{ collections_size }}">
         {% for c in collections %}
           {% capture collection_title %}{{ 'collections.list_collections.item_title_html' | t: collection_title: c.title }}{% endcapture %}
           {% include 'collection_item' %}

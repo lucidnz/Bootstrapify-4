@@ -107,25 +107,22 @@ body[class*="collection"] {
   @include adaptive-columns('.group-item-wrap');
 
   .group-item {
-    position: relative;
-    @include make-lg-column(6);
-
-    .group-item-image .svg {
+    & > a {
+      overflow: hidden;
       display: block;
-      height: auto;
-      max-width: 100%;
-      max-height: 100%;
+      position: relative;
     }
 
     .group-item-details {
       position: absolute;
       top: 50%;
+      width: 100%;
       -webkit-transform: translateY(-50%);
       -moz-transform: translateY(-50%);
     	transform: translateY(-50%);
     	padding: 0 $grid-gutter-width;
+    	text-align: center;
     }
-
   }
 }
 
