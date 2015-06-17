@@ -4,7 +4,32 @@
       <h1>{{ 'customer_accounts.login.page_title' | t }}</h1>
     </header>
 
-    <section class="sheet-content">
+    <section class="sheet-content">      
+      <div class="customer-login-form">
+        {% form 'customer_login' %}
+          {% include 'form_errors' %}
+        
+          <div class="form-group {% if form.errors contains 'form' %}has-error{% endif %}">
+            <label for="customer_email">Email</label>
+            <input class="form-control" type="email" value="{{ form.email }}" name="customer[email]" id="customer_email" placeholder="Email" />
+          </div>
+        
+          {% if form.password_needed %}
+            <div class="form-group {% if form.errors contains 'form' %}has-error{% endif %}">
+              <label for="customer_password">Password</label>
+              <input class="form-control" type="password" value="" name="customer[password]" id="customer_password" placeholder="Passsword" />
+            </div>
+            
+            <div class="form-group">
+              <a href="{{ shop.url }}/account/login?view=reset">Forgot your password?</a>
+            </div>
+          {% endif %}
+        
+          {% if current_url %}<input type="hidden" name="checkout_url" value="{{ current_url }}" />{% endif %}
+          <input class="btn btn-primary" type="submit" value="Sign In" />
+          <span class="note">or <a href="{{ shop.url }}">Return to Store</a></span>
+        {% endform %}
+      </div>
     </section>
   </article>
 </main>

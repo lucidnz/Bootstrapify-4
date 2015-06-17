@@ -5,7 +5,6 @@
     </header>
 
     <section class="sheet-content">
-      
       <div class="customer-register-form">
         {% form 'create_customer' %}
           {% include 'form_errors' %}
@@ -35,7 +34,6 @@
           <span class="note">{{ 'customer_accounts.register.note_html' | t: shop_url: shop.url }}</span>
         {% endform %}
       </div>
-      
     </section>
   </article>
 </main>
