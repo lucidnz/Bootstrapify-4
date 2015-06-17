@@ -39,11 +39,9 @@
     {% when 'accounts' %}
       {% if shop.customer_accounts_enabled %}
         {% if customer %}
-          <li><a href="/account">{{ 'customer_accounts.site_header.welcome_note' | t: first_name: customer.first_name }}</a></li>
-          <li>{{ 'customer_accounts.site_header.sign_out' | t | customer_logout_link }}</li>
+          <li><a href="/account">{{ 'customer_accounts.site_header.welcome_note' | t: first_name: customer.first_name }}</a> {{ 'customer_accounts.site_header.separator' | t }} {{ 'customer_accounts.site_header.sign_out' | t | customer_logout_link }}</li>
         {% else %}
-          <li>{{ 'customer_accounts.site_header.register' | t | customer_register_link }}</li>
-          <li>{{ 'customer_accounts.site_header.sign_in' | t | customer_login_link }}</li>
+          <li>{{ 'customer_accounts.site_header.register' | t | customer_register_link }} {{ 'customer_accounts.site_header.separator' | t }} {{ 'customer_accounts.site_header.sign_in' | t | customer_login_link }}</li>
         {% endif %}
       {% endif %}
       

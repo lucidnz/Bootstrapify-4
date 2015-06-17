@@ -8,7 +8,7 @@
     }
   }
   
-  // notes and errors are eith created by Shopify or JS
+  // notes and errors are either created by Shopify or JS
   .errors, .note {
     @extend .alert;
   }
@@ -39,5 +39,13 @@
   }
   .btn {
     @extend .btn-lg;
+  }
+}
+
+.placeholder {
+  [class*="customers"] {
+    label {
+      display: none;
+    }
   }
 }

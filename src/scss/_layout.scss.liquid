@@ -458,3 +458,18 @@ body[class*="collection"] {
     @include make-sm-column-pull(6);
   }
 }
+
+.customers-register {
+  .sheet-header {
+    text-align: center;
+  }
+  
+  .sheet-content {
+    @include make-row();
+  }
+  
+  .sheet-content form {
+    @include make-sm-column(6);
+    @include make-sm-column-offset(3);
+  }
+}

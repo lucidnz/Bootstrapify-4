@@ -117,7 +117,14 @@
       "welcome_note" : "Welcome, {{ first_name }}",
       "sign_in" : "Sign in",
       "sign_out" : "Sign out",
-      "register" : "Register"
+      "register" : "Register",
+      "separator" : "|"
+    },
+    "register" : {
+      "page_title" : "Create an account"
+    },
+    "login" : {
+      "page_title" : "Sign in"
     }
   },
   "contact" : {

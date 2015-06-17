@@ -8210,6 +8210,21 @@ body[class*="collection"] {
   }
 }
 
+.customers-register {
+  .sheet-header {
+    text-align: center;
+  }
+  
+  .sheet-content {
+    @include make-row();
+  }
+  
+  .sheet-content form {
+    @include make-sm-column(6);
+    @include make-sm-column-offset(3);
+  }
+}
+
 /* Typograhical Styles */
 
 a:hover,
@@ -8361,6 +8376,9 @@ h6 {
   }
 }
 
+.nav > li > a {
+  display: inline-block;
+}
 /*
   Styles for centered navigation snippet
 
@@ -8479,7 +8497,7 @@ h6 {
     }
   }
   
-  // notes and errors are eith created by Shopify or JS
+  // notes and errors are either created by Shopify or JS
   .errors, .note {
     @extend .alert;
   }
@@ -8510,6 +8528,14 @@ h6 {
   }
   .btn {
     @extend .btn-lg;
+  }
+}
+
+.placeholder {
+  [class*="customers"] {
+    label {
+      display: none;
+    }
   }
 }
 .banner {
