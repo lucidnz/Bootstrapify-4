@@ -121,7 +121,13 @@
       "separator" : "|"
     },
     "register" : {
-      "page_title" : "Create an account"
+      "page_title" : "Create an account",
+      "first_name" : "First name",
+      "last_name" : "Last name",
+      "email" : "Email",
+      "password" : "Password",
+      "register_button" : "Register",
+      "note_html" : "or <a href='{{ shop_url }}'>Return to Store</a>"
     },
     "login" : {
       "page_title" : "Sign in"
@@ -180,6 +186,9 @@
     "404" : {
       "page_title" : "404 — Page not found",
       "not_found_message_html" : "Whoops! We couldn't find that&nbsp;page.<br>Don't worry though, if you <a href='/'>head back to the homepage</a> we're sure you'll find what you're looking&nbsp;for."
+    },
+    "customer_accounts" : {
+      "form_message" : "We could not process the form because of the following errors:"
     }
   },
   "date_formats": {
