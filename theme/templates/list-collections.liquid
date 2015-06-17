@@ -13,7 +13,6 @@
       <section class="group collections" data-collections-size="{{ collections_size }}">
         {% for collection_link in featured_collections.links %}
           {% assign c = collection_link.object %}
-          {% capture collection_title %}{{ 'collections.list_collections.item_title_html' | t: collection_title: c.title }}{% endcapture %}
           {% include 'collection_item' %}
         {% endfor %}
       </section>
@@ -26,7 +25,6 @@
       {% assign collections_size = collections.size | times: 1 %}
       <section class="group collections" data-collections-size="{{ collections_size }}">
         {% for c in collections %}
-          {% capture collection_title %}{{ 'collections.list_collections.item_title_html' | t: collection_title: c.title }}{% endcapture %}
           {% include 'collection_item' %}
         {% endfor %}
       </section>

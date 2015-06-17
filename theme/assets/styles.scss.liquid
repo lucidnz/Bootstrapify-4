@@ -7873,6 +7873,14 @@ body[class*="collection"] {
     	transform: translateY(-50%);
     	padding: 0 $grid-gutter-width;
     	text-align: center;
+      transition: .5s;
+      background-color: rgba(#fff, 0.8);
+    }
+    
+    &:hover {
+      .group-item-details {
+        opacity: 0;
+      }
     }
   }
 }
@@ -8669,5 +8677,10 @@ $slide-count: 1;
 {% endunless %}
 
 
+.fallback-image {
+  width: 100%;
+  height: 1024px;
+  background-color: rgba($brand_primary, 0.2);
+}
 // This file is purely for this one liquid settings so that it is placed right at the bottom of our stylesheet.
 {% unless settings.scss_overrides == blank %}{{ settings.scss_overrides }}{% endunless %}

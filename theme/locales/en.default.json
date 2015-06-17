@@ -41,7 +41,12 @@
     "list_collections" : {
       "title" : "All collections",
       "description" : "",
-      "item_title_html": "{{ collection_title }}"
+      "item_title_html": "{{ collection_title }}",
+      "item_count": {
+        "zero": "No items",
+        "one": "{{ count }} item",
+        "other": "{{ count }} items"
+      }
     }
   },
   "products" : {

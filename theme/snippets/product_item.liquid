@@ -18,10 +18,14 @@
   <figure class="group-item thumbnail">
     <a href="{{ p.url }}" title="{{ p.title }}">
       <div class="group-item-image">
-        {% if collection_size > 1 %}
-          {{ p.featured_image | img_url: '1024x1024' | img_tag: p.title }}
+        {% if p.featured_image %}
+          {% if collection_size > 1 %}
+            {{ p.featured_image | img_url: '1024x1024' | img_tag: p.title }}
+          {% else %}
+            {{ p.featured_image | img_url: '2048x2048' | img_tag: p.title }}
+          {% endif %}
         {% else %}
-          {{ p.featured_image | img_url: '2048x2048' | img_tag: p.title }}
+          <div class="fallback-image"></div>
         {% endif %}
       </div>
       <figcaption class="group-item-details caption">
