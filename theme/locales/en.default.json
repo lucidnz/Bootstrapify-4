@@ -139,7 +139,11 @@
       "back_to_checkout" : "Back to checkout"
     },
     "login_reset" : {
-      "page_title" : "Reset your password"
+      "page_title" : "Reset your password",
+      "description" : "We will send you an email to reset your password.",
+      "email" : "Email",
+      "reset_button" : "Reset",
+      "note_html" : "or <a href='{{ shop_url }}/account/login'>Cancel</a>"
     }
   },
   "contact" : {
