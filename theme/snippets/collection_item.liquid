@@ -15,8 +15,8 @@
           {% capture collection_title %}{{ 'collections.list_collections.item_title_html' | t: collection_title: c.title }}{% endcapture %}
           <h3 class="group-item-title">{{ collection_title | default: c.title }}</h3>
           
-          <p class="group-item-count">{{ 'collections.list_collections.item_count' | t: count: c.all_products_count }}</p>
           {% if settings.show_collection_product_count %}
+          <p class="group-item-count">{{ 'collections.list_collections.item_count' | t: count: c.all_products_count }}</p>
           {% endif %}
       </figcaption>
     </a>
