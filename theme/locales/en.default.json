@@ -130,7 +130,16 @@
       "note_html" : "or <a href='{{ shop_url }}'>Return to Store</a>"
     },
     "login" : {
-      "page_title" : "Sign in"
+      "page_title" : "Sign in",
+      "email" : "Email",
+      "password" : "Password",
+      "login_button" : "Register",
+      "reset_link" : "Forgot your password?",
+      "note_html" : "or <a href='{{ shop_url }}'>Return to Store</a>",
+      "back_to_checkout" : "Back to checkout"
+    },
+    "login_reset" : {
+      "page_title" : "Reset your password"
     }
   },
   "contact" : {

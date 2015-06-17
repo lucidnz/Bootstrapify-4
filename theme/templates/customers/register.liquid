@@ -11,26 +11,26 @@
           
           <div class="form-group">
             <label for="first-name">{{ 'customer_accounts.register.first_name' | t }}</label>
-            <input class="form-control input-lg" type="text" value="{{ form.first_name }}" name="customer[first_name]" id="first-name" placeholder="{{ 'customer_accounts.register.first_name' | t }}" />
+            <input class="form-control input-lg" type="text" value="{{ form.first_name }}" name="customer[first_name]" id="first-name" placeholder="{{ 'customer_accounts.register.first_name' | t }}">
           </div>
           
           <div class="form-group">
             <label for="last-name">{{ 'customer_accounts.register.last_name' | t }}</label>
-            <input class="form-control input-lg" type="text" value="{{ form.lsst_name }}" name="customer[last_name]" id="last-name" placeholder="{{ 'customer_accounts.register.last_name' | t }}" />
+            <input class="form-control input-lg" type="text" value="{{ form.lsst_name }}" name="customer[last_name]" id="last-name" placeholder="{{ 'customer_accounts.register.last_name' | t }}">
           </div>
           
           <div class="form-group {% if form.errors contains 'email' %}has-error{% endif %}">
             <label for="customer_email">{{ 'customer_accounts.register.email' | t }}</label>
-            <input class="form-control input-lg" type="email" value="{{ form.email }}" name="customer[email]" id="customer_email" placeholder="{{ 'customer_accounts.register.email' | t }}" />
+            <input class="form-control input-lg" type="email" value="{{ form.email }}" name="customer[email]" id="customer_email" placeholder="{{ 'customer_accounts.register.email' | t }}" autocorrect="off" autocapitalize="off">
           </div>
           
           <div class="form-group {% if form.errors contains 'password' %}has-error{% endif %}">
             <label for="customer_password">{{ 'customer_accounts.register.password' | t }}</label>
-            <input class="form-control input-lg" type="password" value="{{ form.password }}" name="customer[password]" id="customer_password" placeholder="{{ 'customer_accounts.register.password' | t }}" />
+            <input class="form-control input-lg" type="password" value="{{ form.password }}" name="customer[password]" id="customer_password" placeholder="{{ 'customer_accounts.register.password' | t }}">
           </div>
         
-          {% if current_url %}<input type="hidden" name="checkout_url" value="{{ current_url }}" />{% endif %}
-          <input class="btn btn-primary btn-lg" type="submit" value="{{ 'customer_accounts.register.register_button' | t }}" />
+          {% if current_url %}<input type="hidden" name="checkout_url" value="{{ current_url }}">{% endif %}
+          <input class="btn btn-primary btn-lg" type="submit" value="{{ 'customer_accounts.register.register_button' | t }}">
           <span class="note">{{ 'customer_accounts.register.note_html' | t: shop_url: shop.url }}</span>
         {% endform %}
       </div>

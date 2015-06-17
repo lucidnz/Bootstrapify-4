@@ -8210,7 +8210,9 @@ body[class*="collection"] {
   }
 }
 
-.customers-register {
+.customers-register,
+.customers-login,
+.customers-login-reset {
   .sheet-header {
     text-align: center;
   }
@@ -8533,6 +8535,14 @@ h6 {
   .btn {
     @extend .btn-lg;
   }
+}
+
+[type="submit"] + .note {
+  margin-left: 0.25em;
+}
+
+input.btn-link {
+  padding: 0;
 }
 
 .placeholder {
