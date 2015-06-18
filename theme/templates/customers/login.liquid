@@ -55,6 +55,12 @@
         {% form 'recover_customer_password' %}
           {% include 'form_errors' %}
           
+          {% if form.posted_successfully? %}
+          <div class="note success" data-bsify-toggle-recover-force>
+            {{ 'customer_accounts.recover_password.success_message' | t }}
+          </div>
+          {% endif %}
+          
           <div class="form-group {% if form.errors contains 'email' %}has-error{% endif %}">
             <label for="customer_email">{{ 'customer_accounts.recover_password.email' | t }}</label>
             <input class="form-control input-lg" type="email" value="{{ form.email }}" name="email" id="recover-email" placeholder="{{ 'customer_accounts.recover_password.email' | t }}" autocorrect="off" autocapitalize="off">

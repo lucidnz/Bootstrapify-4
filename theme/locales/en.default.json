@@ -134,7 +134,7 @@
       "page_title" : "Sign in",
       "email" : "Email",
       "password" : "Password",
-      "login_button" : "Register",
+      "login_button" : "Sign in",
       "reset_link" : "Forgot your password?",
       "note_html" : "or <a href='{{ shop_url }}'>Return to Store</a>",
       "back_to_checkout" : "Back to checkout"
@@ -142,17 +142,26 @@
     "recover_password" : {
       "page_title" : "Recover your password",
       "description" : "We will send you an email to reset your password.",
+      "success_message" : "An email has been sent for you to reset your password.",
       "email" : "Email",
-      "reset_button" : "Reset",
+      "reset_button" : "Reset password",
       "note_html" : "or <a href='{{ shop_url }}/account/login'>Cancel</a>"
     },
     "reset_password" : {
       "page_title" : "Enter a new password for {{ email }}.",
-      "description" : "We will send you an email to reset your password."
+      "description" : "We will send you an email to reset your password.",
+      "password" : "Password",
+      "password_confirmation" : "Password confirmation",
+      "reset_button" : "Reset password"
     },
     "activate_account" : {
       "page_title" : "Activate your account",
-      "description" : "Create your password to activate your account."
+      "description" : "Create your password to activate your account.",
+      "password" : "Password",
+      "password_confirmation" : "Password confirmation",
+      "activate_button" : "Activate account",
+      "cancel_button" : "Decline invitation",
+      "button_separator" : "or"
     }
   },
   "contact" : {

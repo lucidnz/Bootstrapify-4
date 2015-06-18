@@ -2,14 +2,14 @@ var PasswordRecover = function () {
   this.recover_string = '#recover';
   this.$links = $('main [href*="/account/login"]');
   this.$sections = $('[data-bsify-toggle-recover]');
-  
+  this.force = ($('[data-bsify-toggle-recover-force]').length > 0);
   
   this._add_event_listeners();
   this.toggle_forms();
 };
 
 PasswordRecover.prototype.toggle_forms = function () {
-  if (window.location.hash === this.recover_string) {
+  if (window.location.hash === this.recover_string || this.force) {
     this.show_recover_form();
   } else {
     this.show_login_form();
