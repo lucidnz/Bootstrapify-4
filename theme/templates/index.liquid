@@ -92,6 +92,8 @@
               
             {% when '/search' %}
               {% comment %} TODO: Show an awesome search form {% endcomment %}
+              {% assign homepage_section_id = 'site_search' %}
+              {% capture homepage_section_content %}{% include 'homepage_search' %}{% endcapture %}
               
             {% else %}
               {% comment %} We've got the front page; that's pretty meta. http://gph.is/1kPdp9x {% endcomment %}
@@ -149,6 +151,7 @@
                 
               {% when '/search' %}
                 {% comment %} TODO: Show an awesome search form {% endcomment %}
+                {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'homepage_sub_search' %}{% endcapture %}
                 
               {% else %}
                 {% comment %} We've got the front page; that's pretty meta. http://gph.is/1kPdp9x {% endcomment %}

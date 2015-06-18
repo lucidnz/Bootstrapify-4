@@ -1,6 +1,6 @@
 <ul class="nav{% if navbar_nav %} navbar-nav{% endif %}">
   {% comment %}
-    Disable dropdowns if 
+    Disable dropdowns if we are told to
   {% endcomment %}
   {% assign show_dropdowns = true %}
   {% if nav_list_items contains 'hide_dropdowns' %}
@@ -38,13 +38,13 @@
     {% case item %}
     {% when 'accounts' %}
       {% if shop.customer_accounts_enabled %}
+        <li class="navigation-account">
         {% if customer %}
-          <li><a href="/account">{{ 'customer_accounts.site_header.welcome_note' | t: first_name: customer.first_name }}</a></li>
-          <li>{{ 'customer_accounts.site_header.sign_out' | t | customer_logout_link }}</li>
+          <!-- <span class="nav-text">{{ 'customer_accounts.site_header.welcome_note' | t: first_name: customer.first_name }}</span> {{ 'customer_accounts.site_header.separator' | t }}  --><a href="/account">{{ 'customer_accounts.site_header.account' | t }}</a> {{ 'customer_accounts.site_header.separator' | t }} {{ 'customer_accounts.site_header.sign_out' | t | customer_logout_link }}
         {% else %}
-          <li>{{ 'customer_accounts.site_header.register' | t | customer_register_link }}</li>
-          <li>{{ 'customer_accounts.site_header.sign_in' | t | customer_login_link }}</li>
+          {{ 'customer_accounts.site_header.register' | t | customer_register_link }} {{ 'customer_accounts.site_header.separator' | t }} {{ 'customer_accounts.site_header.sign_in' | t | customer_login_link }}
         {% endif %}
+        </li>
       {% endif %}
       
     {% when 'cart' %}
@@ -53,9 +53,11 @@
       <li class="navigation-cart"><a href="/cart"><span class="fa fa-shopping-cart"></span> <span data-cart-display>{{ 'cart.site_header.cart_link_html' | t: item_count: cart.item_count, cart_total_price: cart_total_price, cart_total_price_with_currency: cart_total_price_with_currency }}</span></a></li>
       
     {% when 'search' %}
-      <li class="navigation-form">
-        {% include 'search_form' %}
-      </li>
+      {% if settings.enable_search %}
+        <li class="navigation-form">
+          {% include 'search_form' %}
+        </li>
+      {% endif %}
       
     {% endcase %}
   {% endfor %}

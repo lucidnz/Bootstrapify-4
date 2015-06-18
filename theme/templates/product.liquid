@@ -1,22 +1,22 @@
 <main role="main">
   <div class="sheet">
     <div class="sheet-content" itemscope itemtype="http://schema.org/Product">
-          
+
       <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
       <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
-      
+
       <header class="sheet-header product-header">
         <h1 itemprop="name">{{ product.title }}</h1>
       </header>
-      
+
       <section class="product-images">
-        
+
         {% comment %} TODO: product image gallery on mobile - swipe between images & hide thumbs {% endcomment %}
-        
+
         <div class="product-image-main">
           {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
-          <img src="{{ featured_image | img_url: '1024x1024' }}" alt="{{ featured_image.alt | escape }}">
-          
+          <img src="{{ featured_image | img_url: '2048x2048' }}" alt="{{ featured_image.alt | escape }}">
+
           {% comment %}
             TODO: Trying to use srcset but it's not totally working properly yet
             Waiting on Shopify to implement image width filter
@@ -34,14 +34,14 @@
           {% endcomment %}
         </div>
         <ul class="product-image-thumbs list-inline">
-          
+
           {% comment %}
             Show thumbs for product image gallery.
-            
+
             Collect any variant id (first) associated with each thumb and include it as a data-attr to be used with the image switcher.
             Clicking a thumb to change the image also changes the selected variant if it is linked to it.
           {% endcomment %}
-            
+
           {% for thumb in product.images %}
             {% assign image_variant_id = false %}
             {% if thumb.attached_to_variant? %}
@@ -51,17 +51,17 @@
           {% endfor %}
         </ul>
       </section>
-      
+
       <section class="product-details" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         {% comment %}
           Get first variant, or deep linked one
         {% endcomment %}
         {% assign variant = product.selected_or_first_available_variant %}
-        
+
         <meta itemprop="priceCurrency" content="{{ shop.currency }}">
         {% unless variant.sku == blank %}<meta itemprop="identifier" content="sku:{{ variant.sku }}" />{% endunless %}
         <link itemprop="availability" href="http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}">
-        
+
         <div class="product-details-content">
           <div class="product-price h3">
             <p class="compare-at-price small text-muted">
@@ -87,9 +87,9 @@
               {% endif %}
             </p>
           </div>
-          
+
           {% comment %} TODO: sale badges {% endcomment %}
-          
+
           <form class="add-to-cart-form" action="/cart/add" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <select class="product-select form-control" id="product-select" name="id">
@@ -109,19 +109,21 @@
               <label class="quantity-selector control-label" for="quantity">{{ 'products.form.quantity' | t }}</label>
               <input class="quantity-selector form-control" type="number" id="quantity" name="quantity" value="1" min="1">
             </div>
-  
+
             <input class="btn-add-to-cart btn btn-primary btn-lg btn-block" type="submit" name="add" value="{{ 'products.buttons.add_to_cart' | t }}">
           </form>
           <div class="add-to-cart-message hidden"></div>
         </div>
         {% include 'product_social_share_links' %}
+
+        <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
       </section>
-      
+
       <section class="product-description" itemprop="description">
         {{ product.description }}
         {% comment %} TODO: product tags, vendor, type, etc. {% endcomment %}
       </section>
-      
+
     </div>
   </div>
 </main>
@@ -129,7 +131,7 @@
 {% include 'site_aside' %}
 
 <script>
-  
+
   // Select callback is called every time a variant selector is changed
   var select_callback = function(variant, selector) {
     // collect price and button elements
@@ -137,12 +139,12 @@
     var $compare_at_price_ele = $product_price_ele.find('.compare-at-price');
     var $price_money_ele = $product_price_ele.find('.price');
     var $add_to_cart_button = $('.btn-add-to-cart');
-  
+
     // Translation strings
     // price strings uses a marker that is replaced so as to preserve Shopify translations
     {% assign price_marker = '<span class=\"money\" data-price=\"[raw_price]\" data-currency=\"{{ shop.currency }}\">[price]</span>' %}
     {% assign price_with_currency_marker = '<span class=\"money\" data-price=\"[raw_price]\" data-currency=\"{{ shop.currency }}\">[price_with_currency]</span>' %}
-    
+
     var standard_price_str = "{{ 'products.price.standard_price_html' | t: price: price_marker, price_with_currency: price_with_currency_marker }}";
     var compare_at_str = "{{ 'products.price.compare_at_price_html' | t: price: price_marker, price_with_currency: price_with_currency_marker }}";
     var sale_price_str = "{{ 'products.price.sale_price_html' | t: price: price_marker, price_with_currency: price_with_currency_marker }}";
@@ -168,7 +170,7 @@
           .replace('[price]', price)
           .replace('[price_with_currency]', price_with_currency);
         $price_money_ele.removeClass('text-muted').html(sale_price);
-        
+
         // update compare at price
         var raw_compare_at_price = variant.compare_at_price;
         var compare_at_price = Shopify.formatMoney(variant.compare_at_price, Bsify.money_formats.moneyFormat);
@@ -178,7 +180,7 @@
           .replace('[price]', compare_at_price)
           .replace('[price_with_currency]', compare_at_price_with_currency);
         $compare_at_price_ele.html(compare_at).removeClass('hidden');
-        
+
       } else {
         // It's the standard price
         var standard_price = standard_price_str
@@ -186,29 +188,29 @@
           .replace('[price]', price)
           .replace('[price_with_currency]', price_with_currency);
         $price_money_ele.removeClass('text-muted').html(standard_price);
-        
+
         $compare_at_price_ele.addClass('hidden');
       }
-     
+
       if (variant.available) {
         $add_to_cart_button.removeClass('disabled').attr('disabled', false).val(Bsify.translations.product.add_to_cart_button_text);
-       
+
         if (Bsify.Cart !== undefined && Bsify.Cart.has_variant(variant.id)) {
           $add_to_cart_button.val(Bsify.translations.product.add_another_button_text);
         }
-       
+
       } else { // variant is sold out
         $add_to_cart_button.addClass('disabled').attr('disabled', 'disabled').val(Bsify.translations.product.sold_out_button_text);
         // TODO: add notify me form
       }
-     
+
       // Switch the main image if the variant has one
       if (variant.featured_image) {
         if (Bsify.ImageSwitcher !== undefined) {
           var mainImageElement = $('.product-image-main img')[0];
           Bsify.ImageSwitcher.switch_image(mainImageElement, variant.featured_image.src);
         }
-      } 
+      }
     } else {
       // The variant dosn't exist so unset details
       $add_to_cart_button.addClass('disabled').attr('disabled', 'disabled').val(Bsify.translations.product.unavailable_button_text);

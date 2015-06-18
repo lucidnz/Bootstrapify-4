@@ -3,6 +3,9 @@
     "site" : {
       "page_title_seperator" : "|"
     },
+    "navigation": {
+      "mobile_menu_button" : "Menu"
+    },
     "pagination": {
       "previous_html": "&laquo; Previous",
       "next_html": "Next &raquo;"
@@ -17,8 +20,8 @@
       "sort_by_title": "Sort by",
       "featured": "Featured",
       "best_selling": "Best Selling",
-      "title_ascending": "A-Z",
-      "title_descending": "Z-A",
+      "title_ascending": "A–Z",
+      "title_descending": "Z–A",
       "price_ascending": "Lowest Price",
       "price_descending": "Highest Price",
       "date_ascending": "Newest",
@@ -38,7 +41,12 @@
     "list_collections" : {
       "title" : "All collections",
       "description" : "",
-      "item_title_html": "{{ collection_title }}"
+      "item_title_html": "{{ collection_title }}",
+      "item_count": {
+        "zero": "No items",
+        "one": "{{ count }} item",
+        "other": "{{ count }} items"
+      }
     }
   },
   "products" : {
@@ -58,7 +66,7 @@
       "quantity" : "Quantity",
       "after_product_added_message_html" : "<h4>Thanks! Your item <strong>&ldquo;{{ item_title }}&rdquo;</strong> was added to <a href='/cart'>the cart</a>.</h4><p><a href='/cart'>View your cart now</a> or <a href='/collections/all'>Continue&nbsp;shopping</a>.</p>",
       "after_product_added_error_message_html" : "<h4>There was an error adding <strong>&ldquo;{{ item_title }}&rdquo;</strong> to <a href='/cart'>the cart</a>.</h4><p><em>{{ error_message }}</em></p><p>Please try again later, or feel free to <a href='/pages/contact'>contact us</a>.</p>",
-      "item_title_seperator" : " - "
+      "item_title_seperator" : " — "
     },
     "buttons" : {
       "view_product" : "View Product",
@@ -70,7 +78,7 @@
       "unavailable" : "Unavailable"
     },
     "social_links" : {
-      "twitter_message" : "Check out {{ product_title }} - {{ url }} (via {{ handle }})",
+      "twitter_message" : "Check out {{ product_title }} — {{ url }} (via {{ handle }})",
       "email_subject" : "",
       "email_body" : ""
     }
@@ -107,9 +115,66 @@
   "customer_accounts" : {
     "site_header" : {
       "welcome_note" : "Welcome, {{ first_name }}",
+      "account" : "My account",
       "sign_in" : "Sign in",
       "sign_out" : "Sign out",
-      "register" : "Register"
+      "register" : "Register",
+      "separator" : "|"
+    },
+    "account" : {
+      "page_title" : "My Account"
+    },
+    "orders" : {
+      "page_title" : {
+        "one" : "Order",
+        "other" : "Orders"
+      },
+      "empty_message_html" : "You have not placed any orders yet. <a href='/'>Head back to the store?</a>"
+    },
+    "addresses" : {
+      "page_title" : "Addresses"
+    },
+    "register" : {
+      "page_title" : "Create an account",
+      "first_name" : "First name",
+      "last_name" : "Last name",
+      "email" : "Email",
+      "password" : "Password",
+      "register_button" : "Register",
+      "note_html" : "or <a href='{{ shop_url }}'>Return to Store</a>"
+    },
+    "login" : {
+      "page_title" : "Sign in",
+      "email" : "Email",
+      "password" : "Password",
+      "login_button" : "Sign in",
+      "reset_link" : "Forgot your password?",
+      "note_html" : "or <a href='{{ shop_url }}'>Return to Store</a>",
+      "back_to_checkout" : "Back to checkout"
+    },
+    "recover_password" : {
+      "page_title" : "Recover your password",
+      "description" : "We will send you an email to reset your password.",
+      "success_message" : "An email has been sent for you to reset your password.",
+      "email" : "Email",
+      "reset_button" : "Reset password",
+      "note_html" : "or <a href='{{ shop_url }}/account/login'>Cancel</a>"
+    },
+    "reset_password" : {
+      "page_title" : "Enter a new password for {{ email }}.",
+      "description" : "We will send you an email to reset your password.",
+      "password" : "Password",
+      "password_confirmation" : "Password confirmation",
+      "reset_button" : "Reset password"
+    },
+    "activate_account" : {
+      "page_title" : "Activate your account",
+      "description" : "Create your password to activate your account.",
+      "password" : "Password",
+      "password_confirmation" : "Password confirmation",
+      "activate_button" : "Activate account",
+      "cancel_button" : "Decline invitation",
+      "button_separator" : "or"
     }
   },
   "contact" : {
@@ -148,6 +213,10 @@
     }
   },
   "search" : {
+    "homepage" : {
+      "title_html" : "",
+      "description_html" : ""
+    },
     "search_form" : {
       "field_placeholder" : "Search",
       "button_text" : "Search"
@@ -159,8 +228,11 @@
   },
   "errors" : {
     "404" : {
-      "page_title" : "404 - Page not found",
+      "page_title" : "404 — Page not found",
       "not_found_message_html" : "Whoops! We couldn't find that&nbsp;page.<br>Don't worry though, if you <a href='/'>head back to the homepage</a> we're sure you'll find what you're looking&nbsp;for."
+    },
+    "customer_accounts" : {
+      "form_message" : "We could not process the form because of the following errors:"
     }
   },
   "date_formats": {

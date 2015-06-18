@@ -1,6 +1,6 @@
 /*
   Styles for centered navigation snippet
-  
+
   NOTE: @extends on navs are because we can't put these classes into the markup as the nav-list is reused in places other than inside a navbar
 */
 
@@ -8,8 +8,11 @@
   // Small screen sizes
   .header-small {
     margin-bottom: 0;
+    .navigation-form {
+      padding: 0 $grid-gutter-width;
+    }
   }
-  
+
   .navbar-header {
     & > .nav {
       @extend .navbar-nav;
@@ -19,41 +22,64 @@
       margin-right: 0;
     }
   }
-  
+
   .navbar-toggle {
     margin-left: $grid-gutter-width/2;
   }
-  
+
   .navigation {
     & > .nav {
       @extend .navbar-nav;
       border-top: 1px solid $dropdown-divider-bg;
     }
   }
-  
+
   // Large screen sizes
   .header-large {
     text-align: center;
   }
-  
+
   .header-logo {
     overflow: auto;
     h1 {
       margin: 1em auto;
     }
   }
-    
-  .main-nav, .secondary-nav, .tertiary-nav {
+  
+  .navigation-top-content {
+    @include make-row();
+  }
+  .secondary-nav,
+  .tertiary-nav {
+    @include make-sm-column(6);
+  }
+  .secondary-nav {
+    text-align: left;
+  }
+  .tertiary-nav {
+    text-align: right;
+  }
+
+  .main-nav,
+  .secondary-nav,
+  .tertiary-nav {
     .nav {
       @extend .nav-inline;
     }
   }
-  
+
   // Details
-  .navigation-form {
-    padding: 0 $grid-gutter-width/2;
-  }
   .search-form {
     @extend .navbar-form;
+    padding: 0;
+  }
+
+  .header-logo {
+    text-align: center;
+
+    img {
+      max-height: {% if settings.logo_max_height == blank %}150px{% else %}{{ settings.logo_max_height }}{% endif %};
+      margin: ($grid-gutter-width / 2) auto;
+    }
   }
 }

@@ -1,5 +1,4 @@
 .banner {
-  
   // create the fade transition
   &.fade {
     opacity: 1;
@@ -79,8 +78,9 @@
   @if $slide-enabled {
     [data-banner="#{$slide-count}"] {
       
-      @if $slide-size!= 'full_width' and $slide-size != 'full_screen' {
-        .banner-content-wrap {
+      .banner-content-wrap {
+        position: relative;
+        @if $slide-size!= 'full_width' and $slide-size != 'full_screen' {
           @extend .sheet;
         }
       }
@@ -96,6 +96,8 @@
           .banner-caption {
             position: absolute;
             top: 50%;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
           	transform: translateY(-50%);
           }
           .banner-image {

@@ -9,6 +9,8 @@ var gulp        = require('gulp'),
   jshint        = require('gulp-jshint'),
   vsource       = require('vinyl-source-stream'),
   browserify    = require('browserify'),
+  argv          = require('yargs').argv,
+  gulpif        = require('gulp-if'),
   concat        = require('gulp-concat'),
   jsoncombine   = require('gulp-jsoncombine'),
   rename        = require('gulp-rename'),
@@ -38,12 +40,12 @@ gulp.task('default', function () {
     './src/scss/*.scss.liquid',
     './src/scss/*/*.scss.liquid'
   ], ['sass']);
-  
+
   // watch for js changes
   gulp.watch([
     './src/js/*.js'
   ], ['js']);
-  
+
   // watch for settings changes
   gulp.watch([
     './settings_schema/*.json',
@@ -60,7 +62,7 @@ gulp.task('sass', ['sass_concat']);
 // Helper for settings tasks
 gulp.task('settings', ['shopify_theme_settings']);
 
-// Helper task for moving all asset dependancies to the theme assets folder and 
+// Helper task for moving all asset dependancies to the theme assets folder and
 gulp.task('assets', ['js_assets']);
 
 // ALL THE TASKS!!! plus zipping up a fully built theme
@@ -74,6 +76,9 @@ gulp.task('build', ['js', 'sass', 'settings', 'assets', 'zip']);
 gulp.task('sass_concat', function () {
   var paths = new SassImport('./src/scss/styles.scss');
   return gulp.src(paths)
+    .pipe(plumber({
+      errorHandler: onError
+    }))
     .pipe(concat('styles.scss.liquid'))
     .pipe(gulp.dest('./theme/assets/'));
 });
@@ -87,14 +92,13 @@ gulp.task('js_lint', function () {
     }))
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    .pipe(gulp.dest('./theme/assets/'));
+    .pipe(gulpif(!argv.dev, gulp.dest('./theme/assets/')));
 });
 
 // JS_BROWSERIFY: Build our js files ready for use in the browser
 gulp.task('js_browserify', function () {
   return browserify('./src/js/app.js', {
-      debug: true, // output source maps for easy debuging
-      standalone: 'app'
+      debug: argv.dev, // to output source maps for easy debuging run task with --dev flag
     })
     .transform('debowerify') // require js files from bower packages
     .transform({ global: true }, 'uglifyify')
@@ -116,12 +120,12 @@ gulp.task('js_assets', function () {
     './bower_components/picturefill/dist/picturefill.min.js',
     './bower_components/html5shiv/dist/html5shiv.js'
   ];
-  
+
   // rename respond.proxy.js to respond.liquid
   gulp.src('./bower_components/respond/cross-domain/respond.proxy.js')
     .pipe(rename('respond.liquid'))
     .pipe(gulp.dest('./theme/snippets/'));
-  
+
   // copy files across to the assets folder
   return gulp.src(files)
     .pipe(gulp.dest('./theme/assets/'));
@@ -138,7 +142,7 @@ gulp.task('zip', function () {
     'theme/templates/*',
     'theme/templates/customers/*'
   ];
-  
+
   return gulp.src(theme, {base: "."})
     .pipe(zip('Bootstrapify_' + pjson.version + '.zip'))
     .pipe(gulp.dest('./'));
@@ -154,7 +158,7 @@ gulp.task('zip', function () {
 
 // SHOPIFY_THEME_SETTINGS (1): Create settings_schema.json
 gulp.task('shopify_theme_settings', function () {
-  
+
   // list of settings files to include, in order of inclusion
   var settings = [
     'theme_info',
@@ -171,7 +175,7 @@ gulp.task('shopify_theme_settings', function () {
     'newsletter',
     'advanced'
   ];
-  
+
   return gulp.src('./settings_schema/*.json')
     .pipe(jsoncombine('settings_schema.json', function(data){
       // collect the json data and store it in the correct order
@@ -180,7 +184,7 @@ gulp.task('shopify_theme_settings', function () {
         var file = settings[i];
         data_array.push(data[file]);
       }
-      
+
       return new Buffer(JSON.stringify(data_array));
     }))
     .pipe(gulp.dest('./theme/config/'));

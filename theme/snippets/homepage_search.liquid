@@ -1,0 +1,14 @@
+{% capture search_title %}{{ 'search.homepage.title_html' | t }}{% endcapture %}
+{% capture search_description %}{{ 'search.homepage.description_html' | t }}{% endcapture %}
+
+<div class="sheet">
+  {% if search_title != blank and search_description != blank %}
+  <header class="sheet-header">
+    {% unless search_title == blank %}<h3>{{ search_title }}</h3>{% endunless %}
+    {% unless search_description == blank %}<p>{{ search_description }}</p>{% endunless %}
+  </header>
+  {% endif %}
+  <div class="search-lg">
+    {% include 'search_form' %}
+  </div>
+</div>

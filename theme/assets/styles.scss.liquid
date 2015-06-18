@@ -3,6 +3,7 @@
   This would cause buttons in input groups to not be lined up correctly with inputs
 */
 $line-height-base:    1.42858;
+$line-height-large:   1.5;
 
 
 /* SCSS Variables */
@@ -31,31 +32,53 @@ $lookbook-min-height-lg: 1000px;
   @return if( $colour != transparent, darken( $colour, 5% ), transparent );
 }
 
-@mixin adaptive-columns {
+// https://css-tricks.com/snippets/sass/strip-unit-function/
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+  @return $number;
+}
+
+@mixin adaptive-columns ( $column-selector ) {
   /*
     Display cols based on the amount of content in them:
       1 item shows 1x12 col
       2 items shows 2x6 cols
       3 items shows 3x4 cols
       4 or more items shows 4x3 cols
+      
+    You must pass in the column element selector to target. This helps keep the selector from getting all junked up if it's nested inside things
   */
-  @include make-xs-column(12);
-  @include make-sm-column(6);
-  @include make-md-column(3);
+  #{$column-selector} {
+    @include make-xs-column(12);
+    @include make-sm-column(6);
+    @include make-md-column(3);
+  }
   
-  [data-group-size="0"] &,
-  [data-products-size="0"] &,
-  [data-collections-size="0"] & {
+  [data-group-size="0"] #{$column-selector},
+  [data-products-size="0"] #{$column-selector},
+  [data-collections-size="0"] #{$column-selector} {
     display: none;
   }
 
   @for $i from 1 through 3 {
-    [data-group-size="#{$i}"] &,
-    [data-products-size="#{$i}"] &,
-    [data-collections-size="#{$i}"] & {
+    [data-group-size="#{$i}"] #{$column-selector},
+    [data-products-size="#{$i}"] #{$column-selector},
+    [data-collections-size="#{$i}"] #{$column-selector} {
       @include make-sm-column(12 / $i);
       @include make-md-column(12 / $i);
     }
+  }
+  
+  [data-group-size="5"] #{$column-selector},
+  [data-products-size="5"] #{$column-selector},
+  [data-collections-size="5"] #{$column-selector},
+  [data-group-size="6"] #{$column-selector},
+  [data-products-size="6"] #{$column-selector},
+  [data-collections-size="6"] #{$column-selector} {
+    @include make-sm-column(6);
+    @include make-md-column(4);
   }
 }
 
@@ -77,6 +100,21 @@ $lookbook-min-height-lg: 1000px;
   }
   .group-item a:hover .group-item-details {
     opacity: 1;
+  }
+}
+
+/*
+  TODO: maybe use this instead(/aswell?) https://gist.github.com/marioblas/9952094
+  but it needs to be appylied to _every_ col within a row to work
+*/
+@mixin vertical-center ($target-child) {
+  position: relative;
+  & > #{$target-child} {
+    position: absolute;
+    top: 0;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    transform: translateY(-50%);
   }
 }
 $bootstrap-sass-asset-helper: false !default;
@@ -255,6 +293,11 @@ $btn-danger-bg:                  $brand-danger !default;
 $btn-danger-border:              darken($btn-danger-bg, 5%) !default;
 
 $btn-link-disabled-color:        $gray-light !default;
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius-base:         $border-radius-base !default;
+$btn-border-radius-large:        $border-radius-large !default;
+$btn-border-radius-small:        $border-radius-small !default;
 
 
 //== Forms
@@ -469,7 +512,7 @@ $navbar-default-toggle-icon-bar-bg:        #888 !default;
 $navbar-default-toggle-border-color:       #ddd !default;
 
 
-// Inverted navbar
+//=== Inverted navbar
 // Reset inverted navbar basics
 $navbar-inverse-color:                      lighten($gray-light, 15%) !default;
 $navbar-inverse-bg:                         #222 !default;
@@ -570,6 +613,7 @@ $jumbotron-color:                inherit !default;
 $jumbotron-bg:                   $gray-lighter !default;
 $jumbotron-heading-color:        inherit !default;
 $jumbotron-font-size:            ceil(($font-size-base * 1.5)) !default;
+$jumbotron-heading-font-size:    ceil(($font-size-base * 4.5)) !default;
 
 
 //== Form states and alerts
@@ -948,7 +992,7 @@ $hr-border:                   $gray-lighter !default;
 
 // CSS image replacement
 //
-// Heads up! v3 launched with with only `.hide-text()`, but per our pattern for
+// Heads up! v3 launched with only `.hide-text()`, but per our pattern for
 // mixins being reused as classes with the same name, this doesn't hold up. As
 // of v3.0.1 we have added `.text-hide()` and deprecated `.hide-text()`.
 //
@@ -1049,7 +1093,7 @@ $hr-border:                   $gray-lighter !default;
   #{$parent} {
     display: block !important;
   }
-  table#{$parent}  { display: table; }
+  table#{$parent}  { display: table !important; }
   tr#{$parent}     { display: table-row !important; }
   th#{$parent},
   td#{$parent}     { display: table-cell !important; }
@@ -1090,7 +1134,8 @@ $hr-border:                   $gray-lighter !default;
   #{$parent} {
     color: $color;
   }
-  a#{$parent}:hover {
+  a#{$parent}:hover,
+  a#{$parent}:focus {
     color: darken($color, 10%);
   }
 }
@@ -1352,15 +1397,31 @@ $hr-border:                   $gray-lighter !default;
   background-color: $background;
   border-color: $border;
 
-  &:hover,
   &:focus,
-  &.focus,
+  &.focus {
+    color: $color;
+    background-color: darken($background, 10%);
+        border-color: darken($border, 25%);
+  }
+  &:hover {
+    color: $color;
+    background-color: darken($background, 10%);
+        border-color: darken($border, 12%);
+  }
   &:active,
   &.active,
   .open > &.dropdown-toggle {
     color: $color;
     background-color: darken($background, 10%);
         border-color: darken($border, 12%);
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: $color;
+      background-color: darken($background, 17%);
+          border-color: darken($border, 25%);
+    }
   }
   &:active,
   &.active,
@@ -1422,12 +1483,13 @@ $hr-border:                   $gray-lighter !default;
 
 // Pagination
 
-@mixin pagination-size($padding-vertical, $padding-horizontal, $font-size, $border-radius) {
+@mixin pagination-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
   > li {
     > a,
     > span {
       padding: $padding-vertical $padding-horizontal;
       font-size: $font-size;
+      line-height: $line-height;
     }
     &:first-child {
       > a,
@@ -1451,10 +1513,11 @@ $hr-border:                   $gray-lighter !default;
     color: $color;
     background-color: $background;
 
-    // [converter] extracted a& to a.list-group-item-#{$state}
+    // [converter] extracted a&, button& to a.list-group-item-#{$state}, button.list-group-item-#{$state}
   }
 
-  a.list-group-item-#{$state} {
+  a.list-group-item-#{$state},
+  button.list-group-item-#{$state} {
     color: $color;
 
     .list-group-item-heading {
@@ -1576,6 +1639,17 @@ $hr-border:                   $gray-lighter !default;
   }
 }
 
+// Progress bars
+
+@mixin progress-bar-variant($color) {
+  background-color: $color;
+
+  // Deprecated parent class requirement as of v3.2.0
+  .progress-striped & {
+    @include gradient-striped;
+  }
+}
+
 // Tables
 
 @mixin table-row-variant($state, $background) {
@@ -1612,7 +1686,8 @@ $hr-border:                   $gray-lighter !default;
   #{$parent} {
     background-color: $color;
   }
-  a#{$parent}:hover {
+  a#{$parent}:hover,
+  a#{$parent}:focus {
     background-color: darken($color, 10%);
   }
 }
@@ -1751,8 +1826,8 @@ $hr-border:                   $gray-lighter !default;
     // Prevent columns from collapsing when empty
     min-height: 1px;
     // Inner gutter via padding
-    padding-left:  ($grid-gutter-width / 2);
-    padding-right: ($grid-gutter-width / 2);
+    padding-left:  ceil(($grid-gutter-width / 2));
+    padding-right: floor(($grid-gutter-width / 2));
   }
 }
 
@@ -1833,8 +1908,8 @@ $hr-border:                   $gray-lighter !default;
 
 // Creates a wrapper for a series of columns
 @mixin make-row($gutter: $grid-gutter-width) {
-  margin-left:  ($gutter / -2);
-  margin-right: ($gutter / -2);
+  margin-left:  ceil(($gutter / -2));
+  margin-right: floor(($gutter / -2));
   @include clearfix;
 }
 
@@ -1941,12 +2016,12 @@ $hr-border:                   $gray-lighter !default;
   }
 }
 
-/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
 //
 // 1. Set default font family to sans-serif.
-// 2. Prevent iOS text size adjust after orientation change, without disabling
-//    user zoom.
+// 2. Prevent iOS and IE text size adjust after device orientation change,
+//    without disabling user zoom.
 //
 
 html {
@@ -2014,7 +2089,7 @@ audio:not([controls]) {
 
 //
 // Address `[hidden]` styling not present in IE 8/9/10.
-// Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.
+// Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.
 //
 
 [hidden],
@@ -2034,7 +2109,8 @@ a {
 }
 
 //
-// Improve readability when focused and also mouse hovered in all browsers.
+// Improve readability of focused elements when they are also in an
+// active/hover state.
 //
 
 a:active,
@@ -2152,7 +2228,6 @@ figure {
 //
 
 hr {
-  -moz-box-sizing: content-box;
   box-sizing: content-box;
   height: 0;
 }
@@ -2293,15 +2368,12 @@ input[type="number"]::-webkit-outer-spin-button {
 
 //
 // 1. Address `appearance` set to `searchfield` in Safari and Chrome.
-// 2. Address `box-sizing` set to `border-box` in Safari and Chrome
-//    (include `-moz` to future-proof).
+// 2. Address `box-sizing` set to `border-box` in Safari and Chrome.
 //
 
 input[type="search"] {
   -webkit-appearance: textfield; // 1
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box; // 2
-  box-sizing: content-box;
+  box-sizing: content-box; //2
 }
 
 //
@@ -2438,12 +2510,6 @@ th {
     }
 
     // Bootstrap specific changes start
-    //
-    // Chrome (OSX) fix for https://github.com/twbs/bootstrap/issues/11245
-    // Once fixed, we can just straight up remove this.
-    select {
-        background: #fff !important;
-    }
 
     // Bootstrap components
     .navbar {
@@ -2634,11 +2700,11 @@ hr {
 // Fixes "clickability" issue (and more generally, the firing of events such as focus as well)
 // for traditionally non-focusable elements with role="button"
 // see https://developer.mozilla.org/en-US/docs/Web/Events/click#Safari_Mobile
-// Upstream patch for normalize.css submitted: https://github.com/necolas/normalize.css/pull/379 - remove this fix once that is merged
 
 [role="button"] {
   cursor: pointer;
 }
+
 //
 // Typography
 // --------------------------------------------------
@@ -2936,6 +3002,76 @@ address {
   margin-bottom: $line-height-computed;
   font-style: normal;
   line-height: $line-height-base;
+}
+
+//
+// Code (inline and block)
+// --------------------------------------------------
+
+
+// Inline and block code styles
+code,
+kbd,
+pre,
+samp {
+  font-family: $font-family-monospace;
+}
+
+// Inline code
+code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: $code-color;
+  background-color: $code-bg;
+  border-radius: $border-radius-base;
+}
+
+// User input typically entered via keyboard
+kbd {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: $kbd-color;
+  background-color: $kbd-bg;
+  border-radius: $border-radius-small;
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,.25);
+
+  kbd {
+    padding: 0;
+    font-size: 100%;
+    font-weight: bold;
+    box-shadow: none;
+  }
+}
+
+// Blocks of code
+pre {
+  display: block;
+  padding: (($line-height-computed - 1) / 2);
+  margin: 0 0 ($line-height-computed / 2);
+  font-size: ($font-size-base - 1); // 14px to 13px
+  line-height: $line-height-base;
+  word-break: break-all;
+  word-wrap: break-word;
+  color: $pre-color;
+  background-color: $pre-bg;
+  border: 1px solid $pre-border-color;
+  border-radius: $border-radius-base;
+
+  // Account for some code outputs that place code tags in pre tags
+  code {
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border-radius: 0;
+  }
+}
+
+// Enable scrollable blocks of code
+.pre-scrollable {
+  max-height: $pre-scrollable-max-height;
+  overflow-y: scroll;
 }
 
 //
@@ -3316,7 +3452,6 @@ input[type="checkbox"] {
   line-height: normal;
 }
 
-// Set the height of file controls to match text inputs
 input[type="file"] {
   display: block;
 }
@@ -3437,13 +3572,17 @@ input[type="search"] {
 // text within the input to become vertically misaligned. As a workaround, we
 // set a pixel line-height that matches the given height of the input, but only
 // for Safari. See https://bugs.webkit.org/show_bug.cgi?id=139848
+//
+// Note that as of 8.3, iOS doesn't support `datetime` or `week`.
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   input[type="date"],
   input[type="time"],
   input[type="datetime-local"],
   input[type="month"] {
-    line-height: $input-height-base;
+    &.form-control {
+      line-height: $input-height-base;
+    }
 
     &.input-sm,
     .input-group-sm & {
@@ -3581,29 +3720,53 @@ input[type="checkbox"] {
 
 @include input-size('.input-sm', $input-height-small, $padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, $input-border-radius-small);
 .form-group-sm {
-
-  @include input-size('.form-control', $input-height-small, $padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, $input-border-radius-small);
-
-  .form-control-static {
+  .form-control {
     height: $input-height-small;
     padding: $padding-small-vertical $padding-small-horizontal;
     font-size: $font-size-small;
     line-height: $line-height-small;
+    border-radius: $input-border-radius-small;
+  }
+  select.form-control {
+    height: $input-height-small;
+    line-height: $input-height-small;
+  }
+  textarea.form-control,
+  select[multiple].form-control {
+    height: auto;
+  }
+  .form-control-static {
+    height: $input-height-small;
     min-height: ($line-height-computed + $font-size-small);
+    padding: ($padding-small-vertical + 1) $padding-small-horizontal;
+    font-size: $font-size-small;
+    line-height: $line-height-small;
   }
 }
 
 @include input-size('.input-lg', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $input-border-radius-large);
 .form-group-lg {
-
-  @include input-size('.form-control', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $input-border-radius-large);
-
-  .form-control-static {
+  .form-control {
     height: $input-height-large;
     padding: $padding-large-vertical $padding-large-horizontal;
     font-size: $font-size-large;
     line-height: $line-height-large;
+    border-radius: $input-border-radius-large;
+  }
+  select.form-control {
+    height: $input-height-large;
+    line-height: $input-height-large;
+  }
+  textarea.form-control,
+  select[multiple].form-control {
+    height: auto;
+  }
+  .form-control-static {
+    height: $input-height-large;
     min-height: ($line-height-computed + $font-size-large);
+    padding: ($padding-large-vertical + 1) $padding-large-horizontal;
+    font-size: $font-size-large;
+    line-height: $line-height-large;
   }
 }
 
@@ -3634,12 +3797,16 @@ input[type="checkbox"] {
   text-align: center;
   pointer-events: none;
 }
-.input-lg + .form-control-feedback {
+.input-lg + .form-control-feedback,
+.input-group-lg + .form-control-feedback,
+.form-group-lg .form-control + .form-control-feedback {
   width: $input-height-large;
   height: $input-height-large;
   line-height: $input-height-large;
 }
-.input-sm + .form-control-feedback {
+.input-sm + .form-control-feedback,
+.input-group-sm + .form-control-feedback,
+.form-group-sm .form-control + .form-control-feedback {
   width: $input-height-small;
   height: $input-height-small;
   line-height: $input-height-small;
@@ -3814,7 +3981,7 @@ input[type="checkbox"] {
   // Reposition the icon because it's now within a grid column and columns have
   // `position: relative;` on them. Also accounts for the grid gutter padding.
   .has-feedback .form-control-feedback {
-    right: ($grid-gutter-width / 2);
+    right: floor(($grid-gutter-width / 2));
   }
 
   // Form group sizes
@@ -3825,6 +3992,7 @@ input[type="checkbox"] {
     @media (min-width: $screen-sm-min) {
       .control-label {
         padding-top: (($padding-large-vertical * $line-height-large) + 1);
+        font-size: $font-size-large;
       }
     }
   }
@@ -3832,6 +4000,7 @@ input[type="checkbox"] {
     @media (min-width: $screen-sm-min) {
       .control-label {
         padding-top: ($padding-small-vertical + 1);
+        font-size: $font-size-small;
       }
     }
   }
@@ -3856,7 +4025,7 @@ input[type="checkbox"] {
   background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
   border: 1px solid transparent;
   white-space: nowrap;
-  @include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $border-radius-base);
+  @include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $btn-border-radius-base);
   @include user-select(none);
 
   &,
@@ -3886,9 +4055,17 @@ input[type="checkbox"] {
   &[disabled],
   fieldset[disabled] & {
     cursor: $cursor-disabled;
-    pointer-events: none; // Future-proof disabling of clicks
     @include opacity(.65);
     @include box-shadow(none);
+  }
+
+  // [converter] extracted a& to a.btn
+}
+
+a.btn {
+  &.disabled,
+  fieldset[disabled] & {
+    pointer-events: none; // Future-proof disabling of clicks on `<a>` elements
   }
 }
 
@@ -3965,14 +4142,14 @@ input[type="checkbox"] {
 
 .btn-lg {
   // line-height: ensure even-numbered height of button next to large input
-  @include button-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-large);
+  @include button-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $btn-border-radius-large);
 }
 .btn-sm {
   // line-height: ensure proper height of button next to small input
-  @include button-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, $border-radius-small);
+  @include button-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, $btn-border-radius-small);
 }
 .btn-xs {
-  @include button-size($padding-xs-vertical, $padding-xs-horizontal, $font-size-small, $line-height-small, $border-radius-small);
+  @include button-size($padding-xs-vertical, $padding-xs-horizontal, $font-size-small, $line-height-small, $btn-border-radius-small);
 }
 
 
@@ -4049,6 +4226,7 @@ tbody.collapse.in { display: table-row-group; }
   margin-left: 2px;
   vertical-align: middle;
   border-top:   $caret-width-base dashed;
+  border-top:   $caret-width-base solid \9; // IE8
   border-right: $caret-width-base solid transparent;
   border-left:  $caret-width-base solid transparent;
 }
@@ -4222,7 +4400,8 @@ tbody.collapse.in { display: table-row-group; }
   // Reverse the caret
   .caret {
     border-top: 0;
-    border-bottom: $caret-width-base solid;
+    border-bottom: $caret-width-base dashed;
+    border-bottom: $caret-width-base solid \9; // IE8
     content: "";
   }
   // Different positioning for bottom up menu
@@ -4289,6 +4468,7 @@ tbody.collapse.in { display: table-row-group; }
   margin-left: -5px; // Offset the first child's margin
   @include clearfix;
 
+  .btn,
   .btn-group,
   .input-group {
     float: left;
@@ -4425,11 +4605,11 @@ tbody.collapse.in { display: table-row-group; }
     border-radius: 0;
   }
   &:first-child:not(:last-child) {
-    border-top-right-radius: $border-radius-base;
+    border-top-right-radius: $btn-border-radius-base;
     @include border-bottom-radius(0);
   }
   &:last-child:not(:first-child) {
-    border-bottom-left-radius: $border-radius-base;
+    border-bottom-left-radius: $btn-border-radius-base;
     @include border-top-radius(0);
   }
 }
@@ -4657,6 +4837,7 @@ tbody.collapse.in { display: table-row-group; }
   &:last-child {
     > .btn,
     > .btn-group {
+      z-index: 2;
       margin-left: -1px;
     }
   }
@@ -5637,6 +5818,7 @@ tbody.collapse.in { display: table-row-group; }
   > li > span {
     &:hover,
     &:focus {
+      z-index: 3;
       color: $pagination-hover-color;
       background-color: $pagination-hover-bg;
       border-color: $pagination-hover-border;
@@ -5676,12 +5858,12 @@ tbody.collapse.in { display: table-row-group; }
 
 // Large
 .pagination-lg {
-  @include pagination-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $border-radius-large);
+  @include pagination-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-large);
 }
 
 // Small
 .pagination-sm {
-  @include pagination-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $border-radius-small);
+  @include pagination-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, $border-radius-small);
 }
 
 //
@@ -5807,6 +5989,128 @@ a.label {
 }
 
 //
+// Badges
+// --------------------------------------------------
+
+
+// Base class
+.badge {
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: $font-size-small;
+  font-weight: $badge-font-weight;
+  color: $badge-color;
+  line-height: $badge-line-height;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center;
+  background-color: $badge-bg;
+  border-radius: $badge-border-radius;
+
+  // Empty badges collapse automatically (not available in IE8)
+  &:empty {
+    display: none;
+  }
+
+  // Quick fix for badges in buttons
+  .btn & {
+    position: relative;
+    top: -1px;
+  }
+
+  .btn-xs &,
+  .btn-group-xs > .btn & {
+    top: 0;
+    padding: 1px 5px;
+  }
+
+  // [converter] extracted a& to a.badge
+
+  // Account for badges in navs
+  .list-group-item.active > &,
+  .nav-pills > .active > a > & {
+    color: $badge-active-color;
+    background-color: $badge-active-bg;
+  }
+
+  .list-group-item > & {
+    float: right;
+  }
+
+  .list-group-item > & + & {
+    margin-right: 5px;
+  }
+
+  .nav-pills > li > a > & {
+    margin-left: 3px;
+  }
+}
+
+// Hover state, but only for links
+a.badge {
+  &:hover,
+  &:focus {
+    color: $badge-link-hover-color;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+//
+// Jumbotron
+// --------------------------------------------------
+
+
+.jumbotron {
+  padding-top:    $jumbotron-padding;
+  padding-bottom: $jumbotron-padding;
+  margin-bottom: $jumbotron-padding;
+  color: $jumbotron-color;
+  background-color: $jumbotron-bg;
+
+  h1,
+  .h1 {
+    color: $jumbotron-heading-color;
+  }
+
+  p {
+    margin-bottom: ($jumbotron-padding / 2);
+    font-size: $jumbotron-font-size;
+    font-weight: 200;
+  }
+
+  > hr {
+    border-top-color: darken($jumbotron-bg, 10%);
+  }
+
+  .container &,
+  .container-fluid & {
+    border-radius: $border-radius-large; // Only round corners at higher resolutions if contained in a container
+  }
+
+  .container {
+    max-width: 100%;
+  }
+
+  @media screen and (min-width: $screen-sm-min) {
+    padding-top:    ($jumbotron-padding * 1.6);
+    padding-bottom: ($jumbotron-padding * 1.6);
+
+    .container &,
+    .container-fluid & {
+      padding-left:  ($jumbotron-padding * 2);
+      padding-right: ($jumbotron-padding * 2);
+    }
+
+    h1,
+    .h1 {
+      font-size: $jumbotron-heading-font-size;
+    }
+  }
+}
+
+//
 // Thumbnails
 // --------------------------------------------------
 
@@ -5919,6 +6223,94 @@ a.thumbnail.active {
   @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
 }
 
+//
+// Progress bars
+// --------------------------------------------------
+
+
+// Bar animations
+// -------------------------
+
+// WebKit
+@-webkit-keyframes progress-bar-stripes {
+  from  { background-position: 40px 0; }
+  to    { background-position: 0 0; }
+}
+
+// Spec and IE10+
+@keyframes progress-bar-stripes {
+  from  { background-position: 40px 0; }
+  to    { background-position: 0 0; }
+}
+
+
+// Bar itself
+// -------------------------
+
+// Outer container
+.progress {
+  overflow: hidden;
+  height: $line-height-computed;
+  margin-bottom: $line-height-computed;
+  background-color: $progress-bg;
+  border-radius: $progress-border-radius;
+  @include box-shadow(inset 0 1px 2px rgba(0,0,0,.1));
+}
+
+// Bar of progress
+.progress-bar {
+  float: left;
+  width: 0%;
+  height: 100%;
+  font-size: $font-size-small;
+  line-height: $line-height-computed;
+  color: $progress-bar-color;
+  text-align: center;
+  background-color: $progress-bar-bg;
+  @include box-shadow(inset 0 -1px 0 rgba(0,0,0,.15));
+  @include transition(width .6s ease);
+}
+
+// Striped bars
+//
+// `.progress-striped .progress-bar` is deprecated as of v3.2.0 in favor of the
+// `.progress-bar-striped` class, which you just add to an existing
+// `.progress-bar`.
+.progress-striped .progress-bar,
+.progress-bar-striped {
+  @include gradient-striped;
+  background-size: 40px 40px;
+}
+
+// Call animation for the active one
+//
+// `.progress.active .progress-bar` is deprecated as of v3.2.0 in favor of the
+// `.progress-bar.active` approach.
+.progress.active .progress-bar,
+.progress-bar.active {
+  @include animation(progress-bar-stripes 2s linear infinite);
+}
+
+
+// Variations
+// -------------------------
+
+.progress-bar-success {
+  @include progress-bar-variant($progress-bar-success-bg);
+}
+
+.progress-bar-info {
+  @include progress-bar-variant($progress-bar-info-bg);
+}
+
+.progress-bar-warning {
+  @include progress-bar-variant($progress-bar-warning-bg);
+}
+
+.progress-bar-danger {
+  @include progress-bar-variant($progress-bar-danger-bg);
+}
+
 .media {
   // Proper spacing between instances of .media
   margin-top: 15px;
@@ -5940,6 +6332,11 @@ a.thumbnail.active {
 
 .media-object {
   display: block;
+
+  // Fix collapse in webkit from max-width: 100% and display: table-cell.
+  &.img-thumbnail {
+    max-width: none;
+  }
 }
 
 .media-right,
@@ -5981,6 +6378,409 @@ a.thumbnail.active {
   list-style: none;
 }
 
+//
+// List groups
+// --------------------------------------------------
+
+
+// Base class
+//
+// Easily usable on <ul>, <ol>, or <div>.
+
+.list-group {
+  // No need to set list-style: none; since .list-group-item is block level
+  margin-bottom: 20px;
+  padding-left: 0; // reset padding because ul and ol
+}
+
+
+// Individual list items
+//
+// Use on `li`s or `div`s within the `.list-group` parent.
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  // Place the border on the list items and negative margin up for better styling
+  margin-bottom: -1px;
+  background-color: $list-group-bg;
+  border: 1px solid $list-group-border;
+
+  // Round the first and last items
+  &:first-child {
+    @include border-top-radius($list-group-border-radius);
+  }
+  &:last-child {
+    margin-bottom: 0;
+    @include border-bottom-radius($list-group-border-radius);
+  }
+}
+
+
+// Interactive list items
+//
+// Use anchor or button elements instead of `li`s or `div`s to create interactive items.
+// Includes an extra `.active` modifier class for showing selected items.
+
+a.list-group-item,
+button.list-group-item {
+  color: $list-group-link-color;
+
+  .list-group-item-heading {
+    color: $list-group-link-heading-color;
+  }
+
+  // Hover state
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: $list-group-link-hover-color;
+    background-color: $list-group-hover-bg;
+  }
+}
+
+button.list-group-item {
+  width: 100%;
+  text-align: left;
+}
+
+.list-group-item {
+  // Disabled state
+  &.disabled,
+  &.disabled:hover,
+  &.disabled:focus {
+    background-color: $list-group-disabled-bg;
+    color: $list-group-disabled-color;
+    cursor: $cursor-disabled;
+
+    // Force color to inherit for custom content
+    .list-group-item-heading {
+      color: inherit;
+    }
+    .list-group-item-text {
+      color: $list-group-disabled-text-color;
+    }
+  }
+
+  // Active class on item itself, not parent
+  &.active,
+  &.active:hover,
+  &.active:focus {
+    z-index: 2; // Place active items above their siblings for proper border styling
+    color: $list-group-active-color;
+    background-color: $list-group-active-bg;
+    border-color: $list-group-active-border;
+
+    // Force color to inherit for custom content
+    .list-group-item-heading,
+    .list-group-item-heading > small,
+    .list-group-item-heading > .small {
+      color: inherit;
+    }
+    .list-group-item-text {
+      color: $list-group-active-text-color;
+    }
+  }
+}
+
+
+// Contextual variants
+//
+// Add modifier classes to change text and background color on individual items.
+// Organizationally, this must come after the `:hover` states.
+
+@include list-group-item-variant(success, $state-success-bg, $state-success-text);
+@include list-group-item-variant(info, $state-info-bg, $state-info-text);
+@include list-group-item-variant(warning, $state-warning-bg, $state-warning-text);
+@include list-group-item-variant(danger, $state-danger-bg, $state-danger-text);
+
+
+// Custom content options
+//
+// Extra classes for creating well-formatted content within `.list-group-item`s.
+
+.list-group-item-heading {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.list-group-item-text {
+  margin-bottom: 0;
+  line-height: 1.3;
+}
+
+//
+// Panels
+// --------------------------------------------------
+
+
+// Base class
+.panel {
+  margin-bottom: $line-height-computed;
+  background-color: $panel-bg;
+  border: 1px solid transparent;
+  border-radius: $panel-border-radius;
+  @include box-shadow(0 1px 1px rgba(0,0,0,.05));
+}
+
+// Panel contents
+.panel-body {
+  padding: $panel-body-padding;
+  @include clearfix;
+}
+
+// Optional heading
+.panel-heading {
+  padding: $panel-heading-padding;
+  border-bottom: 1px solid transparent;
+  @include border-top-radius(($panel-border-radius - 1));
+
+  > .dropdown .dropdown-toggle {
+    color: inherit;
+  }
+}
+
+// Within heading, strip any `h*` tag of its default margins for spacing.
+.panel-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: ceil(($font-size-base * 1.125));
+  color: inherit;
+
+  > a,
+  > small,
+  > .small,
+  > small > a,
+  > .small > a {
+    color: inherit;
+  }
+}
+
+// Optional footer (stays gray in every modifier class)
+.panel-footer {
+  padding: $panel-footer-padding;
+  background-color: $panel-footer-bg;
+  border-top: 1px solid $panel-inner-border;
+  @include border-bottom-radius(($panel-border-radius - 1));
+}
+
+
+// List groups in panels
+//
+// By default, space out list group content from panel headings to account for
+// any kind of custom content between the two.
+
+.panel {
+  > .list-group,
+  > .panel-collapse > .list-group {
+    margin-bottom: 0;
+
+    .list-group-item {
+      border-width: 1px 0;
+      border-radius: 0;
+    }
+
+    // Add border top radius for first one
+    &:first-child {
+      .list-group-item:first-child {
+        border-top: 0;
+        @include border-top-radius(($panel-border-radius - 1));
+      }
+    }
+
+    // Add border bottom radius for last one
+    &:last-child {
+      .list-group-item:last-child {
+        border-bottom: 0;
+        @include border-bottom-radius(($panel-border-radius - 1));
+      }
+    }
+  }
+  > .panel-heading + .panel-collapse > .list-group {
+    .list-group-item:first-child {
+      @include border-top-radius(0);
+    }
+  }
+}
+// Collapse space between when there's no additional content.
+.panel-heading + .list-group {
+  .list-group-item:first-child {
+    border-top-width: 0;
+  }
+}
+.list-group + .panel-footer {
+  border-top-width: 0;
+}
+
+// Tables in panels
+//
+// Place a non-bordered `.table` within a panel (not within a `.panel-body`) and
+// watch it go full width.
+
+.panel {
+  > .table,
+  > .table-responsive > .table,
+  > .panel-collapse > .table {
+    margin-bottom: 0;
+
+    caption {
+      padding-left: $panel-body-padding;
+      padding-right: $panel-body-padding;
+    }
+  }
+  // Add border top radius for first one
+  > .table:first-child,
+  > .table-responsive:first-child > .table:first-child {
+    @include border-top-radius(($panel-border-radius - 1));
+
+    > thead:first-child,
+    > tbody:first-child {
+      > tr:first-child {
+        border-top-left-radius: ($panel-border-radius - 1);
+        border-top-right-radius: ($panel-border-radius - 1);
+
+        td:first-child,
+        th:first-child {
+          border-top-left-radius: ($panel-border-radius - 1);
+        }
+        td:last-child,
+        th:last-child {
+          border-top-right-radius: ($panel-border-radius - 1);
+        }
+      }
+    }
+  }
+  // Add border bottom radius for last one
+  > .table:last-child,
+  > .table-responsive:last-child > .table:last-child {
+    @include border-bottom-radius(($panel-border-radius - 1));
+
+    > tbody:last-child,
+    > tfoot:last-child {
+      > tr:last-child {
+        border-bottom-left-radius: ($panel-border-radius - 1);
+        border-bottom-right-radius: ($panel-border-radius - 1);
+
+        td:first-child,
+        th:first-child {
+          border-bottom-left-radius: ($panel-border-radius - 1);
+        }
+        td:last-child,
+        th:last-child {
+          border-bottom-right-radius: ($panel-border-radius - 1);
+        }
+      }
+    }
+  }
+  > .panel-body + .table,
+  > .panel-body + .table-responsive,
+  > .table + .panel-body,
+  > .table-responsive + .panel-body {
+    border-top: 1px solid $table-border-color;
+  }
+  > .table > tbody:first-child > tr:first-child th,
+  > .table > tbody:first-child > tr:first-child td {
+    border-top: 0;
+  }
+  > .table-bordered,
+  > .table-responsive > .table-bordered {
+    border: 0;
+    > thead,
+    > tbody,
+    > tfoot {
+      > tr {
+        > th:first-child,
+        > td:first-child {
+          border-left: 0;
+        }
+        > th:last-child,
+        > td:last-child {
+          border-right: 0;
+        }
+      }
+    }
+    > thead,
+    > tbody {
+      > tr:first-child {
+        > td,
+        > th {
+          border-bottom: 0;
+        }
+      }
+    }
+    > tbody,
+    > tfoot {
+      > tr:last-child {
+        > td,
+        > th {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+  > .table-responsive {
+    border: 0;
+    margin-bottom: 0;
+  }
+}
+
+
+// Collapsable panels (aka, accordion)
+//
+// Wrap a series of panels in `.panel-group` to turn them into an accordion with
+// the help of our collapse JavaScript plugin.
+
+.panel-group {
+  margin-bottom: $line-height-computed;
+
+  // Tighten up margin so it's only between panels
+  .panel {
+    margin-bottom: 0;
+    border-radius: $panel-border-radius;
+
+    + .panel {
+      margin-top: 5px;
+    }
+  }
+
+  .panel-heading {
+    border-bottom: 0;
+
+    + .panel-collapse > .panel-body,
+    + .panel-collapse > .list-group {
+      border-top: 1px solid $panel-inner-border;
+    }
+  }
+
+  .panel-footer {
+    border-top: 0;
+    + .panel-collapse .panel-body {
+      border-bottom: 1px solid $panel-inner-border;
+    }
+  }
+}
+
+
+// Contextual variations
+.panel-default {
+  @include panel-variant($panel-default-border, $panel-default-text, $panel-default-heading-bg, $panel-default-border);
+}
+.panel-primary {
+  @include panel-variant($panel-primary-border, $panel-primary-text, $panel-primary-heading-bg, $panel-primary-border);
+}
+.panel-success {
+  @include panel-variant($panel-success-border, $panel-success-text, $panel-success-heading-bg, $panel-success-border);
+}
+.panel-info {
+  @include panel-variant($panel-info-border, $panel-info-text, $panel-info-heading-bg, $panel-info-border);
+}
+.panel-warning {
+  @include panel-variant($panel-warning-border, $panel-warning-text, $panel-warning-heading-bg, $panel-warning-border);
+}
+.panel-danger {
+  @include panel-variant($panel-danger-border, $panel-danger-text, $panel-danger-heading-bg, $panel-danger-border);
+}
+
 // Embeds responsive
 //
 // Credit: Nicolas Gallagher and SUIT CSS.
@@ -6015,6 +6815,36 @@ a.thumbnail.active {
 // Modifier class for 4:3 aspect ratio
 .embed-responsive-4by3 {
   padding-bottom: 75%;
+}
+
+//
+// Wells
+// --------------------------------------------------
+
+
+// Base class
+.well {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: $well-bg;
+  border: 1px solid $well-border;
+  border-radius: $border-radius-base;
+  @include box-shadow(inset 0 1px 1px rgba(0,0,0,.05));
+  blockquote {
+    border-color: #ddd;
+    border-color: rgba(0,0,0,.15);
+  }
+}
+
+// Sizes
+.well-lg {
+  padding: 24px;
+  border-radius: $border-radius-large;
+}
+.well-sm {
+  padding: 9px;
+  border-radius: $border-radius-small;
 }
 
 //
@@ -6055,6 +6885,391 @@ button.close {
 }
 
 //
+// Modals
+// --------------------------------------------------
+
+// .modal-open      - body class for killing the scroll
+// .modal           - container to scroll within
+// .modal-dialog    - positioning shell for the actual modal
+// .modal-content   - actual modal w/ bg and corners and shit
+
+// Kill the scroll on the body
+.modal-open {
+  overflow: hidden;
+}
+
+// Container that the modal scrolls within
+.modal {
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $zindex-modal;
+  -webkit-overflow-scrolling: touch;
+
+  // Prevent Chrome on Windows from adding a focus outline. For details, see
+  // https://github.com/twbs/bootstrap/pull/10951.
+  outline: 0;
+
+  // When fading in the modal, animate it to slide down
+  &.fade .modal-dialog {
+    @include translate(0, -25%);
+    @include transition-transform(0.3s ease-out);
+  }
+  &.in .modal-dialog { @include translate(0, 0) }
+}
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+// Shell div to position the modal with bottom padding
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 10px;
+}
+
+// Actual modal
+.modal-content {
+  position: relative;
+  background-color: $modal-content-bg;
+  border: 1px solid $modal-content-fallback-border-color; //old browsers fallback (ie8 etc)
+  border: 1px solid $modal-content-border-color;
+  border-radius: $border-radius-large;
+  @include box-shadow(0 3px 9px rgba(0,0,0,.5));
+  background-clip: padding-box;
+  // Remove focus outline from opened modal
+  outline: 0;
+}
+
+// Modal background
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $zindex-modal-background;
+  background-color: $modal-backdrop-bg;
+  // Fade for backdrop
+  &.fade { @include opacity(0); }
+  &.in { @include opacity($modal-backdrop-opacity); }
+}
+
+// Modal header
+// Top section of the modal w/ title and dismiss
+.modal-header {
+  padding: $modal-title-padding;
+  border-bottom: 1px solid $modal-header-border-color;
+  min-height: ($modal-title-padding + $modal-title-line-height);
+}
+// Close icon
+.modal-header .close {
+  margin-top: -2px;
+}
+
+// Title text within header
+.modal-title {
+  margin: 0;
+  line-height: $modal-title-line-height;
+}
+
+// Modal body
+// Where all modal content resides (sibling of .modal-header and .modal-footer)
+.modal-body {
+  position: relative;
+  padding: $modal-inner-padding;
+}
+
+// Footer (for actions)
+.modal-footer {
+  padding: $modal-inner-padding;
+  text-align: right; // right align buttons
+  border-top: 1px solid $modal-footer-border-color;
+  @include clearfix; // clear it in case folks use .pull-* classes on buttons
+
+  // Properly space out buttons
+  .btn + .btn {
+    margin-left: 5px;
+    margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
+  }
+  // but override that for button groups
+  .btn-group .btn + .btn {
+    margin-left: -1px;
+  }
+  // and override it for block buttons as well
+  .btn-block + .btn-block {
+    margin-left: 0;
+  }
+}
+
+// Measure scrollbar width for padding body during modal show/hide
+.modal-scrollbar-measure {
+  position: absolute;
+  top: -9999px;
+  width: 50px;
+  height: 50px;
+  overflow: scroll;
+}
+
+// Scale up the modal
+@media (min-width: $screen-sm-min) {
+  // Automatically set modal's width for larger viewports
+  .modal-dialog {
+    width: $modal-md;
+    margin: 30px auto;
+  }
+  .modal-content {
+    @include box-shadow(0 5px 15px rgba(0,0,0,.5));
+  }
+
+  // Modal sizes
+  .modal-sm { width: $modal-sm; }
+}
+
+@media (min-width: $screen-md-min) {
+  .modal-lg { width: $modal-lg; }
+}
+
+//
+// Tooltips
+// --------------------------------------------------
+
+
+// Base class
+.tooltip {
+  position: absolute;
+  z-index: $zindex-tooltip;
+  display: block;
+  // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
+  // So reset our font and text properties to avoid inheriting weird values.
+  @include reset-text;
+  font-size: $font-size-small;
+
+  @include opacity(0);
+
+  &.in     { @include opacity($tooltip-opacity); }
+  &.top    { margin-top:  -3px; padding: $tooltip-arrow-width 0; }
+  &.right  { margin-left:  3px; padding: 0 $tooltip-arrow-width; }
+  &.bottom { margin-top:   3px; padding: $tooltip-arrow-width 0; }
+  &.left   { margin-left: -3px; padding: 0 $tooltip-arrow-width; }
+}
+
+// Wrapper for the tooltip content
+.tooltip-inner {
+  max-width: $tooltip-max-width;
+  padding: 3px 8px;
+  color: $tooltip-color;
+  text-align: center;
+  background-color: $tooltip-bg;
+  border-radius: $border-radius-base;
+}
+
+// Arrows
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+// Note: Deprecated .top-left, .top-right, .bottom-left, and .bottom-right as of v3.3.1
+.tooltip {
+  &.top .tooltip-arrow {
+    bottom: 0;
+    left: 50%;
+    margin-left: -$tooltip-arrow-width;
+    border-width: $tooltip-arrow-width $tooltip-arrow-width 0;
+    border-top-color: $tooltip-arrow-color;
+  }
+  &.top-left .tooltip-arrow {
+    bottom: 0;
+    right: $tooltip-arrow-width;
+    margin-bottom: -$tooltip-arrow-width;
+    border-width: $tooltip-arrow-width $tooltip-arrow-width 0;
+    border-top-color: $tooltip-arrow-color;
+  }
+  &.top-right .tooltip-arrow {
+    bottom: 0;
+    left: $tooltip-arrow-width;
+    margin-bottom: -$tooltip-arrow-width;
+    border-width: $tooltip-arrow-width $tooltip-arrow-width 0;
+    border-top-color: $tooltip-arrow-color;
+  }
+  &.right .tooltip-arrow {
+    top: 50%;
+    left: 0;
+    margin-top: -$tooltip-arrow-width;
+    border-width: $tooltip-arrow-width $tooltip-arrow-width $tooltip-arrow-width 0;
+    border-right-color: $tooltip-arrow-color;
+  }
+  &.left .tooltip-arrow {
+    top: 50%;
+    right: 0;
+    margin-top: -$tooltip-arrow-width;
+    border-width: $tooltip-arrow-width 0 $tooltip-arrow-width $tooltip-arrow-width;
+    border-left-color: $tooltip-arrow-color;
+  }
+  &.bottom .tooltip-arrow {
+    top: 0;
+    left: 50%;
+    margin-left: -$tooltip-arrow-width;
+    border-width: 0 $tooltip-arrow-width $tooltip-arrow-width;
+    border-bottom-color: $tooltip-arrow-color;
+  }
+  &.bottom-left .tooltip-arrow {
+    top: 0;
+    right: $tooltip-arrow-width;
+    margin-top: -$tooltip-arrow-width;
+    border-width: 0 $tooltip-arrow-width $tooltip-arrow-width;
+    border-bottom-color: $tooltip-arrow-color;
+  }
+  &.bottom-right .tooltip-arrow {
+    top: 0;
+    left: $tooltip-arrow-width;
+    margin-top: -$tooltip-arrow-width;
+    border-width: 0 $tooltip-arrow-width $tooltip-arrow-width;
+    border-bottom-color: $tooltip-arrow-color;
+  }
+}
+
+//
+// Popovers
+// --------------------------------------------------
+
+
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: $zindex-popover;
+  display: none;
+  max-width: $popover-max-width;
+  padding: 1px;
+  // Our parent element can be arbitrary since popovers are by default inserted as a sibling of their target element.
+  // So reset our font and text properties to avoid inheriting weird values.
+  @include reset-text;
+  font-size: $font-size-base;
+
+  background-color: $popover-bg;
+  background-clip: padding-box;
+  border: 1px solid $popover-fallback-border-color;
+  border: 1px solid $popover-border-color;
+  border-radius: $border-radius-large;
+  @include box-shadow(0 5px 10px rgba(0,0,0,.2));
+
+  // Offset the popover to account for the popover arrow
+  &.top     { margin-top: -$popover-arrow-width; }
+  &.right   { margin-left: $popover-arrow-width; }
+  &.bottom  { margin-top: $popover-arrow-width; }
+  &.left    { margin-left: -$popover-arrow-width; }
+}
+
+.popover-title {
+  margin: 0; // reset heading margin
+  padding: 8px 14px;
+  font-size: $font-size-base;
+  background-color: $popover-title-bg;
+  border-bottom: 1px solid darken($popover-title-bg, 5%);
+  border-radius: ($border-radius-large - 1) ($border-radius-large - 1) 0 0;
+}
+
+.popover-content {
+  padding: 9px 14px;
+}
+
+// Arrows
+//
+// .arrow is outer, .arrow:after is inner
+
+.popover > .arrow {
+  &,
+  &:after {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+  }
+}
+.popover > .arrow {
+  border-width: $popover-arrow-outer-width;
+}
+.popover > .arrow:after {
+  border-width: $popover-arrow-width;
+  content: "";
+}
+
+.popover {
+  &.top > .arrow {
+    left: 50%;
+    margin-left: -$popover-arrow-outer-width;
+    border-bottom-width: 0;
+    border-top-color: $popover-arrow-outer-fallback-color; // IE8 fallback
+    border-top-color: $popover-arrow-outer-color;
+    bottom: -$popover-arrow-outer-width;
+    &:after {
+      content: " ";
+      bottom: 1px;
+      margin-left: -$popover-arrow-width;
+      border-bottom-width: 0;
+      border-top-color: $popover-arrow-color;
+    }
+  }
+  &.right > .arrow {
+    top: 50%;
+    left: -$popover-arrow-outer-width;
+    margin-top: -$popover-arrow-outer-width;
+    border-left-width: 0;
+    border-right-color: $popover-arrow-outer-fallback-color; // IE8 fallback
+    border-right-color: $popover-arrow-outer-color;
+    &:after {
+      content: " ";
+      left: 1px;
+      bottom: -$popover-arrow-width;
+      border-left-width: 0;
+      border-right-color: $popover-arrow-color;
+    }
+  }
+  &.bottom > .arrow {
+    left: 50%;
+    margin-left: -$popover-arrow-outer-width;
+    border-top-width: 0;
+    border-bottom-color: $popover-arrow-outer-fallback-color; // IE8 fallback
+    border-bottom-color: $popover-arrow-outer-color;
+    top: -$popover-arrow-outer-width;
+    &:after {
+      content: " ";
+      top: 1px;
+      margin-left: -$popover-arrow-width;
+      border-top-width: 0;
+      border-bottom-color: $popover-arrow-color;
+    }
+  }
+
+  &.left > .arrow {
+    top: 50%;
+    right: -$popover-arrow-outer-width;
+    margin-top: -$popover-arrow-outer-width;
+    border-right-width: 0;
+    border-left-color: $popover-arrow-outer-fallback-color; // IE8 fallback
+    border-left-color: $popover-arrow-outer-color;
+    &:after {
+      content: " ";
+      right: 1px;
+      border-right-width: 0;
+      border-left-color: $popover-arrow-color;
+      bottom: -$popover-arrow-width;
+    }
+  }
+}
+
+//
 // Carousel
 // --------------------------------------------------
 
@@ -6085,7 +7300,7 @@ button.close {
     @media all and (transform-3d), (-webkit-transform-3d) {
       @include transition-transform(0.6s ease-in-out);
       @include backface-visibility(hidden);
-      @include perspective(1000);
+      @include perspective(1000px);
 
       &.next,
       &.active.right {
@@ -6186,6 +7401,7 @@ button.close {
   .glyphicon-chevron-right {
     position: absolute;
     top: 50%;
+    margin-top: -10px;
     z-index: 5;
     display: inline-block;
   }
@@ -6203,7 +7419,6 @@ button.close {
   .icon-next {
     width:  20px;
     height: 20px;
-    margin-top: -10px;
     line-height: 1;
     font-family: serif;
   }
@@ -6400,8 +7615,10 @@ button.close {
 // Source: http://timkadlec.com/2013/01/windows-phone-8-and-device-width/
 // Source: http://timkadlec.com/2012/10/ie10-snap-mode-and-responsive-design/
 
-@-ms-viewport {
-  width: device-width;
+@at-root {
+  @-ms-viewport {
+    width: device-width;
+  }
 }
 
 
@@ -6661,7 +7878,7 @@ table {
 
 footer {
   overflow: hidden;
-  
+
   .sheet-content {
     @include make-row();
     margin-bottom: 0;
@@ -6675,7 +7892,7 @@ footer {
   [data-col-count="0"] {
     display: none;
   }
-  
+
   @for $i from 1 through 4 {
     [data-col-count="#{$i}"] {
       [class*="footer-col"] {
@@ -6683,13 +7900,7 @@ footer {
       }
     }
   }
-  
-  .footer-linklist {
-    .nav a {
-      padding-left: 0;
-    }
-  }
-  
+
   .site-credits {
     text-align: center;
     @media (min-width: $grid-float-breakpoint) {
@@ -6705,48 +7916,51 @@ footer {
 */
 
 .index {
-  .group-item-wrap {
-    @include adaptive-columns();
-  }
-}
-
-.list-collections {
-  .group-item-wrap {
-    @include adaptive-columns();
-  }
-  
-  .group-item {
-    position: relative;
-  
-    .group-item-image .svg {
-      display: block;
-      height: auto;
-      max-width: 100%;
-      max-height: 100%;
-    }
-    
-    .group-item-image .svg-rect {
-      fill: lighten($brand-primary, 30%);
-    }
-    
-    .group-item-details {
-      position: absolute;
-      top: 50%;
-      -webkit-transform: translateY(-50%);
-    	transform: translateY(-50%);
-    	padding: 0 $grid-gutter-width;
-    }
-    
-  }
+  @include adaptive-columns('.group-item-wrap');
 }
 
 // all collection templates
 body[class*="collection"] {
+  
+  @include adaptive-columns('.group-item-wrap');
+  
   .sheet-content {
     @include make-row();
   }
   .collection-message {
     @include make-sm-column(12);
+  }
+}
+
+// /collections template
+.list-collections {
+  @include adaptive-columns('.group-item-wrap');
+
+  .group-item {
+    & > a {
+      overflow: hidden;
+      display: block;
+      position: relative;
+    }
+
+    .group-item-details {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+    	transform: translateY(-50%);
+    	padding: 0 $grid-gutter-width;
+    	text-align: center;
+      transition: .5s;
+      background-color: rgba(#fff, 0.8);
+    }
+    
+    &:hover {
+      .group-item-details {
+        opacity: 0;
+      }
+    }
   }
 }
 
@@ -6775,7 +7989,7 @@ body[class*="collection"] {
     display: block;
     height: auto;
   }
-  
+
   // Image scroller
   .js & .products-wrap {
     // make the products span the whole of the page but hide the ones that go off the edge
@@ -6784,13 +7998,16 @@ body[class*="collection"] {
     position: relative;
     opacity: 0;
     margin-bottom: $line-height-computed * 2;
-  
+
     .group-item-wrap {
       background-color: #fff; // TODO: use site background color
       transition: margin 1s ease;
       // override grid cols for lookbook
       @include make-xs-column(3);
-      
+      @include make-sm-column(3);
+      @include make-md-column(3);
+      @include make-lg-column(3);
+
       width: $lookbook-item-max-width-xs;
       @media (orientation: portrait) {
         width: $lookbook-item-max-width-sm;
@@ -6805,7 +8022,7 @@ body[class*="collection"] {
         width: $lookbook-item-max-width-lg;
       }
     }
-  
+
     .lookbook-controls {
       position: absolute;
       top: 0;
@@ -6813,7 +8030,7 @@ body[class*="collection"] {
       width: 100%;
       height: 100%;
     }
-    
+
     [data-gallery-direction] {
       position: absolute;
       font-size: 2.75em;
@@ -6823,9 +8040,11 @@ body[class*="collection"] {
         color: #fff;
       }
     }
-    
+
     [data-gallery-direction] {
       top: 50%;
+      -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
       transform: translateY(-50%);
       &.disabled, &.disabled:hover {
         color: rgba(0,0,0,.3);
@@ -6833,11 +8052,11 @@ body[class*="collection"] {
         cursor: not-allowed;
       }
     }
-    
+
     [data-gallery-direction="left"] {
       left: 2.5%;
     }
-    
+
     [data-gallery-direction="right"] {
       right: 2.5%;
     }
@@ -6845,74 +8064,100 @@ body[class*="collection"] {
 }
 
 .product {
+  {% assign centered = false %}
+  {% if settings.product_image_layout == 'center' %}
+    {% assign is_centered = true %}
+  {% endif %}
+
   .sheet-content, .product-details-content {
     @include make-row();
   }
-  
+
   .product-header, .product-images, .product-details, .product-description {
-    @include make-sm-column(6);
     margin-bottom: $line-height-computed;
   }
-  
+
   .product-images {
     text-align: center;
-    @media (min-width: $grid-float-breakpoint) {
-      margin-top: ($line-height-computed * 3); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
-    }
     img {
       margin: auto;
     }
+    {% unless is_centered %}
+    @media (min-width: $grid-float-breakpoint) {
+      margin-top: ($line-height-computed * 3); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
+    }
+    {% endunless %}
   }
-  
+
   {% if settings.product_image_layout == 'left' %}
-  .product-header, .product-details, .product-description {
-    @media (min-width: $grid-float-breakpoint) {
-      float: right;
+    .product-header, .product-details, .product-description {
+      @include make-sm-column(6);
+      @media (min-width: $grid-float-breakpoint) {
+        float: right;
+      }
     }
-  }
-  .product-images {
-    @media (min-width: $grid-float-breakpoint) {
-      float: left;
+    .product-images {
+      @include make-sm-column(6);
+      @media (min-width: $grid-float-breakpoint) {
+        float: left;
+      }
     }
-  }
   {% elsif settings.product_image_layout == 'right' %}
-  .product-header, .product-details, .product-description {
-    @media (min-width: $grid-float-breakpoint) {
-      float: left;
+    .product-header, .product-details, .product-description {
+      @include make-sm-column(6);
+      @media (min-width: $grid-float-breakpoint) {
+        float: left;
+      }
     }
-  }
-  .product-images {
-    @media (min-width: $grid-float-breakpoint) {
-      float: right;
+    .product-images {
+      @include make-sm-column(6);
+      @media (min-width: $grid-float-breakpoint) {
+        float: right;
+      }
     }
-  }
   {% elsif settings.product_image_layout == 'center' %}
-    // TODO: Centered product layout
+    .product-header, .product-images {
+      @include make-sm-column(12);
+    }
+    .product-details, .product-description {
+      @include make-sm-column(6);
+      @media (min-width: $grid-float-breakpoint) {
+        float: right;
+      }
+    }
   {% endif %}
-  
+
   .product-price {
     margin-top: $line-height-computed / 2;
     margin-bottom: $line-height-computed;
     @include make-sm-column(12);
   }
-  
-  .add-to-cart-form {
-    margin-bottom: $line-height-computed;
-    @include make-sm-column(6);
-  }
-  
+
   .add-to-cart-message {
     @include make-sm-column(12);
   }
-  
+
+  .add-to-cart-form {
+    margin-bottom: $line-height-computed;
+    {% if is_centered %}
+      @include make-sm-column(12);
+    {% else %}
+      @include make-sm-column(6);
+    {% endif %}
+  }
+
   .social-share-links {
     @include make-row();
     & .nav {
       text-align: center;
-      @include make-sm-column(6);
+      {% if is_centered %}
+        @include make-sm-column(12);
+      {% else %}
+        @include make-sm-column(6);
+      {% endif %}
     }
   }
-  
+
   .product-image-main {
     margin-bottom: $grid-gutter-width;
   }
@@ -6930,18 +8175,18 @@ body[class*="collection"] {
   .sheet-content {
     @include make-row();
   }
-  
+
   .cart-items,
   .cart-details,
   .cart-extras {
     margin: $grid-gutter-width auto;
   }
-  
+
   .cart-items {
     @include make-xs-column(12);
     margin-top: 0;
   }
-  
+
   .cart-details {
     @include make-sm-column(6);
     @include make-md-column(4);
@@ -6954,15 +8199,15 @@ body[class*="collection"] {
       margin: ($grid-gutter-width / 2) auto;
     }
   }
-  
+
   .cart-extras {
     @include make-sm-column(6);
     @include make-md-column(8);
-    
+
     .cart-extras-content {
       @include make-row();
     }
-    
+
     .cart-instructions {
       @include make-md-column(6);
       textarea {
@@ -6970,11 +8215,11 @@ body[class*="collection"] {
       }
     }
   }
-    
+
   .cart-message {
     @include make-sm-column(12);
   }
-  
+
   .cart-item-label-mini {
     display: none;
   }
@@ -7025,14 +8270,14 @@ body[class*="collection"] {
       width: 20%;
     }
   }
-  
+
 }
 
 .page-contact {
   .sheet-content {
     @include make-row();
   }
-  
+
   .page-content, .contact-content {
     @include make-sm-column(6);
   }
@@ -7043,6 +8288,27 @@ body[class*="collection"] {
     @include make-sm-column-pull(6);
   }
 }
+
+.customers-register,
+.customers-login,
+.customers-activate-account,
+.customers-reset-password {
+  .sheet-header {
+    text-align: center;
+  }
+  
+  .sheet-content {
+    @include make-row();
+  }
+  
+  .sheet-content > div {
+    @include make-xs-column(10);
+    @include make-xs-column-offset(1);
+    @include make-sm-column(6);
+    @include make-sm-column-offset(3);
+  }
+}
+
 /* Typograhical Styles */
 
 a:hover,
@@ -7142,22 +8408,45 @@ h6 {
   }
 }
 
+.account-details {
+  dt,
+  dd {
+    text-align: left;
+    margin-bottom: 0.5em;
+  }
+}
 /* General styles for all navigations */
 
 .nav-inline {
   @extend .list-inline;
-  & > li {
+  & > li, & > li > a {
     display: inline-block;
   }
+}
+
+.nav-text {
+  padding: $nav-link-padding;
 }
 
 [data-cart-display] > span { // this span is in the translations not in the actual theme markup
   @extend .hidden-xs;
 }
 
+.collection-controls {
+  & > div {
+    margin-bottom: 0.5em;
+    @media (min-width: $grid-float-breakpoint) {
+      float: right;
+      margin-right: $grid-gutter-width;
+      margin-bottom: 0;
+      &:first-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
 .collection-sort-by, .collection-filter-by {
-  float: right;
-  margin-right: $grid-gutter-width;
   .fa {
     float: right;
     padding: 0.2em 0;
@@ -7165,7 +8454,6 @@ h6 {
 }
 
 .collection-template-switcher {
-  float: right;
   ul > li > a {
     padding-left: $grid-gutter-width / 4;
     padding-right: $grid-gutter-width / 4;
@@ -7176,9 +8464,15 @@ h6 {
   @include make-xs-column(12);
   text-align: center;
 }
+
+.list-links {
+  li + li {
+    margin-top: 0.5em;
+  }
+}
 /*
   Styles for centered navigation snippet
-  
+
   NOTE: @extends on navs are because we can't put these classes into the markup as the nav-list is reused in places other than inside a navbar
 */
 
@@ -7186,8 +8480,11 @@ h6 {
   // Small screen sizes
   .header-small {
     margin-bottom: 0;
+    .navigation-form {
+      padding: 0 $grid-gutter-width;
+    }
   }
-  
+
   .navbar-header {
     & > .nav {
       @extend .navbar-nav;
@@ -7197,44 +8494,68 @@ h6 {
       margin-right: 0;
     }
   }
-  
+
   .navbar-toggle {
     margin-left: $grid-gutter-width/2;
   }
-  
+
   .navigation {
     & > .nav {
       @extend .navbar-nav;
       border-top: 1px solid $dropdown-divider-bg;
     }
   }
-  
+
   // Large screen sizes
   .header-large {
     text-align: center;
   }
-  
+
   .header-logo {
     overflow: auto;
     h1 {
       margin: 1em auto;
     }
   }
-    
-  .main-nav, .secondary-nav, .tertiary-nav {
+  
+  .navigation-top-content {
+    @include make-row();
+  }
+  .secondary-nav,
+  .tertiary-nav {
+    @include make-sm-column(6);
+  }
+  .secondary-nav {
+    text-align: left;
+  }
+  .tertiary-nav {
+    text-align: right;
+  }
+
+  .main-nav,
+  .secondary-nav,
+  .tertiary-nav {
     .nav {
       @extend .nav-inline;
     }
   }
-  
+
   // Details
-  .navigation-form {
-    padding: 0 $grid-gutter-width/2;
-  }
   .search-form {
     @extend .navbar-form;
+    padding: 0;
+  }
+
+  .header-logo {
+    text-align: center;
+
+    img {
+      max-height: {% if settings.logo_max_height == blank %}150px{% else %}{{ settings.logo_max_height }}{% endif %};
+      margin: ($grid-gutter-width / 2) auto;
+    }
   }
 }
+
 /* Styles for socail links and feeds */
 
 .social-links, .social-share-links {
@@ -7274,7 +8595,15 @@ h6 {
   
   @include hover-captions;
 }
-.add-to-cart-form, .cart-form, .contact-form, .newsletter-form {
+.add-to-cart-form,
+.cart-form,
+.contact-form,
+.newsletter-form,
+.customer-register-form,
+.customer-login-form,
+.customer-recover-password-form,
+.customer-activate-form,
+.customer-reset-form {
   
   .selector-wrapper {
     // added in by shopify's js
@@ -7284,7 +8613,7 @@ h6 {
     }
   }
   
-  // notes and errors are eith created by Shopify or JS
+  // notes and errors are either created by Shopify or JS
   .errors, .note {
     @extend .alert;
   }
@@ -7306,8 +8635,34 @@ h6 {
     @extend .alert-success;
   }
 }
+
+.search-lg {
+  padding: 1.5em 1em;
+  text-align: center;
+  .form-control {
+    @extend .input-lg;
+  }
+  .btn {
+    @extend .btn-lg;
+  }
+}
+
+[type="submit"] + .cancel-link {
+  margin-left: 0.25em;
+}
+
+input.btn-link {
+  padding: 0;
+}
+
+.placeholder {
+  [class*="customers"] {
+    label {
+      display: none;
+    }
+  }
+}
 .banner {
-  
   // create the fade transition
   &.fade {
     opacity: 1;
@@ -7387,8 +8742,9 @@ h6 {
   @if $slide-enabled {
     [data-banner="#{$slide-count}"] {
       
-      @if $slide-size!= 'full_width' and $slide-size != 'full_screen' {
-        .banner-content-wrap {
+      .banner-content-wrap {
+        position: relative;
+        @if $slide-size!= 'full_width' and $slide-size != 'full_screen' {
           @extend .sheet;
         }
       }
@@ -7404,6 +8760,8 @@ h6 {
           .banner-caption {
             position: absolute;
             top: 50%;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
           	transform: translateY(-50%);
           }
           .banner-image {
@@ -7469,5 +8827,10 @@ $slide-count: 1;
 {% endunless %}
 
 
+.fallback-image {
+  width: 100%;
+  padding-top: 150%; // What is this crazy black magic?!
+  background-color: rgba($brand_primary, 0.2);
+}
 // This file is purely for this one liquid settings so that it is placed right at the bottom of our stylesheet.
 {% unless settings.scss_overrides == blank %}{{ settings.scss_overrides }}{% endunless %}
