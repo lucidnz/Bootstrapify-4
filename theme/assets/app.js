@@ -64,6 +64,8 @@ var App = function () {
 
   // init social feeds
   Bsify.SocialFeeds.init();
+  
+  new Bsify.PasswordRecover();
 };
 
 // initiate the app and expose it to the browser

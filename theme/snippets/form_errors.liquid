@@ -3,7 +3,7 @@
     {{ 'errors.customer_accounts.form_message' | t }}
     <ul>
       {% for field in form.errors %}
-        <li>{% unless field == 'form' %}{{ field }} {% endunless %}{{ form.errors.messages[field] }}</li>
+        <li>{% unless field == 'form' %}{{ form.errors.translated_fields[field] }} {% endunless %}{{ form.errors.messages[field] }}</li>
       {% endfor %}
     </ul>
   </div>

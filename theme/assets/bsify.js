@@ -26,5 +26,6 @@ Bsify.LinkedProductOptions = require('./bsify.linked_product_options.js');
 Bsify.Banner = require('./bsify.banner.js');
 Bsify.Thumbnails = require('./bsify.thumbnails.js');
 Bsify.SocialFeeds = require('./bsify.social_feeds.js');
+Bsify.PasswordRecover = require('./bsify.password_recover.js');
 
 module.exports = Bsify;
