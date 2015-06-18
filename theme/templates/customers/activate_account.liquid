@@ -1,0 +1,16 @@
+<main role="main">
+  <article class="sheet">
+    <header class="sheet-header">
+      <h1>{{ 'customer_accounts.activate_account.page_title' | t }}</h1>
+    </header>
+
+    <section class="sheet-content">
+      <div class="customer-register-form">
+        <p class="description">{{ 'customer_accounts.activate_account.description' | t }}</p>
+    		{% include 'form_customer_password' with 'activate' %}
+      </div>
+    </section>
+  </article>
+</main>
+
+{% include 'site_aside' %}

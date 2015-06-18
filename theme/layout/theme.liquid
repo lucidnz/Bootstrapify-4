@@ -51,7 +51,7 @@
   <!--[if lte IE 8]> <body class="ie-legacy {{ template | replace: '.', '-' }}" id="{{ page_title | handle }}"> <![endif]-->
   <!--[if IE 9]> <body class="ie {{ template | replace: '.', '-' }}" id="{{ page_title | handle }}"> <![endif]-->
   <!--[if !(IE)]><!-->  <!--<![endif]-->
-  <body class="{{ template | replace: '.', '-' | replace: '/', '-' }}" id="{{ page_title | handle }}">
+  <body class="{{ template | replace: '.', '-' | replace: '/', '-' | replace: '_', '-' }}" id="{{ page_title | handle }}">
 
     <header class="site-header">
       {% comment %}

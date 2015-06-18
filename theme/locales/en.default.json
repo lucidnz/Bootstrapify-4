@@ -115,6 +115,7 @@
   "customer_accounts" : {
     "site_header" : {
       "welcome_note" : "Welcome, {{ first_name }}",
+      "account" : "My account",
       "sign_in" : "Sign in",
       "sign_out" : "Sign out",
       "register" : "Register",
@@ -138,12 +139,20 @@
       "note_html" : "or <a href='{{ shop_url }}'>Return to Store</a>",
       "back_to_checkout" : "Back to checkout"
     },
-    "login_reset" : {
-      "page_title" : "Reset your password",
+    "recover_password" : {
+      "page_title" : "Recover your password",
       "description" : "We will send you an email to reset your password.",
       "email" : "Email",
       "reset_button" : "Reset",
       "note_html" : "or <a href='{{ shop_url }}/account/login'>Cancel</a>"
+    },
+    "reset_password" : {
+      "page_title" : "Enter a new password for {{ email }}.",
+      "description" : "We will send you an email to reset your password."
+    },
+    "activate_account" : {
+      "page_title" : "Activate your account",
+      "description" : "Create your password to activate your account."
     }
   },
   "contact" : {

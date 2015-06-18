@@ -1,7 +1,8 @@
 var PasswordRecover = function () {
   this.recover_string = '#recover';
-  this.$links = $('[href*="/account/login"]');
+  this.$links = $('main [href*="/account/login"]');
   this.$sections = $('[data-bsify-toggle-recover]');
+  
   
   this._add_event_listeners();
   this.toggle_forms();
@@ -40,10 +41,10 @@ PasswordRecover.prototype._add_event_listeners = function () {
 };
 
 PasswordRecover.prototype._on_click = function ($current_target) {
-  if ($current_target.attr('href').indexOf(_this.recover_string) > -1) {
-    _this.show_recover_form();
+  if ($current_target.attr('href').indexOf(this.recover_string) > -1) {
+    this.show_recover_form();
   } else {
-    _this.show_login_form();
+    this.show_login_form();
   }
 };
 

@@ -8212,7 +8212,8 @@ body[class*="collection"] {
 
 .customers-register,
 .customers-login,
-.customers-login-reset {
+.customers-login-reset,
+.customers-activate-account {
   .sheet-header {
     text-align: center;
   }
@@ -8332,9 +8333,13 @@ h6 {
 
 .nav-inline {
   @extend .list-inline;
-  & > li {
+  & > li, & > li > a {
     display: inline-block;
   }
+}
+
+.nav-text {
+  padding: $nav-link-padding;
 }
 
 [data-cart-display] > span { // this span is in the translations not in the actual theme markup
@@ -8379,10 +8384,6 @@ h6 {
     margin-top: 0.5em;
   }
 }
-
-.nav > li > a {
-  display: inline-block;
-}
 /*
   Styles for centered navigation snippet
 
@@ -8393,6 +8394,9 @@ h6 {
   // Small screen sizes
   .header-small {
     margin-bottom: 0;
+    .navigation-form {
+      padding: 0 $grid-gutter-width;
+    }
   }
 
   .navbar-header {
@@ -8427,19 +8431,33 @@ h6 {
       margin: 1em auto;
     }
   }
+  
+  .navigation-top-content {
+    @include make-row();
+  }
+  .secondary-nav,
+  .tertiary-nav {
+    @include make-sm-column(6);
+  }
+  .secondary-nav {
+    text-align: left;
+  }
+  .tertiary-nav {
+    text-align: right;
+  }
 
-  .main-nav, .secondary-nav, .tertiary-nav {
+  .main-nav,
+  .secondary-nav,
+  .tertiary-nav {
     .nav {
       @extend .nav-inline;
     }
   }
 
   // Details
-  .navigation-form {
-    padding: 0 $grid-gutter-width/2;
-  }
   .search-form {
     @extend .navbar-form;
+    padding: 0;
   }
 
   .header-logo {

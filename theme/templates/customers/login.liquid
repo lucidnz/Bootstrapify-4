@@ -46,22 +46,22 @@
   
   <article class="sheet" data-bsify-toggle-recover="recover">
     <header class="sheet-header">
-      <h1>{{ 'customer_accounts.login_reset.page_title' | t }}</h1>
+      <h1>{{ 'customer_accounts.recover_password.page_title' | t }}</h1>
     </header>
 
     <section class="sheet-content">      
       <div class="customer-recover-password-form">
-        <p class="note">{{ 'customer_accounts.login_reset.description' | t }}</p>
+        <p class="description">{{ 'customer_accounts.recover_password.description' | t }}</p>
         {% form 'recover_customer_password' %}
           {% include 'form_errors' %}
           
           <div class="form-group {% if form.errors contains 'email' %}has-error{% endif %}">
-            <label for="customer_email">{{ 'customer_accounts.login_reset.email' | t }}</label>
-            <input class="form-control input-lg" type="email" value="{{ form.email }}" name="email" id="recover-email" placeholder="{{ 'customer_accounts.login_reset.email' | t }}" autocorrect="off" autocapitalize="off">
+            <label for="customer_email">{{ 'customer_accounts.recover_password.email' | t }}</label>
+            <input class="form-control input-lg" type="email" value="{{ form.email }}" name="email" id="recover-email" placeholder="{{ 'customer_accounts.recover_password.email' | t }}" autocorrect="off" autocapitalize="off">
           </div>
         
-          <input class="btn btn-primary btn-lg" type="submit" value="{{ 'customer_accounts.login_reset.reset_button' | t }}">
-          <span class="cancel-link">{{ 'customer_accounts.login_reset.note_html' | t: shop_url: shop.url }}</span>
+          <input class="btn btn-primary btn-lg" type="submit" value="{{ 'customer_accounts.recover_password.reset_button' | t }}">
+          <span class="cancel-link">{{ 'customer_accounts.recover_password.note_html' | t: shop_url: shop.url }}</span>
         {% endform %}
       </div>
     </section>
