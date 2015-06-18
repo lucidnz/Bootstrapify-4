@@ -121,6 +121,19 @@
       "register" : "Register",
       "separator" : "|"
     },
+    "account" : {
+      "page_title" : "My Account"
+    },
+    "orders" : {
+      "page_title" : {
+        "one" : "Order",
+        "other" : "Orders"
+      },
+      "empty_message_html" : "You have not placed any orders yet. <a href='/'>Head back to the store?</a>"
+    },
+    "addresses" : {
+      "page_title" : "Addresses"
+    },
     "register" : {
       "page_title" : "Create an account",
       "first_name" : "First name",
