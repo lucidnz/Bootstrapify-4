@@ -122,14 +122,27 @@
       "separator" : "|"
     },
     "account" : {
-      "page_title" : "My Account"
+      "page_title" : "My Account",
+      "email" : "Email:",
+      "default_phone" : "Default Phone:",
+      "default_phone_empty" : "No default phone number set",
+      "default_address" : "Default Address:",
+      "default_address_empty" : "No default address set",
+      "addresses_link" : "View addresses ({{ addresses_count }})"
     },
     "orders" : {
       "page_title" : {
         "one" : "Order",
         "other" : "Orders"
       },
-      "empty_message_html" : "You have not placed any orders yet. <a href='/'>Head back to the store?</a>"
+      "back_link" : "Return to my account page",
+      "empty_message_html" : "You have not placed any orders yet. <a href='/'>Head back to the store?</a>",
+      "date_title" : "Date",
+      "payment_status_title" : "Payment Status",
+      "fulfillment_status_title" : "Fulfillment Status",
+      "total_title" : "Total",
+      "order_created_on_note" : "Placed on {{ date }}",
+      "order_cancelled_on_note" : "Order cancelled on {{ date }}"
     },
     "addresses" : {
       "page_title" : "Addresses"
@@ -237,6 +250,8 @@
   },
   "date_formats": {
     "article_short": "%-d %b %Y",
-    "article_long": "%a, %-d %B %Y"
+    "article_long": "%a, %-d %B %Y",
+    "order_short" : "%b %d, %Y",
+    "order_long" : "%B %d, %Y %I:%M%p"
   }
 }

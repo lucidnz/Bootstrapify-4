@@ -1,0 +1,24 @@
+<main role="main">
+  <article class="sheet">
+    <header class="sheet-header">
+      <h1>{{ 'customer_accounts.orders.page_title' | t: count: 1 }} {{ order.name }}</h1>
+      <a href="/account">{{ 'customer_accounts.orders.back_link' | t }}</a>
+    </header>
+
+    <section class="sheet-content">
+      
+      {% capture order_created_at_date %}{{ order.created_at | date: format: 'order_long' }}{% endcapture %}
+      <p>{{ 'customer_accounts.orders.order_created_on_note' | t: date: order_created_at_date }}</p>
+      
+      {% if order.cancelled %}
+  		<div class="alert alert-warning">
+    		{% capture order_cancelled_at_date %}{{ order.cancelled_at | date: format: 'order_long' }}{% endcapture %}
+  			<h5>{{ 'customer_accounts.orders.order_cancelled_on_note' | t: date: order_cancelled_at_date }}</h5>
+  			<span>{{ order.cancel_reason }}</span>
+  		</div>
+  		{% endif %}
+  		
+  		
+    </section>
+  </article>
+</main>
