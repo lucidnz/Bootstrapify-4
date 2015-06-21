@@ -56,8 +56,17 @@ var App = function () {
     };
   }
 
+  // test for placeholder
+  if (Modernizr.input.placeholder) {
+    $('html').addClass('placeholder');
+  } else {
+    $('html').addClass('no-placeholder');
+  }
+
   // init social feeds
   Bsify.SocialFeeds.init();
+  
+  new Bsify.PasswordRecover();
   
   // custom phd code
   new Phd();

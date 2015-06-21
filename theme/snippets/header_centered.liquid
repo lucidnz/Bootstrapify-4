@@ -1,3 +1,5 @@
+{% comment note: TODO: there is some weird markup here. It probably all needs to be burnt %}{% endcomment %}
+
 <div id="header-layout-centered">
   <!-- Header markup for smaller screen sizes i.e. mobiles -->
   <div class="header-small navbar navbar-default visible-xs-block">
@@ -38,17 +40,18 @@
   <div class="header-large">
     <section class="navigation-top hidden-xs">
       <div class="sheet">
-        {% unless settings.secondary_menu_linklist == blank %}
-          <nav class="secondary-nav pull-left">
-            {% include 'nav_list' with settings.secondary_menu_linklist %}
+        <div class="navigation-top-content">
+          {% unless settings.secondary_menu_linklist == blank %}
+            <nav class="secondary-nav">
+              {% include 'nav_list' with settings.secondary_menu_linklist %}
+            </nav>
+          {% endunless %}
+  
+          <nav class="tertiary-nav">
+            {% assign nav_list_items = 'accounts,cart,search' %}
+            {% include 'nav_list' with settings.tertiary_menu_linklist %}
           </nav>
-        {% endunless %}
-
-        <nav class="tertiary-nav pull-right">
-          {% assign nav_list_items = 'accounts,cart' %}
-          {% if settings.search_in_navbar %}{% assign nav_list_items = nav_list_items | append: ',search' %}{% endif %}
-          {% include 'nav_list' with settings.tertiary_menu_linklist %}
-        </nav>
+        </div>
       </div>
     </section>
 

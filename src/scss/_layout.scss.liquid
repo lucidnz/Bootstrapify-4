@@ -48,7 +48,7 @@ table {
 
 footer {
   overflow: hidden;
-  
+
   .sheet-content {
     @include make-row();
     margin-bottom: 0;
@@ -62,7 +62,7 @@ footer {
   [data-col-count="0"] {
     display: none;
   }
-  
+
   @for $i from 1 through 4 {
     [data-col-count="#{$i}"] {
       [class*="footer-col"] {
@@ -70,13 +70,7 @@ footer {
       }
     }
   }
-  
-  .footer-linklist {
-    .nav a {
-      padding-left: 0;
-    }
-  }
-  
+
   .site-credits {
     text-align: center;
     @media (min-width: $grid-float-breakpoint) {
@@ -95,32 +89,48 @@ footer {
   @include adaptive-columns('.group-item-wrap');
 }
 
-.list-collections {
+// all collection templates
+body[class*="collection"] {
+  
   @include adaptive-columns('.group-item-wrap');
   
+  .sheet-content {
+    @include make-row();
+  }
+  .collection-message {
+    @include make-sm-column(12);
+  }
+}
+
+// /collections template
+.list-collections {
+  @include adaptive-columns('.group-item-wrap');
+
   .group-item {
-    position: relative;
-  
-    .group-item-image .svg {
+    & > a {
+      overflow: hidden;
       display: block;
-      height: auto;
-      max-width: 100%;
-      max-height: 100%;
+      position: relative;
     }
-    
-    .group-item-image .svg-rect {
-      fill: lighten($brand-primary, 30%);
-    }
-    
+
     .group-item-details {
       position: absolute;
       top: 50%;
+      width: 100%;
       -webkit-transform: translateY(-50%);
       -moz-transform: translateY(-50%);
     	transform: translateY(-50%);
     	padding: 0 $grid-gutter-width;
+    	text-align: center;
+      transition: .5s;
+      background-color: rgba(#fff, 0.8);
     }
     
+    &:hover {
+      .group-item-details {
+        opacity: 0;
+      }
+    }
   }
 }
 
@@ -162,7 +172,7 @@ body[class*="collection"] {
     display: block;
     height: auto;
   }
-  
+
   // Image scroller
   .js & .products-wrap {
     // make the products span the whole of the page but hide the ones that go off the edge
@@ -171,13 +181,16 @@ body[class*="collection"] {
     position: relative;
     opacity: 0;
     margin-bottom: $line-height-computed * 2;
-  
+
     .group-item-wrap {
       background-color: #fff; // TODO: use site background color
       transition: margin 1s ease;
       // override grid cols for lookbook
       @include make-xs-column(3);
-      
+      @include make-sm-column(3);
+      @include make-md-column(3);
+      @include make-lg-column(3);
+
       width: $lookbook-item-max-width-xs;
       @media (orientation: portrait) {
         width: $lookbook-item-max-width-sm;
@@ -192,7 +205,7 @@ body[class*="collection"] {
         width: $lookbook-item-max-width-lg;
       }
     }
-  
+
     .lookbook-controls {
       position: absolute;
       top: 0;
@@ -200,7 +213,7 @@ body[class*="collection"] {
       width: 100%;
       height: 100%;
     }
-    
+
     [data-gallery-direction] {
       position: absolute;
       font-size: 2.75em;
@@ -210,7 +223,7 @@ body[class*="collection"] {
         color: #fff;
       }
     }
-    
+
     [data-gallery-direction] {
       top: 50%;
       -webkit-transform: translateY(-50%);
@@ -222,11 +235,11 @@ body[class*="collection"] {
         cursor: not-allowed;
       }
     }
-    
+
     [data-gallery-direction="left"] {
       left: 2.5%;
     }
-    
+
     [data-gallery-direction="right"] {
       right: 2.5%;
     }
@@ -238,15 +251,15 @@ body[class*="collection"] {
   {% if settings.product_image_layout == 'center' %}
     {% assign is_centered = true %}
   {% endif %}
-  
+
   .sheet-content, .product-details-content {
     @include make-row();
   }
-  
+
   .product-header, .product-images, .product-details, .product-description {
     margin-bottom: $line-height-computed;
   }
-  
+
   .product-images {
     text-align: center;
     img {
@@ -258,7 +271,7 @@ body[class*="collection"] {
     }
     {% endunless %}
   }
-  
+
   {% if settings.product_image_layout == 'left' %}
     .product-header, .product-details, .product-description {
       @include make-sm-column(6);
@@ -296,17 +309,17 @@ body[class*="collection"] {
       }
     }
   {% endif %}
-  
+
   .product-price {
     margin-top: $line-height-computed / 2;
     margin-bottom: $line-height-computed;
     @include make-sm-column(12);
   }
-  
+
   .add-to-cart-message {
     @include make-sm-column(12);
   }
-  
+
   .add-to-cart-form {
     margin-bottom: $line-height-computed;
     {% if is_centered %}
@@ -315,7 +328,7 @@ body[class*="collection"] {
       @include make-sm-column(6);
     {% endif %}
   }
-  
+
   .social-share-links {
     @include make-row();
     & .nav {
@@ -327,7 +340,7 @@ body[class*="collection"] {
       {% endif %}
     }
   }
-  
+
   .product-image-main {
     margin-bottom: $grid-gutter-width;
   }
@@ -345,18 +358,18 @@ body[class*="collection"] {
   .sheet-content {
     @include make-row();
   }
-  
+
   .cart-items,
   .cart-details,
   .cart-extras {
     margin: $grid-gutter-width auto;
   }
-  
+
   .cart-items {
     @include make-xs-column(12);
     margin-top: 0;
   }
-  
+
   .cart-details {
     @include make-sm-column(6);
     @include make-md-column(4);
@@ -369,15 +382,15 @@ body[class*="collection"] {
       margin: ($grid-gutter-width / 2) auto;
     }
   }
-  
+
   .cart-extras {
     @include make-sm-column(6);
     @include make-md-column(8);
-    
+
     .cart-extras-content {
       @include make-row();
     }
-    
+
     .cart-instructions {
       @include make-md-column(6);
       textarea {
@@ -385,11 +398,11 @@ body[class*="collection"] {
       }
     }
   }
-    
+
   .cart-message {
     @include make-sm-column(12);
   }
-  
+
   .cart-item-label-mini {
     display: none;
   }
@@ -440,14 +453,14 @@ body[class*="collection"] {
       width: 20%;
     }
   }
-  
+
 }
 
 .page-contact {
   .sheet-content {
     @include make-row();
   }
-  
+
   .page-content, .contact-content {
     @include make-sm-column(6);
   }
@@ -456,5 +469,25 @@ body[class*="collection"] {
   }
   .contact-content {
     @include make-sm-column-pull(6);
+  }
+}
+
+.customers-register,
+.customers-login,
+.customers-activate-account,
+.customers-reset-password {
+  .sheet-header {
+    text-align: center;
+  }
+  
+  .sheet-content {
+    @include make-row();
+  }
+  
+  .sheet-content > div {
+    @include make-xs-column(10);
+    @include make-xs-column-offset(1);
+    @include make-sm-column(6);
+    @include make-sm-column-offset(3);
   }
 }

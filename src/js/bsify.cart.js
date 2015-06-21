@@ -53,7 +53,7 @@ Cart.add_item_to_cart = function ($current_target) {
   var properties = {}; // TODO: deal with item properties when adding to cart
   
   var variant = Bsify.get_variant_by_id(values.id);
-  var item_title = Bsify.product.title + Bsify.translations.product.item_title_seperator + variant.title;
+  var item_title = (variant.title === 'Default Title') ? Bsify.product.title : Bsify.product.title + Bsify.translations.product.item_title_seperator + variant.title;
   
   // update the user that we are working on it
   $product_form_button.val(Bsify.translations.product.adding_to_cart_button_text);

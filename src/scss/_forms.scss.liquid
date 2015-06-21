@@ -1,4 +1,12 @@
-.add-to-cart-form, .cart-form, .contact-form, .newsletter-form {
+.add-to-cart-form,
+.cart-form,
+.contact-form,
+.newsletter-form,
+.customer-register-form,
+.customer-login-form,
+.customer-recover-password-form,
+.customer-activate-form,
+.customer-reset-form {
   
   .selector-wrapper {
     // added in by shopify's js
@@ -8,7 +16,7 @@
     }
   }
   
-  // notes and errors are eith created by Shopify or JS
+  // notes and errors are either created by Shopify or JS
   .errors, .note {
     @extend .alert;
   }
@@ -31,13 +39,29 @@
   }
 }
 
-.homepage-search {
-  margin: 1.5em auto;
+.search-lg {
+  padding: 1.5em 1em;
   text-align: center;
   .form-control {
     @extend .input-lg;
   }
   .btn {
     @extend .btn-lg;
+  }
+}
+
+[type="submit"] + .cancel-link {
+  margin-left: 0.25em;
+}
+
+input.btn-link {
+  padding: 0;
+}
+
+.placeholder {
+  [class*="customers"] {
+    label {
+      display: none;
+    }
   }
 }

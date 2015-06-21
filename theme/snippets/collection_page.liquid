@@ -37,7 +37,8 @@
     {% else %}
       {% include 'pagination_limit' with 'products' %}
       {% paginate collection.products by pagination_limit %}
-        <section class="group products" data-products-size="{% if collection.products.size < pagination_limit %}{{ collection.products.size }}{% else %}{{ pagination_limit }}{% endif %}">
+        {% if collection.products.size < pagination_limit %}{% assign collection_size= collection.products.size | times: 1 %}{% else %}{% assign collection_size = pagination_limit | times: 1 %}{% endif %}
+        <section class="group products" data-products-size="{{ collection_size }}">
           {% for p in collection.products %}
             {% include 'product_item' %}
           {% endfor %}

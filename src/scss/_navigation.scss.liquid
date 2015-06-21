@@ -2,9 +2,13 @@
 
 .nav-inline {
   @extend .list-inline;
-  & > li {
+  & > li, & > li > a {
     display: inline-block;
   }
+}
+
+.nav-text {
+  padding: $nav-link-padding;
 }
 
 [data-cart-display] > span { // this span is in the translations not in the actual theme markup
@@ -42,4 +46,10 @@
 .pagination-wrapper {
   @include make-xs-column(12);
   text-align: center;
+}
+
+.list-links {
+  li + li {
+    margin-top: 0.5em;
+  }
 }
