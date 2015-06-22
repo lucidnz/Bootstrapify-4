@@ -152,15 +152,7 @@ gulp.task('zip', function () {
     .pipe(gulp.dest('./'));
 });
 
-// SHOPIFY_THEME_SETTINGS: - we have two ways of creating theme settings:
-//    (1) Concatenating json files to create a settings_schema.json (new way)
-//    (2) Using the grunt plugin to create settings.html (old way)
-//  Unfortunately this means we have two settings configs to maintain separately so we are just using the new way
-//  but still leaving the old way intact for now incase we need it at some point.
-//  If you wish to switch between the two all you need to do is comment out the new way and comment in the old way.
-//  It's all set up so it should just work.
-
-// SHOPIFY_THEME_SETTINGS (1): Create settings_schema.json
+// SHOPIFY_THEME_SETTINGS: Create settings_schema.json
 gulp.task('shopify_theme_settings', function () {
 
   // list of settings files to include, in order of inclusion
@@ -202,13 +194,6 @@ gulp.task('settings_clean', function () {
 
 /*
   Grunt tasks - this is the config for running grunt tasks from inside gulp
-*/
-
-// SHOPIFY_THEME_SETTINGS (2): Create settings.html - this can be removed when Shopify _fully_ rolls out the new theme editor!
-/*
-gulp.task('shopify_theme_settings', function () {
-  return gulp.run('grunt-shopify_theme_settings');
-});
 */
 
 // JS_MODERNIZR: Run the grunt task for modernizr

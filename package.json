@@ -32,7 +32,6 @@
     "debowerify": "^1.2.0",
     "grunt": "^0.4.5",
     "grunt-modernizr": "^0.6.0",
-    "grunt-shopify-theme-settings": "^0.4.6",
     "gulp": "^3.8.10",
     "gulp-concat": "^2.4.3",
     "gulp-grunt": "^0.5.2",
