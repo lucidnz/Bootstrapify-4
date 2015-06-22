@@ -1,0 +1,22 @@
+{% comment TODO: Logos -> text / img / svg / font / etc %}{% endcomment %}
+
+{% comment note:
+  
+  `header_component_brand` shows the stores logo or brand name as text depending on theme settings.
+  Optional variable parameters that are set outside the snippet before it is included:
+  
+  `brand_classes`: 
+    This is set prior to including this snippet and is used for adding special/bootstrap/context classes to the brands `a` tag.
+    This is optional and if it is not set then no class will be added.
+ %}{% endcomment %}
+
+<a class="{{ brand_classes }}" href="/" title="{{ shop.name }}">
+{% if settings.logo_enabled %}
+  <img class="logo-image" src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name | escape }}">
+{% else %}
+  {{ shop.name }}
+{% endif %}
+</a>
+
+{% comment note: unset optional variable parameters. Because sanity. %}{% endcomment %}
+{% assign brand_classes = null %}

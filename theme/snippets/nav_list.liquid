@@ -1,19 +1,36 @@
-<ul class="nav{% if navbar_nav %} navbar-nav{% endif %}">
-  {% comment %}
-    Disable dropdowns if we are told to
-  {% endcomment %}
-  {% assign show_dropdowns = true %}
-  {% if nav_list_items contains 'hide_dropdowns' %}
-    {% assign show_dropdowns = false %}
-  {% endif %}
+{% comment note:
+
+  The `nav_list` snippet takes a linklist handle as it's 'with' parameter. You can still create a `nav_list` without this parameter.
+  It also has several other optional variable parameters that are set outside the snippet before it is included.
+  These are:
   
-  {% comment %}
-    Create nav links from our linklist
-  {% endcomment %}
+  nav_classes:
+    `nav_classes` is set prior to including this snippet and is used for adding special/bootstrap/context classes to the nav.
+    A class of .nav will always be used and if nav_classes is not set before including then this will be the only class used.
   
+  nav_list_items:
+    This is a comer separated list of extra items to include in this nav list. An option will only be used if it is included in the list.
+    options are:
+      `accounts`: Show user account links i.e. sign in / sign out / etc.
+      `cart`: Show the shopping cart link.
+      
+  include_dropdowns:
+    `include_dropdowns` is a boolean value and defaults to true. When it is enabled it will add a nested dropdown list to the nav.
+  
+ %}{% endcomment %}
+
+{% assign nav_classes = nav_classes | replace: ',',' ' | replace: '  ',' ' %}
+{% unless nav_classes contains 'nav ' %}
+  {% assign nav_classes = nav_classes | prepend: 'nav ' %}
+{% endunless %}
+
+{% if include_dropdowns == null %}{% assign include_dropdowns = true %}{% endif %}
+
+<ul class="{{ nav_classes }}">
+  {% comment note: Create nav links from our linklist handel %}{% endcomment %}
   {% for link in linklists[nav_list].links %}
     {% assign child_list_handle = link.handle %}
-    {% if linklists[child_list_handle].links != blank and show_dropdowns %}
+    {% if linklists[child_list_handle].links != blank and include_dropdowns %}
       <li class="dropdown">
         <a class="dropdown-toggle" href="{{ link.url }}" data-toggle="dropdown">{{ link.title }} <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
@@ -27,12 +44,7 @@
     {% endif %}
   {% endfor %}
   
-  {% comment %}
-    Show extra nav list items i.e. accounts, cart, search
-    This is defined by a comma separated list given to the show var outside this snippet
-    e.g. assign nav_list_items = 'accounts,cart,search'
-  {% endcomment %}
-  
+  {% comment note: Show extra nav list items %}{% endcomment %}
   {% assign extra_items = nav_list_items | split: ',' %}
   {% for item in extra_items %}
     {% case item %}
@@ -52,28 +64,11 @@
       {% capture cart_total_price_with_currency %}<span class="money" data-price="{{ cart.total_price }}" data-currency="{{ shop.currency }}">{{ cart.total_price | money_with_currency }}</span>{% endcapture %}
       <li class="navigation-cart"><a href="/cart"><span class="fa fa-shopping-cart"></span> <span data-cart-display>{{ 'cart.site_header.cart_link_html' | t: item_count: cart.item_count, cart_total_price: cart_total_price, cart_total_price_with_currency: cart_total_price_with_currency }}</span></a></li>
       
-    {% when 'search' %}
-      {% if settings.enable_search %}
-        <li class="navigation-form">
-          {% include 'search_form' %}
-        </li>
-      {% endif %}
-      
     {% endcase %}
   {% endfor %}
 </ul>
 
-{% comment %} unset nav_list_items {% endcomment %}
-{% assign nav_list_items = '' %}
-
-{% comment %}
-  unset navbar_nav
-  
-  Why do we even have this?
-  Well, Bootstrap is horrible and your dropdown links will break on mobile if you do not specify this exact class on the ul
-  But we want to be smart and reuse our snippets in multiple places, even when the are not inside a navbar
-  So we have to do lame conditionals like this just to make it work.
-  
-  Thanks Bootstrap!
-{% endcomment %}
-{% assign navbar_nav = false %}
+{% comment note: unset optional variable parameters. Because sanity. %}{% endcomment %}
+{% assign nav_list_items = null %}
+{% assign nav_classes = null %}
+{% assign include_dropdowns = null %}

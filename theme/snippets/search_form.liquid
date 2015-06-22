@@ -1,4 +1,22 @@
-<form class="search-form form-inline" action="/search" role="search">
+{% comment TODO: typeahead %}{% endcomment %}
+
+{% comment note:
+  
+  `search_form` takes an optional variable parameter that is set outside the snippet before it is included.
+  The parameter is `form_classes`:  
+    If not set it will default to 'search-form form-inline'.
+    It will always include 'search-form' regardless of what it is given.
+  
+ %}{% endcomment %}
+ 
+{% if form_classes == null %}{% assign form_classes = 'form-inline' %}{% endif %}
+{% assign form_classes = form_classes | replace: ',',' ' | replace: '  ',' ' %}
+{% unless form_classes contains 'search-form ' %}
+  {% assign form_classes = form_classes | prepend: 'search-form ' %}
+{% endunless %}
+ 
+{% if settings.enable_search %}
+<form class="{{ form_classes }}" action="/search" role="search">
   <div class="form-group">
     <div class="input-group">
       <input class="form-control" type="search" name="q" autocomplete="off" placeholder="{{ 'search.search_form.field_placeholder' | t }}" value="{{ search.terms }}">
@@ -8,8 +26,7 @@
     </div>
   </div>
 </form>
+{% endif %}
 
-{% comment %}
- TODO: Search form needs theme settings
- - does it ???
-{% endcomment %}
+{% comment note: unset optional variable parameters. %}{% endcomment %}
+{% assign form_classes = null %}

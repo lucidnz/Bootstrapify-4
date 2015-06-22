@@ -1,0 +1,86 @@
+{% comment note:
+  
+ `header_component_navbar` is bootstraps basic navbar. It takes several optional variable parameters that are set outside the snippet before it is included.
+ These parameters are:
+ 
+  `navbar_classes`: 
+    This is set prior to including this snippet and is used for adding special/bootstrap/context classes to the navbar.
+    A class of .navbar will always be used and if navbar_classes is not set before including then this will be the only class used.
+    
+  `navbar_content`:
+    This is a capture that contains the navbars nav list content.
+    
+  `include_header`:
+    A boolean value that dictates whether the bootstrap navbar-header is included.
+    Default is true.
+    
+  `include_brand`:
+    A boolean value that dictates whether the bootstrap navbar-brand is included.
+    Default is true, _but_ will not show unless the navbar-header is enabled.
+    
+  `include_cart_in_header`:
+    A boolean value that dictates whether the cart link is shown in the navbar header on mobile.
+    Default is false.
+    
+  Internal variables:
+    `navbar_count`:
+      This is an incrementing number that doesn't get unset at the end of the snippet which keeps track of the navbars.
+      It is used to avoid the bootstrap collapse conflicting.
+  
+ %}{% endcomment %}
+ 
+{% assign navbar_classes = navbar_classes | replace: ',',' ' | replace: '  ',' ' %}
+{% unless navbar_classes contains 'navbar ' %}
+  {% assign navbar_classes = navbar_classes | prepend: 'navbar ' %}
+{% endunless %}
+
+{% if include_header == null %}
+  {% assign include_header = true %}
+{% endif %}
+
+{% if include_brand == null %}
+  {% assign include_brand = true %}
+{% endif %}
+
+{% if navbar_count == null %}
+  {% assign navbar_count = 0 %}
+{% endif %}
+{% assign navbar_count = navbar_count | plus: 1 %}
+
+<nav class="{{ navbar_classes }}">
+  <div class="sheet">
+    
+    {% if include_header %}
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation-collapse-{{ navbar_count }}" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="fa fa-bars"></span>
+        {{ 'general.navigation.mobile_menu_button' | t }}
+      </button>
+      
+      {% if include_brand %}
+        {% assign brand_classes = 'navbar-brand' %}
+        {% include 'header_component_brand' %}
+      {% endif %}
+      
+      {% if include_cart_in_header %}
+        {% assign nav_classes = 'nav navbar-nav pull-right cart-link' %}
+        {% assign nav_list_items = 'cart' %}
+        {% include 'nav_list' %}
+      {% endif %}
+    </div>
+    {% endif %}
+    
+    <div class="navigation navbar-collapse collapse" id="navigation-collapse-{{ navbar_count }}">
+      {{ navbar_content }}
+    </div>
+    
+  </div>
+</nav>
+
+{% comment note: unset optional variable parameters. %}{% endcomment %}
+{% assign navbar_classes = null %}
+{% assign navbar_content = null %}
+{% assign include_header = null %}
+{% assign include_brand = null %}
+{% assign include_cart_in_header = null %}

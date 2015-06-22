@@ -1,9 +1,37 @@
 /*
-  Styles for centered navigation snippet
-
-  NOTE: @extends on navs are because we can't put these classes into the markup as the nav-list is reused in places other than inside a navbar
+  Styles for centered header layout snippet
 */
 
+#header-layout-centered {
+  .header-logo {
+    text-align: center;
+    a {
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  
+  .header-main-menu {
+    .navbar {
+      margin-top: $grid-gutter-width;
+      margin-bottom: 0;
+    }
+    .navbar-nav {
+      float: none;
+      text-align: center;
+    }
+    .navbar-nav > li {
+      float: none;
+      display: inline-block;
+    }
+    .navbar-nav > li > a {
+      display: inline-block;
+    }
+  }
+}
+
+/*
 #header-layout-centered {
   // Small screen sizes
   .header-small {
@@ -87,3 +115,4 @@
     }
   }
 }
+*/

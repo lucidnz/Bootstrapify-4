@@ -8657,6 +8657,18 @@ h6 {
 }
 /* General styles for all navigations */
 
+.navbar-brand img {
+  max-height: 200%;
+  margin-top: -25%;
+}
+
+.navbar-header {
+  .cart-link {
+    margin-right: 0;
+  }
+}
+
+/*
 .nav-inline {
   @extend .list-inline;
   & > li, & > li > a {
@@ -8667,6 +8679,7 @@ h6 {
 .nav-text {
   padding: $nav-link-padding;
 }
+*/
 
 [data-cart-display] > span { // this span is in the translations not in the actual theme markup
   @extend .hidden-xs;
@@ -8711,11 +8724,39 @@ h6 {
   }
 }
 /*
-  Styles for centered navigation snippet
-
-  NOTE: @extends on navs are because we can't put these classes into the markup as the nav-list is reused in places other than inside a navbar
+  Styles for centered header layout snippet
 */
 
+#header-layout-centered {
+  .header-logo {
+    text-align: center;
+    a {
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  
+  .header-main-menu {
+    .navbar {
+      margin-top: $grid-gutter-width;
+      margin-bottom: 0;
+    }
+    .navbar-nav {
+      float: none;
+      text-align: center;
+    }
+    .navbar-nav > li {
+      float: none;
+      display: inline-block;
+    }
+    .navbar-nav > li > a {
+      display: inline-block;
+    }
+  }
+}
+
+/*
 #header-layout-centered {
   // Small screen sizes
   .header-small {
@@ -8799,7 +8840,15 @@ h6 {
     }
   }
 }
+*/
 
+/*
+  Styles for navbar header layout snippet
+*/
+
+#header-layout-navbar {
+  
+}
 /* Styles for socail links and feeds */
 
 .social-links, .social-share-links {

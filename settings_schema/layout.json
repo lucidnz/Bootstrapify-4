@@ -25,9 +25,10 @@
       "id": "header_layout",
       "type": "select",
       "options": [
-        { "value": "header_centered", "label": "Centered" }
+        { "value": "header_layout_navbar", "label": "Nav bar" },
+        { "value": "header_layout_centered", "label": "Centered" }
       ],
-      "default": "header_centered",
+      "default": "header_layout_navbar",
       "info": "You can see each option here [TODO: add link]"
     }
   ]
