@@ -67,9 +67,6 @@ var App = function () {
   Bsify.SocialFeeds.init();
   
   new Bsify.PasswordRecover();
-  
-  // custom phd code
-  new Phd();
 };
 
 // initiate the app and expose it to the browser

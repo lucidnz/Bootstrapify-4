@@ -72,7 +72,7 @@
                 {{ 'products.price.compare_at_price_html' | t: price: price, price_with_currency: price_with_currency }}
               {% endif %}
             </p>
-            <p class="price {{product.id}}" itemprop="price">
+            <p class="price" itemprop="price">
               {% if variant.price == 0 %}
                 {% capture price %}<span class="money" data-price="0" data-currency="{{ shop.currency }}">{{ 'products.price.zero_price' | t }}</span>{% endcapture %}
                 {% capture price_with_currency %}{{ price }}{% endcapture %}
@@ -90,10 +90,9 @@
 
           {% comment %} TODO: sale badges {% endcomment %}
 
-          <form class="add-to-cart-form" action="/cart/add" data-productid="{{product.id}}"  method="post" enctype="multipart/form-data"> 
- {% if product.available %}{% include 'subscription-product' %}{% endif %} 
+          <form class="add-to-cart-form" action="/cart/add" method="post" enctype="multipart/form-data">
             <div class="form-group">
-              <select class="product-select form-control" id="product-select" name="id" data-productid="{{product.id}}"> 
+              <select class="product-select form-control" id="product-select" name="id">
               {% for variant in product.variants %}
                 {% if variant.available %}
                   <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>

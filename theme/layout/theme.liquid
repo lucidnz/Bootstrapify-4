@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{% if page_description %}{{ page_description | escape }}{% else %}{{ shop.description | escape }}{% endif %}" />
 
     <title>{% include 'page_title' %}</title>
@@ -44,9 +44,6 @@
       {{ settings.header_code }}
     {% endunless %}
     {% include 'site_js_vars' %}
-    
-    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
-    <script type="text/javascript" src="{{ 'geolocate.js' | asset_url }}"></script>
 
     {{ content_for_header }}
   </head>
@@ -56,59 +53,49 @@
   <!--[if !(IE)]><!-->  <!--<![endif]-->
   <body class="{{ template | replace: '.', '-' | replace: '/', '-' | replace: '_', '-' }}" id="{{ page_title | handle }}">
 
-    <div class="offcanvas-wrapper">
-      <div class="offcanvas-main">
-        <div class="offcanvas-main-content">
-          <header class="site-header">
-            {% comment %}
-              Each header layouts has it's own snippet file, this allows us to create maintainable modular layouts that can be swapped out or new ones added to easily.
-              All header layouts can be selected from the theme settings.
-              Header snippets are prefixed with 'header_'.
-            {% endcomment %}
-      
-            {% assign header_layout = settings.header_layout | default: 'header_centered' %}
-            {% include header_layout %}
-          </header>
-      
-          {% comment %}
-            Because we want to keep this theme as lean as possible we don't define secondary content here (i.e. sidebars etc.)
-            Secondary content will be applied inside each template on a 'when applicable' basis as it might not be needed for each template.
-      
-            Also to keep the markup as flexible as possible template content is wrapped inside each template like so:
-            <main>
-              <section>
-                <div class="sheet">
-                  ...
-                </div>
-              </section>
-      
-              <section>
-                <div class="sheet">
-                  ...
-                </div>
-              </section>
-            </main>
-      
-              section can be used for extending things out to the full width of the screen if needed.
-              .sheet will constrain the content for that section for nice view widths.
-      
-            Sections can be easily stacked to define new areas and allow for more interesting layout options.
-          {% endcomment %}
-      
-          <div class="site-content">
-            {{ content_for_layout }}
+    <header class="site-header">
+      {% comment %}
+        Each header layouts has it's own snippet file, this allows us to create maintainable modular layouts that can be swapped out or new ones added to easily.
+        All header layouts can be selected from the theme settings.
+        Header snippets are prefixed with 'header_'.
+      {% endcomment %}
+
+      {% assign header_layout = settings.header_layout | default: 'header_centered' %}
+      {% include header_layout %}
+    </header>
+
+    {% comment %}
+      Because we want to keep this theme as lean as possible we don't define secondary content here (i.e. sidebars etc.)
+      Secondary content will be applied inside each template on a 'when applicable' basis as it might not be needed for each template.
+
+      Also to keep the markup as flexible as possible template content is wrapped inside each template like so:
+      <main>
+        <section>
+          <div class="sheet">
+            ...
           </div>
-      
-          <footer class="site-footer">
-            {% include 'site_footer' %}
-          </footer>
-        </div>
-      </div>
-      
-      <div class="offcanvas-cart">
-        {% include 'phd_offcanvas_cart' %}
-      </div>
+        </section>
+
+        <section>
+          <div class="sheet">
+            ...
+          </div>
+        </section>
+      </main>
+
+        section can be used for extending things out to the full width of the screen if needed.
+        .sheet will constrain the content for that section for nice view widths.
+
+      Sections can be easily stacked to define new areas and allow for more interesting layout options.
+    {% endcomment %}
+
+    <div class="site-content">
+      {{ content_for_layout }}
     </div>
+
+    <footer class="site-footer">
+      {% include 'site_footer' %}
+    </footer>
     
     <!-- modal -->
     {% comment %}
@@ -158,7 +145,5 @@
     <!-- Additional custom footer code -->
       {{ settings.footer_code }}
     {% endunless %}
-              
-{% include 'subscription-theme-footer' %}
-</body>
+  </body>
 </html>
