@@ -1,6 +1,6 @@
 {
   "name": "Bootstrapify4",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "Shopify theme framework based on Bootstrap 4",
   "main": [
     "theme/assets/*",
