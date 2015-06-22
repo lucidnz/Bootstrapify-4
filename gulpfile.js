@@ -7,7 +7,6 @@ var gulp        = require('gulp'),
   zip           = require('gulp-zip'),
   plumber       = require('gulp-plumber'),
   jshint        = require('gulp-jshint'),
-  jasmine       = require('gulp-jasmine'),
   vsource       = require('vinyl-source-stream'),
   browserify    = require('browserify'),
   argv          = require('yargs').argv,
@@ -56,7 +55,7 @@ gulp.task('default', function () {
 });
 
 // Helper for js tasks
-gulp.task('js', ['js_lint', 'js_test', 'js_modernizr', 'js_browserify']);
+gulp.task('js', ['js_lint', 'js_modernizr', 'js_browserify']);
 
 // Helper for sass tasks
 gulp.task('sass', ['sass_concat']);
@@ -69,6 +68,9 @@ gulp.task('assets', ['js_assets']);
 
 // ALL THE TASKS!!! plus zipping up a fully built theme
 gulp.task('build', ['js', 'sass', 'settings', 'assets', 'zip']);
+
+// Clean the theme i.e. reset all settings data back to blank
+gulp.task('clean', ['settings_clean']);
 
 /*
   Tasks - This is where the heavy lifting is done
@@ -95,14 +97,6 @@ gulp.task('js_lint', function () {
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(gulpif(!argv.dev, gulp.dest('./theme/assets/')));
-});
-
-gulp.task('js_test', function () {
-  return gulp.src('./spec/*_spec.js')
-    .pipe(plumber({
-      errorHandler: onError
-    }))
-    .pipe(jasmine());
 });
 
 // JS_BROWSERIFY: Build our js files ready for use in the browser
@@ -197,6 +191,12 @@ gulp.task('shopify_theme_settings', function () {
 
       return new Buffer(JSON.stringify(data_array));
     }))
+    .pipe(gulp.dest('./theme/config/'));
+});
+
+// SETTINGS_CLEAN: set the settings_data.json back to blank
+gulp.task('settings_clean', function () {
+  return gulp.src('./settings_data/settings_data.json')
     .pipe(gulp.dest('./theme/config/'));
 });
 
