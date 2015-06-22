@@ -5,10 +5,31 @@
 {% endif %}
 
 <div id="header-layout-navbar">
-  
   {% capture navbar_content %}
     {% comment note: Add fall back for no menu in settings %}{% endcomment %}
     {% if has_menu %}
+    
+      <div class="header-top-menu">
+        {% assign form_classes = 'navbar-form navbar-right' %}
+        {% include 'search_form' %}
+      
+        {% assign nav_classes = 'nav navbar-nav navbar-right' %}
+        {% assign nav_list_items = 'accounts,cart' %}
+        {% include 'nav_list' with settings.tertiary_menu_linklist %}
+      </div>
+      <div class="header-main-menu">
+        {% unless settings.main_menu_linklist == blank %}
+          {% assign nav_classes = 'nav navbar-nav' %}
+          {% include 'nav_list' with settings.main_menu_linklist %}
+        {% endunless %}
+        
+        {% unless settings.secondary_menu_linklist == blank %}
+          {% assign nav_classes = 'nav navbar-nav navbar-right' %}
+          {% include 'nav_list' with settings.secondary_menu_linklist %}
+        {% endunless %}
+      </div>
+      
+    {% else %}
       {% assign nav_classes = 'nav navbar-nav' %}
       {% include 'nav_list' with 'main-menu' %}
       
@@ -18,39 +39,11 @@
       {% assign nav_classes = 'nav navbar-nav navbar-right' %}
       {% assign nav_list_items = 'accounts,cart' %}
       {% include 'nav_list' %}
-    {% else %}
-    
-    {% assign nav_classes = 'nav navbar-nav' %}
-    {% include 'nav_list' with settings.main_menu_linklist %}
-    
-    {% assign form_classes = 'navbar-form navbar-right' %}
-    {% include 'search_form' %}
-    
-    {% unless settings.secondary_menu_linklist == blank %}
-      {% assign nav_classes = 'nav navbar-nav navbar-right' %}
-      {% include 'nav_list' with settings.secondary_menu_linklist %}
-    {% endunless %}
-    
+      
     {% endif %}
-    
-    
-    {% comment %}
-    {% if has_menu %}
-      {% include 'nav_list' with 'main-menu' %}
-    {% endif %}
-    
-    {% assign navbar_nav = true %}
-    {% unless settings.main_menu_linklist == blank %} {% include 'nav_list' with settings.main_menu_linklist %} {% endunless %}
-
-    {% assign navbar_nav = true %}
-    {% unless settings.secondary_menu_linklist == blank %} {% include 'nav_list' with settings.secondary_menu_linklist %} {% endunless %}
-
-    {% assign navbar_nav = true %}
-    {% assign nav_list_items = 'accounts,cart,search' %}
-    {% include 'nav_list' with settings.tertiary_menu_linklist %}
-    {% endcomment %}
   {% endcapture %}
   
   {% assign navbar_classes = 'navbar navbar-default' %}
+  {% assign include_cart_in_header = true %}
   {% include 'header_component_navbar' %}
 </div>

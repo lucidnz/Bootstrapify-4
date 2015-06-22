@@ -2,6 +2,18 @@
   Styles for navbar header layout snippet
 */
 
-#header-layout-navbar {
+#header-layout-navbar {  
+  .cart-link {
+    @media (min-width: $grid-float-breakpoint) {
+      display: none;
+    }
+  }
   
+  .header-top-menu {
+    .navigation-cart {
+      @media (max-width: $grid-float-breakpoint) {
+        display: none;
+      }
+    }
+  }
 }

@@ -5,21 +5,11 @@
 {% endif %}
 
 <div id="header-layout-centered">
-
   <div class="header-layout-sm visible-xs-block">
     {% capture navbar_content %}
       
       {% comment note: fallback for if no menus are set %}{% endcomment %}
       {% if has_menu %}
-        {% assign nav_classes = 'nav navbar-nav' %}
-        {% include 'nav_list' with 'main-menu' %}
-        
-        {% assign nav_classes = 'nav navbar-nav' %}
-        {% assign nav_list_items = 'accounts,cart' %}
-        {% include 'nav_list' %}
-        {% include 'search_form' %}
-        
-      {% else %}
         {% unless settings.main_menu_linklist == blank %}
           {% assign nav_classes = 'nav navbar-nav' %}
           {% include 'nav_list' with settings.main_menu_linklist %}
@@ -36,7 +26,18 @@
         
         {% assign form_classes = 'navbar-form' %}
         {% include 'search_form' %}
-      
+        
+      {% else %}
+        {% assign nav_classes = 'nav navbar-nav' %}
+        {% include 'nav_list' with 'main-menu' %}
+        
+        {% assign nav_classes = 'nav navbar-nav' %}
+        {% assign nav_list_items = 'accounts' %}
+        {% include 'nav_list' %}
+        
+        {% assign form_classes = 'navbar-form' %}
+        {% include 'search_form' %}
+        
       {% endif %}
     {% endcapture %}
     {% assign navbar_classes = 'navbar navbar-default' %}
@@ -73,9 +74,9 @@
       {% capture navbar_content %}
         {% assign nav_classes = 'nav navbar-nav' %}
         {% if has_menu %}
-          {% include 'nav_list' with 'main-menu' %}
-        {% else %}
           {% include 'nav_list' with settings.main_menu_linklist %}
+        {% else %}
+          {% include 'nav_list' with 'main-menu' %}
         {% endif %}
       {% endcapture %}
       
@@ -84,102 +85,4 @@
       {% include 'header_component_navbar' %}
     </div>
   </div>
-
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-{% comment note: TODO: there is some weird markup here. It probably all needs to be burnt %}{% endcomment %}
-
-<div id="header-layout-centered">
-  # Header markup for smaller screen sizes i.e. mobiles
-  <div class="header-small navbar navbar-default visible-xs-block">
-    <div class="sheet">
-
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle pull-left collapsed" data-toggle="collapse" data-target="#navigation-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="fa fa-bars"></span>
-          {{ 'general.navigation.mobile_menu_button' | t }}
-        </button>
-
-        {% assign nav_list_items = 'cart' %}
-        {% include 'nav_list' %}
-      </div>
-
-      <div class="navigation navbar-collapse collapse" id="navigation-collapse">
-        {% comment %} Add fall back for no menu in settings {% endcomment %}
-        {% if settings.main_menu_linklist == blank and settings.secondary_menu_linklist == blank and settings.tertiary_menu_linklist == blank %}
-          {% include 'nav_list' with 'main-menu' %}
-        {% endif %}
-        
-        {% assign navbar_nav = true %}
-        {% unless settings.main_menu_linklist == blank %} {% include 'nav_list' with settings.main_menu_linklist %} {% endunless %}
-
-        {% assign navbar_nav = true %}
-        {% unless settings.secondary_menu_linklist == blank %} {% include 'nav_list' with settings.secondary_menu_linklist %} {% endunless %}
-
-        {% assign navbar_nav = true %}
-        {% assign nav_list_items = 'accounts,search' %}
-        {% include 'nav_list' with settings.tertiary_menu_linklist %}
-      </div>
-
-    </div>
-  </div>
-
-  # Header markup for larger screen sizes i.e. desktops
-  <div class="header-large">
-    <section class="navigation-top hidden-xs">
-      <div class="sheet">
-        <div class="navigation-top-content">
-          {% unless settings.secondary_menu_linklist == blank %}
-            <nav class="secondary-nav">
-              {% include 'nav_list' with settings.secondary_menu_linklist %}
-            </nav>
-          {% endunless %}
-  
-          <nav class="tertiary-nav">
-            {% assign nav_list_items = 'accounts,cart,search' %}
-            {% include 'nav_list' with settings.tertiary_menu_linklist %}
-          </nav>
-        </div>
-      </div>
-    </section>
-
-    <section class="header-logo">
-      {% comment %} *** TODO: Logos -> text / img / svg / font / etc *** {% endcomment %}
-      {% if settings.logo_enabled %}
-      <a href="/" title="{{ shop.name }}"><img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name | escape }}" class="logo-image"></a>
-      {% else %}
-      <h1><a href="/" title="{{ shop.name }}">{{ shop.name }}</a></h1>
-      {% endif %}
-    </section>
-
-    <section class="navigation-main hidden-xs">
-      <nav class="main-nav">
-        {% comment %} Add fall back for no menu in settings {% endcomment %}
-        {% if settings.main_menu_linklist == blank and settings.secondary_menu_linklist == blank and settings.tertiary_menu_linklist == blank %}
-          {% include 'nav_list' with 'main-menu' %}
-        {% else %}
-          {% include 'nav_list' with settings.main_menu_linklist %}
-        {% endif %}
-      </nav>
-    </section>
-  </div>
-</div>
--->

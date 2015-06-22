@@ -25,7 +25,7 @@
       "id": "header_layout",
       "type": "select",
       "options": [
-        { "value": "header_layout_navbar", "label": "Nav bar" },
+        { "value": "header_layout_navbar", "label": "Navbar" },
         { "value": "header_layout_centered", "label": "Centered" }
       ],
       "default": "header_layout_navbar",
