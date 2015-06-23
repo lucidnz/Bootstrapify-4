@@ -32,7 +32,7 @@
   "description": "Shopify theme framework based on Bootstrap 4",
   "license": "MIT",
   "dependencies": {
-    "bootstrap-sass": "~3.3.3",
+    "bootstrap-sass": "3.3.4",
     "respond": "https://github.com/scottjehl/Respond.git#~1.4.2",
     "picturefill": "https://github.com/scottjehl/picturefill.git#~2.2.0",
     "shopify-cartjs": "~0.2.3",
