@@ -7,7 +7,7 @@
     },
     {
       "type": "paragraph",
-      "content": "Images will be converted to JPEGs. Best to convert before you upload if possible."
+      "content": "Images will be converted to PNG. Best to convert and optimise before you upload and keep under 2048px."
     },
     {
       "type": "paragraph",
@@ -64,7 +64,7 @@
     },
     {
       "label": "Default image file",
-      "id": "banner_slide_1.jpg",
+      "id": "banner_slide_1.png",
       "type": "image"
     },
     {
@@ -140,7 +140,7 @@
     },
     {
       "label": "Default image file",
-      "id": "banner_slide_2.jpg",
+      "id": "banner_slide_2.png",
       "type": "image"
     },
     {
@@ -216,7 +216,7 @@
     },
     {
       "label": "Default image file",
-      "id": "banner_slide_3.jpg",
+      "id": "banner_slide_3.png",
       "type": "image"
     },
     {
@@ -292,7 +292,7 @@
     },
     {
       "label": "Default image file",
-      "id": "banner_slide_4.jpg",
+      "id": "banner_slide_4.png",
       "type": "image"
     },
     {
@@ -368,7 +368,7 @@
     },
     {
       "label": "Default image file",
-      "id": "banner_slide_5.jpg",
+      "id": "banner_slide_5.png",
       "type": "image"
     },
     {
