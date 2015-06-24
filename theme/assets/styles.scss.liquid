@@ -294,11 +294,6 @@ $btn-danger-border:              darken($btn-danger-bg, 5%) !default;
 
 $btn-link-disabled-color:        $gray-light !default;
 
-// Allows for customizing button radius independently from global border radius
-$btn-border-radius-base:         $border-radius-base !default;
-$btn-border-radius-large:        $border-radius-large !default;
-$btn-border-radius-small:        $border-radius-small !default;
-
 
 //== Forms
 //
@@ -512,7 +507,7 @@ $navbar-default-toggle-icon-bar-bg:        #888 !default;
 $navbar-default-toggle-border-color:       #ddd !default;
 
 
-//=== Inverted navbar
+// Inverted navbar
 // Reset inverted navbar basics
 $navbar-inverse-color:                      lighten($gray-light, 15%) !default;
 $navbar-inverse-bg:                         #222 !default;
@@ -613,7 +608,6 @@ $jumbotron-color:                inherit !default;
 $jumbotron-bg:                   $gray-lighter !default;
 $jumbotron-heading-color:        inherit !default;
 $jumbotron-font-size:            ceil(($font-size-base * 1.5)) !default;
-$jumbotron-heading-font-size:    ceil(($font-size-base * 4.5)) !default;
 
 
 //== Form states and alerts
@@ -992,7 +986,7 @@ $hr-border:                   $gray-lighter !default;
 
 // CSS image replacement
 //
-// Heads up! v3 launched with only `.hide-text()`, but per our pattern for
+// Heads up! v3 launched with with only `.hide-text()`, but per our pattern for
 // mixins being reused as classes with the same name, this doesn't hold up. As
 // of v3.0.1 we have added `.text-hide()` and deprecated `.hide-text()`.
 //
@@ -1093,7 +1087,7 @@ $hr-border:                   $gray-lighter !default;
   #{$parent} {
     display: block !important;
   }
-  table#{$parent}  { display: table !important; }
+  table#{$parent}  { display: table; }
   tr#{$parent}     { display: table-row !important; }
   th#{$parent},
   td#{$parent}     { display: table-cell !important; }
@@ -1127,25 +1121,6 @@ $hr-border:                   $gray-lighter !default;
   outline-offset: -2px;
 }
 
-@mixin reset-text() {
-  font-family: $font-family-base;
-  // We deliberately do NOT reset font-size.
-  font-style: normal;
-  font-weight: normal;
-  letter-spacing: normal;
-  line-break: auto;
-  line-height: $line-height-base;
-  text-align: left; // Fallback for where `start` is not supported
-  text-align: start;
-  text-decoration: none;
-  text-shadow: none;
-  text-transform: none;
-  white-space: normal;
-  word-break: normal;
-  word-spacing: normal;
-  word-wrap: normal;
-}
-
 // Typography
 
 // [converter] $parent hack
@@ -1153,8 +1128,7 @@ $hr-border:                   $gray-lighter !default;
   #{$parent} {
     color: $color;
   }
-  a#{$parent}:hover,
-  a#{$parent}:focus {
+  a#{$parent}:hover {
     color: darken($color, 10%);
   }
 }
@@ -1416,31 +1390,15 @@ $hr-border:                   $gray-lighter !default;
   background-color: $background;
   border-color: $border;
 
+  &:hover,
   &:focus,
-  &.focus {
-    color: $color;
-    background-color: darken($background, 10%);
-        border-color: darken($border, 25%);
-  }
-  &:hover {
-    color: $color;
-    background-color: darken($background, 10%);
-        border-color: darken($border, 12%);
-  }
+  &.focus,
   &:active,
   &.active,
   .open > &.dropdown-toggle {
     color: $color;
     background-color: darken($background, 10%);
         border-color: darken($border, 12%);
-
-    &:hover,
-    &:focus,
-    &.focus {
-      color: $color;
-      background-color: darken($background, 17%);
-          border-color: darken($border, 25%);
-    }
   }
   &:active,
   &.active,
@@ -1502,13 +1460,12 @@ $hr-border:                   $gray-lighter !default;
 
 // Pagination
 
-@mixin pagination-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
+@mixin pagination-size($padding-vertical, $padding-horizontal, $font-size, $border-radius) {
   > li {
     > a,
     > span {
       padding: $padding-vertical $padding-horizontal;
       font-size: $font-size;
-      line-height: $line-height;
     }
     &:first-child {
       > a,
@@ -1532,11 +1489,10 @@ $hr-border:                   $gray-lighter !default;
     color: $color;
     background-color: $background;
 
-    // [converter] extracted a&, button& to a.list-group-item-#{$state}, button.list-group-item-#{$state}
+    // [converter] extracted a& to a.list-group-item-#{$state}
   }
 
-  a.list-group-item-#{$state},
-  button.list-group-item-#{$state} {
+  a.list-group-item-#{$state} {
     color: $color;
 
     .list-group-item-heading {
@@ -1705,8 +1661,7 @@ $hr-border:                   $gray-lighter !default;
   #{$parent} {
     background-color: $color;
   }
-  a#{$parent}:hover,
-  a#{$parent}:focus {
+  a#{$parent}:hover {
     background-color: darken($color, 10%);
   }
 }
@@ -1845,8 +1800,8 @@ $hr-border:                   $gray-lighter !default;
     // Prevent columns from collapsing when empty
     min-height: 1px;
     // Inner gutter via padding
-    padding-left:  ceil(($grid-gutter-width / 2));
-    padding-right: floor(($grid-gutter-width / 2));
+    padding-left:  ($grid-gutter-width / 2);
+    padding-right: ($grid-gutter-width / 2);
   }
 }
 
@@ -1927,8 +1882,8 @@ $hr-border:                   $gray-lighter !default;
 
 // Creates a wrapper for a series of columns
 @mixin make-row($gutter: $grid-gutter-width) {
-  margin-left:  ceil(($gutter / -2));
-  margin-right: floor(($gutter / -2));
+  margin-left:  ($gutter / -2);
+  margin-right: ($gutter / -2);
   @include clearfix;
 }
 
@@ -2035,12 +1990,12 @@ $hr-border:                   $gray-lighter !default;
   }
 }
 
-/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 
 //
 // 1. Set default font family to sans-serif.
-// 2. Prevent iOS and IE text size adjust after device orientation change,
-//    without disabling user zoom.
+// 2. Prevent iOS text size adjust after orientation change, without disabling
+//    user zoom.
 //
 
 html {
@@ -2108,7 +2063,7 @@ audio:not([controls]) {
 
 //
 // Address `[hidden]` styling not present in IE 8/9/10.
-// Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.
+// Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.
 //
 
 [hidden],
@@ -2128,8 +2083,7 @@ a {
 }
 
 //
-// Improve readability of focused elements when they are also in an
-// active/hover state.
+// Improve readability when focused and also mouse hovered in all browsers.
 //
 
 a:active,
@@ -2247,6 +2201,7 @@ figure {
 //
 
 hr {
+  -moz-box-sizing: content-box;
   box-sizing: content-box;
   height: 0;
 }
@@ -2387,12 +2342,15 @@ input[type="number"]::-webkit-outer-spin-button {
 
 //
 // 1. Address `appearance` set to `searchfield` in Safari and Chrome.
-// 2. Address `box-sizing` set to `border-box` in Safari and Chrome.
+// 2. Address `box-sizing` set to `border-box` in Safari and Chrome
+//    (include `-moz` to future-proof).
 //
 
 input[type="search"] {
   -webkit-appearance: textfield; // 1
-  box-sizing: content-box; //2
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box; // 2
+  box-sizing: content-box;
 }
 
 //
@@ -2529,6 +2487,12 @@ th {
     }
 
     // Bootstrap specific changes start
+    //
+    // Chrome (OSX) fix for https://github.com/twbs/bootstrap/issues/11245
+    // Once fixed, we can just straight up remove this.
+    select {
+        background: #fff !important;
+    }
 
     // Bootstrap components
     .navbar {
@@ -2571,17 +2535,15 @@ th {
 //
 // <a href="#"><span class="glyphicon glyphicon-star"></span> Star</a>
 
-@at-root {
-  // Import the fonts
-  @font-face {
-    font-family: 'Glyphicons Halflings';
-    src: url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot'), '#{$icon-font-path}#{$icon-font-name}.eot'));
-    src: url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot?#iefix'), '#{$icon-font-path}#{$icon-font-name}.eot?#iefix')) format('embedded-opentype'),
-         url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.woff2'), '#{$icon-font-path}#{$icon-font-name}.woff2')) format('woff2'),
-         url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.woff'), '#{$icon-font-path}#{$icon-font-name}.woff')) format('woff'),
-         url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.ttf'), '#{$icon-font-path}#{$icon-font-name}.ttf')) format('truetype'),
-         url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.svg##{$icon-font-svg-id}'), '#{$icon-font-path}#{$icon-font-name}.svg##{$icon-font-svg-id}')) format('svg');
-  }
+// Import the fonts
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot'), '#{$icon-font-path}#{$icon-font-name}.eot'));
+  src: url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot?#iefix'), '#{$icon-font-path}#{$icon-font-name}.eot?#iefix')) format('embedded-opentype'),
+       url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.woff2'), '#{$icon-font-path}#{$icon-font-name}.woff2')) format('woff2'),
+       url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.woff'), '#{$icon-font-path}#{$icon-font-name}.woff')) format('woff'),
+       url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.ttf'), '#{$icon-font-path}#{$icon-font-name}.ttf')) format('truetype'),
+       url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.svg##{$icon-font-svg-id}'), '#{$icon-font-path}#{$icon-font-name}.svg##{$icon-font-svg-id}')) format('svg');
 }
 
 // Catchall baseclass
@@ -3027,11 +2989,11 @@ hr {
 // Fixes "clickability" issue (and more generally, the firing of events such as focus as well)
 // for traditionally non-focusable elements with role="button"
 // see https://developer.mozilla.org/en-US/docs/Web/Events/click#Safari_Mobile
+// Upstream patch for normalize.css submitted: https://github.com/necolas/normalize.css/pull/379 - remove this fix once that is merged
 
 [role="button"] {
   cursor: pointer;
 }
-
 //
 // Typography
 // --------------------------------------------------
@@ -3779,6 +3741,7 @@ input[type="checkbox"] {
   line-height: normal;
 }
 
+// Set the height of file controls to match text inputs
 input[type="file"] {
   display: block;
 }
@@ -3899,17 +3862,13 @@ input[type="search"] {
 // text within the input to become vertically misaligned. As a workaround, we
 // set a pixel line-height that matches the given height of the input, but only
 // for Safari. See https://bugs.webkit.org/show_bug.cgi?id=139848
-//
-// Note that as of 8.3, iOS doesn't support `datetime` or `week`.
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   input[type="date"],
   input[type="time"],
   input[type="datetime-local"],
   input[type="month"] {
-    &.form-control {
-      line-height: $input-height-base;
-    }
+    line-height: $input-height-base;
 
     &.input-sm,
     .input-group-sm & {
@@ -4047,53 +4006,29 @@ input[type="checkbox"] {
 
 @include input-size('.input-sm', $input-height-small, $padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, $input-border-radius-small);
 .form-group-sm {
-  .form-control {
+
+  @include input-size('.form-control', $input-height-small, $padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, $input-border-radius-small);
+
+  .form-control-static {
     height: $input-height-small;
     padding: $padding-small-vertical $padding-small-horizontal;
     font-size: $font-size-small;
     line-height: $line-height-small;
-    border-radius: $input-border-radius-small;
-  }
-  select.form-control {
-    height: $input-height-small;
-    line-height: $input-height-small;
-  }
-  textarea.form-control,
-  select[multiple].form-control {
-    height: auto;
-  }
-  .form-control-static {
-    height: $input-height-small;
     min-height: ($line-height-computed + $font-size-small);
-    padding: ($padding-small-vertical + 1) $padding-small-horizontal;
-    font-size: $font-size-small;
-    line-height: $line-height-small;
   }
 }
 
 @include input-size('.input-lg', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $input-border-radius-large);
 .form-group-lg {
-  .form-control {
+
+  @include input-size('.form-control', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $input-border-radius-large);
+
+  .form-control-static {
     height: $input-height-large;
     padding: $padding-large-vertical $padding-large-horizontal;
     font-size: $font-size-large;
     line-height: $line-height-large;
-    border-radius: $input-border-radius-large;
-  }
-  select.form-control {
-    height: $input-height-large;
-    line-height: $input-height-large;
-  }
-  textarea.form-control,
-  select[multiple].form-control {
-    height: auto;
-  }
-  .form-control-static {
-    height: $input-height-large;
     min-height: ($line-height-computed + $font-size-large);
-    padding: ($padding-large-vertical + 1) $padding-large-horizontal;
-    font-size: $font-size-large;
-    line-height: $line-height-large;
   }
 }
 
@@ -4124,16 +4059,12 @@ input[type="checkbox"] {
   text-align: center;
   pointer-events: none;
 }
-.input-lg + .form-control-feedback,
-.input-group-lg + .form-control-feedback,
-.form-group-lg .form-control + .form-control-feedback {
+.input-lg + .form-control-feedback {
   width: $input-height-large;
   height: $input-height-large;
   line-height: $input-height-large;
 }
-.input-sm + .form-control-feedback,
-.input-group-sm + .form-control-feedback,
-.form-group-sm .form-control + .form-control-feedback {
+.input-sm + .form-control-feedback {
   width: $input-height-small;
   height: $input-height-small;
   line-height: $input-height-small;
@@ -4308,7 +4239,7 @@ input[type="checkbox"] {
   // Reposition the icon because it's now within a grid column and columns have
   // `position: relative;` on them. Also accounts for the grid gutter padding.
   .has-feedback .form-control-feedback {
-    right: floor(($grid-gutter-width / 2));
+    right: ($grid-gutter-width / 2);
   }
 
   // Form group sizes
@@ -4319,7 +4250,6 @@ input[type="checkbox"] {
     @media (min-width: $screen-sm-min) {
       .control-label {
         padding-top: (($padding-large-vertical * $line-height-large) + 1);
-        font-size: $font-size-large;
       }
     }
   }
@@ -4327,7 +4257,6 @@ input[type="checkbox"] {
     @media (min-width: $screen-sm-min) {
       .control-label {
         padding-top: ($padding-small-vertical + 1);
-        font-size: $font-size-small;
       }
     }
   }
@@ -4352,7 +4281,7 @@ input[type="checkbox"] {
   background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
   border: 1px solid transparent;
   white-space: nowrap;
-  @include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $btn-border-radius-base);
+  @include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $border-radius-base);
   @include user-select(none);
 
   &,
@@ -4382,17 +4311,9 @@ input[type="checkbox"] {
   &[disabled],
   fieldset[disabled] & {
     cursor: $cursor-disabled;
+    pointer-events: none; // Future-proof disabling of clicks
     @include opacity(.65);
     @include box-shadow(none);
-  }
-
-  // [converter] extracted a& to a.btn
-}
-
-a.btn {
-  &.disabled,
-  fieldset[disabled] & {
-    pointer-events: none; // Future-proof disabling of clicks on `<a>` elements
   }
 }
 
@@ -4469,14 +4390,14 @@ a.btn {
 
 .btn-lg {
   // line-height: ensure even-numbered height of button next to large input
-  @include button-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $btn-border-radius-large);
+  @include button-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-large);
 }
 .btn-sm {
   // line-height: ensure proper height of button next to small input
-  @include button-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, $btn-border-radius-small);
+  @include button-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, $border-radius-small);
 }
 .btn-xs {
-  @include button-size($padding-xs-vertical, $padding-xs-horizontal, $font-size-small, $line-height-small, $btn-border-radius-small);
+  @include button-size($padding-xs-vertical, $padding-xs-horizontal, $font-size-small, $line-height-small, $border-radius-small);
 }
 
 
@@ -4553,7 +4474,6 @@ tbody.collapse.in { display: table-row-group; }
   margin-left: 2px;
   vertical-align: middle;
   border-top:   $caret-width-base dashed;
-  border-top:   $caret-width-base solid \9; // IE8
   border-right: $caret-width-base solid transparent;
   border-left:  $caret-width-base solid transparent;
 }
@@ -4727,8 +4647,7 @@ tbody.collapse.in { display: table-row-group; }
   // Reverse the caret
   .caret {
     border-top: 0;
-    border-bottom: $caret-width-base dashed;
-    border-bottom: $caret-width-base solid \9; // IE8
+    border-bottom: $caret-width-base solid;
     content: "";
   }
   // Different positioning for bottom up menu
@@ -4795,7 +4714,6 @@ tbody.collapse.in { display: table-row-group; }
   margin-left: -5px; // Offset the first child's margin
   @include clearfix;
 
-  .btn,
   .btn-group,
   .input-group {
     float: left;
@@ -4932,11 +4850,11 @@ tbody.collapse.in { display: table-row-group; }
     border-radius: 0;
   }
   &:first-child:not(:last-child) {
-    border-top-right-radius: $btn-border-radius-base;
+    border-top-right-radius: $border-radius-base;
     @include border-bottom-radius(0);
   }
   &:last-child:not(:first-child) {
-    border-bottom-left-radius: $btn-border-radius-base;
+    border-bottom-left-radius: $border-radius-base;
     @include border-top-radius(0);
   }
 }
@@ -5164,7 +5082,6 @@ tbody.collapse.in { display: table-row-group; }
   &:last-child {
     > .btn,
     > .btn-group {
-      z-index: 2;
       margin-left: -1px;
     }
   }
@@ -6145,7 +6062,6 @@ tbody.collapse.in { display: table-row-group; }
   > li > span {
     &:hover,
     &:focus {
-      z-index: 3;
       color: $pagination-hover-color;
       background-color: $pagination-hover-bg;
       border-color: $pagination-hover-border;
@@ -6185,12 +6101,12 @@ tbody.collapse.in { display: table-row-group; }
 
 // Large
 .pagination-lg {
-  @include pagination-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-large);
+  @include pagination-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $border-radius-large);
 }
 
 // Small
 .pagination-sm {
-  @include pagination-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, $border-radius-small);
+  @include pagination-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $border-radius-small);
 }
 
 //
@@ -6329,7 +6245,7 @@ a.label {
   font-weight: $badge-font-weight;
   color: $badge-color;
   line-height: $badge-line-height;
-  vertical-align: middle;
+  vertical-align: baseline;
   white-space: nowrap;
   text-align: center;
   background-color: $badge-bg;
@@ -6390,8 +6306,7 @@ a.badge {
 
 
 .jumbotron {
-  padding-top:    $jumbotron-padding;
-  padding-bottom: $jumbotron-padding;
+  padding: $jumbotron-padding ($jumbotron-padding / 2);
   margin-bottom: $jumbotron-padding;
   color: $jumbotron-color;
   background-color: $jumbotron-bg;
@@ -6421,8 +6336,7 @@ a.badge {
   }
 
   @media screen and (min-width: $screen-sm-min) {
-    padding-top:    ($jumbotron-padding * 1.6);
-    padding-bottom: ($jumbotron-padding * 1.6);
+    padding: ($jumbotron-padding * 1.6) 0;
 
     .container &,
     .container-fluid & {
@@ -6432,7 +6346,7 @@ a.badge {
 
     h1,
     .h1 {
-      font-size: $jumbotron-heading-font-size;
+      font-size: ($font-size-base * 4.5);
     }
   }
 }
@@ -6659,11 +6573,6 @@ a.thumbnail.active {
 
 .media-object {
   display: block;
-
-  // Fix collapse in webkit from max-width: 100% and display: table-cell.
-  &.img-thumbnail {
-    max-width: none;
-  }
 }
 
 .media-right,
@@ -6745,13 +6654,12 @@ a.thumbnail.active {
 }
 
 
-// Interactive list items
+// Linked list items
 //
-// Use anchor or button elements instead of `li`s or `div`s to create interactive items.
+// Use anchor elements instead of `li`s or `div`s to create linked list items.
 // Includes an extra `.active` modifier class for showing selected items.
 
-a.list-group-item,
-button.list-group-item {
+a.list-group-item {
   color: $list-group-link-color;
 
   .list-group-item-heading {
@@ -6765,11 +6673,6 @@ button.list-group-item {
     color: $list-group-link-hover-color;
     background-color: $list-group-hover-bg;
   }
-}
-
-button.list-group-item {
-  width: 100%;
-  text-align: left;
 }
 
 .list-group-item {
@@ -6914,18 +6817,12 @@ button.list-group-item {
         @include border-top-radius(($panel-border-radius - 1));
       }
     }
-
     // Add border bottom radius for last one
     &:last-child {
       .list-group-item:last-child {
         border-bottom: 0;
         @include border-bottom-radius(($panel-border-radius - 1));
       }
-    }
-  }
-  > .panel-heading + .panel-collapse > .list-group {
-    .list-group-item:first-child {
-      @include border-top-radius(0);
     }
   }
 }
@@ -7372,11 +7269,11 @@ button.close {
   position: absolute;
   z-index: $zindex-tooltip;
   display: block;
-  // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
-  // So reset our font and text properties to avoid inheriting weird values.
-  @include reset-text;
+  // Reset font and text properties given new insertion method
+  font-family: $font-family-base;
   font-size: $font-size-small;
-
+  font-weight: normal;
+  line-height: 1.4;
   @include opacity(0);
 
   &.in     { @include opacity($tooltip-opacity); }
@@ -7392,6 +7289,7 @@ button.close {
   padding: 3px 8px;
   color: $tooltip-color;
   text-align: center;
+  text-decoration: none;
   background-color: $tooltip-bg;
   border-radius: $border-radius-base;
 }
@@ -7477,17 +7375,21 @@ button.close {
   display: none;
   max-width: $popover-max-width;
   padding: 1px;
-  // Our parent element can be arbitrary since popovers are by default inserted as a sibling of their target element.
-  // So reset our font and text properties to avoid inheriting weird values.
-  @include reset-text;
+  // Reset font and text properties given new insertion method
+  font-family: $font-family-base;
   font-size: $font-size-base;
-
+  font-weight: normal;
+  line-height: $line-height-base;
+  text-align: left;
   background-color: $popover-bg;
   background-clip: padding-box;
   border: 1px solid $popover-fallback-border-color;
   border: 1px solid $popover-border-color;
   border-radius: $border-radius-large;
   @include box-shadow(0 5px 10px rgba(0,0,0,.2));
+
+  // Overrides for proper insertion
+  white-space: normal;
 
   // Offset the popover to account for the popover arrow
   &.top     { margin-top: -$popover-arrow-width; }
@@ -7627,7 +7529,7 @@ button.close {
     @media all and (transform-3d), (-webkit-transform-3d) {
       @include transition-transform(0.6s ease-in-out);
       @include backface-visibility(hidden);
-      @include perspective(1000px);
+      @include perspective(1000);
 
       &.next,
       &.active.right {
@@ -7728,7 +7630,6 @@ button.close {
   .glyphicon-chevron-right {
     position: absolute;
     top: 50%;
-    margin-top: -10px;
     z-index: 5;
     display: inline-block;
   }
@@ -7746,6 +7647,7 @@ button.close {
   .icon-next {
     width:  20px;
     height: 20px;
+    margin-top: -10px;
     line-height: 1;
     font-family: serif;
   }
@@ -7942,10 +7844,8 @@ button.close {
 // Source: http://timkadlec.com/2013/01/windows-phone-8-and-device-width/
 // Source: http://timkadlec.com/2012/10/ie10-snap-mode-and-responsive-design/
 
-@at-root {
-  @-ms-viewport {
-    width: device-width;
-  }
+@-ms-viewport {
+  width: device-width;
 }
 
 
@@ -8649,6 +8549,28 @@ body[class*="collection"] {
   }
 }
 
+/*
+  Homepage
+*/
+
+.homepage-section {
+  padding: $grid-gutter-width 0;
+  
+  h1, h2 {
+    &:first-child {
+      margin-top: 0; 
+    }
+  }
+  
+  &:nth-child(even) {
+   background-color: rgba(#000,.03);
+  }
+  
+  .banner {
+    margin-top: (0 - $grid-gutter-width);
+    margin-bottom: (0 - $grid-gutter-width);
+  }
+}
 /* Typograhical Styles */
 
 a:hover,
@@ -8834,6 +8756,10 @@ h6 {
       overflow: hidden;
       display: inline-block;
       vertical-align: middle;
+    }
+    
+    img {
+      max-height: {{ settings.logo_max_height }};
     }
   }
   

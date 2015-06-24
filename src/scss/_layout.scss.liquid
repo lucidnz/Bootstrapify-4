@@ -491,3 +491,26 @@ body[class*="collection"] {
     @include make-sm-column-offset(3);
   }
 }
+
+/*
+  Homepage
+*/
+
+.homepage-section {
+  padding: $grid-gutter-width 0;
+  
+  h1, h2 {
+    &:first-child {
+      margin-top: 0; 
+    }
+  }
+  
+  &:nth-child(even) {
+   background-color: rgba(#000,.03);
+  }
+  
+  .banner {
+    margin-top: (0 - $grid-gutter-width);
+    margin-bottom: (0 - $grid-gutter-width);
+  }
+}
