@@ -11,9 +11,11 @@
       vertical-align: middle;
     }
     
+    {% unless settings.logo_max_height == blank %}
     img {
       max-height: {{ settings.logo_max_height }};
     }
+    {% endunless %}
   }
   
   .header-main-menu {

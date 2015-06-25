@@ -4,7 +4,7 @@
 
 
 <div class="social-links">
-  <ul class="nav nav-inline">
+  <ul class="list-inline">
   {% assign social_links = 'dribbble,email,facebook,flickr,foursquare,github,google_plus,instagram,linkedin,pinterest,rss,skype,stack_exchange,stack_overflow,tumblr,twitter,vimeo,youtube' | split: ',' %}
   {% for link in social_links %}
     {% assign social_link = link | prepend: 'social_links_' %}

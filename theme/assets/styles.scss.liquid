@@ -8388,7 +8388,7 @@ body[class*="collection"] {
 
   .social-share-links {
     @include make-row();
-    & .nav {
+    & ul {
       text-align: center;
       {% if is_centered %}
         @include make-sm-column(12);
@@ -8758,9 +8758,11 @@ h6 {
       vertical-align: middle;
     }
     
+    {% unless settings.logo_max_height == blank %}
     img {
       max-height: {{ settings.logo_max_height }};
     }
+    {% endunless %}
   }
   
   .header-main-menu {
