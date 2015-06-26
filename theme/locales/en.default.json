@@ -85,7 +85,7 @@
   },
   "cart": {
     "site_header": {
-      "cart_link_html": "Cart ({{ item_count }})<span class='cart-total'> &ndash; {{ cart_total_price_with_currency }}<\/span>"
+      "cart_link_html": "Cart ({{ item_count }})<span class='cart-total'> &ndash; {{ cart_total_price }}<\/span>"
     },
     "cart_page": {
       "page_title": "Cart",
@@ -143,7 +143,8 @@
       "fulfillment_status_title" : "Fulfillment Status",
       "total_title" : "Total",
       "order_created_on_note" : "Placed on {{ date }}",
-      "order_cancelled_on_note" : "Order cancelled on {{ date }}"
+      "order_cancelled_on_note" : "Order cancelled on {{ date }}",
+      "order_total_html": "{{ price_with_currency }}"
     },
     "addresses" : {
       "page_title" : "Addresses"

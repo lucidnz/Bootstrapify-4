@@ -1,19 +1,11 @@
 <div class="product-price">
-  {% comment %} To avoid duplication set the zero price string first. Only update it if the price is more that zero {% endcomment %}  
-  {% capture price %}<span class="money" data-price="0" data-currency="{{ shop.currency }}">{{ 'products.price.zero_price' | t }}</span>{% endcapture %}
-  {% capture price_with_currency %}{{ price }}{% endcapture %}
-  
   {% if p.price_varies %}
-    {% unless p.price_min == 0 %}
-      {% capture price %}<span class="money" data-price="{{ p.price_min }}" data-currency="{{ shop.currency }}">{{ p.price_min | money }}</span>{% endcapture %}
-      {% capture price_with_currency %}<span class="money" data-price="{{ p.price_min }}" data-currency="{{ shop.currency }}">{{ p.price_min | money_with_currency }}</span>{% endcapture %}
-    {% endunless %}
+    {% capture price %}{% assign show_zero = true %}{% include '_price' with p.price_min %}{% endcapture %}
+    {% capture price_with_currency %}{% assign show_zero = true %}{% include '_price_with_currency' with p.price_min %}{% endcapture %}
     {{ 'products.price.from_price_html' | t: price: price, price_with_currency: price_with_currency }}
   {% else %}
-    {% unless p.price == 0 %}
-      {% capture price %}<span class="money" data-price="{{ p.price }}" data-currency="{{ shop.currency }}">{{ p.price | money }}</span>{% endcapture %}
-      {% capture price_with_currency %}<span class="money" data-price="{{ p.price }}" data-currency="{{ shop.currency }}">{{ p.price | money_with_currency }}</span>{% endcapture %}
-    {% endunless %}
+    {% capture price %}{% assign show_zero = true %}{% include '_price' with p.price %}{% endcapture %}
+    {% capture price_with_currency %}{% assign show_zero = true %}{% include '_price_with_currency' with p.price %}{% endcapture %}
     {{ 'products.price.standard_price_html' | t: price: price, price_with_currency: price_with_currency }}
   {% endif %}
 </div>

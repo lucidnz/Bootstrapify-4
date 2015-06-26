@@ -53,9 +53,7 @@
       </section>
 
       <section class="product-details" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-        {% comment %}
-          Get first variant, or deep linked one
-        {% endcomment %}
+        {% comment note: Get first variant, or deep linked one %}{% endcomment %}
         {% assign variant = product.selected_or_first_available_variant %}
 
         <meta itemprop="priceCurrency" content="{{ shop.currency }}">
@@ -65,21 +63,16 @@
         <div class="product-details-content">
           <div class="product-price h3">
             <p class="compare-at-price small text-muted">
-              {% comment %} Leave compare-at-price element in markup even if empty so we can grab it with JS if we need to {% endcomment %}
+              {% comment note: Leave compare-at-price element in markup even if empty so we can grab it with JS if we need to %}{% endcomment %}
               {% if variant.compare_at_price > variant.price %}
-                {% capture price %}<span class="money" data-price="{{ variant.compare_at_price }}" data-currency="{{ shop.currency }}">{{ variant.compare_at_price | money }}</span>{% endcapture %}
-                {% capture price_with_currency %}<span class="money" data-price="{{ variant.compare_at_price }}" data-currency="{{ shop.currency }}">{{ variant.compare_at_price | money_with_currency }}</span>{% endcapture %}
+                {% capture price %}{% include '_price' with variant.compare_at_price %}{% endcapture %}
+                {% capture price_with_currency %}{% include '_price_with_currency' with variant.compare_at_price %}{% endcapture %}
                 {{ 'products.price.compare_at_price_html' | t: price: price, price_with_currency: price_with_currency }}
               {% endif %}
             </p>
             <p class="price" itemprop="price">
-              {% if variant.price == 0 %}
-                {% capture price %}<span class="money" data-price="0" data-currency="{{ shop.currency }}">{{ 'products.price.zero_price' | t }}</span>{% endcapture %}
-                {% capture price_with_currency %}{{ price }}{% endcapture %}
-              {% else %}
-                {% capture price %}<span class="money" data-price="{{ variant.price }}" data-currency="{{ shop.currency }}">{{ variant.price | money }}</span>{% endcapture %}
-                {% capture price_with_currency %}<span class="money" data-price="{{ variant.price }}" data-currency="{{ shop.currency }}">{{ variant.price | money_with_currency }}</span>{% endcapture %}
-              {% endif %}
+              {% capture price %}{% assign show_zero = true %}{% include '_price' with variant.price %}{% endcapture %}
+              {% capture price_with_currency %}{% assign show_zero = true %}{% include '_price_with_currency' with variant.price %}{% endcapture %}
               {% if variant.compare_at_price > variant.price %}
                 {{ 'products.price.sale_price_html' | t: price: price, price_with_currency: price_with_currency }}
               {% else %}

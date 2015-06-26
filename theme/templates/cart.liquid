@@ -38,13 +38,8 @@
                     </a>
                   </td>
                   <td class="cart-item-price">
-                    {% if item.price == 0 %}                    
-                      {% capture item_price %}<span class="money" data-price="0" data-currency="{{ shop.currency }}">{{ 'products.price.zero_price' | t }}</span>{% endcapture %}
-                      {% capture item_price_with_currency %}{{ item_price }}{% endcapture %}
-                    {% else %}
-                      {% capture item_price %}<span class="money" data-price="{{ item.price }}" data-currency="{{ shop.currency }}">{{ item.price | money }}</span>{% endcapture %}
-                      {% capture item_price_with_currency %}<span class="money" data-price="{{ item.price }}" data-currency="{{ shop.currency }}">{{ item.price | money_with_currency }}</span>{% endcapture %}
-                    {% endif %}
+                    {% capture item_price %}{% assign show_zero = true %}{% include '_price' with item.price %}{% endcapture %}
+                    {% capture item_price_with_currency %}{% assign show_zero = true %}{% include '_price_with_currency' with item.price %}{% endcapture %}
                     <span class="cart-item-label-mini text-muted">{{ 'cart.cart_table.price_label' | t }}:</span> {{ 'cart.price.item_price_html' | t: price: item_price, price_with_currency: item_price_with_currency }}
                   </td>
                   <td class="cart-item-quantity">
@@ -56,9 +51,9 @@
                     </div>
                   </td>
                   <td class="cart-item-total">
-                    {% capture line_price %}<span class="money" data-price="{{ item.line_price }}" data-currency="{{ shop.currency }}">{{ item.line_price | money }}</span>{% endcapture %}
-                    {% capture line_price_with_currency %}<span class="money" data-price="{{ item.line_price }}" data-currency="{{ shop.currency }}">{{ item.line_price | money_with_currency }}</span>{% endcapture %}
-                    <span class="cart-item-label-mini text-muted">{{ 'cart.cart_table.total_label' | t }}:</span> {{ 'cart.price.item_price_html' | t: price: line_price, price_with_currency: line_price_with_currency }}
+                    {% capture line_price %}{% include '_price' with item.line_price %}{% endcapture %}
+                    {% capture line_price_with_currency %}{% include '_price_with_currency' with item.line_price %}{% endcapture %}
+                    <span class="cart-item-label-mini text-muted">{{ 'cart.cart_table.total_label' | t }}:</span> {{ 'cart.price.line_price_html' | t: price: line_price, price_with_currency: line_price_with_currency }}
                   </td>
                 </tr>
                 {% endfor %}
@@ -85,8 +80,8 @@
           <div class="cart-details">            
             <h3>
               <small>{{ 'cart.cart_page.subtotal_title' | t }}</small>
-              {% capture total_price %}<span class="money" data-price="{{ cart.total_price }}" data-currency="{{ shop.currency }}">{{ cart.total_price | money }}</span>{% endcapture %}
-              {% capture total_price_with_currency %}<span class="money" data-price="{{ cart.total_price }}" data-currency="{{ shop.currency }}">{{ cart.total_price | money_with_currency }}</span>{% endcapture %}
+              {% capture total_price %}{% include '_price' with cart.total_price %}{% endcapture %}
+              {% capture total_price_with_currency %}{% include '_price_with_currency' with cart.total_price %}{% endcapture %}
               <span class="cart-total" data-cart-total>{{ 'cart.price.cart_total_html' | t: price: total_price, price_with_currency: total_price_with_currency }}</span>
             </h3>
             <div class="cart-shipping-note">

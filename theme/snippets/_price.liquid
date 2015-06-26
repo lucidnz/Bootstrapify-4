@@ -1,0 +1,14 @@
+{% comment note:
+  
+  The `_price` snippet is is used for outputting a price in a consistent way across the theme.
+  It also contains the needed data for the currency switcher to do what it needs to do.
+  
+  It takes one `with` parameter which is the unformatted price.
+  If you want to show a translation output for a zero price (i.e. 'free' instead of $0.00) then set the variable `show_zero` to true outside the snippet before you include it.
+  You can also pass a string as the price parameter as long as it is wrapped in '[]'. This is useful if you are using it inside javascript as a template, where you want to use a string replace.
+  
+  To use the `money_with_currency` format use the `_price_with_currency.liquid` snippet
+  
+ %}{% endcomment %}
+<span class="money" data-price="{{ _price }}" data-currency="{{ shop.currency }}">{% if _price == 0 and show_zero %}{{ 'products.price.zero_price' | t }}{% elsif _price contains '[' %}{{ _price }}{% else %}{{ _price | money }}{% endif %}</span>
+{% assign show_zero = false %}

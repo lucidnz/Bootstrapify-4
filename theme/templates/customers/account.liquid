@@ -52,7 +52,11 @@
                   <td><span class="note">{{ order.created_at | date: format: 'order_short' }}</span></td>
                   <td><span class="status-{{ order.financial_status }}">{{ order.financial_status }}</span></td>
                   <td><span class="status-{{ order.fulfillment_status }}">{{ order.fulfillment_status }}</span></td>
-                  <td class="text-right"><span class="money" data-price="{{ order.total_price }}" data-currency="{{ shop.currency }}">{{ order.total_price | money }}</span></td>
+                  <td class="text-right">
+                    {% capture price %}{% include '_price' with order.total_price %}{% endcapture %}
+                    {% capture price_with_currency %}{% include '_price_with_currency' with order.total_price %}{% endcapture %}
+                    {{ 'customer_accounts.orders.order_total_html' | t: price: price, price_with_currency: price_with_currency }}
+                  </td>
                 </tr>
                 {% endfor %}
               </tbody>
