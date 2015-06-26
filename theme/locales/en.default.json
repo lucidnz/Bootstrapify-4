@@ -95,7 +95,8 @@
       "customer_note_label": "Any comments or special instructions?"
     },
     "price": {
-      "item_price_html": "{{ price_with_currency }}",
+      "item_price_html": "{{ price }}",
+      "line_price_html": "{{ price_with_currency }}",
       "item_total_html": "{{ price_with_currency }}",
       "cart_total_html": "{{ price_with_currency }}"
     },

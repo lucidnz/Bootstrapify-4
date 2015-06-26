@@ -407,6 +407,14 @@ body[class*="collection"] {
     display: none;
   }
 
+  .cart-item-quantity {
+    text-align: center;
+    .input-group {
+      max-width: 8em;
+      margin: auto;
+    }
+  }
+
   // Display cart table as a list on mobiles
   @media (max-width: $grid-float-breakpoint-max) {
     .cart-table {
@@ -422,6 +430,15 @@ body[class*="collection"] {
       }
       td {
         border-top: none;
+      }
+      .cart-item {
+        text-align: center;
+      }
+      .cart-item-quantity,
+      .cart-item-price,
+      .cart-item-total {
+        display: inline-block;
+        vertical-align: middle;
       }
       .cart-item-label-mini {
         display: inline;

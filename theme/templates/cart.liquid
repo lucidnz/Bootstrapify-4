@@ -13,8 +13,8 @@
               <thead>
                 <tr>
                   <th class="cart-item-product-label">{{ 'cart.cart_table.product_label' | t }}</th>
-                  <th class="cart-item-quantity-label">{{ 'cart.cart_table.quantity_label' | t }}</th>
                   <th class="cart-item-price-label">{{ 'cart.cart_table.price_label' | t }}</th>
+                  <th class="cart-item-quantity-label">{{ 'cart.cart_table.quantity_label' | t }}</th>
                   <th class="cart-item-total-label">{{ 'cart.cart_table.total_label' | t }}</th>
                 </tr>
               </thead>
@@ -37,14 +37,6 @@
                       </div>
                     </a>
                   </td>
-                  <td class="cart-item-quantity">
-                    <div class="input-group">
-                      <input class="form-control" type="number" name="updates[{{ item.id }}]" value="{{ item.quantity }}" data-update-item="{{ forloop.index }}">
-                      <div class="input-group-btn">
-                        <button class="btn btn-default" type="button" title="Remove {{ item.title }}" data-remove-item="{{ forloop.index }}"><span class="fa fa-times"></span><span class="sr-only">Remove {{ item.title }}</span></button>
-                      </div>
-                    </div>
-                  </td>
                   <td class="cart-item-price">
                     {% if item.price == 0 %}                    
                       {% capture item_price %}<span class="money" data-price="0" data-currency="{{ shop.currency }}">{{ 'products.price.zero_price' | t }}</span>{% endcapture %}
@@ -53,12 +45,20 @@
                       {% capture item_price %}<span class="money" data-price="{{ item.price }}" data-currency="{{ shop.currency }}">{{ item.price | money }}</span>{% endcapture %}
                       {% capture item_price_with_currency %}<span class="money" data-price="{{ item.price }}" data-currency="{{ shop.currency }}">{{ item.price | money_with_currency }}</span>{% endcapture %}
                     {% endif %}
-                    <span class="cart-item-label-mini text-muted">{{ 'cart.cart_table.price_label' | t }}</span> {{ 'cart.price.item_price_html' | t: price: item_price, price_with_currency: item_price_with_currency }}
+                    <span class="cart-item-label-mini text-muted">{{ 'cart.cart_table.price_label' | t }}:</span> {{ 'cart.price.item_price_html' | t: price: item_price, price_with_currency: item_price_with_currency }}
+                  </td>
+                  <td class="cart-item-quantity">
+                    <div class="input-group">
+                      <input class="form-control" type="number" name="updates[{{ item.id }}]" value="{{ item.quantity }}" data-update-item="{{ forloop.index }}">
+                      <div class="input-group-btn">
+                        <button class="btn btn-default" type="button" title="Remove {{ item.title }}" data-remove-item="{{ forloop.index }}"><span class="fa fa-times"></span><span class="sr-only">Remove {{ item.title }}</span></button>
+                      </div>
+                    </div>
                   </td>
                   <td class="cart-item-total">
                     {% capture line_price %}<span class="money" data-price="{{ item.line_price }}" data-currency="{{ shop.currency }}">{{ item.line_price | money }}</span>{% endcapture %}
                     {% capture line_price_with_currency %}<span class="money" data-price="{{ item.line_price }}" data-currency="{{ shop.currency }}">{{ item.line_price | money_with_currency }}</span>{% endcapture %}
-                    <span class="cart-item-label-mini text-muted">{{ 'cart.cart_table.total_label' | t }}</span> {{ 'cart.price.item_price_html' | t: price: line_price, price_with_currency: line_price_with_currency }}
+                    <span class="cart-item-label-mini text-muted">{{ 'cart.cart_table.total_label' | t }}:</span> {{ 'cart.price.item_price_html' | t: price: line_price, price_with_currency: line_price_with_currency }}
                   </td>
                 </tr>
                 {% endfor %}
