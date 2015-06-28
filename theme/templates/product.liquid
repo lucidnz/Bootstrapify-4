@@ -41,7 +41,8 @@
             Collect any variant id (first) associated with each thumb and include it as a data-attr to be used with the image switcher.
             Clicking a thumb to change the image also changes the selected variant if it is linked to it.
           {% endcomment %}
-
+          
+          {% if product.images.size > 1 %}
           {% for thumb in product.images %}
             {% assign image_variant_id = false %}
             {% if thumb.attached_to_variant? %}
@@ -49,6 +50,7 @@
             {% endif %}
             <li><a href="{{ thumb | img_url: 'master' }}" data-gallery-main=".product-image-main img" {% if image_variant_id %}data-variant-id="{{ image_variant_id }}"{% endif %}><img src="{{ thumb | img_url: 'large' }}" alt="{{ thumb.alt | escape }}"></a></li>
           {% endfor %}
+          {% endif %}
         </ul>
       </section>
 
