@@ -8147,6 +8147,16 @@ footer {
 }
 
 // all collection templates
+.collection-banner {
+  {% unless settings.collection_fullscreen_banner %}
+  @extend .sheet;
+  {% endunless %}
+  
+  img {
+    margin: 0 auto;
+  }
+}
+
 body[class*="collection"] {
   
   @include adaptive-columns('.group-item-wrap');
@@ -8713,15 +8723,12 @@ h6 {
 }
 
 .collection-controls {
-  & > div {
-    margin-bottom: 0.5em;
-    @media (min-width: $grid-float-breakpoint) {
-      float: right;
-      margin-right: $grid-gutter-width;
-      margin-bottom: 0;
-      &:first-of-type {
-        margin-right: 0;
-      }
+  margin-bottom: ($grid-gutter-width / 2);
+  @media (min-width: $grid-float-breakpoint) {
+    float: right;
+    margin-right: ($grid-gutter-width / 2);
+    &:first-of-type {
+      margin-right: 0;
     }
   }
 }

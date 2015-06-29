@@ -90,6 +90,16 @@ footer {
 }
 
 // all collection templates
+.collection-banner {
+  {% unless settings.collection_fullscreen_banner %}
+  @extend .sheet;
+  {% endunless %}
+  
+  img {
+    margin: 0 auto;
+  }
+}
+
 body[class*="collection"] {
   
   @include adaptive-columns('.group-item-wrap');
