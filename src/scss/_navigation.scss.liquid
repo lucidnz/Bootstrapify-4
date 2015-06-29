@@ -17,11 +17,10 @@
 
 .collection-controls {
   & > div {
-    margin-bottom: 0.5em;
+    margin-bottom: ($grid-gutter-width / 2);
     @media (min-width: $grid-float-breakpoint) {
       float: right;
-      margin-right: $grid-gutter-width;
-      margin-bottom: 0;
+      margin-right: ($grid-gutter-width / 2);
       &:first-of-type {
         margin-right: 0;
       }

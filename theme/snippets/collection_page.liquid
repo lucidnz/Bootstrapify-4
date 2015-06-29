@@ -1,9 +1,14 @@
 <main role="main">
   <section class="collection-header">
-    <div class="sheet">
+    {% if collection.image %}
+    <div class="collection-banner">
+      <img src="{{ collection.image.src | img_url: '2048x2048' }}">
+    </div>
+    {% endif %}
+    
+    <div class="sheet collection-description">
       <header class="sheet-header">
         <h1>{{ collection.title }}</h1>
-        {% include 'collection_controls'%}
         {{ collection.description }}
       </header>
     </div>
@@ -11,6 +16,8 @@
   
   <section class="collection-content">
     <div class="sheet {% if collection.products.size > 0 %}products-wrap{% endif %}">
+    {% include 'collection_controls'%}
+      
     {% if collection.all_products_count == 0 %}
       <section class="sheet-content">
         <div class="collection-message">

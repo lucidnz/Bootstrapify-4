@@ -8147,6 +8147,20 @@ footer {
 }
 
 // all collection templates
+.collection-banner {
+  {% if settings.collection_fullscreen_banner %}
+  img {
+    width: 100%;
+  }
+  {% else %}
+  @extend .sheet;
+  {% endif %}
+  
+  img {
+    margin: 0 auto;
+  }
+}
+
 body[class*="collection"] {
   
   @include adaptive-columns('.group-item-wrap');
@@ -8714,11 +8728,10 @@ h6 {
 
 .collection-controls {
   & > div {
-    margin-bottom: 0.5em;
+    margin-bottom: ($grid-gutter-width / 2);
     @media (min-width: $grid-float-breakpoint) {
       float: right;
-      margin-right: $grid-gutter-width;
-      margin-bottom: 0;
+      margin-right: ($grid-gutter-width / 2);
       &:first-of-type {
         margin-right: 0;
       }

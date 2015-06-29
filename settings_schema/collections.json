@@ -3,6 +3,16 @@
   "settings": [
     {
       "type": "header",
+      "content": "Banner"
+    },
+    {
+      "label": "Fullscreen banner",
+      "id": "collection_fullscreen_banner",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "type": "header",
       "content": "List Collections"
     },
     {

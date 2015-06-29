@@ -90,6 +90,20 @@ footer {
 }
 
 // all collection templates
+.collection-banner {
+  {% if settings.collection_fullscreen_banner %}
+  img {
+    width: 100%;
+  }
+  {% else %}
+  @extend .sheet;
+  {% endif %}
+  
+  img {
+    margin: 0 auto;
+  }
+}
+
 body[class*="collection"] {
   
   @include adaptive-columns('.group-item-wrap');
