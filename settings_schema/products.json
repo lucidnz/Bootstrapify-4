@@ -17,6 +17,13 @@
       "default": "left"
     },
     {
+      "label": "Use description tabs",
+      "id": "product_description_tabs",
+      "type": "checkbox",
+      "default": false,
+      "info": "If enabled, product description will be split into tabs based on heading 2 blocks—with the heading becoming the tab name."
+    },
+    {
       "type": "header",
       "content": "Social share links"
     },
