@@ -16,12 +16,14 @@
 }
 
 .collection-controls {
-  margin-bottom: ($grid-gutter-width / 2);
-  @media (min-width: $grid-float-breakpoint) {
-    float: right;
-    margin-right: ($grid-gutter-width / 2);
-    &:first-of-type {
-      margin-right: 0;
+  & > div {
+    margin-bottom: ($grid-gutter-width / 2);
+    @media (min-width: $grid-float-breakpoint) {
+      float: right;
+      margin-right: ($grid-gutter-width / 2);
+      &:first-of-type {
+        margin-right: 0;
+      }
     }
   }
 }
