@@ -8148,9 +8148,13 @@ footer {
 
 // all collection templates
 .collection-banner {
-  {% unless settings.collection_fullscreen_banner %}
+  {% if settings.collection_fullscreen_banner %}
+  img {
+    width: 100%;
+  }
+  {% else %}
   @extend .sheet;
-  {% endunless %}
+  {% endif %}
   
   img {
     margin: 0 auto;
