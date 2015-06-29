@@ -118,11 +118,24 @@ Cart.update_cart_display = function () {
   var cart_total_price = Shopify.formatMoney(CartJS.cart.total_price, Bsify.money_formats.moneyFormat);
   var cart_total_price_with_currency = Shopify.formatMoney(CartJS.cart.total_price, Bsify.money_formats.moneyWithCurrencyFormat);
   
-  var cart_display_text = Bsify.translations.cart.cart_display_text.replace('[item_count]', CartJS.cart.item_count).replace('[cart_total_price]', cart_total_price).replace('[cart_total_price_with_currency]', cart_total_price_with_currency);
+  var cart_display_text = Bsify.translations.cart.cart_display_text.replace('[item_count]', CartJS.cart.item_count);
+  cart_display_text = Cart.replace_price(cart_display_text, 'cart_total_price', CartJS.cart.total_price, cart_total_price);
+  cart_display_text = Cart.replace_price(cart_display_text, 'cart_total_price_with_currency', CartJS.cart.total_price, cart_total_price_with_currency);
   $cart_display_ele.html(cart_display_text);
   
-  var cart_total_text = Bsify.translations.cart.cart_total.replace('[cart_total_price]', cart_total_price).replace('[cart_total_price_with_currency]', cart_total_price_with_currency);
+  var cart_total_text = Bsify.translations.cart.cart_total;
+  cart_total_text = Cart.replace_price(cart_total_text, 'cart_total_price', CartJS.cart.total_price, cart_total_price);
+  cart_total_text = Cart.replace_price(cart_total_text, 'cart_total_price_with_currency', CartJS.cart.total_price, cart_total_price_with_currency);
   $cart_total_ele.html(cart_total_text);
+};
+
+Cart.replace_price = function (target_str, placeholder, price_raw, price_formated) {
+  var reg_raw = new RegExp("data-price='(\\["+placeholder+"\\])'");
+  var reg_formatted = new RegExp(">(\\["+placeholder+"\\])<");
+  
+  return target_str
+    .replace(reg_raw, function (a,b) { return a.replace(b, price_raw); })
+    .replace(reg_formatted, function (a,b) { return a.replace(b, price_formated); });
 };
 
 // hide the cart table if the cart is empty
