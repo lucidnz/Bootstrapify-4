@@ -39,11 +39,12 @@
     <script src="//{{ shop.url }}/search?q={{ respond_js_secret_key }}" type="text/javascript"></script>
     <![endif]-->
 
+    {% include 'site_js_vars' %}
     {% unless settings.header_code == blank %}
     <!-- Additional custom header code -->
       {{ settings.header_code }}
     {% endunless %}
-    {% include 'site_js_vars' %}
+    {% include 'additional_footer_content' %}
 
     {{ content_for_header }}
   </head>
@@ -145,5 +146,6 @@
     <!-- Additional custom footer code -->
       {{ settings.footer_code }}
     {% endunless %}
+    {% include 'additional_footer_content' %}
   </body>
 </html>
