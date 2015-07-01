@@ -545,3 +545,32 @@ body[class*="collection"] {
     margin-bottom: (0 - $grid-gutter-width);
   }
 }
+
+/*
+  Tabs
+*/
+
+.nav-tabs {
+  margin-top: $grid-gutter-width;
+  
+  & > li.active > a {
+    
+    &,
+    &:hover {
+      background-color: white;
+    }
+  }
+}
+
+.tab-pane {
+  padding: ($grid-gutter-width / 2);
+  border: 1px #ddd solid;
+  border-top: none;
+  background-color: white;
+  
+  h1, h2, h3, h4, h5, h6, p, ul, ol {
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
