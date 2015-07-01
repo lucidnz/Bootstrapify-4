@@ -87,7 +87,10 @@ Cart.remove_item_from_cart = function ($current_target) {
   var $cart_item_ele = $current_target.closest(Bsify.selectors.cart.item_selector);
   
   var item = Cart.get_item_by_id($cart_item_ele.data('cart-item'));
-  var item_title = item.product_title + Bsify.translations.product.item_title_seperator + item.variant_title;
+  var item_title = item.product_title;
+  if (item.variant_title) {
+    item_title += Bsify.translations.product.item_title_seperator + item.variant_title;
+  }
   
   CartJS.removeItem($current_target.data('remove-item'), {
     "success": function (data, text_status, jqXHR) {
