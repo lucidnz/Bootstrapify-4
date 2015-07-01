@@ -105,6 +105,7 @@
       "price_label": "Price",
       "quantity_label": "Quantity",
       "total_label": "Total",
+      "remove_item_label": "Remove {{ item_title }}",
       "remove_item_message_html": "<h4><strong>&ldquo;{{ item_title }}&rdquo;<\/strong> was removed from your cart.<\/h4>",
       "remove_item_error_message_html": "<h4>There was an error removing <strong>&ldquo;{{ item_title }}&rdquo;<\/strong> from your cart.<\/h4><p><em>{{ error_message }}<\/em><\/p><p>Please try again later, or feel free to <a href='\/pages\/contact'>contact us<\/a>.<\/p>"
     },

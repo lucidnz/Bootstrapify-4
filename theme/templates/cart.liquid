@@ -46,7 +46,7 @@
                     <div class="input-group">
                       <input class="form-control" type="number" name="updates[{{ item.id }}]" value="{{ item.quantity }}" data-update-item="{{ forloop.index }}">
                       <div class="input-group-btn">
-                        <button class="btn btn-default" type="button" title="Remove {{ item.title }}" data-remove-item="{{ forloop.index }}"><span class="fa fa-times"></span><span class="sr-only">Remove {{ item.title }}</span></button>
+                        <button class="btn btn-default" type="button" title="{{ 'cart.cart_table.remove_item_label' | t: item_title: item.title }}" data-remove-item="{{ forloop.index }}"><span class="fa fa-times"></span><span class="sr-only">{{ 'cart.cart_table.remove_item_label' | t: item_title: item.title }}</span></button>
                       </div>
                     </div>
                   </td>
