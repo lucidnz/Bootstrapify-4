@@ -1,0 +1,10 @@
+{
+  "name": "Homepage - Banner",
+  "settings": [
+    {
+      "label": "Brand primary color",
+      "id": "brand_primary_color",
+      "type": "color"
+    }
+  ]
+}

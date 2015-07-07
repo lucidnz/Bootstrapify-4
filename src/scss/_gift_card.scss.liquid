@@ -13,12 +13,12 @@
   #General Variables
 ==============================================================================*/
 // Timber Colors
-$colorBody: {{ settings.color_body_bg }};
-$colorBorder: {{ settings.color_borders }};
+$colorBody: $body-bg; //{{ settings.color_body_bg }};
+$colorBorder: $modal-content-border-color; //{{ settings.color_borders }};
 
 // Gift Card Colors
 $colorGiftText: #999; // note, this is always on a white background
-$colorGiftBorder: {{ settings.color_primary }};
+$colorGiftBorder: $brand-primary; //{{ settings.color_primary }};
 
 // Sizes
 $gutter: 30px;
@@ -69,6 +69,8 @@ header, nav, section, article, aside, footer {
 
 .template-giftcard .wrapper {
   max-width: 588px;
+  margin: auto;
+  text-align: center;
 
   img, object, iframe {
     max-width: 100%;

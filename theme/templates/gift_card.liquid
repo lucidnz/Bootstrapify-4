@@ -2,7 +2,7 @@
 {% assign formatted_initial_value = gift_card.initial_value | money_without_trailing_zeros: gift_card.currency %}
 {% assign formatted_initial_value_stripped = formatted_initial_value | strip_html %}
 <!DOCTYPE html>
-<html lang="en-us">
+<html class="template-giftcard" lang="en-us">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -21,19 +21,12 @@
 
     <!-- Stylesheets -->
     {{ 'styles.scss.css' | asset_url | stylesheet_tag }}
-<!--     {{ 'gift_card.scss.css' | asset_url | stylesheet_tag }} -->
   </head>
 
   <!--[if lte IE 8]> <body class="ie-legacy {{ template | replace: '.', '-' }}" id="{{ page_title | handle }}"> <![endif]-->
   <!--[if IE 9]> <body class="ie {{ template | replace: '.', '-' }}" id="{{ page_title | handle }}"> <![endif]-->
   <!--[if !(IE)]><!--> <body class="{{ template | replace: '.', '-' | replace: '/', '-' | replace: '_', '-' }}" id="{{ page_title | handle }}"> <!--<![endif]--> 
   
-  
-  
-  
-  
-  
-
   <div class="wrapper">
 
     <header class="giftcard-header" role="banner">
