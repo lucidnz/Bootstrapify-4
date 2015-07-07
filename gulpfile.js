@@ -78,6 +78,9 @@ gulp.task('clean', ['settings_clean']);
 
 // SASS_CONCAT: Pull our scss files together and move them into the themes assets
 gulp.task('sass_concat', function () {
+  gulp.src('./src/scss/gift_card.scss.liquid')
+    .pipe(gulp.dest('./theme/assets/'));
+  
   var paths = new SassImport('./src/scss/styles.scss');
   return gulp.src(paths)
     .pipe(plumber({
