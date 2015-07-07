@@ -9012,6 +9012,7 @@ input.btn-link {
   {% assign slide_enabled_setting = slide | append: '_enabled' %}
   {% assign slide_size_setting = slide | append: '_size' %}
   {% assign slide_alignment_setting = slide | append: '_alignment' %}
+  {% assign slide_vertical_alignment_setting = slide | append: '_vertical_alignment' %}
   {% assign slide_text_colour_setting = slide | append: '_text_colour' %}
   {% assign slide_button_colour_setting = slide | append: '_button_colour' %}
   {% assign slide_background_colour_setting = slide | append: '_background_colour' %}
@@ -9019,6 +9020,7 @@ input.btn-link {
   $slide-{{ slide_count }}-enabled: {{ settings[slide_enabled_setting] | default: 'false' }};
   $slide-{{ slide_count }}-size: {{ settings[slide_size_setting] | default: 'full_container' }};
   $slide-{{ slide_count }}-alignment: {{ settings[slide_alignment_setting] | default: 'center' }};
+  $slide-{{ slide_count }}-vertical-alignment: {{ settings[slide_vertical_alignment_setting] | default: 'middle' }};
   $slide-{{ slide_count }}-text-colour: {{ settings[slide_text_colour_setting] | default: '$text-color' }};
   $slide-{{ slide_count }}-button-colour: {{ settings[slide_button_colour_setting] | default: '$btn-primary-bg' }};
   $slide-{{ slide_count }}-background-colour: {{ settings[slide_background_colour_setting] | default: 'transparent' }};
@@ -9027,12 +9029,12 @@ input.btn-link {
     Capture the scss vars for use with a scss array
   {% endcomment %}
   
-  {% capture slides %}{{ slides }} ($slide-{{ slide_count }}-enabled $slide-{{ slide_count }}-size $slide-{{ slide_count }}-alignment $slide-{{ slide_count }}-text-colour $slide-{{ slide_count }}-button-colour $slide-{{ slide_count }}-background-colour){% endcapture %}
+  {% capture slides %}{{ slides }} ($slide-{{ slide_count }}-enabled $slide-{{ slide_count }}-size $slide-{{ slide_count }}-alignment $slide-{{ slide_count }}-vertical-alignment $slide-{{ slide_count }}-text-colour $slide-{{ slide_count }}-button-colour $slide-{{ slide_count }}-background-colour){% endcapture %}
   
 {% endfor %}
 
 // mixin for slides
-@mixin slide($slide-count, $slide-enabled, $slide-size, $slide-alignment, $slide-text-colour, $slide-button-bg-colour, $slide-background-colour){
+@mixin slide($slide-count, $slide-enabled, $slide-size, $slide-alignment, $slide-vertical-alignment, $slide-text-colour, $slide-button-bg-colour, $slide-background-colour){
   @if $slide-enabled {
     [data-banner="#{$slide-count}"] {
       
@@ -9044,6 +9046,10 @@ input.btn-link {
       }
       
       @if $slide-size == 'half_container_left' or $slide-size == 'half_container_right' {
+        .banner-content {
+          @include make-row();
+        }
+        
         // cols
         .banner-caption, .banner-image {
           @include make-sm-column(6);
@@ -9053,10 +9059,6 @@ input.btn-link {
         @media (min-width: $grid-float-breakpoint) {
           .banner-caption {
             position: absolute;
-            top: 50%;
-            -webkit-transform: translateY(-50%);
-            -moz-transform: translateY(-50%);
-          	transform: translateY(-50%);
           }
           .banner-image {
             float: right;
@@ -9073,11 +9075,6 @@ input.btn-link {
         }
         
       } @else {
-        .banner-content {
-          @extend .carousel-inner;
-        }
-
-        // TODO: caption alignment when not inside half container
         .banner-caption {
           @extend .carousel-caption;
         }
@@ -9086,6 +9083,21 @@ input.btn-link {
       .banner-caption {
         text-align: $slide-alignment;
         color: $slide-text-colour;
+        
+        @if $slide-vertical-alignment == 'top' {
+          top: 20px;
+          bottom: auto;
+        } @else if $slide-vertical-alignment == 'bottom' {
+          top: auto;
+          bottom: 20px;
+        } @else {
+          top: 50%;
+          bottom: auto;
+          -webkit-transform: translateY(-50%);
+          -moz-transform: translateY(-50%);
+        	transform: translateY(-50%);
+        }
+        
         h1,
         h2,
         h3,
@@ -9115,7 +9127,7 @@ $slides: {{ slides }};
 $slide-count: 1;
 
 @each $slide in $slides{
-  @include slide($slide-count, nth($slide, 1), nth($slide, 2), nth($slide, 3), nth($slide, 4), nth($slide, 5), nth($slide, 6));
+  @include slide($slide-count, nth($slide, 1), nth($slide, 2), nth($slide, 3), nth($slide, 4), nth($slide, 5), nth($slide, 6), nth($slide, 7));
   $slide-count: $slide-count + 1;
 }
 {% endunless %}

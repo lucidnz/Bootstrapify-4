@@ -92,6 +92,17 @@
       "default": "center"
     },
     {
+      "label": "Caption vertical alignment",
+      "id": "banner_slide_1_vertical_alignment",
+      "type": "select",
+      "options": [
+        { "value": "top", "label": "Top"},
+        { "value": "middle", "label": "Middle"},
+        { "value": "bottom", "label": "Bottom"}
+      ],
+      "default": "middle"
+    },
+    {
       "label": "Caption heading text",
       "id": "banner_slide_1_heading_text",
       "type": "text"
@@ -166,6 +177,17 @@
         { "value": "right", "label": "Right"}
       ],
       "default": "center"
+    },
+    {
+      "label": "Caption vertical alignment",
+      "id": "banner_slide_2_vertical_alignment",
+      "type": "select",
+      "options": [
+        { "value": "top", "label": "Top"},
+        { "value": "middle", "label": "Middle"},
+        { "value": "bottom", "label": "Bottom"}
+      ],
+      "default": "middle"
     },
     {
       "label": "Caption heading text",
@@ -244,6 +266,17 @@
       "default": "center"
     },
     {
+      "label": "Caption vertical alignment",
+      "id": "banner_slide_3_vertical_alignment",
+      "type": "select",
+      "options": [
+        { "value": "top", "label": "Top"},
+        { "value": "middle", "label": "Middle"},
+        { "value": "bottom", "label": "Bottom"}
+      ],
+      "default": "middle"
+    },
+    {
       "label": "Caption heading text",
       "id": "banner_slide_3_heading_text",
       "type": "text"
@@ -320,6 +353,17 @@
       "default": "center"
     },
     {
+      "label": "Caption vertical alignment",
+      "id": "banner_slide_4_vertical_alignment",
+      "type": "select",
+      "options": [
+        { "value": "top", "label": "Top"},
+        { "value": "middle", "label": "Middle"},
+        { "value": "bottom", "label": "Bottom"}
+      ],
+      "default": "middle"
+    },
+    {
       "label": "Caption heading text",
       "id": "banner_slide_4_heading_text",
       "type": "text"
@@ -394,6 +438,17 @@
         { "value": "right", "label": "Right"}
       ],
       "default": "center"
+    },
+    {
+      "label": "Caption vertical alignment",
+      "id": "banner_slide_5_vertical_alignment",
+      "type": "select",
+      "options": [
+        { "value": "top", "label": "Top"},
+        { "value": "middle", "label": "Middle"},
+        { "value": "bottom", "label": "Bottom"}
+      ],
+      "default": "middle"
     },
     {
       "label": "Caption heading text",
