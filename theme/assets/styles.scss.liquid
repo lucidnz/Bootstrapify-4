@@ -8564,19 +8564,21 @@ body[class*="collection"] {
 .customers-login,
 .customers-activate-account,
 .customers-reset-password {
-  .sheet-header {
-    text-align: center;
-  }
-  
-  .sheet-content {
-    @include make-row();
-  }
-  
-  .sheet-content > div {
-    @include make-xs-column(10);
-    @include make-xs-column-offset(1);
-    @include make-sm-column(6);
-    @include make-sm-column-offset(3);
+  main {
+    .sheet-header {
+      text-align: center;
+    }
+    
+    .sheet-content {
+      @include make-row();
+    }
+    
+    .sheet-content > div {
+      @include make-xs-column(10);
+      @include make-xs-column-offset(1);
+      @include make-sm-column(6);
+      @include make-sm-column-offset(3);
+    }
   }
 }
 
