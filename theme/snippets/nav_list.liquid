@@ -80,7 +80,7 @@
     {% when 'cart' %}
       {% capture cart_total_price %}{% include '_price' with cart.total_price %}{% endcapture %}
       {% capture cart_total_price_with_currency %}{% include '_price_with_currency' with cart.total_price %}{% endcapture %}
-      <li class="navigation-cart"><a href="/cart"><span class="fa fa-shopping-cart"></span> <span data-cart-display>{{ 'cart.site_header.cart_link_html' | t: item_count: cart.item_count, cart_total_price: cart_total_price, cart_total_price_with_currency: cart_total_price_with_currency }}</span></a></li>
+      <li class="navigation-cart"><a href="/cart" data-cart-display>{{ 'cart.site_header.cart_link_html' | t: item_count: cart.item_count, cart_total_price: cart_total_price, cart_total_price_with_currency: cart_total_price_with_currency }}</a></li>
       
     {% endcase %}
   {% endfor %}

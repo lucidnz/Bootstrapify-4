@@ -85,7 +85,7 @@
   },
   "cart": {
     "site_header": {
-      "cart_link_html": "Cart ({{ item_count }})<span class='cart-total'> &ndash; {{ cart_total_price }}<\/span>"
+      "cart_link_html": "<span class='fa fa-shopping-cart'></span> Cart ({{ item_count }})<span class='hidden-xs'> &ndash; {{ cart_total_price }}</span>"
     },
     "cart_page": {
       "page_title": "Cart",
