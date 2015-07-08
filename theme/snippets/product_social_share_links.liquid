@@ -15,9 +15,9 @@
 {% endif %}
 
 {% if settings.product_social_share_email %}
-  {% capture email_subject %}{{ 'products.social_links.email_subject' | t: product_title: product.title, url: canonical_url }}{% endcapture %}
-  {% capture email_body %}{{ 'products.social_links.email_body' | t: product_title: product.title, url: canonical_url }}{% endcapture %}
-  {% capture share_links %}{{ share_links }}<li><a href="mailto:?subject={{ email_subject | replace: ' ','%20' }}&body={{ email_body }}"><i class="fa fa-envelope fa-lg fa-fw"></i></a></li>{% endcapture %}
+  {% capture email_subject %}{{ 'products.social_links.email_subject' | t: product_title: product.title, shop_name: shop.name, url: canonical_url }}{% endcapture %}
+  {% capture email_body %}{{ 'products.social_links.email_body' | t: product_title: product.title, shop_name: shop.name, url: canonical_url }}{% endcapture %}
+  {% capture share_links %}{{ share_links }}<li><a href="mailto:?subject={{ email_subject | escape | replace: ' ','%20' }}&body={{ email_body | escape | replace: ' ','%20' | replace: '\n','%0D%0A' | strip_newlines }}"><i class="fa fa-envelope fa-lg fa-fw"></i></a></li>{% endcapture %}
 {% endif %}
   
 {% unless share_links == blank %}
