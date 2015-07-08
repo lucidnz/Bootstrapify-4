@@ -21,7 +21,8 @@
             </div>
             
             <div class="form-group">
-              <a href="{{ shop.url }}/account/login#recover">{{ 'customer_accounts.login.reset_link' | t }}</a>
+              <p><a href="{{ shop.url }}/account/login#recover">{{ 'customer_accounts.login.reset_link' | t }}</a></p>
+              <p>{{ 'customer_accounts.login.register_link' | t | customer_register_link }}</p>
             </div>
           {% endif %}
         

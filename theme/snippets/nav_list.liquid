@@ -50,30 +50,17 @@
     {% case item %}
     {% when 'accounts' %}
       {% if shop.customer_accounts_enabled %}
-        {% if customer %}
+        {% if customer %}        
           <li class="navigation-account">
-            <a href="/account">{{ 'customer_accounts.site_header.account' | t }}</a>
+            <a href="/account">{{ 'customer_accounts.site_header.account_signed_in_html' | t: name: customer.first_name }}</a>
           </li>
           <li class="navigation-account">
             {{ 'customer_accounts.site_header.sign_out' | t | customer_logout_link }}
           </li>
-        
-          {% comment TODO: note sure if this is better or not %}
-          <!-- <span class="nav-text">{{ 'customer_accounts.site_header.welcome_note' | t: first_name: customer.first_name }}</span> {{ 'customer_accounts.site_header.separator' | t }} <a href="/account">{{ 'customer_accounts.site_header.account' | t }}</a> {{ 'customer_accounts.site_header.separator' | t }} {{ 'customer_accounts.site_header.sign_out' | t | customer_logout_link }} -->
-          {% endcomment %}
-          
         {% else %}
           <li class="navigation-account">
-            {{ 'customer_accounts.site_header.register' | t | customer_register_link }}
+            {{ 'customer_accounts.site_header.account_signed_out_html' | t | customer_login_link }}
           </li>
-          <li class="navigation-account">
-            {{ 'customer_accounts.site_header.sign_in' | t | customer_login_link }}
-          </li>
-        
-        
-          {% comment TODO: note sure if this is better or not %}
-          <!-- {{ 'customer_accounts.site_header.register' | t | customer_register_link }} {{ 'customer_accounts.site_header.separator' | t }} {{ 'customer_accounts.site_header.sign_in' | t | customer_login_link }} -->
-          {% endcomment %}
         {% endif %}
       {% endif %}
       

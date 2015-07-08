@@ -116,12 +116,9 @@
   },
   "customer_accounts" : {
     "site_header" : {
-      "welcome_note" : "Welcome, {{ first_name }}",
-      "account" : "My account",
-      "sign_in" : "Sign in",
-      "sign_out" : "Sign out",
-      "register" : "Register",
-      "separator" : "|"
+      "account_signed_in_html" : "<span class='fa fa-user'></span> My account",
+      "account_signed_out_html" : "<span class='fa fa-user'></span> My account",
+      "sign_out" : "Sign out"
     },
     "account" : {
       "page_title" : "My Account",
@@ -165,6 +162,7 @@
       "password" : "Password",
       "login_button" : "Sign in",
       "reset_link" : "Forgot your password?",
+      "register_link" : "Don't have an account? Create one now.",
       "note_html" : "or <a href='{{ shop_url }}'>Return to Store</a>",
       "back_to_checkout" : "Back to checkout"
     },
