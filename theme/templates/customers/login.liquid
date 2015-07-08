@@ -6,6 +6,9 @@
 
     <section class="sheet-content">
       <div class="customer-login-form">
+        
+        <div class="customer-login-description">{{ 'customer_accounts.login.description_html' | t }}</div>
+        
         {% form 'customer_login' %}
           {% include 'form_errors' %}
         

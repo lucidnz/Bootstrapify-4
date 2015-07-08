@@ -127,7 +127,8 @@
       "default_phone_empty" : "No default phone number set",
       "default_address" : "Default Address:",
       "default_address_empty" : "No default address set",
-      "addresses_link" : "View addresses ({{ addresses_count }})"
+      "addresses_link" : "View addresses ({{ addresses_count }})",
+      "description_html": ""
     },
     "orders" : {
       "page_title" : {
@@ -155,7 +156,8 @@
       "password" : "Password",
       "register_button" : "Register",
       "login_link" : "Already have an account? Sign in now.",
-      "note_html" : "or <a href='{{ shop_url }}'>Return to Store</a>"
+      "note_html" : "or <a href='{{ shop_url }}'>Return to Store</a>",
+      "description_html": ""
     },
     "login" : {
       "page_title" : "Sign in",
@@ -165,7 +167,8 @@
       "reset_link" : "Forgot your password?",
       "register_link" : "Don't have an account? Create one now.",
       "note_html" : "or <a href='{{ shop_url }}'>Return to Store</a>",
-      "back_to_checkout" : "Back to checkout"
+      "back_to_checkout" : "Back to checkout",
+      "description_html": ""
     },
     "recover_password" : {
       "page_title" : "Recover your password",

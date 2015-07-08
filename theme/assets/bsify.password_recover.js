@@ -4,7 +4,7 @@ var PasswordRecover = function () {
   this.$sections = $('[data-bsify-toggle-recover]');
   this.force = ($('[data-bsify-toggle-recover-force]').length > 0);
   
-  if ($('body').hasClass('customers-login')) {
+  if (this.$sections.length > 0) {
     this._add_event_listeners();
     this.toggle_forms();
   }
