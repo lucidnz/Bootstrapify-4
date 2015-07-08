@@ -124,6 +124,29 @@ body {
       .banner-caption {
         @extend .carousel-caption;
       }
+      
+      @media (max-width: $grid-float-breakpoint) {
+        .banner-image {
+          overflow: hidden;
+          height: $banner-height-xs;
+          img {
+            max-width: none;
+            height: $banner-height-xs;
+            margin-left: 50%;
+            -webkit-transform: translateX(-50%);
+            -moz-transform: translateX(-50%);
+          	transform: translateX(-50%);
+          }
+        }
+      }
+      @media (max-width: $grid-float-breakpoint) and (orientation: landscape) {
+        .banner-image {
+          height: $banner-height-xs-landscape;
+          img {
+            height: $banner-height-xs-landscape;
+          }
+        }
+      }
     }
     
     .banner-caption {

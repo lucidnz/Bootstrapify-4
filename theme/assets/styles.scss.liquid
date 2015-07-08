@@ -21,6 +21,10 @@ $lookbook-item-max-width-lg: 600px;
 $lookbook-min-height-md: 800px;
 $lookbook-min-height-lg: 1000px;
 
+/* Banner */
+$banner-height-xs: 30em;
+$banner-height-xs-landscape: 22em;
+
 {% unless settings.scss_variables == blank %}{{ settings.scss_variables }}{% endunless %}
 /* Functions */
 
@@ -9079,6 +9083,29 @@ body {
     } @else {
       .banner-caption {
         @extend .carousel-caption;
+      }
+      
+      @media (max-width: $grid-float-breakpoint) {
+        .banner-image {
+          overflow: hidden;
+          height: $banner-height-xs;
+          img {
+            max-width: none;
+            height: $banner-height-xs;
+            margin-left: 50%;
+            -webkit-transform: translateX(-50%);
+            -moz-transform: translateX(-50%);
+          	transform: translateX(-50%);
+          }
+        }
+      }
+      @media (max-width: $grid-float-breakpoint) and (orientation: landscape) {
+        .banner-image {
+          height: $banner-height-xs-landscape;
+          img {
+            height: $banner-height-xs-landscape;
+          }
+        }
       }
     }
     
