@@ -154,6 +154,7 @@
       "email" : "Email",
       "password" : "Password",
       "register_button" : "Register",
+      "login_link" : "Already have an account? Sign in now.",
       "note_html" : "or <a href='{{ shop_url }}'>Return to Store</a>"
     },
     "login" : {

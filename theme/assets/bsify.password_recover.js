@@ -4,8 +4,10 @@ var PasswordRecover = function () {
   this.$sections = $('[data-bsify-toggle-recover]');
   this.force = ($('[data-bsify-toggle-recover-force]').length > 0);
   
-  this._add_event_listeners();
-  this.toggle_forms();
+  if ($('body').hasClass('customers-login')) {
+    this._add_event_listeners();
+    this.toggle_forms();
+  }
 };
 
 PasswordRecover.prototype.toggle_forms = function () {
