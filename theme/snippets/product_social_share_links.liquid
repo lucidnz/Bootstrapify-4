@@ -5,7 +5,7 @@
 {% endif %}
 
 {% if settings.product_social_share_pinterest %}
-  {% capture share_links %}{{ share_links }}<li><a href="http://pinterest.com/pin/create/button/?url={{ canonical_url }}&media={{ product.selected_or_first_available_variant.featured_image.src | product_img_url: '2048x2048' }}&description={{ page_title | replace: ' ','%20' }}" target="_blank"><i class="fa fa-pinterest fa-lg fa-fw"></i></a></li>{% endcapture %}
+  {% capture share_links %}{{ share_links }}<li><a href="http://pinterest.com/pin/create/button/?url={{ canonical_url }}&media={{ product.selected_or_first_available_variant.featured_image.src | default: product.featured_image.src | product_img_url: '2048x2048' }}&description={{ page_title | replace: ' ','%20' }}" target="_blank"><i class="fa fa-pinterest fa-lg fa-fw"></i></a></li>{% endcapture %}
 {% endif %}
   
 {% if settings.product_social_share_twitter %}
