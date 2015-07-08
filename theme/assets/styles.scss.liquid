@@ -9065,6 +9065,19 @@ body {
       @media (min-width: $grid-float-breakpoint) {
         .banner-caption {
           position: absolute;
+          @if $slide-vertical-alignment == 'top' {
+            top: 20px;
+            bottom: auto;
+          } @else if $slide-vertical-alignment == 'bottom' {
+            top: auto;
+            bottom: 20px;
+          } @else {
+            top: 50%;
+            bottom: auto;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+          	transform: translateY(-50%);
+          }
         }
         .banner-image {
           float: right;
@@ -9083,6 +9096,19 @@ body {
     } @else {
       .banner-caption {
         @extend .carousel-caption;
+        @if $slide-vertical-alignment == 'top' {
+          top: 20px;
+          bottom: auto;
+        } @else if $slide-vertical-alignment == 'bottom' {
+          top: auto;
+          bottom: 20px;
+        } @else {
+          top: 50%;
+          bottom: auto;
+          -webkit-transform: translateY(-50%);
+          -moz-transform: translateY(-50%);
+        	transform: translateY(-50%);
+        }
       }
       
       @media (max-width: $grid-float-breakpoint) {
@@ -9113,23 +9139,6 @@ body {
     .banner-caption {
       text-align: $slide-alignment;
       color: $slide-text-colour;
-      
-      @media (min-width: $grid-float-breakpoint) {
-        @if $slide-vertical-alignment == 'top' {
-          top: 20px;
-          bottom: auto;
-        } @else if $slide-vertical-alignment == 'bottom' {
-          top: auto;
-          bottom: 20px;
-        } @else {
-          top: 50%;
-          bottom: auto;
-          -webkit-transform: translateY(-50%);
-          -moz-transform: translateY(-50%);
-        	transform: translateY(-50%);
-        }
-      }
-      
       h1,
       h2,
       h3,
