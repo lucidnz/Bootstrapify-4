@@ -163,7 +163,9 @@
       "order_summary_total": "Order Total:"
     },
     "addresses" : {
-      "page_title" : "Addresses"
+      "page_title" : "Addresses",
+      "back_link" : "Return to my account page",
+      "new_address" : "Add a new address"
     },
     "register" : {
       "page_title" : "Create an account",
