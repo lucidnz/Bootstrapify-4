@@ -525,6 +525,16 @@ body[class*="collection"] {
   }
 }
 
+.customers-order {
+  .order-address-content {
+    @include make-row();
+  }
+  .order-billing,
+  .order-shipping {
+    @include make-sm-column(6);
+  }
+}
+
 /*
   Homepage
 */

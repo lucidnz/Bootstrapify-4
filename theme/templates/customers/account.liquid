@@ -58,7 +58,7 @@
                   <td class="text-right">
                     {% capture price %}{% include '_price' with order.total_price %}{% endcapture %}
                     {% capture price_with_currency %}{% include '_price_with_currency' with order.total_price %}{% endcapture %}
-                    {{ 'customer_accounts.orders.order_total_html' | t: price: price, price_with_currency: price_with_currency }}
+                    {{ 'cart.price.cart_total_html' | t: price: price, price_with_currency: price_with_currency }}
                   </td>
                 </tr>
                 {% endfor %}
@@ -66,7 +66,7 @@
             </table>
           </div>
         {% else %}
-          <div class="alert alert-info"><i class="fa fa-info-circle fa-lg"></i> {{ 'customer_accounts.orders.empty_message_html' | t }}</div>
+          <div class="alert alert-info">{{ 'customer_accounts.orders.empty_message_html' | t }}</div>
         {% endif %}
       </div>
     </section>

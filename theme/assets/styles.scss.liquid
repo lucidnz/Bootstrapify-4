@@ -8586,6 +8586,16 @@ body[class*="collection"] {
   }
 }
 
+.customers-order {
+  .order-address-content {
+    @include make-row();
+  }
+  .order-billing,
+  .order-shipping {
+    @include make-sm-column(6);
+  }
+}
+
 /*
   Homepage
 */
@@ -8663,6 +8673,12 @@ h5,
 h6 {
   a {
     color: inherit;
+  }
+}
+
+table {
+  tfoot tr:first-child td {
+    border-top-width: 2px;
   }
 }
 
