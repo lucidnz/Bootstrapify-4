@@ -6,7 +6,9 @@
 .customer-login-form,
 .customer-recover-password-form,
 .customer-activate-form,
-.customer-reset-form {
+.customer-reset-form,
+.customer-address-form-new,
+.customer-address-form-edit {
   
   .selector-wrapper {
     // added in by shopify's js
@@ -62,6 +64,11 @@ input.btn-link {
   [class*="customers"] {
     label {
       display: none;
+    }
+  }
+  .customers-addresses {
+    label {
+      display: block;
     }
   }
 }

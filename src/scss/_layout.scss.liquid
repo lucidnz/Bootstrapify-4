@@ -535,6 +535,19 @@ body[class*="collection"] {
   }
 }
 
+.customers-addresses { 
+  .customer-addresses { 
+    @include make-row();
+  }
+  .customer-addresses-card {
+    @include make-md-column(6);
+  }
+  address,
+  .customer-addresses-edit-links {
+    margin-bottom: 0;
+  }
+}
+
 /*
   Homepage
 */

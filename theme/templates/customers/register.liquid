@@ -37,7 +37,6 @@
             <p>{{ 'customer_accounts.register.login_link' | t | customer_login_link }}</p>
           </div>
 
-        
           {% if current_url %}<input type="hidden" name="checkout_url" value="{{ current_url }}">{% endif %}
           <input class="btn btn-primary btn-lg" type="submit" value="{{ 'customer_accounts.register.register_button' | t }}">
           <span class="cancel-link">{{ 'customer_accounts.register.note_html' | t: shop_url: shop.url }}</span>

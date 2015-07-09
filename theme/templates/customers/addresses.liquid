@@ -7,40 +7,78 @@
 
     <section class="sheet-content">
       <div class="addresses-actions">
-        <p><a href="#" class="btn btn-default" onclick="Shopify.CustomerAddress.toggleNewForm(); return false;">{{ 'customer_accounts.addresses.new_address' | t }}</a></p>
+        <p><a href="#" class="btn btn-default" onclick="Shopify.CustomerAddress.toggleNewForm(); return false;">{{ 'customer_accounts.addresses.new_address_button' | t }}</a></p>
       </div>
       
       {% comment note: Add address form, hidden by default %}{% endcomment %}
       <div id="add_address" style="display:none;">
-        {% include 'customer_addresses_form' %}
+        
+        {% capture new_address_form %}
+          {% form 'customer_address', customer.new_address %}
+            {% include 'customer_addresses_form' %}
+            {% if form.errors %}
+              {% assign panel_class = 'panel-danger' %}
+              <script type="text/javascript">
+                $(function () {
+                  Shopify.CustomerAddress.toggleNewForm();
+                });
+              </script>
+            {% endif %}
+          {% endform %}
+        {% endcapture %}
+        
+        <div class="customer-address-form-new panel {{ panel_class | default: 'panel-default' }}">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{ 'customer_accounts.addresses.new_address_title' | t }}</h3>
+          </div>
+          <div class="panel-body">
+            {{ new_address_form }}
+          </div>
+        </div>
       </div>
       
-      <div class="customer_addresses">
-    		{% paginate customer.addresses by 10 %}
+  		{% paginate customer.addresses by 10 %}
+      <div class="customer-addresses">
     		{% for address in customer.addresses %}
-    		<div class="well">
-    			<div id="view_address_{{address.id}}">
-    				<ul class="list-inline pull-right">
-    					<li><span class="action_link action_edit">{{ "Edit" | edit_customer_address_link: address.id }}</span></li>
-    					<li><span class="action_link action_delete">{{ "Delete" | delete_customer_address_link: address.id }}</span></li>
-    				</ul>
-    				<h4>{{ address.first_name }} {{address.last_name }} {% if address == customer.default_address %}<span class="default_address note">(Default Address)</span>{% endif %}</h4>
-    				<address>
-    					{% unless address.company == '' %}{{ address.company }}<br>{% endunless %}
-    					{{ address.street }}<br>
-    					{{ address.city }} {% if address.province_code %}, {{ address.province_code }}{% endif %}<br>
-    					{{ address.country }} {{ address.zip }}<br>
-    					{{ address.phone }}
-    				</address>
-    			</div>
-    			<div id="edit_address_{{address.id}}" class="customer_address edit_address" style="display:none;">
-    				{% include 'customer_addresses_form' %}
-    			</div>
-    		</div>
+      		<div class="customer-addresses-card">
+        		<div class="panel panel-default">
+          		<div class="panel-heading clearfix">
+                <ul class="customer-addresses-edit-links list-inline pull-right">
+        					<li>{{ 'customer_accounts.addresses.edit_link' | t | edit_customer_address_link: address.id }}</li>
+        					<li>{{ 'customer_accounts.addresses.delete_link' | t | delete_customer_address_link: address.id }}</li>
+        				</ul>
+                <h3 class="panel-title pull-left">
+                  {{ address.first_name }} {{address.last_name }}
+                  {% if address == customer.default_address %}<span class="default-address note">{{ 'customer_accounts.addresses.default_address_note' | t | replace: ' ','&nbsp;' }}</span>{% endif %}
+                </h3>
+              </div>
+              <div class="panel-body" id="view_address_{{ address.id }}">
+                <address>
+        					{% unless address.company == '' %}{{ address.company }}<br>{% endunless %}
+        					{{ address.street }}<br>
+        					{{ address.city }} {% if address.province_code %}, {{ address.province_code }}{% endif %}<br>
+        					{{ address.country }} {{ address.zip }}<br>
+        					{{ address.phone }}
+        				</address>
+              </div>
+        			<div class="panel-body" id="edit_address_{{ address.id }}" style="display:none;">
+          			<div class="customer-address-form-edit">
+          				{% form 'customer_address', address %}
+                    {% include 'customer_addresses_form' %}
+                  {% endform %}
+                </div>
+        			</div>
+        		</div>
+      		</div>
+      		
+      		{% assign loop_mod = forloop.index | modulo: 2 %}
+          {% if loop_mod == 0 %}
+        </div><div class="customer-addresses">
+          {% endif %}
     		{% endfor %}
-    		<div id="address_pagination">{{ paginate | default_pagination }}</div>  
-    		{% endpaginate %}
     	</div>
+  		<div class="customer-addresses-pagination">{{ paginate | default_pagination }}</div>  
+  		{% endpaginate %}
       
     </section>
   </article>
@@ -48,12 +86,12 @@
 
 <script type="text/javascript" charset="utf-8">
   // initialize observers on address selectors
-  new Shopify.CountryProvinceSelector('address_country_new', 'address_province_new', {
-    hideElement: 'address_province_container_new'
+  new Shopify.CountryProvinceSelector('address-country-new', 'address-province-new', {
+    hideElement: 'address-province-container-new'
   });
   {% for address in customer.addresses %}
-  new Shopify.CountryProvinceSelector('address_country_{{address.id}}', 'address_province_{{address.id}}', {
-    hideElement: 'address_province_container_{{address.id}}'
+  new Shopify.CountryProvinceSelector('address-country-{{ address.id }}', 'address-province-{{ address.id }}', {
+    hideElement: 'address-province-container-{{ address.id }}'
   });
   {% endfor %}
 </script>

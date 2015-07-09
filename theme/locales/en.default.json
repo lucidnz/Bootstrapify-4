@@ -165,7 +165,26 @@
     "addresses" : {
       "page_title" : "Addresses",
       "back_link" : "Return to my account page",
-      "new_address" : "Add a new address"
+      "new_address_button" : "Add a new address",
+      "new_address_title" : "Add a new address",
+      "default_address_note": "(Default Address)",
+      "edit_link": "Edit",
+      "delete_link": "Delete",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "company": "Company",
+      "address_1": "Address 1",
+      "address_2": "Address 2",
+      "city": "City",
+      "country": "Country",
+      "province": "Province",
+      "zip": "Zip",
+      "phone": "Phone",
+      "set_as_default": "Set as default address?",
+      "new_address_button": "Add Address",
+      "edit_address_button": "Edit Address",
+      "cancel_note_link": "Cancel",
+      "cancel_note_html": "or {{ cancel_link }}"
     },
     "register" : {
       "page_title" : "Create an account",
