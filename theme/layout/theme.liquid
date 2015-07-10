@@ -54,8 +54,8 @@
     {{ content_for_header }}
   </head>
 
-  <!--[if lte IE 8]> <body class="ie-legacy {{ template template | replace: '.', '-' | replace: '/', '-' | replace: '_', '-' }}" id="{{ page_title | handle }}"> <![endif]-->
-  <!--[if IE 9]> <body class="ie {{ template template | replace: '.', '-' | replace: '/', '-' | replace: '_', '-' }}" id="{{ page_title | handle }}"> <![endif]-->
+  <!--[if lte IE 8]> <body class="ie-legacy {{ template | replace: '.', '-' | replace: '/', '-' | replace: '_', '-' }}" id="{{ page_title | handle }}"> <![endif]-->
+  <!--[if IE 9]> <body class="ie {{ template | replace: '.', '-' | replace: '/', '-' | replace: '_', '-' }}" id="{{ page_title | handle }}"> <![endif]-->
   <!--[if !(IE)]><!--> <body class="{{ template | replace: '.', '-' | replace: '/', '-' | replace: '_', '-' }}" id="{{ page_title | handle }}"> <!--<![endif]-->
 
     <header class="site-header">
