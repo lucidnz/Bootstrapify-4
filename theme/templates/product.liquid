@@ -54,69 +54,71 @@
         </ul>
       </section>
 
-      <section class="product-details" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-        {% comment note: Get first variant, or deep linked one %}{% endcomment %}
-        {% assign variant = product.selected_or_first_available_variant %}
-
-        <meta itemprop="priceCurrency" content="{{ shop.currency }}">
-        {% unless variant.sku == blank %}<meta itemprop="identifier" content="sku:{{ variant.sku }}" />{% endunless %}
-        <link itemprop="availability" href="http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}">
-
-        <div class="product-details-content">
-          <div class="product-price h3">
-            <p class="compare-at-price small text-muted">
-              {% comment note: Leave compare-at-price element in markup even if empty so we can grab it with JS if we need to %}{% endcomment %}
-              {% if variant.compare_at_price > variant.price %}
-                {% capture price %}{% include '_price' with variant.compare_at_price %}{% endcapture %}
-                {% capture price_with_currency %}{% include '_price_with_currency' with variant.compare_at_price %}{% endcapture %}
-                {{ 'products.price.compare_at_price_html' | t: price: price, price_with_currency: price_with_currency }}
-              {% endif %}
-            </p>
-            <p class="price" itemprop="price">
-              {% capture price %}{% assign show_zero = true %}{% include '_price' with variant.price %}{% endcapture %}
-              {% capture price_with_currency %}{% assign show_zero = true %}{% include '_price_with_currency' with variant.price %}{% endcapture %}
-              {% if variant.compare_at_price > variant.price %}
-                {{ 'products.price.sale_price_html' | t: price: price, price_with_currency: price_with_currency }}
-              {% else %}
-                {{ 'products.price.standard_price_html' | t: price: price, price_with_currency: price_with_currency }}
-              {% endif %}
-            </p>
-          </div>
-
-          {% comment %} TODO: sale badges {% endcomment %}
-
-          <form class="add-to-cart-form" action="/cart/add" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-              <select class="product-select form-control" id="product-select" name="id">
-              {% for variant in product.variants %}
-                {% if variant.available %}
-                  <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
-                {% else %}
-                  <option disabled="disabled">
-                    {{ variant.title }} - {{ 'products.product.sold_out' | t }}
-                  </option>
+      <div class="product-content">
+        <section class="product-details" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+          {% comment note: Get first variant, or deep linked one %}{% endcomment %}
+          {% assign variant = product.selected_or_first_available_variant %}
+  
+          <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+          {% unless variant.sku == blank %}<meta itemprop="identifier" content="sku:{{ variant.sku }}" />{% endunless %}
+          <link itemprop="availability" href="http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}">
+  
+          <div class="product-details-content">
+            <div class="product-price h3">
+              <p class="compare-at-price small text-muted">
+                {% comment note: Leave compare-at-price element in markup even if empty so we can grab it with JS if we need to %}{% endcomment %}
+                {% if variant.compare_at_price > variant.price %}
+                  {% capture price %}{% include '_price' with variant.compare_at_price %}{% endcapture %}
+                  {% capture price_with_currency %}{% include '_price_with_currency' with variant.compare_at_price %}{% endcapture %}
+                  {{ 'products.price.compare_at_price_html' | t: price: price, price_with_currency: price_with_currency }}
                 {% endif %}
-              {% endfor %}
-              </select>
+              </p>
+              <p class="price" itemprop="price">
+                {% capture price %}{% assign show_zero = true %}{% include '_price' with variant.price %}{% endcapture %}
+                {% capture price_with_currency %}{% assign show_zero = true %}{% include '_price_with_currency' with variant.price %}{% endcapture %}
+                {% if variant.compare_at_price > variant.price %}
+                  {{ 'products.price.sale_price_html' | t: price: price, price_with_currency: price_with_currency }}
+                {% else %}
+                  {{ 'products.price.standard_price_html' | t: price: price, price_with_currency: price_with_currency }}
+                {% endif %}
+              </p>
             </div>
-
-            <div class="form-group product-quantity">
-              <label class="quantity-selector control-label" for="quantity">{{ 'products.form.quantity' | t }}</label>
-              <input class="quantity-selector form-control" type="number" id="quantity" name="quantity" value="1" min="1">
-            </div>
-
-            <input class="btn-add-to-cart btn btn-primary btn-lg btn-block" type="submit" name="add" value="{{ 'products.buttons.add_to_cart' | t }}">
-          </form>
-          <div class="add-to-cart-message hidden"></div>
-        </div>
-        {% include 'product_social_share_links' %}
-
-        <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
-      </section>
-
-      <section class="product-description" itemprop="description">
-        {% include 'product_description' with product %}
-      </section>
+  
+            {% comment %} TODO: sale badges {% endcomment %}
+  
+            <form class="add-to-cart-form" action="/cart/add" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <select class="product-select form-control" id="product-select" name="id">
+                {% for variant in product.variants %}
+                  {% if variant.available %}
+                    <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+                  {% else %}
+                    <option disabled="disabled">
+                      {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                    </option>
+                  {% endif %}
+                {% endfor %}
+                </select>
+              </div>
+  
+              <div class="form-group product-quantity">
+                <label class="quantity-selector control-label" for="quantity">{{ 'products.form.quantity' | t }}</label>
+                <input class="quantity-selector form-control" type="number" id="quantity" name="quantity" value="1" min="1">
+              </div>
+  
+              <input class="btn-add-to-cart btn btn-primary btn-lg btn-block" type="submit" name="add" value="{{ 'products.buttons.add_to_cart' | t }}">
+            </form>
+            <div class="add-to-cart-message hidden"></div>
+          </div>
+          {% include 'product_social_share_links' %}
+  
+          <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+        </section>
+  
+        <section class="product-description" itemprop="description">
+          {% include 'product_description' with product %}
+        </section>
+      </div>
 
     </div>
   </div>

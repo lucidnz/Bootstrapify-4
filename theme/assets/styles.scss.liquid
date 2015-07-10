@@ -8348,7 +8348,7 @@ body[class*="collection"] {
   }
 
   {% if settings.product_image_layout == 'left' %}
-    .product-header, .product-details, .product-description {
+    .product-header, .product-content {
       @include make-sm-column(6);
       @media (min-width: $grid-float-breakpoint) {
         float: right;
@@ -8361,7 +8361,7 @@ body[class*="collection"] {
       }
     }
   {% elsif settings.product_image_layout == 'right' %}
-    .product-header, .product-details, .product-description {
+    .product-header, .product-content {
       @include make-sm-column(6);
       @media (min-width: $grid-float-breakpoint) {
         float: left;
