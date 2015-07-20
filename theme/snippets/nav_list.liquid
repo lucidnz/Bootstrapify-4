@@ -52,14 +52,17 @@
       {% if shop.customer_accounts_enabled %}
         {% if customer %}        
           <li class="navigation-account">
-            <a href="/account">{{ 'customer_accounts.site_header.account_signed_in_html' | t: name: customer.first_name }}</a>
+            <a href="/account">{{ 'customer_accounts.site_header.customer_account_link_html' | t: name: customer.first_name }}</a>
           </li>
           <li class="navigation-account">
-            {{ 'customer_accounts.site_header.sign_out' | t | customer_logout_link }}
+            {{ 'customer_accounts.site_header.customer_sign_out_link_html' | t | customer_logout_link }}
           </li>
         {% else %}
           <li class="navigation-account">
-            {{ 'customer_accounts.site_header.account_signed_out_html' | t | customer_login_link }}
+            {{ 'customer_accounts.site_header.customer_sign_in_link_html' | t | customer_login_link }}
+          </li>
+          <li class="navigation-account">
+            {{ 'customer_accounts.site_header.customer_register_link_html' | t | customer_register_link }}
           </li>
         {% endif %}
       {% endif %}

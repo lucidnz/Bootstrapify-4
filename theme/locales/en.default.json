@@ -116,9 +116,10 @@
   },
   "customer_accounts" : {
     "site_header" : {
-      "account_signed_in_html" : "<span class='fa fa-user'></span> My account",
-      "account_signed_out_html" : "<span class='fa fa-user'></span> My account",
-      "sign_out" : "Sign out"
+      "customer_account_link_html" : "<span class='fa fa-user'></span> My account",
+      "customer_sign_out_link_html" : "Sign out",
+      "customer_sign_in_link_html" : "<span class='fa fa-user'></span> Sign in",
+      "customer_register_link_html" : "Register"
     },
     "account" : {
       "page_title" : "My Account",
