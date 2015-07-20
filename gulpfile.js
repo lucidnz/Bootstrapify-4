@@ -187,9 +187,15 @@ gulp.task('shopify_theme_settings', function () {
     .pipe(gulp.dest('./theme/config/'));
 });
 
-// SETTINGS_CLEAN: set the settings_data.json back to blank
+// SETTINGS_CLEAN: set any file designed to be overriden back to blank
 gulp.task('settings_clean', function () {
-  return gulp.src('./settings_data/settings_data.json')
+  gulp.src(['./clean_data/additional_header_content.liquid', './clean_data/additional_footer_content.liquid'])
+    .pipe(gulp.dest('./theme/snippets/'));
+    
+  gulp.src('./clean_data/_custom_overrides.scss.liquid')
+    .pipe(gulp.dest('./src/scss/'));
+  
+  return gulp.src('./clean_data/settings_data.json')
     .pipe(gulp.dest('./theme/config/'));
 });
 
