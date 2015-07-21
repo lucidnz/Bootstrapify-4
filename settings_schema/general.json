@@ -17,14 +17,11 @@
       "default": false
     },
     {
-      "label": "Max height",
+      "label": "Logo max height",
       "id": "logo_max_height",
       "type": "text",
-      "default": "150px"
-    },
-    {
-      "type": "paragraph",
-      "content": "TODO: Logos and colours"
+      "default": "150px",
+      "info": "This setting constrains the height of your logo allowing you to make it bigger or smaller. Default is 150px high."
     },
     {
       "label": "Site Favicon",
