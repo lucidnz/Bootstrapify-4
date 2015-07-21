@@ -5,6 +5,7 @@
 {% endif %}
 
 <div id="header-layout-centered">
+  {% comment note: Mobile and small screen nav %}{% endcomment %}
   <div class="header-layout-sm visible-xs-block">
     {% capture navbar_content %}
       
@@ -45,6 +46,7 @@
     {% include 'header_component_navbar' %}
   </div>
 
+  {% comment note: Desktop and large screen nav %}{% endcomment %}
   <div class="header-layout-lg hidden-xs">
     <div class="header-top-menu">
       {% capture navbar_content %}
@@ -53,7 +55,7 @@
           {% include 'nav_list' with settings.secondary_menu_linklist %}
         {% endunless %}
         
-        {% assign form_classes = 'navbar-form navbar-right' %}
+        {% assign form_classes = 'navbar-form navbar-left' %}
         {% include 'search_form' %}
         
         {% assign nav_classes = 'nav navbar-nav navbar-right' %}
@@ -66,7 +68,7 @@
       {% include 'header_component_navbar' %}
     </div>
     
-    <div class="header-logo">
+    <div class="header-logo h1">
       {% include 'header_component_brand' %}
     </div>
     
