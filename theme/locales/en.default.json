@@ -258,7 +258,7 @@
       "email_placeholder": "Email",
       "subscribe_button": "Subscribe",
       "success_message_html": "Thank you for subscribing to our newsletter",
-      "error_message_html": "There was an error subscribing you to our newsletter. Please try again later, or feel free to <a href='\/pages\/contact'>contact us<\/a>"
+      "error_message_html": "There was an error subscribing you to our newsletter. Please try again later, or feel free to <a href='\/pages\/contact'>contact us<\/a>."
     },
     "social_links": {
       "title": "Follow us"
@@ -279,8 +279,12 @@
       "button_text": "Search"
     },
     "results_page": {
-      "page_title_with_search_term": "Search results for &ldquo;{{ search_term }}&rdquo;",
-      "page_title": "Search {{ shop_name }}"
+      "page_title_with_search_terms_html": "Search results for &ldquo;{{ search_terms }}&rdquo;",
+      "page_title": "Search {{ shop_name }}",
+      "no_results_title":  "No results found",
+      "no_results_message_html": "It looks like we couldn't find what you were looking for. Try searching again?",
+      "no_search_performed_title": "It looks like you haven't searched for anything",
+      "no_search_performed_message_html": "Not sure what you are looking for? Why not try <a href='\/pages\/contact'>contacting us<\/a>."
     }
   },
   "errors" : {

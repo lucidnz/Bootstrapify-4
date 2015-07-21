@@ -7,7 +7,7 @@
 {% capture title %}{{ shop.name }}{% endcapture %}
 {% if search.performed %}
   {% capture title %}
-    {{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'search.results_page.page_title_with_search_term' | t: search_term: page_title }}
+    {{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'search.results_page.page_title_with_search_terms_html' | t: search_terms: page_title | strip_html | escape }}
     {% if current_page != 1 %}
       - Page {{ current_page }}
     {% endif %}

@@ -599,3 +599,21 @@ body[class*="collection"] {
     }
   }
 }
+
+/*
+  Search
+*/
+.search-lg {
+  @include make-xs-column(12);
+  @include make-md-column(8);
+  @include make-md-column-offset(2);
+}
+
+.search {    
+  .sheet-content {
+    @include make-row();
+  }
+  .search-message {
+    @include make-sm-column(12);
+  }
+}

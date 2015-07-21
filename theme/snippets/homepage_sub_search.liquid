@@ -6,6 +6,7 @@
     {% unless search_title == blank %}<h4>{{ search_title }}</h4>{% endunless %}
     {% unless search_description == blank %}<p>{{ search_description }}</p>{% endunless %}
     <div class="search-lg">
+      {% assign form_classes = 'search-form' %}
       {% include 'search_form' %}
     </div>
   </div>
