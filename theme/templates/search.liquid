@@ -5,7 +5,7 @@
   
 <main role="main">
   <div class="sheet">
-    <header class="sheet-header">
+    <header class="sheet-header page-header">
       <h1>
         {% if search.performed %}
           {{ 'search.results_page.page_title_with_search_terms_html' | t: search_terms: search.terms }}
@@ -15,40 +15,96 @@
       </h1>
     </header>
 
-    <section class="sheet-content">
-      {% if search.performed %}
-        {% if search.results_count > 0 %}
-          <div class="search-results">
+    {% if search.performed %}
+      {% if search.results_count > 0 %}
+        <div class="search-results">
+          {% capture products %}{% endcapture %}
+          {% capture posts %}{% endcapture %}
+          {% capture pages %}{% endcapture %}
+          {% assign products_size = 0 %}
+          {% assign posts_size = 0 %}
+          {% assign pages_size = 0 %}
+        
+          {% include 'pagination_limit' with 'search' %}
+          {% paginate search.results by pagination_limit %}
+            {% for result in search.results %}
+              {% if result.price %}
+                {% assign p = result %}
+                {% assign products_size = products_size | plus: 1 %}
+                {% capture products %}
+                  {{ products }}
+                  {% include 'product_item_list' %}
+                {% endcapture %}
+                
+              {% elsif result.user %}
+                {% assign posts_size = posts_size | plus: 1 %}
+                {% capture posts %}
+                  {{ posts }}
+                {% endcapture %}
+                
+              {% else %}
+                {% assign pages_size = pages_size | plus: 1 %}
+                {% capture pages %}
+                  {{ pages }}
+                  {% include 'search_result_page' %}
+                {% endcapture %}
+              {% endif %}
+            {% endfor %}
+        
+            {% if products_size > 0 %}
+              <h2>{{ 'search.results_page.products_title' | t }}</h2>
+              <section class="group products" data-products-size="{{ products_size }}">
+                {{ products }}
+              </section>
+            {% endif %}
             
+            {% if posts_size > 0 %}
+              <h2>{{ 'search.results_page.posts_title' | t }}</h2>
+              <section class="group posts" data-group-size="{{ posts_size }}">
+                {{ posts }}
+              </section>
+            {% endif %}
             
-      {% comment TODO: pagination %}{% endcomment%}
-      {% comment TODO: list results with list view %}{% endcomment%}
-      {% comment TODO: group results by item type i.e. product/page/post %}{% endcomment%}
-            
-          </div>
-        {% else %}
-          {% comment note: no search results found %}{% endcomment %}
+            {% if pages_size > 0 %}
+              <h2>{{ 'search.results_page.pages_title' | t }}</h2>
+              <section class="group pages" data-group-size="{{ pages_size }}">
+                {{ pages }}
+              </section>
+            {% endif %}
+              
+            {% include 'pagination' %}
+          {% endpaginate %}
+        </div>
+        
+      {% else %}
+        {% comment note: no search results found %}{% endcomment %}
+        <section class="sheet-content">
           <div class="search-message">
             <h3>{{ 'search.results_page.no_results_title' | t }}</h3>
             <p>{{ 'search.results_page.no_results_message_html' | t }}</p>
           </div>
           <div class="search-lg">
             {% assign form_classes = 'search-form' %}
+            {% assign form_size = 'lg' %}
             {% include 'search_form' %}
           </div>
-        {% endif %}
-      {% else %}
-        {% comment note: no search performed %}{% endcomment %}
+        </section>
+      {% endif %}
+      
+    {% else %}
+      {% comment note: no search performed %}{% endcomment %}
+      <section class="sheet-content">
         <div class="search-message">
           <h3>{{ 'search.results_page.no_search_performed_title' | t }}</h3>
           <p>{{ 'search.results_page.no_search_performed_message_html' | t }}</p>
         </div>
         <div class="search-lg">
           {% assign form_classes = 'search-form' %}
+          {% assign form_size = 'lg' %}
           {% include 'search_form' %}
         </div>
-      {% endif %}
-    </section>
+      </section>
+    {% endif %}
   </div>
 </main>
 

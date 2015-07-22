@@ -1,0 +1,11 @@
+{
+  "name": "Blog",
+  "settings": [
+    {
+      "label": "Article pagination limit",
+      "id": "pagination_limit_articles",
+      "type": "text",
+      "default": "50"
+    }
+  ]
+}

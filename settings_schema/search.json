@@ -1,0 +1,30 @@
+{
+  "name": "Search",
+  "settings": [
+    {
+      "label": "Enable Search",
+      "id": "enable_search",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "label": "Search typeahead collection",
+      "id": "search_typeahead_collecton",
+      "type": "collection",
+      "info": "To help users search your site you can select a collection that will gives answers as they type"
+    },
+    {
+      "label": "Search pagination limit",
+      "id": "pagination_limit_search",
+      "type": "text",
+      "default": "50"
+    },
+    {
+      "label": "Truncate words for page content in results",
+      "id": "truncate_page_results",
+      "type": "text",
+      "default": "200",
+      "info": "This will stop pages with long content from making the results to long. If left blank then the whole pages content will be shown"
+    }
+  ]
+}

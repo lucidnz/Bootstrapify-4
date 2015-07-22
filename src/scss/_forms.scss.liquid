@@ -11,7 +11,8 @@
 .customer-address-form-edit {
   
   .selector-wrapper {
-    // added in by shopify's js
+    // added in by shopify's js so we have no control of this
+    // here we have to use extend
     @extend .form-group;
     select {
       @extend .form-control;
@@ -44,12 +45,6 @@
 .search-lg {
   padding: 1.5em 1em;
   text-align: center;
-  .form-control {
-    @extend .input-lg;
-  }
-  .btn {
-    @extend .btn-lg;
-  }
 }
 
 [type="submit"] + .cancel-link {

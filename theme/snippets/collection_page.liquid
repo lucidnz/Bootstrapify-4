@@ -7,7 +7,7 @@
     {% endif %}
     
     <div class="sheet collection-description">
-      <header class="sheet-header">
+      <header class="sheet-header page-header">
         <h1>{{ collection.title }}</h1>
         {{ collection.description }}
       </header>
@@ -27,7 +27,7 @@
       </section>
       
     {% elsif collection.products_count == 0 %}
-      {% comment %} The collection has products in it but we have filtered it down to far {% endcomment%}
+      {% comment note: The collection has products in it but we have filtered it down to far %}{% endcomment%}
       <section class="sheet-content">
         <div class="collection-message">
           <h3>{{ 'collections.filtering.empty_message_title' | t }}</h3>
@@ -47,7 +47,11 @@
         {% if collection.products.size < pagination_limit %}{% assign collection_size= collection.products.size | times: 1 %}{% else %}{% assign collection_size = pagination_limit | times: 1 %}{% endif %}
         <section class="group products" data-products-size="{{ collection_size }}">
           {% for p in collection.products %}
-            {% include 'product_item' %}
+            {% if product_list_item %}
+              {% include 'product_item_list' %}
+            {% else %}
+              {% include 'product_item' %}
+            {% endif %}
           {% endfor %}
           {% include 'pagination' %}
         </section>
@@ -65,3 +69,4 @@
 </main>
 
 {% include 'site_aside' %}
+{% assign product_list_item = false %}

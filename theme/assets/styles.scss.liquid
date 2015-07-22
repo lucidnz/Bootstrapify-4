@@ -8064,11 +8064,8 @@ a {
 */
 
 .sheet {
+  // using extend here means that this is defined in one place and not in every template
   @extend {% if settings.container_width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
-}
-
-.sheet-header {
-  @extend .page-header;
 }
 
 .sheet-content {
@@ -8151,20 +8148,6 @@ footer {
 }
 
 // all collection templates
-.collection-banner {
-  {% if settings.collection_fullscreen_banner %}
-  img {
-    width: 100%;
-  }
-  {% else %}
-  @extend .sheet;
-  {% endif %}
-  
-  img {
-    margin: 0 auto;
-  }
-}
-
 body[class*="collection"] {
   
   @include adaptive-columns('.group-item-wrap');
@@ -8222,21 +8205,37 @@ body[class*="collection"] {
   }
 }
 
-.collection-list {
+body.collection-list,
+body.search {
   // override the grid cols so that we have a list form
   // TODO: make these look better
-  .group-item-wrap {
+  
+  .group .group-item-wrap {
+    @include make-xs-column(12);
     @include make-sm-column(12);
+    @include make-md-column(12);
+    @include make-lg-column(12);
+    
+    margin-bottom: $grid-gutter-width;
+    @media (min-width: $grid-float-breakpoint) {
+      margin-bottom: $grid-gutter-width / 2;
+    }
   }
-  .group-item {
-    @include make-row();
-  }
-  .group-item-image {
-    @include make-sm-column(4);
-  }
-  .group-item-details {
-    @extend .text-left;
-    @include make-sm-column(8);
+  .products {
+    .group-item {
+      @include make-row();
+    };
+    .group-item-image {
+      @include make-sm-column(3);
+    }
+    .group-item-details {
+      text-align: left;
+      @include make-sm-column(9);
+    }
+    
+    .product-price {
+      margin-right: 0.5em;
+    }
   }
 }
 
@@ -8677,6 +8676,9 @@ body[class*="collection"] {
   .search-message {
     @include make-sm-column(12);
   }
+  .pages {
+    
+  }
 }
 /* Typograhical Styles */
 
@@ -8715,10 +8717,15 @@ table {
 
 .group-item-title,
 .cart-item-title {
-  @extend .h5;
+  margin-top: ($line-height-computed / 2);
+  margin-bottom: ($line-height-computed / 2);
+  font-size: $font-size-h5;
   font-weight: $strong-weight;
   
-  .list-collections & {
+  .list-collections &,
+  .collection-list &,
+  .search & {
+    margin-bottom: ($line-height-computed / 2);
   	font-size: $font-size-h3;
   }
 }
@@ -8905,7 +8912,7 @@ table {
     }
   }
 }
-/* Styles for socail links and feeds */
+/* Styles for social links and feeds */
 
 .social-links, .social-share-links {
   ul > li > a {
@@ -8919,7 +8926,7 @@ table {
 
 [data-social-feed="instagram"] {
   & > p {
-    @extend .text-muted;
+    color: $text-muted;
     margin-bottom: 3em;
   }
   .group-item-wrap {
@@ -8957,7 +8964,8 @@ table {
 .customer-address-form-edit {
   
   .selector-wrapper {
-    // added in by shopify's js
+    // added in by shopify's js so we have no control of this
+    // here we have to use extend
     @extend .form-group;
     select {
       @extend .form-control;
@@ -8990,12 +8998,6 @@ table {
 .search-lg {
   padding: 1.5em 1em;
   text-align: center;
-  .form-control {
-    @extend .input-lg;
-  }
-  .btn {
-    @extend .btn-lg;
-  }
 }
 
 [type="submit"] + .cancel-link {
@@ -9023,6 +9025,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 */
+
+.collection-banner {
+  {% if settings.collection_fullscreen_banner %}
+  img {
+    width: 100%;
+  }
+  {% else %}
+  @extend .sheet;
+  {% endif %}
+  
+  img {
+    margin: 0 auto;
+  }
+}
 
 .banner {
   // create the fade transition
@@ -9155,7 +9171,6 @@ body {
       
     } @else {
       .banner-caption {
-        @extend .carousel-caption;
         @if $slide-vertical-alignment == 'top' {
           top: 20px;
           bottom: auto;

@@ -6,7 +6,7 @@
       "content": "The thumbnails settings effects both the product and collections thumbs."
     },
     {
-      "label": "Thumbnail pagination limit",
+      "label": "Product pagination limit",
       "id": "pagination_limit_products",
       "type": "text",
       "default": "50",

@@ -11,22 +11,22 @@
 {% endif %}
 
 <div class="group-item-wrap">
-  <figure class="group-item thumbnail">
-    <a href="{{ p.url }}" title="{{ p.title | escape }}">
-      <div class="group-item-image">
+  <div class="group-item">
+    <div class="group-item-image">
+      <a class="thumbnail" href="{{ p.url }}" title="{{ p.title | escape }}">
         {% if p.featured_image %}
           {% capture img_size %}{% if collection_size > 1 %}1024x1024{% else %}2048x2048{% endif %}{% endcapture %}
           {{ p.featured_image | img_url: img_size | img_tag: p.title }}
         {% else %}
           <div class="fallback-image"></div>
         {% endif %}
-      </div>
-      <figcaption class="group-item-details caption">
-        <h3 class="group-item-title">{{ p.title }}</h3>
-        {% include 'product_price' %}
-        {% include 'product_badges' %}
-        <span class="shopify-product-reviews-badge" data-id="{{ p.id }}"></span>
-      </figcaption>
-    </a>
-  </figure>
+      </a>
+    </div>
+    <div class="group-item-details">
+      <h3 class="group-item-title"><a href="{{ p.url }}" title="{{ p.title | escape }}">{{ p.title }}</a></h3>
+      <div class="h5 clearfix"><div class="pull-left">{% include 'product_price' %}</div> {% include 'product_badges' %}</div>
+      {{ p.description }}
+      <span class="shopify-product-reviews-badge" data-id="{{ p.id }}"></span>
+    </div>
+  </div>
 </div>

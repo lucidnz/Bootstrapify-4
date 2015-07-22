@@ -1,0 +1,17 @@
+<div class="group-item-wrap">
+  <article class="group-item">
+    <header>
+      <h3 class="group-item-title">
+        <a href="{{ result.url }}">{{ result.title }}</a>
+      </h3>
+    </header>
+  
+    <section>
+      {% if settings.truncate_page_results == blank %}
+        {{ result.content }}
+      {% else %}
+        {{ result.content | strip_html | truncatewords: settings.truncate_page_results }}
+      {% endif %}
+    </section>
+  </article>
+</div>

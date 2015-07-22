@@ -4,6 +4,20 @@ body {
 }
 */
 
+.collection-banner {
+  {% if settings.collection_fullscreen_banner %}
+  img {
+    width: 100%;
+  }
+  {% else %}
+  @extend .sheet;
+  {% endif %}
+  
+  img {
+    margin: 0 auto;
+  }
+}
+
 .banner {
   // create the fade transition
   &.fade {
@@ -135,7 +149,6 @@ body {
       
     } @else {
       .banner-caption {
-        @extend .carousel-caption;
         @if $slide-vertical-alignment == 'top' {
           top: 20px;
           bottom: auto;

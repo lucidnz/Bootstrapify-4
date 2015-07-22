@@ -60,6 +60,7 @@
   {% assign slide_text = slide | append: '_caption_text' %}
   {% assign slide_button_text = slide | append: '_button_text' %}
   {% assign slide_button_link = slide | append: '_button_link' %}
+  {% assign slide_size = slide | append: '_size' %}
     
   {% if settings[slide_enabled_setting] %}
   
@@ -68,7 +69,7 @@
       <div class="item{% if slide_count == 0 %} active{% endif %}" data-slide="{{ slide_count | plus: 1 }}">
         <div class="banner-content-wrap">
           <figure class="banner-content">
-            <figcaption class="banner-caption">
+            <figcaption class="banner-caption {% if settings[slide_size] != 'half_container_left' and settings[slide_size] != 'half_container_right' %}carousel-caption{% endif %}">
               {% unless settings[slide_title] == blank %}
                 <h1>{{ settings[slide_title] }}</h1>
               {% endunless %}

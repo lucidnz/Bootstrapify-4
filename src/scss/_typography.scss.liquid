@@ -35,10 +35,15 @@ table {
 
 .group-item-title,
 .cart-item-title {
-  @extend .h5;
+  margin-top: ($line-height-computed / 2);
+  margin-bottom: ($line-height-computed / 2);
+  font-size: $font-size-h5;
   font-weight: $strong-weight;
   
-  .list-collections & {
+  .list-collections &,
+  .collection-list &,
+  .search & {
+    margin-bottom: ($line-height-computed / 2);
   	font-size: $font-size-h3;
   }
 }

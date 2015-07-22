@@ -3,11 +3,8 @@
 */
 
 .sheet {
+  // using extend here means that this is defined in one place and not in every template
   @extend {% if settings.container_width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
-}
-
-.sheet-header {
-  @extend .page-header;
 }
 
 .sheet-content {
@@ -90,20 +87,6 @@ footer {
 }
 
 // all collection templates
-.collection-banner {
-  {% if settings.collection_fullscreen_banner %}
-  img {
-    width: 100%;
-  }
-  {% else %}
-  @extend .sheet;
-  {% endif %}
-  
-  img {
-    margin: 0 auto;
-  }
-}
-
 body[class*="collection"] {
   
   @include adaptive-columns('.group-item-wrap');
@@ -161,21 +144,37 @@ body[class*="collection"] {
   }
 }
 
-.collection-list {
+body.collection-list,
+body.search {
   // override the grid cols so that we have a list form
   // TODO: make these look better
-  .group-item-wrap {
+  
+  .group .group-item-wrap {
+    @include make-xs-column(12);
     @include make-sm-column(12);
+    @include make-md-column(12);
+    @include make-lg-column(12);
+    
+    margin-bottom: $grid-gutter-width;
+    @media (min-width: $grid-float-breakpoint) {
+      margin-bottom: $grid-gutter-width / 2;
+    }
   }
-  .group-item {
-    @include make-row();
-  }
-  .group-item-image {
-    @include make-sm-column(4);
-  }
-  .group-item-details {
-    @extend .text-left;
-    @include make-sm-column(8);
+  .products {
+    .group-item {
+      @include make-row();
+    };
+    .group-item-image {
+      @include make-sm-column(3);
+    }
+    .group-item-details {
+      text-align: left;
+      @include make-sm-column(9);
+    }
+    
+    .product-price {
+      margin-right: 0.5em;
+    }
   }
 }
 
@@ -615,5 +614,8 @@ body[class*="collection"] {
   }
   .search-message {
     @include make-sm-column(12);
+  }
+  .pages {
+    
   }
 }
