@@ -1,12 +1,12 @@
 <div class="group-item-wrap">
-  <article class="group-item">
-    <header>
-      <h3 class="group-item-title">
+  <article class="group-item panel panel-default">
+    <header class="panel-heading">
+      <h3 class="panel-title">
         <a href="{{ result.url }}">{{ result.title }}</a>
       </h3>
     </header>
   
-    <section>
+    <section class="panel-body">
       {% if settings.truncate_page_results == blank %}
         {{ result.content }}
       {% else %}
