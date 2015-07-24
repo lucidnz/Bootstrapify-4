@@ -35,12 +35,12 @@
         <a class="dropdown-toggle" href="{{ link.url }}" data-toggle="dropdown">{{ link.title }} <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
           {% for childlink in linklists[child_list_handle].links %}
-            <li{% if childlink.active %} class="active"{% endif %}><a href="{{ childlink.url }}" title="{{ childlink.title }}">{{ childlink.title }}</a></li>
+            <li{% if childlink.active %} class="active"{% endif %}><a href="{{ childlink.url }}" title="{{ childlink.title | strip_html }}">{{ childlink.title }}</a></li>
           {% endfor %}
         </ul>
       </li>
     {% else %}
-      <li{% if link.active %} class="active"{% endif %}><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+      <li{% if link.active %} class="active"{% endif %}><a href="{{ link.url }}" title="{{ link.title | strip_html }}">{{ link.title }}</a></li>
     {% endif %}
   {% endfor %}
   
