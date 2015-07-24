@@ -160,7 +160,9 @@
             {% when 'collection_link' %}
               {% comment %} Show the collection thumbnail {% endcomment %}
               {% assign c = advanced_section_child_link.object %}
+              {% if c.products_count > 0 %}
               {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'collection_item' %}{% endcapture %}
+              {% endif %}
             
             {% when 'product_link' %}
               {% comment %} Show the products thumbnail {% endcomment %}
