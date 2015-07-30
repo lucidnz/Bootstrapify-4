@@ -1,0 +1,28 @@
+<div class="group-item-wrap">
+  <article class="group-item">
+    <header>
+      <h3>
+        <a href="{{ article.url }}">{{ article.title }}</a>
+      </h3>
+      <ul class="list-inline small text-muted">
+        <li>{{ 'blog.article_list.author_html' | t: author: article.author }}</li>
+        {% capture date %}{{ article.published_at | date: format: 'article_short' }}{% endcapture %}
+        <li>{{ 'blog.article_list.published_date_html' | t: date: date }}</li>
+        {% if article.comments_enabled? %}
+        <li>{{ 'blog.article_list.comments_html' | t: comments_count: article.comments_count }}</li>
+        {% endif %}
+      </ul>
+    </header>
+  
+    <section>
+      {% if settings.truncate_page_results == blank %}
+        {{ article.excerpt_or_content }}
+      {% else %}
+        {{ article.excerpt_or_content | strip_html | truncatewords: settings.truncate_page_results }}
+      {% endif %}
+      <p class="read-more">
+        <a href="{{ article.url }}">{{ 'blog.article_list.read_more_html' | t: page_title: article.title }}</a>
+      </p>
+    </section>
+  </article>
+</div>

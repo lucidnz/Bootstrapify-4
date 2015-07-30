@@ -25,6 +25,12 @@
       "type": "text",
       "default": "200",
       "info": "This will stop pages with long content from making the results to long. If left blank then the whole pages content will be shown"
+    },
+    {
+      "label": "Empty search collection",
+      "id": "search_collection",
+      "type": "collection",
+      "info": "Select a collection to show on the search page if there are no results"
     }
   ]
 }

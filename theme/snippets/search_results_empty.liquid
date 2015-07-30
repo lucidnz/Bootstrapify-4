@@ -1,0 +1,28 @@
+<section class="sheet-content">
+  <div class="search-lg">
+    {% assign form_classes = 'search-form' %}
+    {% assign form_size = 'lg' %}
+    {% include 'search_form' %}
+  </div>
+  {% if message_title %}
+  <div class="search-message">
+    <div class="search-message-content">
+      <h3>{{ message_title }}</h3>
+      {% if message_html %}<p>{{ message_html }}</p>{% endif %}
+    </div>
+  </div>
+  {% endif %}
+</section>
+  
+{% if settings.search_collection %}
+{% assign collection = collections[settings.search_collection] %}
+<h2>{{ collection.title }}</h2>
+<section class="group products" data-products-size="{{ collection.products.size }}">
+  {% for p in collection.products %}
+    {% include 'product_item' %}
+  {% endfor %}
+</section>
+{% endif %}
+
+{% assign message_title = null %}
+{% assign message_html = null %}

@@ -246,10 +246,10 @@
   },
   "blog": {
     "article_list": {
-      "published_date": "{{ date }}",
-      "author": "By {{ author }}",
-      "comments": "{{ comments_count }} comments",
-      "separator": "|"
+      "published_date_html": "<span class='fa fa-clock-o'></span> Published on {{ date }}",
+      "author_html": "By {{ author }}",
+      "comments_html": "<span class='fa fa-comments'></span> {{ comments_count }} comments",
+      "read_more_html": "Read &ldquo;{{ page_title }}&rdquo; <span class='fa fa-chevron-right'></span>"
     }
   },
   "social_and_newsletter": {
@@ -287,7 +287,8 @@
       "no_search_performed_message_html": "Not sure what you are looking for? Why not try <a href='\/pages\/contact'>contacting us<\/a>.",
       "products_title": "Products",
       "posts_title": "Posts",
-      "pages_title": "Pages"
+      "pages_title": "Pages",
+      "read_more_html": "Read &ldquo;{{ page_title }}&rdquo; <span class='fa fa-chevron-right'></span>"
     }
   },
   "errors" : {

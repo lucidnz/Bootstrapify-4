@@ -29,8 +29,8 @@
           {% paginate search.results by pagination_limit %}
             {% for result in search.results %}
               {% if result.price %}
-                {% assign p = result %}
                 {% assign products_size = products_size | plus: 1 %}
+                {% assign p = result %}
                 {% capture products %}
                   {{ products }}
                   {% include 'product_item_list' %}
@@ -38,8 +38,10 @@
                 
               {% elsif result.user %}
                 {% assign posts_size = posts_size | plus: 1 %}
+                {% assign article = result %}
                 {% capture posts %}
                   {{ posts }}
+                  {% include 'article_item' %}
                 {% endcapture %}
                 
               {% else %}
@@ -58,11 +60,21 @@
               </section>
             {% endif %}
             
+            {% if products_size > 0 and posts_size > 0 %}
+              <hr>
+            {% elsif products_size > 0 and posts_size == 0 and pages_size > 0 %}
+              <hr>
+            {% endif %}
+            
             {% if posts_size > 0 %}
               <h2>{{ 'search.results_page.posts_title' | t }}</h2>
               <section class="group posts" data-group-size="{{ posts_size }}">
                 {{ posts }}
               </section>
+            {% endif %}
+            
+            {% if posts_size > 0 and pages_size > 0 %}
+              <hr>
             {% endif %}
             
             {% if pages_size > 0 %}
@@ -78,32 +90,16 @@
         
       {% else %}
         {% comment note: no search results found %}{% endcomment %}
-        <section class="sheet-content">
-          <div class="search-message">
-            <h3>{{ 'search.results_page.no_results_title' | t }}</h3>
-            <p>{{ 'search.results_page.no_results_message_html' | t }}</p>
-          </div>
-          <div class="search-lg">
-            {% assign form_classes = 'search-form' %}
-            {% assign form_size = 'lg' %}
-            {% include 'search_form' %}
-          </div>
-        </section>
+        {% assign message_title = 'search.results_page.no_results_title' | t %}
+        {% assign message_html = 'search.results_page.no_results_message_html' | t %}
+        {% include 'search_results_empty' %}
       {% endif %}
       
     {% else %}
       {% comment note: no search performed %}{% endcomment %}
-      <section class="sheet-content">
-        <div class="search-message">
-          <h3>{{ 'search.results_page.no_search_performed_title' | t }}</h3>
-          <p>{{ 'search.results_page.no_search_performed_message_html' | t }}</p>
-        </div>
-        <div class="search-lg">
-          {% assign form_classes = 'search-form' %}
-          {% assign form_size = 'lg' %}
-          {% include 'search_form' %}
-        </div>
-      </section>
+        {% assign message_title = 'search.results_page.no_search_performed_title' | t %}
+        {% assign message_html = 'search.results_page.no_search_performed_message_html' | t %}
+        {% include 'search_results_empty' %}
     {% endif %}
   </div>
 </main>

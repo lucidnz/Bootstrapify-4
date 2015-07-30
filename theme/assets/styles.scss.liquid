@@ -8206,7 +8206,7 @@ body[class*="collection"] {
 }
 
 body.collection-list,
-body.search {
+body.search .search-results {
   // override the grid cols so that we have a list form
   // TODO: make these look better
   
@@ -8674,10 +8674,15 @@ body.search {
     @include make-row();
   }
   .search-message {
-    @include make-sm-column(12);
+    @include make-xs-column(12);
+/*
+    @include make-md-column(8);
+    @include make-md-column-offset(2);
+*/
   }
-  .pages {
-    
+  .read-more {
+    text-align: right;
+    margin-bottom: 0;
   }
 }
 /* Typograhical Styles */
@@ -8951,6 +8956,8 @@ table {
   
   @include hover-captions;
 }
+// TODO: refactor this to remove nested ness and extends
+
 .add-to-cart-form,
 .cart-form,
 .contact-form,

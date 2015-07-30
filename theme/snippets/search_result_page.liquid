@@ -1,17 +1,20 @@
 <div class="group-item-wrap">
-  <article class="group-item panel panel-default">
-    <header class="panel-heading">
-      <h3 class="panel-title">
+  <article class="group-item">
+    <header>
+      <h3>
         <a href="{{ result.url }}">{{ result.title }}</a>
       </h3>
     </header>
   
-    <section class="panel-body">
+    <section>
       {% if settings.truncate_page_results == blank %}
         {{ result.content }}
       {% else %}
         {{ result.content | strip_html | truncatewords: settings.truncate_page_results }}
       {% endif %}
+      <p class="read-more">
+        <a href="{{ result.url }}">{{ 'search.results_page.read_more_html' | t: page_title: result.title }}</a>
+      </p>
     </section>
   </article>
 </div>
