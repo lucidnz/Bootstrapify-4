@@ -1,5 +1,5 @@
 <ul class="list-unstyled list-links">
 {% for link in linklists[link_list].links %}
-    <li{% if link.active %} class="active"{% endif %}><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+    <li{% if link.active %} class="active"{% endif %}><a href="{{ link.url }}" title="{{ link.title | strip_html }}">{{ link.title }}</a></li>
 {% endfor %}
 </ul>
