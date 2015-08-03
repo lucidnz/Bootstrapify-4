@@ -24,7 +24,7 @@
       "label": "Constrain images to the same size",
       "id": "thumbnail_images_constrained",
       "type": "checkbox",
-      "default": false,
+      "default": true,
       "info": "Use this if you have uploaded different sized images across your products and want them to look consistent"
     },
     {
