@@ -8,6 +8,7 @@
     {% for l in homepage_collections.links %}
       {% assign c = l.object %}
       {% if c.collection.products_count > 0 %}
+        {% assign collection_item_title = l.title %}
         {% include 'collection_item' %}
       {% endif %}
     {% endfor %}

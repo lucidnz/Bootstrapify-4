@@ -1,19 +1,20 @@
+{% assign collection_title = collection_item_title | default: c.title %}
 <div class="group-item-wrap">
   <figure class="group-item thumbnail">
-    <a href="{{ c.url }}" title="{{ c.title }}">
+    <a href="{{ c.url }}" title="{{ collection_title }}">
       <div class="group-item-image">
         {% capture img_size %}{% if collections_size > 1 %}1024x1024{% else %}2048x2048{% endif %}{% endcapture %}
         {% if c.image %}
-          {{ c.image | img_url: img_size | img_tag: c.title }}
+          {{ c.image | img_url: img_size | img_tag: collection_title }}
         {% elsif c.products.first.featured_image %}
-          {{ c.products.first.featured_image | img_url: img_size | img_tag: c.title }}
+          {{ c.products.first.featured_image | img_url: img_size | img_tag: collection_title }}
         {% else %}
           <div class="fallback-image"></div>
         {% endif %}
       </div>
       <figcaption class="group-item-details caption">
-          {% capture collection_title %}{{ 'collections.list_collections.item_title_html' | t: collection_title: c.title }}{% endcapture %}
-          <h3 class="group-item-title">{{ collection_title | default: c.title }}</h3>
+          {% capture collection_title %}{{ 'collections.list_collections.item_title_html' | t: collection_title: collection_title }}{% endcapture %}
+          <h3 class="group-item-title">{{ collection_title | default: collection_title }}</h3>
           
           {% if settings.show_collection_product_count %}
           <p class="group-item-count">{{ 'collections.list_collections.item_count' | t: count: c.all_products_count }}</p>
@@ -22,3 +23,4 @@
     </a>
   </figure>
 </div>
+{% assign collection_item_title = null %}

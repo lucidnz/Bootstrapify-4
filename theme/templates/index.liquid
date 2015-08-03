@@ -169,6 +169,7 @@
               {% when '/collections/all' %}
                 {% comment %} Show the collection thumbnail for the all collection {% endcomment %}
                 {% assign c = collections.all %}
+                {% assign collection_item_title = advanced_section_child_link.title %}
                 {% capture new_homepage_sub_section_content %}{% include 'collection_item' %}{% endcapture %}
                 
               {% when '/search' %}
@@ -182,7 +183,8 @@
               {% comment %} Show the collection thumbnail {% endcomment %}
               {% assign c = advanced_section_child_link.object %}
               {% if c.products_count > 0 %}
-              {% capture new_homepage_sub_section_content %}{% include 'collection_item' %}{% endcapture %}
+                {% assign collection_item_title = advanced_section_child_link.title %}
+                {% capture new_homepage_sub_section_content %}{% include 'collection_item' %}{% endcapture %}
               {% endif %}
             
             {% when 'product_link' %}
