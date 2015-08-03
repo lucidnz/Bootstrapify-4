@@ -16,9 +16,16 @@ Thumbnails.init = function () {
       opts.ratio = ratio;
     }
     
-    $(Bsify.thumbnail_selectors.image_wrapper).uniform_thumbnails(opts).on('ut_complete', function(){
+    var $img_wrappers = $(Bsify.thumbnail_selectors.image_wrapper);
+    
+    if ($img_wrappers.length > 0) {
+      $img_wrappers.uniform_thumbnails(opts).on('ut_complete', function(){
+        Thumbnails.orderly();
+      });
+    } else {
+      // just use orderly
       Thumbnails.orderly();
-    });
+    }
   } else {
     // just use orderly
     Thumbnails.orderly();
