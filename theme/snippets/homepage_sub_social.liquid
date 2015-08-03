@@ -5,7 +5,7 @@
 
 {% unless social_feed == blank %}
 <div class="group-item-wrap">
-  <div class="group-item thumbnail social-feed" id="{{ homepage_sub_social.handle }}">
+  <div class="group-item social-feed" id="{{ homepage_sub_social.handle }}">
     <h4>{{ social_title }}</h4>
     {% unless social_description == blank %}<p>{{ social_description }}</p>{% endunless %}
     <div class="social-feed-{{ social_service }}">
