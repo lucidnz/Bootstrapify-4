@@ -77,7 +77,20 @@
     {% unless homepage_advanced_linklist.links == blank %}
       {% for advanced_section_link in homepage_advanced_linklist.links %}
       
-        {% assign child_list_handle = advanced_section_link.handle %}
+        {% comment note:
+          using WebAddress:#linklist-handle to define the sub-linklist allows us to craft linklist titles without losing the connection
+          as the title will be shown on the page.
+          Fallback to the Shopify known way of creating dropdowns
+        %}{% endcomment %}
+        
+        {% assign child_list_handle = null %}
+        {% if advanced_section_link.type == 'http_link' and advanced_section_link.url contains '#' %}
+          {% assign child_list_handle = advanced_section_link.url | remove: '#' %}
+        {% endif %}
+        {% if child_list_handle == blank %}
+          {% assign child_list_handle = advanced_section_link.handle %}
+        {% endif %}
+      
         {% if linklists[child_list_handle].links == blank %}
           {% comment %}
             We have no nested linklist so build the top level sections
@@ -208,6 +221,9 @@
           {% assign homepage_section_type = 'group' %}
           {% capture homepage_section_content %}
             <div class="sheet">
+              <header class="sheet-header page-header">
+                <h1>{{ advanced_section_link.title }}</h1>
+              </header>
               <div class="homepage-section-group group" data-group-size="{{ homepage_sub_section_size }}">
                 {{ homepage_sub_section_content }}
               </div>

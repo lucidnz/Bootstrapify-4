@@ -1,3 +1,4 @@
+{% if c.collection.products_count > 0 %}
 <div class="sheet">
   <header class="sheet-header page-header">
     <h1>{{ homepage_collections.title }}</h1>
@@ -12,3 +13,4 @@
     {% endfor %}
   </section>
 </div>
+{% endif %}

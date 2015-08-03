@@ -1,9 +1,9 @@
 {% capture function %}
-  {% comment %}
+  {% comment note:
     Function returns a social services feed.
     Takes one parameter which is the service url.
     Returns a block of markup containing the feed.
-  {% endcomment %}
+   %}{% endcomment %}
   
   {% capture service %}{% include 'social_service' with social_feed %}{% endcapture %}
   
@@ -24,4 +24,4 @@
     {% capture feed %}{% include 'social_feed_youtube' with social_feed %}{% endcapture %}
   
   {% endcase %}
-{% endcapture %}{{ feed }}
+{% endcapture %}{{ feed }}{% assign feed = null %}

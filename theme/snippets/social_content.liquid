@@ -1,5 +1,5 @@
 {% capture function %}
-  {% comment %}
+  {% comment note:
     Function returns a heading and description.
     Takes two parameters:
       - a service name or url
@@ -8,8 +8,7 @@
     Returns two variables (to the global scope):
       - social_title
       - social_description
-    
-  {% endcomment %}
+   %}{% endcomment %}
   
   {% assign params = social_content | split: '||' %}
   {% assign service = params[0] %}
