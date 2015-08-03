@@ -4,7 +4,6 @@
 {% include 'social_content' with params %}
 
 {% unless social_feed == blank %}
-{% endunless %}
 <div class="sheet social-feed">
   <header class="sheet-header page-header">
     <h3>{{ social_title }}</h3>
@@ -14,3 +13,4 @@
     {{ social_feed }}
   </section>
 </div>
+{% endunless %}

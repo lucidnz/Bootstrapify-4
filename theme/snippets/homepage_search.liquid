@@ -1,13 +1,13 @@
-{% capture search_title %}{{ 'search.homepage.title_html' | t }}{% endcapture %}
+{% capture search_title %}{{ 'search.homepage.title_html' | t: shop_name: shop.name }}{% endcapture %}
 {% capture search_description %}{{ 'search.homepage.description_html' | t }}{% endcapture %}
 
 <div class="sheet">
-  {% if search_title != blank and search_description != blank %}
+  {% unless search_title == blank %}
   <header class="sheet-header page-header">
-    {% unless search_title == blank %}<h3>{{ search_title }}</h3>{% endunless %}
+    <h3>{{ search_title }}</h3>
     {% unless search_description == blank %}<p>{{ search_description }}</p>{% endunless %}
   </header>
-  {% endif %}
+  {% endunless %}
   <div class="search-lg">
     {% assign form_classes = 'search-form' %}
     {% assign form_size = 'lg' %}

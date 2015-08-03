@@ -91,8 +91,7 @@
               {% capture homepage_section_content %}{% include 'homepage_products' with homepage_section_object %}{% endcapture %}
               
             {% when '/search' %}
-              {% comment %} TODO: Show an awesome search form {% endcomment %}
-              {% assign homepage_section_id = 'site_search' %}
+              {% assign homepage_section_id = 'site-search' %}
               {% capture homepage_section_content %}{% include 'homepage_search' %}{% endcapture %}
               
             {% else %}
@@ -137,6 +136,7 @@
           {% endcomment %}
         
           {% capture homepage_sub_section_content %}{% endcapture %}
+          {% assign homepage_sub_section_size = 0 %}
           {% for advanced_section_child_link in linklists[child_list_handle].links %}
         
             {% case advanced_section_child_link.type %}
@@ -147,11 +147,10 @@
               {% when '/collections/all' %}
                 {% comment %} Show the collection thumbnail for the all collection {% endcomment %}
                 {% assign c = collections.all %}
-                {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'collection_item' %}{% endcapture %}
+                {% capture new_homepage_sub_section_content %}{% include 'collection_item' %}{% endcapture %}
                 
               {% when '/search' %}
-                {% comment %} TODO: Show an awesome search form {% endcomment %}
-                {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'homepage_sub_search' %}{% endcapture %}
+                {% capture new_homepage_sub_section_content %}{% include 'homepage_sub_search' %}{% endcapture %}
                 
               {% else %}
                 {% comment %} We've got the front page; that's pretty meta. http://gph.is/1kPdp9x {% endcomment %}
@@ -161,17 +160,17 @@
               {% comment %} Show the collection thumbnail {% endcomment %}
               {% assign c = advanced_section_child_link.object %}
               {% if c.products_count > 0 %}
-              {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'collection_item' %}{% endcapture %}
+              {% capture new_homepage_sub_section_content %}{% include 'collection_item' %}{% endcapture %}
               {% endif %}
             
             {% when 'product_link' %}
               {% comment %} Show the products thumbnail {% endcomment %}
               {% assign p = advanced_section_child_link.object %}
-              {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'product_item' %}{% endcapture %}
+              {% capture new_homepage_sub_section_content %}{% include 'product_item' %}{% endcapture %}
             
             {% when 'page_link' %}
               {% comment %} Show the page content, with title ala features {% endcomment %}
-              {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'homepage_sub_page' with advanced_section_child_link.object %}{% endcapture %}
+              {% capture new_homepage_sub_section_content %}{% include 'homepage_sub_page' with advanced_section_child_link.object %}{% endcapture %}
             
             {% when 'blog_link' %}
               {% comment %} TODO: Show a list of articles from this blog {% endcomment %}
@@ -184,16 +183,22 @@
                 - url contains twitter.com/username then show a feed of tweets
                 - url contains youtube.com/video or vimeo.com/video then embed the video
               {% endcomment %}
-              {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{% include 'homepage_sub_social' with advanced_section_child_link %}{% endcapture %}
+              {% capture new_homepage_sub_section_content %}{% include 'homepage_sub_social' with advanced_section_child_link %}{% endcapture %}
               
             {% endcase %}
+            
+            {% unless new_homepage_sub_section_content == blank %}
+              {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{{ new_homepage_sub_section_content }}{% endcapture %}
+              {% assign homepage_sub_section_size = homepage_sub_section_size | plus: 1 %}
+              {% assign new_homepage_sub_section_content = null %}
+            {% endunless %}
         
           {% endfor %}
           
           {% assign homepage_section_id = advanced_section_link.handle %}
           {% capture homepage_section_content %}
             <div class="sheet">
-              <div class="homepage-section-group group" data-group-size="{{ linklists[child_list_handle].links.size }}">
+              <div class="homepage-section-group group" data-group-size="{{ homepage_sub_section_size }}">
                 {{ homepage_sub_section_content }}
               </div>
             </div>

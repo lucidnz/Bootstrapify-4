@@ -271,7 +271,7 @@
   },
   "search": {
     "homepage": {
-      "title_html": "",
+      "title_html": "Search {{ shop_name }}",
       "description_html": ""
     },
     "search_form": {
