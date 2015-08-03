@@ -11,7 +11,6 @@ $strong-weight:                   bold !default;
 $grid-gutter-width:               30px !default;
 $thumbnail-padding:               $grid-gutter-width / 2 !default; // TODO: if we have no borders this needs to be set to 0
 
-
 /* lookbook vars */
 $lookbook-item-max-width-xs: 180px;
 $lookbook-item-max-width-sm: 320px;
@@ -24,6 +23,8 @@ $lookbook-min-height-lg: 1000px;
 /* Banner */
 $banner-height-xs: 30em !default;
 $banner-height-xs-landscape: 22em !default;
+
+$homepage-section-alt-background: rgba(#000,.03);
 
 {% unless settings.scss_variables == blank %}{{ settings.scss_variables }}{% endunless %}
 /* Functions */
@@ -8625,7 +8626,7 @@ body.search .search-results {
   }
   
   &:nth-child(even) {
-   background-color: rgba(#000,.03);
+   background-color: $homepage-section-alt-background;
   }
   
   .banner {
@@ -8720,6 +8721,19 @@ h6 {
 table {
   tfoot tr:first-child td {
     border-top-width: 2px;
+  }
+}
+
+.homepage-section-collection {
+  .page-header {
+    overflow: hidden;
+  }
+  .page-header h1 {
+    float: left;
+  }
+  .view-all-link {
+    float: right;
+    margin-top: 1em;
   }
 }
 

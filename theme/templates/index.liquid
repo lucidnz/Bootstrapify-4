@@ -26,12 +26,14 @@
       {% case homepage_section %}
       {% when 'banner' %}
         {% assign homepage_section_id = 'homepage-banner-' | append: section_count %}
+        {% assign homepage_section_type = 'banner' %}
         {% capture homepage_section_content %}{% include 'homepage_banner' %}{% endcapture %}
                 
       {% when 'featured_collections' %}
         {% unless settings.homepage_featured_collections == blank %}
           {% assign homepage_section_object = linklists[settings.homepage_featured_collections] %}
           {% assign homepage_section_id = homepage_section_object.handle %}
+          {% assign homepage_section_type = 'collections' %}
           {% capture homepage_section_content %}{% include 'homepage_collections' with homepage_section_object %}{% endcapture %}
         {% endunless %}
         
@@ -39,6 +41,7 @@
         {% unless settings.homepage_featured_products == blank %}
           {% assign homepage_section_object = collections[settings.homepage_featured_products] %}
           {% assign homepage_section_id = homepage_section_object.handle %}
+          {% assign homepage_section_type = 'collection' %}
           {% capture homepage_section_content %}{% include 'homepage_products' with homepage_section_object %}{% endcapture %}
         {% endunless %}
         
@@ -46,6 +49,7 @@
         {% unless settings.homepage_page_content == blank %}
           {% assign homepage_section_object = pages[settings.homepage_page_content] %}
           {% assign homepage_section_id = homepage_section_object.handle %}
+          {% assign homepage_section_type = 'page' %}
           {% capture homepage_section_content %}{% include 'homepage_page' with homepage_section_object %}{% endcapture %}
         {% endunless %}
       {% endcase %}
@@ -88,10 +92,12 @@
               {% comment %} Show the product loop for this collection {% endcomment %}
               {% assign homepage_section_object = collections.all %}
               {% assign homepage_section_id = homepage_section_object.handle %}
+              {% assign homepage_section_type = 'collection' %}
               {% capture homepage_section_content %}{% include 'homepage_products' with homepage_section_object %}{% endcapture %}
               
             {% when '/search' %}
               {% assign homepage_section_id = 'site-search' %}
+              {% assign homepage_section_type = 'search' %}
               {% capture homepage_section_content %}{% include 'homepage_search' %}{% endcapture %}
               
             {% else %}
@@ -102,6 +108,7 @@
             {% comment %} Show the product loop for this collection {% endcomment %}
             {% assign homepage_section_object = advanced_section_link.object %}
             {% assign homepage_section_id = homepage_section_object.handle %}
+            {% assign homepage_section_type = 'collection' %}
             {% capture homepage_section_content %}{% include 'homepage_products' with homepage_section_object %}{% endcapture %}
           
           {% when 'product_link' %}
@@ -111,6 +118,7 @@
             {% comment %} Show the page content {% endcomment %}
             {% assign homepage_section_object = advanced_section_link.object %}
             {% assign homepage_section_id = homepage_section_object.handle %}
+            {% assign homepage_section_type = 'page' %}
             {% capture homepage_section_content %}{% include 'homepage_page' with homepage_section_object %}{% endcapture %}
           
           {% when 'blog_link' %}
@@ -125,6 +133,7 @@
               - url contains youtube.com/video or vimeo.com/video then embed the video
             {% endcomment %}
             {% assign homepage_section_id = advanced_section_link.handle %}
+            {% assign homepage_section_type = 'social' %}
             {% capture homepage_section_content %}{% include 'homepage_social' with advanced_section_link %}{% endcapture %}
             
           {% endcase %}
@@ -196,6 +205,7 @@
           {% endfor %}
           
           {% assign homepage_section_id = advanced_section_link.handle %}
+          {% assign homepage_section_type = 'group' %}
           {% capture homepage_section_content %}
             <div class="sheet">
               <div class="homepage-section-group group" data-group-size="{{ homepage_sub_section_size }}">

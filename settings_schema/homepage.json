@@ -87,6 +87,22 @@
     },
     {
       "type": "header",
+      "content": "Homepage pagination"
+    },
+    {
+      "label": "Product limit",
+      "id": "homepage_limit_products",
+      "type": "text",
+      "default": "4"
+    },
+    {
+      "label": "Blog limit",
+      "id": "homepage_limit_blog",
+      "type": "text",
+      "default": "4"
+    },
+    {
+      "type": "header",
       "content": "Advanced layout"
     },
     {
