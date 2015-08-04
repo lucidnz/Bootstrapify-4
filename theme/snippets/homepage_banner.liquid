@@ -74,7 +74,7 @@
                 <p>{{ settings[slide_text] }}</p>
               {% endunless %}
               {% unless settings[slide_button_text] == blank and settings[slide_button_link] == blank %}
-                <p><a class="call-to-action btn" href="{{ settings[slide_button_link] }}">{{ settings[slide_button_text] }}</a></p>
+                <p><a class="call-to-action btn btn-lg" href="{{ settings[slide_button_link] }}">{{ settings[slide_button_text] }}</a></p>
               {% endunless %}
             </figcaption>
             <div class="banner-image">{{ slide_image | asset_url | img_tag: settings[slide_title] }}</div>

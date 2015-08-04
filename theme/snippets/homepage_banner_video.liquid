@@ -1,26 +1,23 @@
 {% if settings.video_banner_url != blank %}
-<div class="banner banner-video embed-responsive embed-responsive-16by9">
-  <div class="banner-video-player" id="video-player" data-property="{ videoURL:'{{ settings.video_banner_url }}', containment:'.banner-video', autoPlay: true, mute: true, startAt: 0, opacity: 1, showControls: false, optimizeDisplay:false }">
+<div class="banner banner-video">
+  <div class="banner-video-embed embed-responsive embed-responsive-16by9"></div>
+  <div class="banner-video-player" id="video-player" data-property="{ videoURL:'{{ settings.video_banner_url }}', containment:'.banner-video-embed', autoPlay: true, mute: true, startAt: 0, opacity: 1, showControls: false, optimizeDisplay:false }">
     <img src="{{ 'video_banner_img.jpg' | asset_url }}">
   </div>
   
-<!--
-  <div class="banner-content-wrap">
-    <figure class="banner-content">
-      <figcaption class="banner-caption">
-        {% unless settings.video_banner_heading_text == blank %}
-          <h1>{{ settings.video_banner_heading_text }}</h1>
-        {% endunless %}
-        {% unless settings.video_banner_caption_text == blank %}
-          <p>{{ settings.video_banner_caption_text }}</p>
-        {% endunless %}
-        {% unless settings.video_banner_button_text == blank and settings.video_banner_button_link == blank %}
-          <p><a class="call-to-action btn" href="{{ settings.video_banner_button_link }}">{{ settings.video_banner_button_text }}</a></p>
-        {% endunless %}
-      </figcaption>
-    </figure>
+  {% unless settings.video_banner_heading_text == blank and settings.video_banner_caption_text == blank and settings.video_banner_button_text == blank %}
+  <div class="banner-caption carousel-caption">
+    {% unless settings.video_banner_heading_text == blank %}
+      <h1>{{ settings.video_banner_heading_text }}</h1>
+    {% endunless %}
+    {% unless settings.video_banner_caption_text == blank %}
+      <p>{{ settings.video_banner_caption_text }}</p>
+    {% endunless %}
+    {% unless settings.video_banner_button_text == blank and settings.video_banner_button_link == blank %}
+      <p><a class="call-to-action btn btn-lg" href="{{ settings.video_banner_button_link }}">{{ settings.video_banner_button_text }}</a></p>
+    {% endunless %}
   </div>
--->
+  {% endunless %}
   
 </div>
 {% endif %}

@@ -3,8 +3,7 @@
 */
 
 .sheet {
-  // using extend here means that this is defined in one place and not in every template
-  @extend {% if settings.container_width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
+  @include container;
 }
 
 .sheet-content {
