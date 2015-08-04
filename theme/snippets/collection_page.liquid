@@ -1,10 +1,12 @@
 <main role="main">
   <section class="collection-header">
+    {% comment note: DONT DO THIS. move it into a collection.banner template %}
     {% if collection.image %}
     <div class="collection-banner">
       <img src="{{ collection.image.src | img_url: '2048x2048' }}">
     </div>
     {% endif %}
+    {% endcomment %}
     
     <div class="sheet collection-description">
       <header class="sheet-header page-header">

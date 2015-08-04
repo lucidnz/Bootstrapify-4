@@ -14,6 +14,65 @@
       "id": "video_banner_url",
       "type": "text",
       "info": "TODO: something about using youtube urls"
-    }
+    },
+    {
+      "label": "Fallback image",
+      "id": "video_banner_img.jpg",
+      "type": "image",
+      "info": "The fallback image is displayed on older browsers and touch screen devices"
+    },
+    {
+      "label": "Caption alignment",
+      "id": "video_banner_alignment",
+      "type": "select",
+      "options": [
+        { "value": "left", "label": "Left"},
+        { "value": "center", "label": "Center"},
+        { "value": "right", "label": "Right"}
+      ],
+      "default": "center"
+    },
+    {
+      "label": "Caption vertical alignment",
+      "id": "video_banner_vertical_alignment",
+      "type": "select",
+      "options": [
+        { "value": "top", "label": "Top"},
+        { "value": "middle", "label": "Middle"},
+        { "value": "bottom", "label": "Bottom"}
+      ],
+      "default": "middle"
+    },
+    {
+      "label": "Caption heading text",
+      "id": "video_banner_heading_text",
+      "type": "text"
+    },
+    {
+      "label": "Caption text",
+      "id": "video_banner_caption_text",
+      "type": "textarea"
+    },
+    {
+      "label": "'Call to action' button text",
+      "id": "video_banner_button_text",
+      "type": "text"
+    },
+    {
+      "label": "'Call to action' button link",
+      "id": "video_banner_button_link",
+      "type": "text",
+      "info": "If you want to link to a collection then enter /collection/my-collection"
+    },
+    {
+      "label": "Caption text colour",
+      "id": "video_banner_text_colour",
+      "type": "color"
+    },
+    {
+      "label": "'Call to action' button colour",
+      "id": "video_banner_button_colour",
+      "type": "color"
+    }  
   ]
 }

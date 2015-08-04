@@ -72,3 +72,4 @@ var App = function () {
 // initiate the app and expose it to the browser
 var app = new App();
 module.exports = app;
+window.CartJS = CartJS;

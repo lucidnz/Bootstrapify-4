@@ -75,8 +75,7 @@
         { "value": "half_container_left", "label": "Half container - Image left"},
         { "value": "half_container_right", "label": "Half container - Image right"},
         { "value": "full_container", "label": "Full container"},
-        { "value": "full_width", "label": "Full width"},
-        { "value": "full_screen", "label": "Full screen"}
+        { "value": "full_width", "label": "Full width"}
       ],
       "default": "full_container"
     },
@@ -162,8 +161,7 @@
         { "value": "half_container_left", "label": "Half container - Image left"},
         { "value": "half_container_right", "label": "Half container - Image right"},
         { "value": "full_container", "label": "Full container"},
-        { "value": "full_width", "label": "Full width"},
-        { "value": "full_screen", "label": "Full screen"}
+        { "value": "full_width", "label": "Full width"}
       ],
       "default": "full_container"
     },
@@ -249,8 +247,7 @@
         { "value": "half_container_left", "label": "Half container - Image left"},
         { "value": "half_container_right", "label": "Half container - Image right"},
         { "value": "full_container", "label": "Full container"},
-        { "value": "full_width", "label": "Full width"},
-        { "value": "full_screen", "label": "Full screen"}
+        { "value": "full_width", "label": "Full width"}
       ],
       "default": "full_container"
     },
@@ -336,8 +333,7 @@
         { "value": "half_container_left", "label": "Half container - Image left"},
         { "value": "half_container_right", "label": "Half container - Image right"},
         { "value": "full_container", "label": "Full container"},
-        { "value": "full_width", "label": "Full width"},
-        { "value": "full_screen", "label": "Full screen"}
+        { "value": "full_width", "label": "Full width"}
       ],
       "default": "full_container"
     },
@@ -423,8 +419,7 @@
         { "value": "half_container_left", "label": "Half container - Image left"},
         { "value": "half_container_right", "label": "Half container - Image right"},
         { "value": "full_container", "label": "Full container"},
-        { "value": "full_width", "label": "Full width"},
-        { "value": "full_screen", "label": "Full screen"}
+        { "value": "full_width", "label": "Full width"}
       ],
       "default": "full_container"
     },

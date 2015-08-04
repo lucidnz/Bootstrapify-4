@@ -226,3 +226,32 @@ $slide-count: 1;
   }
 }
 {% endunless %}
+
+/* Video Banner */
+.banner-video-player {
+  @media (max-width: $grid-float-breakpoint) {
+    overflow: hidden;
+    height: $banner-height-xs;
+    img {
+      max-width: none;
+      width: auto;
+      height: $banner-height-xs;
+      margin-left: 50%;
+      -webkit-transform: translateX(-50%);
+      -moz-transform: translateX(-50%);
+    	transform: translateX(-50%);
+    }
+  }
+  @media (max-width: $grid-float-breakpoint) and (orientation: landscape) {
+    height: $banner-height-xs-landscape;
+    img {
+      height: $banner-height-xs-landscape;
+    }
+  }
+}
+@media (max-width: $grid-float-breakpoint) {
+  .banner-video.fallback-img {
+    height: auto;
+    padding-bottom: 0;
+  }
+}
