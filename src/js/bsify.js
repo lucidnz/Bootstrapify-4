@@ -24,6 +24,7 @@ Bsify.ImageSwitcher = require('./bsify.image_switcher.js');
 Bsify.VariantOptionSwitcher = require('./bsify.variant_option_switcher.js');
 Bsify.LinkedProductOptions = require('./bsify.linked_product_options.js');
 Bsify.Banner = require('./bsify.banner.js');
+Bsify.BannerVideo = require('./bsify.banner_video.js');
 Bsify.Thumbnails = require('./bsify.thumbnails.js');
 Bsify.SocialFeeds = require('./bsify.social_feeds.js');
 Bsify.PasswordRecover = require('./bsify.password_recover.js');

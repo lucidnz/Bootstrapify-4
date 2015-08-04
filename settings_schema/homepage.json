@@ -16,11 +16,12 @@
       "options": [
         { "value": "", "label": "None"},
         { "value": "banner", "label": "Banner"},
+        { "value": "video_banner", "label": "Video Banner"},
         { "value": "featured_collections", "label": "Featured Collections"},
         { "value": "featured_products", "label": "Featured Products"},
         { "value": "page_content", "label": "Page Content"}
       ],
-      "default": "banner"
+      "default": "video_banner"
     },
     {
       "label": "Section two",
@@ -29,11 +30,12 @@
       "options": [
         { "value": "", "label": "None"},
         { "value": "banner", "label": "Banner"},
+        { "value": "video_banner", "label": "Video Banner"},
         { "value": "featured_collections", "label": "Featured Collections"},
         { "value": "featured_products", "label": "Featured Products"},
         { "value": "page_content", "label": "Page Content"}
       ],
-      "default": "featured_collections"
+      "default": "page_content"
     },
     {
       "label": "Section three",
@@ -42,11 +44,12 @@
       "options": [
         { "value": "", "label": "None"},
         { "value": "banner", "label": "Banner"},
+        { "value": "video_banner", "label": "Video Banner"},
         { "value": "featured_collections", "label": "Featured Collections"},
         { "value": "featured_products", "label": "Featured Products"},
         { "value": "page_content", "label": "Page Content"}
       ],
-      "default": "page_content"
+      "default": "featured_collections"
     },
     {
       "label": "Section four",
@@ -55,6 +58,21 @@
       "options": [
         { "value": "", "label": "None"},
         { "value": "banner", "label": "Banner"},
+        { "value": "video_banner", "label": "Video Banner"},
+        { "value": "featured_collections", "label": "Featured Collections"},
+        { "value": "featured_products", "label": "Featured Products"},
+        { "value": "page_content", "label": "Page Content"}
+      ],
+      "default": "banner"
+    },
+    {
+      "label": "Section five",
+      "id": "homepage_layout_section_5",
+      "type": "select",
+      "options": [
+        { "value": "", "label": "None"},
+        { "value": "banner", "label": "Banner"},
+        { "value": "video_banner", "label": "Video Banner"},
         { "value": "featured_collections", "label": "Featured Collections"},
         { "value": "featured_products", "label": "Featured Products"},
         { "value": "page_content", "label": "Page Content"}
@@ -67,7 +85,7 @@
     },
     {
       "type": "paragraph",
-      "content": "The homepage banners content can be managed under the 'Homepage - Banner' settings."
+      "content": "The homepage banner and video banners content can be managed under the 'Homepage - Banner' and 'Homepage - Video Banner' sections."
     },
     {
       "label": "Featured collections linklist",
@@ -87,7 +105,7 @@
     },
     {
       "type": "header",
-      "content": "Homepage pagination"
+      "content": "Homepage limits"
     },
     {
       "label": "Product limit",

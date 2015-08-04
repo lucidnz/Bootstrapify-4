@@ -1,4 +1,4 @@
-{% comment %}
+{% comment note:
 
   Banner Global Settings
     - Transition Speed
@@ -29,11 +29,8 @@
   - Caption text colour
   - Button colour
   - banner background colour
-  
 
-{% endcomment %}
-
-
+ %}{% endcomment %}
 
 {% unless banner_id %}
   {% assign banner_id = 'homepage-carousel-1' %}
@@ -44,14 +41,14 @@
 {% assign slide_count = 0 %}
 {% for i in (1..5) %}
 
-  {% comment %}
+  {% comment note:
     Banner slides
     
     - set up each slides settings variables
     - if the slide is enabled
       - create it's content
       - create it's indicator
-  {% endcomment %}
+   %}{% endcomment %}
   
   {% assign slide = 'banner_slide_' | append: forloop.index %}
   {% assign slide_enabled_setting = slide | append: '_enabled' %}

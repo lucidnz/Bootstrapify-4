@@ -164,6 +164,7 @@ gulp.task('shopify_theme_settings', function () {
     'navigation',
     'homepage',
     'homepage_banner',
+    'homepage_video_banner',
     'collections',
     'products',
     'thumbnails',

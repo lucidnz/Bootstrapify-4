@@ -38,6 +38,7 @@ var App = function () {
 
   // init event listeners for banner
   Bsify.Banner.init();
+  Bsify.BannerVideo.init();
 
   // init lookbook gallery
   if ($('.collection-lookbook').length > 0) {
@@ -71,3 +72,4 @@ var App = function () {
 // initiate the app and expose it to the browser
 var app = new App();
 module.exports = app;
+window.CartJS = CartJS;

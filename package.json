@@ -51,6 +51,7 @@
   "dependencies": {
     "imagesloaded": "^3.1.8",
     "jquery-orderly": "git+https://github.com/luciddesign/orderly.git",
+    "jquery.mb.ytplayer": "git+https://github.com/stewartknapman/jquery.mb.YTPlayer.git",
     "uniformThumbnails": "git+https://github.com/luciddesign/uniform-thumbnails.git"
   }
 }

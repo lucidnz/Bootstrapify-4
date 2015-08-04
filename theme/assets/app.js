@@ -38,6 +38,7 @@ var App = function () {
 
   // init event listeners for banner
   Bsify.Banner.init();
+  Bsify.BannerVideo.init();
 
   // init lookbook gallery
   if ($('.collection-lookbook').length > 0) {

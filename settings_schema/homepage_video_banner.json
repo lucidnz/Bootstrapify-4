@@ -1,0 +1,19 @@
+{
+  "name": "Homepage - Video Banner",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "TODO: Video Banner info."
+    },
+    {
+      "type": "paragraph",
+      "content": "The homepage banners placement in the pages layout can be controled under the homepage settings above."
+    },
+    {
+      "label": "Video URL",
+      "id": "video_banner_url",
+      "type": "text",
+      "info": "TODO: something about using youtube urls"
+    }
+  ]
+}

@@ -3,7 +3,7 @@
   {% if homepage_products.products.size < product_limit %}{% assign collection_size = homepage_products.products.size | times: 1 %}{% else %}{% assign collection_size = product_limit | times: 1 %}{% endif %}
   <div class="sheet">
     <header class="sheet-header page-header">
-      {% if homepage_products.products.size < product_limit %}
+      {% if homepage_products.products.size > product_limit %}
         <h1><a href="{{ homepage_products.url }}">{{ homepage_products.title }}</a></h1>
         <a class="view-all-link" href="{{ homepage_products.url }}">{{ 'collections.general.view_all_html' | t }}</a>
       {% else %}

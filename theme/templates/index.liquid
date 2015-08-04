@@ -9,7 +9,7 @@
 
   {% assign section_count = 1 %}
   
-  {% for i in (1..4) %}
+  {% for i in (1..5) %}
     {% assign homepage_settings_id = 'homepage_layout_section_' | append: i %}
     {% assign homepage_section = settings[homepage_settings_id] %}
     
@@ -18,9 +18,10 @@
       {% comment %}
         Check for each section type and collect it's relevant content inside the homepage_section_content variable
         
-        All except for the banner create two variables:
+        All except for the banner and video banner create three variables:
          - homepage_section_object which is passed to the snippet to be rendered
          - homepage_section_id to be used to identify each section
+         - homepage_section_type to be used to identify each sections type
       {% endcomment %}
     
       {% case homepage_section %}
@@ -28,6 +29,11 @@
         {% assign homepage_section_id = 'homepage-banner-' | append: section_count %}
         {% assign homepage_section_type = 'banner' %}
         {% capture homepage_section_content %}{% include 'homepage_banner' %}{% endcapture %}
+                
+      {% when 'video_banner' %}
+        {% assign homepage_section_id = 'homepage-banner-' | append: section_count %}
+        {% assign homepage_section_type = 'banner-video' %}
+        {% capture homepage_section_content %}{% include 'homepage_banner_video' %}{% endcapture %}
                 
       {% when 'featured_collections' %}
         {% unless settings.homepage_featured_collections == blank %}
