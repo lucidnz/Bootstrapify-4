@@ -49,9 +49,6 @@ var App = function () {
     });
 
     lookbook.on_loaded = function () {
-      var item_height = $('.group-item-image').height();
-      $('.lookbook-controls').height(item_height);
-
       Bsify.Thumbnails.orderly();
     };
   }
