@@ -2,7 +2,7 @@
   "name": "Search",
   "settings": [
     {
-      "label": "Enable Search",
+      "label": "Show search in navigation",
       "id": "enable_search",
       "type": "checkbox",
       "default": true
