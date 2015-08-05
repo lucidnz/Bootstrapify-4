@@ -8652,14 +8652,13 @@ body.search .search-results {
   .content-split-images {
     @include make-sm-column(4);
   }
-  
-  &:nth-child(even) {
-    .content-split-text {
-      @include make-sm-column-push(4);
-    }
-    .content-split-images {
-      @include make-sm-column-pull(8);
-    }
+}
+.homepage-section:nth-of-type(odd) {
+  .content-split-text {
+    @include make-sm-column-push(4);
+  }
+  .content-split-images {
+    @include make-sm-column-pull(8);
   }
 }
 
