@@ -61,7 +61,7 @@ GalleryLoader.prototype._recalculate_carousel_width = function(){
     var image = {
       img: img,
       isLoaded: true
-    }
+    };
     _this._collect_image_width(image);
   });
   _this._set_carousel_width();
