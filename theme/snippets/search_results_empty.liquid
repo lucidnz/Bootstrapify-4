@@ -1,13 +1,14 @@
-<section class="sheet-content">
+<section class="sheet-content clearfix">
   <div class="search-lg">
     {% assign form_classes = 'search-form' %}
     {% assign form_size = 'lg' %}
+    {% assign override_enabled_setting = true %}
     {% include 'search_form' %}
   </div>
-  {% if message_title %}
+  {% if message_title or message_html %}
   <div class="search-message">
     <div class="search-message-content">
-      <h3>{{ message_title }}</h3>
+      {% if message_title %}<h3>{{ message_title }}</h3>{% endif %}
       {% if message_html %}<p>{{ message_html }}</p>{% endif %}
     </div>
   </div>

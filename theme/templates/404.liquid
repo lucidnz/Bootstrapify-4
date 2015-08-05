@@ -3,10 +3,9 @@
     <header class="sheet-header page-header">
       <h1>{{ 'errors.404.page_title' | t }}</h1>
     </header>
-
-    <section class="sheet-content">
-      <p>{{ 'errors.404.not_found_message_html' | t }}</p>
-    </section>
+    
+    {% assign message_html = 'errors.404.not_found_message_html' | t %}
+    {% include 'search_results_empty' %}
   </article>
 </main>
 

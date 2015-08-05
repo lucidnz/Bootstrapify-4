@@ -15,7 +15,7 @@
   {% assign form_classes = form_classes | prepend: 'search-form ' %}
 {% endunless %}
  
-{% if settings.enable_search %}
+{% if settings.enable_search or override_enabled_setting %}
 <form class="{{ form_classes }}" action="/search" role="search">
   <div class="form-group">
     <div class="input-group">
@@ -31,3 +31,4 @@
 {% comment note: unset optional variable parameters. %}{% endcomment %}
 {% assign form_classes = null %}
 {% assign form_size = null %}
+{% assign override_enabled_setting = null %}

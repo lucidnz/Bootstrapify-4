@@ -610,16 +610,13 @@ body.search .search-results {
   @include make-md-column-offset(2);
 }
 
-.search {    
+.search,
+.not-found {    
   .sheet-content {
     @include make-row();
   }
   .search-message {
     @include make-xs-column(12);
-/*
-    @include make-md-column(8);
-    @include make-md-column-offset(2);
-*/
   }
   .read-more {
     text-align: right;
