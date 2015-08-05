@@ -11,8 +11,10 @@ var GalleryLoader = function (ele, parent_ele) {
 
 GalleryLoader.prototype.init = function(){
   this.$ele = $(this.ele);
+  this.$fallbackImg = this.$ele.find('.fallback-image');
   this.carousel_width = 0;
   this.imgLoad = new imgl(this.ele);
+  this.lastMQ = mq.size();
   
   var _this = this;
   this.imgLoad.on('progress', function(instance, image){
@@ -20,6 +22,14 @@ GalleryLoader.prototype.init = function(){
   }).on('done', function(){
     _this._set_carousel_width();
     _this.onLoaded.apply(_this);
+  });
+  
+  $(window).on('resize', function () {
+    if (_this.lastMQ !== mq.size()) {
+      _this.carousel_width = 0;
+      _this._recalculate_carousel_width();
+      _this.lastMQ = mq.size();
+    }
   });
 };
 
@@ -34,6 +44,27 @@ GalleryLoader.prototype._collect_image_width = function(image){
   }
 };
 
+GalleryLoader.prototype._collect_fallback_image_width = function(){
+  if (this.$fallbackImg.length > 0) {
+    var _this = this;
+    _this.$fallbackImg.each(function (i,ele) {
+      var $ele = $(ele);
+      var $parent = $ele.closest(_this.parent_ele);
+      _this.carousel_width += _this._image_parents_width($parent);
+    });
+  }
+};
+
+GalleryLoader.prototype._recalculate_carousel_width = function(){
+  console.log('----------');
+  var _this = this;
+  _this.$ele.find('img').each(function (i, img) {
+    console.log('img', img);
+    _this._collect_image_width(img);
+  });
+  _this._set_carousel_width();
+};
+
 GalleryLoader.prototype._image_parents_width = function($image_parent){
   // plus one becuase js is rounding actual width where as browser is not
   return $image_parent.width() + this._padding_to_num($image_parent, 'paddingLeft') + this._padding_to_num($image_parent, 'paddingRight') + 1;
@@ -44,6 +75,7 @@ GalleryLoader.prototype._padding_to_num = function($image_parent, padding){
 };
 
 GalleryLoader.prototype._set_carousel_width = function(){
+  this._collect_fallback_image_width();
   this.$ele.width(this.carousel_width);
 };
 
