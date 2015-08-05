@@ -8552,22 +8552,6 @@ body.search .search-results {
 
 }
 
-.page-contact {
-  .sheet-content {
-    @include make-row();
-  }
-
-  .page-content, .contact-content {
-    @include make-sm-column(6);
-  }
-  .page-content {
-    @include make-sm-column-push(6);
-  }
-  .contact-content {
-    @include make-sm-column-pull(6);
-  }
-}
-
 .customers-register,
 .customers-login,
 .customers-activate-account,
@@ -8636,6 +8620,46 @@ body.search .search-results {
   .banner {
     margin-top: (0 - $grid-gutter-width);
     margin-bottom: (0 - $grid-gutter-width);
+  }
+}
+
+/*
+  Page
+*/
+
+.page-contact {
+  .sheet-content {
+    @include make-row();
+  }
+
+  .page-content, .contact-content {
+    @include make-sm-column(6);
+  }
+  .page-content {
+    @include make-sm-column-push(6);
+  }
+  .contact-content {
+    @include make-sm-column-pull(6);
+  }
+}
+
+.content-split {
+  @include make-row();
+  
+  .content-split-text {
+    @include make-sm-column(8);
+  }
+  .content-split-images {
+    @include make-sm-column(4);
+  }
+  
+  &:nth-child(even) {
+    .content-split-text {
+      @include make-sm-column-push(4);
+    }
+    .content-split-images {
+      @include make-sm-column-pull(8);
+    }
   }
 }
 

@@ -1,6 +1,17 @@
 <div class="sheet">
   <header class="sheet-header page-header">
-    <h1>{{ homepage_page.title }}</h1>
+    {% if homepage_page.published_at != blank %}
+      <h1><a href="{{ homepage_page.url }}">{{ homepage_page.title }}</a></h1>
+    {% else %}
+      <h1>{{ homepage_page.title }}</h1>
+    {% endif %}
   </header>
-  {{ homepage_page.content }}
+  
+  <section class="sheet-content">
+  {% if homepage_page.template_suffix == 'split' %}
+    {% include 'content_split' with homepage_page.content %}
+  {% else %}
+    {{ homepage_page.content }}
+  {% endif %}
+  </section>
 </div>

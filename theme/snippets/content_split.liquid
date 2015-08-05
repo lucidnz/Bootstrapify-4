@@ -1,0 +1,33 @@
+{% if content_split contains '<img' %}
+  {% capture content %}{% endcapture %}
+  {% capture images %}{% endcapture %}
+  
+  {% assign parts = content_split | split: '<img' %}
+  {% for part in parts %}
+    {% if part contains 'src=' %}
+      {% assign img = part | split: 'src="' %}
+      {% assign img = img.last | split: '"' %}
+      {% assign img = img.first %}
+      {% capture images %}{{ images }}{% unless images == blank %}|{% endunless %}{{ img }}{% endcapture %}
+      
+    {% else %}
+      {% assign new_part = part | split: '</p>' | first | append: '</p>' %}
+      {% capture content %}{{ content }}{{ new_part }}{% endcapture %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="content-split">
+    <div class="content-split-text">
+      {{ content }}
+    </div>
+    <div class="content-split-images">
+      {% assign images = images | split: '|' %}
+      {% for image in images %}
+        <img src="{{ image }}" />
+      {% endfor  %}
+    </div>
+  </div>
+
+{% else %}
+  {{ content_split }}
+{% endif %}
