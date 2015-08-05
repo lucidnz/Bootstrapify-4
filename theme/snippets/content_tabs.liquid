@@ -1,0 +1,44 @@
+{% comment TODO: product tags, vendor, type, etc. %}{% endcomment %}
+{% unless parts %}
+  {% assign parts = content_tabs | split: '<h2' %}
+{% endunless %}
+
+{% assign content_tabs_description = null %}
+{% assign tab_count = 0 %}
+{% capture tab_titles %}{% endcapture %}
+{% capture tab_contents %}{% endcapture %}
+
+{% for tab in parts %}
+  {% assign tab_parts = tab | split: '</h2>' %}
+  {% assign tab_title = tab_parts.first | split: '>' | last %}
+  {% assign tab_handle = tab_title | handleize | prepend: 'tab-' %}
+  
+  {% if tab_parts.size > 1 %}
+    {% assign tab_count = tab_count | plus: 1 %}
+
+    {% capture tab_titles %}
+      {{ tab_titles }}
+      <li{% if tab_count == 1 %} class="active"{% endif %}><a href="#{{ tab_handle }}" data-toggle="tab">{{ tab_title }}</a></li>
+    {% endcapture %}
+
+    {% capture tab_contents %}
+      {{ tab_contents }}
+      <div class="tab-pane fade{% if tab_count == 1 %} in active{% endif %}" id="{{ tab_handle }}">
+        {{ tab_parts.last }}
+      </div>
+    {% endcapture %}
+  {% else %}
+    {% assign content_tabs_description = tab_parts.last %}
+  {% endif %}
+{% endfor %}
+
+{% capture content_tabs %}
+<ul class="nav nav-tabs">
+  {{ tab_titles }}
+</ul>
+<div class="tab-content">
+  {{ tab_contents }}
+</div>
+{% endcapture %}
+
+{% assign parts = null %}

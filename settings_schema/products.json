@@ -17,11 +17,16 @@
       "default": "left"
     },
     {
-      "label": "Use description tabs",
-      "id": "product_description_tabs",
-      "type": "checkbox",
-      "default": false,
-      "info": "If enabled, product description will be split into tabs based on heading 2 blocks—with the heading becoming the tab name."
+      "label": "Product content layout",
+      "id": "product_content_layout",
+      "type": "select",
+      "options": [
+        { "value": "standard", "label": "Standard" },
+        { "value": "tabs", "label": "Tabs" },
+        { "value": "sections", "label": "Sections" }
+      ],
+      "default": "standard",
+      "info": "If Tabs or Sections are selected the product description will be split based on heading 2 blocks. Tabs will show the heading 2 as the tabs title."
     },
     {
       "type": "header",

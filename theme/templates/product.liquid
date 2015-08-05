@@ -116,12 +116,15 @@
         </section>
   
         <section class="product-description" itemprop="description">
-          {% include 'product_description' with product %}
+          {% include 'product_description' with product.description %}
         </section>
       </div>
 
     </div>
   </div>
+  {% if product_description_sections %}
+    {{ product_description_sections }}
+  {% endif %}
 </main>
 
 {% include 'site_aside' %}
