@@ -5,12 +5,22 @@
     </header>
 
     <section class="sheet-content">
-      {% comment %}
-        TODO: blog templates
-      {% endcomment %}
-      
-      <p>{{ blog.title }} coming soon</p>
-      
+      {% if blog.articles.size > 0 %}
+        {% include 'pagination_limit' with 'articles' %}
+        {% paginate blog.articles by pagination_limit %}
+        {% if blog.articles.size < pagination_limit %}{% assign articles_size = blog.articles.size | times: 1 %}{% else %}{% assign articles_size = pagination_limit | times: 1 %}{% endif %}
+        <div class="list posts" data-group-size="{{ articles_size }}">      
+          {% for article in blog.articles %}
+            {% include 'article_item' %}
+          {% endfor %}
+          {% include 'pagination' %}
+        </div>
+        {% endpaginate %}
+      {% else %}
+        
+        {% comment TODO: no articles message %}{% endcomment %}
+        
+      {% endif %}
     </section>
   </div>
 </main>

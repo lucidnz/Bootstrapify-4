@@ -1,0 +1,8 @@
+<ul class="list-inline small text-muted">
+  <li>{{ 'blog.article_list.author_html' | t: author: article.author }}</li>
+  {% capture date %}{{ article.published_at | date: format: 'article_short' }}{% endcapture %}
+  <li>{{ 'blog.article_list.published_date_html' | t: date: date }}</li>
+  {% if article.comments_enabled? %}
+  <li>{{ 'blog.article_list.comments_html' | t: comments_count: article.comments_count }}</li>
+  {% endif %}
+</ul>

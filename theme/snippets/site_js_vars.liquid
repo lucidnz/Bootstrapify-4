@@ -94,8 +94,8 @@
     image_alignment: "{{ settings.thumbnail_images_alignment }}"
   };
   Bsify.thumbnail_selectors = Bsify.thumbnail_selectors || {
-    image_wrapper: '.group-item-image:not(.collection-lookbook .group-item-image), .uniform-thumbs',
-    details_wrapper: '.group-item-details:not(.list-collections  .group-item-details), .orderly'
+    image_wrapper: '.group-item-image:not(.collection-lookbook .group-item-image):not(.group-item-list .group-item-image), .uniform-thumbs',
+    details_wrapper: '.group-item-details:not(.group-item-list  .group-item-details), .orderly'
   };
 
 </script>

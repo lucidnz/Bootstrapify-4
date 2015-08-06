@@ -68,7 +68,7 @@
             
             {% if posts_size > 0 %}
               <h2>{{ 'search.results_page.posts_title' | t }}</h2>
-              <section class="group posts" data-group-size="{{ posts_size }}">
+              <section class="list posts" data-group-size="{{ posts_size }}">
                 {{ posts }}
               </section>
             {% endif %}
@@ -79,7 +79,7 @@
             
             {% if pages_size > 0 %}
               <h2>{{ 'search.results_page.pages_title' | t }}</h2>
-              <section class="group pages" data-group-size="{{ pages_size }}">
+              <section class="list pages" data-group-size="{{ pages_size }}">
                 {{ pages }}
               </section>
             {% endif %}

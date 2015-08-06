@@ -10,7 +10,8 @@
   margin-bottom: $line-height-computed * 2;
 }
 
-.group {
+.group,
+.list {
   @include make-row();
 }
 
@@ -18,6 +19,10 @@
   @include make-xs-column(12);
   @include make-sm-column(6);
   @include make-md-column(3);
+}
+
+.list-item {
+  @include make-xs-column(12);
 }
 
 .group-item {
@@ -146,20 +151,18 @@ body[class*="collection"] {
 body.collection-list,
 body.search .search-results {
   // override the grid cols so that we have a list form
-  // TODO: make these look better
-  
-  .group .group-item-wrap {
-    @include make-xs-column(12);
-    @include make-sm-column(12);
-    @include make-md-column(12);
-    @include make-lg-column(12);
-    
-    margin-bottom: $grid-gutter-width;
-    @media (min-width: $grid-float-breakpoint) {
-      margin-bottom: $grid-gutter-width / 2;
-    }
-  }
   .products {
+    .group-item-wrap {
+      @include make-xs-column(12);
+      @include make-sm-column(12);
+      @include make-md-column(12);
+      @include make-lg-column(12);
+      
+      margin-bottom: $grid-gutter-width;
+      @media (min-width: $grid-float-breakpoint) {
+        margin-bottom: $grid-gutter-width / 2;
+      }
+    }
     .group-item {
       @include make-row();
     };
@@ -170,7 +173,6 @@ body.search .search-results {
       text-align: left;
       @include make-sm-column(9);
     }
-    
     .product-price {
       margin-right: 0.5em;
     }
@@ -651,8 +653,8 @@ body.search .search-results {
   .search-message {
     @include make-xs-column(12);
   }
-  .read-more {
-    text-align: right;
-    margin-bottom: 0;
-  }
+}
+.read-more {
+  text-align: right;
+  margin-bottom: 0;
 }
