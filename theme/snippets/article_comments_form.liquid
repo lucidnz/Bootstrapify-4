@@ -4,9 +4,9 @@
   
     {% if form.posted_successfully? %}
       {% if blog.moderated? %}
-      <div class="alert alert-success">{{ 'blog.comments.error_message_moderated' | t }}</div>
+      <div class="alert alert-success">{{ 'blog.comments.success_message_moderated' | t }}</div>
       {% else %}
-      <div class="alert alert-success">{{ 'blog.comments.error_message' | t }}</div>
+      <div class="alert alert-success">{{ 'blog.comments.success_message' | t }}</div>
       {% endif %}
     {% else %}
       {% assign form_errors_message = 'blog.comments.error_message' | t %}

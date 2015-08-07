@@ -1,11 +1,14 @@
 <li class="media">
-    <div class="media-left">
-      <a href="#">
-        <img class="media-object" src="..." alt="...">
-      </a>
-    </div>
-    <div class="media-body">
-      <h4 class="media-heading">Media heading</h4>
-      ...
-    </div>
-  </li>
+  {% if settings.enable_gravatars %}
+  <div class="media-left pull-left">
+    <a href="{{ comment.url }}">
+      <img class="media-object" src="//www.gravatar.com/avatar/{{ comment.email | remove: ' ' | strip_newlines | downcase | md5 }}" alt="{{ comment.author }}" style="width: 64px; height: 64px;">
+    </a>
+  </div>
+  {% endif %}
+  <div class="media-body">
+    {% capture comment_date %}{{ comment.created_at | date: format: 'article_short' }}{% endcapture %}
+    <a class="text-muted" href="{{ comment.url }}">{{ 'blog.comments.comment_meta_html' | t: comment_date: comment_date, comment_author: comment.author }}</a>
+    {{ comment.content }}
+  </div>
+</li>

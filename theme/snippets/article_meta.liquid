@@ -12,7 +12,7 @@
   {% endif %}
   
   {% if article.comments_enabled? %}
-  {% capture comments_link %}<a href="{{ article.url }}#comments">{{ 'blog.article_list.comments_link' | t: comments_count: article.comments_count }}</a>{% endcapture %}
+  {% capture comments_link %}<a href="{{ article.url }}#comments">{{ 'blog.article_list.comments_link' | t: count: article.comments_count }}</a>{% endcapture %}
   <li>{{ 'blog.article_list.comments_html' | t: comments_link: comments_link }}</li>
   {% endif %}
 </ul>

@@ -37,6 +37,12 @@
       "id": "pagination_limit_comments",
       "type": "text",
       "default": "25"
+    },
+    {
+      "label": "Use Gravatar for comment avatars",
+      "id": "enable_gravatars",
+      "type": "checkbox",
+      "default": true
     }
   ]
 }

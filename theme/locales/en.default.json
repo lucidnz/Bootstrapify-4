@@ -257,7 +257,10 @@
       "published_date_html": "Published on {{ date }}",
       "author_html": "By {{ author }}",
       "tags_html": "<span class='fa fa-tags'></span> {{ tags }}",
-      "comments_link": "{{ comments_count }} comments",
+      "comments_link": {
+        "one": "{{ count }} comment",
+        "other": "{{ count }} comments"
+      },
       "comments_html": "<span class='fa fa-comments'></span> {{ comments_link }}",
       "read_more_html": "Read &ldquo;{{ page_title }}&rdquo; <span class='fa fa-chevron-right'></span>"
     },
@@ -267,7 +270,8 @@
       "comment_form_title": "Leave a comment",
       "success_message": "Your comment was posted",
       "success_message_moderated": "Your comment was posted and is awaiting moderation",
-      "error_message": "We could not process your comment because of the following errors:"
+      "error_message": "We could not process your comment because of the following errors:",
+      "comment_meta_html": "Posted on {{ comment_date }} by {{ comment_author }}"
     },
     "comments_form": {
       "name": "Your name",
