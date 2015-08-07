@@ -1,14 +1,49 @@
 <main role="main">
-  <article class="sheet">
-    <header class="sheet-header page-header">
-      <h1>{{ article.title }}</h1>
-      {% include 'article_meta' %}
-    </header>
-
-    <section class="sheet-content">
-      {{ article.content }}
-    </section>
-  </article>
+  <div class="sheet">
+    <article class="blog-article">
+      <header class="sheet-header page-header">
+        <h1>{{ article.title }}</h1>
+      </header>
+    
+      <div class="blog-article-content-wrap">
+        <aside class="blog-article-meta">
+          {% include 'article_meta' %}
+        </aside>
+    
+        <section class="blog-article-content">
+          {{ article.content }}
+        </section>
+      </div>
+      <footer>
+        {% if settings.blog_show_author_bio and article.user.bio != blank %}
+        <div class="well text-muted">
+  				<strong>{{ 'blog.article_list.author_html' | t: author: article.author }}</strong>
+  				<p>{{ article.user.bio }}</p>
+  			</div>
+        {% endif %}
+        
+        {% if settings.enable_rss_link %}
+        <p class="rss-link">
+          <a href="{{ blog.url | append: '.atom' }}">{{ 'blog.general.rss_link_html' | t: blog_title: blog.title }}</a>
+        </p>
+        {% endif %}
+      </footer>
+    </article>
+    
+		{% if blog.previous_article or blog.next_article %}
+		<ul class="pager">
+			{% if blog.previous_article %}<li>{{ 'blog.general.previous_article_html' | t | link_to: blog.previous_article }}</li>{% endif %}
+      <li>{{ blog.title | link_to: blog.url }}</li>
+			{% if blog.next_article %}<li>{{ 'blog.general.next_article_html' | t | link_to: blog.next_article }}</li>{% endif %}
+		</ul>
+		{% endif %}
+		
+    {% if article.comments_enabled? %}
+		<div class="blog-article-comments" id="comments">
+  		{% include 'article_comments' %}
+		</div>
+		{% endif %}
+  </div>
 </main>
 
 {% include 'site_aside' %}

@@ -21,7 +21,7 @@
   @include make-md-column(3);
 }
 
-.list-item {
+.list-item-wrap {
   @include make-xs-column(12);
 }
 
@@ -657,4 +657,52 @@ body.search .search-results {
 .read-more {
   text-align: right;
   margin-bottom: 0;
+}
+
+/*
+  Blog
+*/
+.blog-article {
+  margin-bottom: $grid-gutter-width;
+  footer {
+    margin-top: $grid-gutter-width;
+  }
+}
+.blog-article-content-wrap,
+.blog-article-comments {
+  @include make-row();
+}
+.blog-article-content {
+  @include make-xs-column(12);
+  @include make-sm-column(9);
+  @include make-sm-column-pull(3);
+  @include make-lg-column(10);
+  @include make-lg-column-pull(2);
+}
+.blog-article-meta {
+  line-height: 1.5em;
+  
+  @include make-xs-column(12);
+  @include make-sm-column(3);
+  @include make-sm-column-push(9);
+  @include make-lg-column(2);
+  @include make-lg-column-push(10);
+  
+  @media (max-width: $grid-float-breakpoint) {
+    ul li {
+      display: inline-block;
+      padding-left: ($grid-gutter-width / 4);
+      padding-right: ($grid-gutter-width / 4);
+      &:first-child {
+        margin-left: -($grid-gutter-width / 4);
+      }
+    }
+  }
+}
+.comments,
+.comments-form {
+  @include make-xs-column(12);
+  @include make-sm-column(9);
+  @include make-lg-column(6);
+  clear: both;
 }

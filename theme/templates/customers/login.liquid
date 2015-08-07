@@ -10,6 +10,7 @@
         <div class="customer-login-description">{{ 'customer_accounts.login.description_html' | t }}</div>
         
         {% form 'customer_login' %}
+          {% assign form_errors_message = 'errors.customer_accounts.form_message' | t %}
           {% include 'form_errors' %}
         
           <div class="form-group {% if form.errors contains 'form' %}has-error{% endif %}">
@@ -57,6 +58,7 @@
       <div class="customer-recover-password-form">
         <p class="description">{{ 'customer_accounts.recover_password.description' | t }}</p>
         {% form 'recover_customer_password' %}
+          {% assign form_errors_message = 'errors.customer_accounts.form_message' | t %}
           {% include 'form_errors' %}
           
           {% if form.posted_successfully? %}

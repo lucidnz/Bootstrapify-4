@@ -16,10 +16,16 @@
           {% include 'pagination' %}
         </div>
         {% endpaginate %}
+        {% if settings.enable_rss_link %}
+        <p class="rss-link">
+          <a href="{{ blog.url | append: '.atom' }}">{{ 'blog.general.rss_link_html' | t: blog_title: blog.title }}</a>
+        </p>
+        {% endif %}
       {% else %}
-        
-        {% comment TODO: no articles message %}{% endcomment %}
-        
+        <div class="blog-message">
+          <h3>{{ 'blog.general.empty_message_title' | t }}</h3>
+          <p>{{ 'blog.general.empty_message_html' | t }}</p>
+        </div>
       {% endif %}
     </section>
   </div>

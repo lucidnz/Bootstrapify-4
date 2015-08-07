@@ -1,6 +1,6 @@
 {% if form.errors %}
   <div class="errors">
-    {{ 'errors.customer_accounts.form_message' | t }}
+    {{ form_errors_message }}
     <ul>
       {% for field in form.errors %}
         <li data-error-field="{{ field }}">{% unless field == 'form' %}{{ form.errors.translated_fields[field] }} {% endunless %}{{ form.errors.messages[field] }}</li>

@@ -1,18 +1,20 @@
-<article class="list-item">
-  <header>
-    <h3>
-      <a href="{{ result.url }}">{{ result.title }}</a>
-    </h3>
-  </header>
-
-  <section>
-    {% if settings.truncate_page_results == blank %}
-      {{ result.content }}
-    {% else %}
-      {{ result.content | strip_html | truncatewords: settings.truncate_page_results }}
-    {% endif %}
-    <p class="read-more">
-      <a href="{{ result.url }}">{{ 'search.results_page.read_more_html' | t: page_title: result.title }}</a>
-    </p>
-  </section>
-</article>
+<div class="list-item-wrap">
+  <article class="list-item">
+    <header>
+      <h3>
+        <a href="{{ result.url }}">{{ result.title }}</a>
+      </h3>
+    </header>
+  
+    <section>
+      {% if settings.truncate_page_results == blank %}
+        {{ result.content }}
+      {% else %}
+        {{ result.content | strip_html | truncatewords: settings.truncate_page_results }}
+      {% endif %}
+      <p class="read-more">
+        <a href="{{ result.url }}">{{ 'search.results_page.read_more_html' | t: page_title: result.title }}</a>
+      </p>
+    </section>
+  </article>
+</div>

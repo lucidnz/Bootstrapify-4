@@ -1,19 +1,26 @@
-<article class="list-item">
-  <header>
-    <h3>
-      <a href="{{ article.url }}">{{ article.title }}</a>
-    </h3>
-    {% include 'article_meta' %}
-  </header>
-
-  <section>
-    {% if settings.truncate_page_results == blank %}
-      {{ article.excerpt_or_content }}
-    {% else %}
-      {{ article.excerpt_or_content | strip_html | truncatewords: settings.truncate_page_results }}
-    {% endif %}
-    <p class="read-more">
-      <a href="{{ article.url }}">{{ 'blog.article_list.read_more_html' | t: page_title: article.title }}</a>
-    </p>
-  </section>
-</article>
+<div class="list-item-wrap">
+  <article class="list-item blog-article">
+    <header>
+      <h1 class="h3">
+        <a href="{{ article.url }}">{{ article.title }}</a>
+      </h1>
+    </header>
+    
+    <div class="blog-article-content-wrap">    
+      <aside class="blog-article-meta">
+        {% include 'article_meta' %}
+      </aside>
+    
+      <section class="blog-article-content">
+        {% if settings.truncate_page_results == blank %}
+          {{ article.excerpt_or_content }}
+        {% else %}
+          {{ article.excerpt_or_content | strip_html | truncatewords: settings.truncate_article_results }}
+        {% endif %}
+        <p class="read-more">
+          <a href="{{ article.url }}">{{ 'blog.article_list.read_more_html' | t: page_title: article.title }}</a>
+        </p>
+      </section>
+    </div>
+  </article>
+</div>

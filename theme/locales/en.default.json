@@ -246,11 +246,39 @@
     }
   },
   "blog": {
+    "general": {
+      "empty_message_title": "Whoa! There are no articles",
+      "empty_message_html": "You could sign up for our mailing list or check back soon.",
+      "rss_link_html": "<span class='fa fa-rss'></span> Subscribe to the RSS feed for {{ blog_title }}",
+      "previous_article_html": "&laquo; Previous",
+      "next_article_html": "Next &raquo;"
+    },
     "article_list": {
-      "published_date_html": "<span class='fa fa-clock-o'></span> Published on {{ date }}",
+      "published_date_html": "Published on {{ date }}",
       "author_html": "By {{ author }}",
-      "comments_html": "<span class='fa fa-comments'></span> {{ comments_count }} comments",
+      "tags_html": "<span class='fa fa-tags'></span> {{ tags }}",
+      "comments_link": "{{ comments_count }} comments",
+      "comments_html": "<span class='fa fa-comments'></span> {{ comments_link }}",
       "read_more_html": "Read &ldquo;{{ page_title }}&rdquo; <span class='fa fa-chevron-right'></span>"
+    },
+    "comments": {
+      "title": "Comments",
+      "no_comments_message": "There are no comments. Why not be the first?",
+      "comment_form_title": "Leave a comment",
+      "success_message": "Your comment was posted",
+      "success_message_moderated": "Your comment was posted and is awaiting moderation",
+      "error_message": "We could not process your comment because of the following errors:"
+    },
+    "comments_form": {
+      "name": "Your name",
+      "name_placeholder": "Joe Blogs",
+      "email": "Email",
+      "email_placeholder": "joe@example.com",
+      "email_help_note": "(Your email will not be pubslished)",
+      "body": "Comment",
+      "body_placeholder": "Tell us something awesome",
+      "submit": "Post Comment",
+      "moderated_note": "All comments are held for moderation. Your comment will appear shortly."
     }
   },
   "social_and_newsletter": {

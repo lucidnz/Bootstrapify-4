@@ -1,8 +1,18 @@
-<ul class="list-inline small text-muted">
-  <li>{{ 'blog.article_list.author_html' | t: author: article.author }}</li>
+<ul class="list-unstyled small text-muted">
   {% capture date %}{{ article.published_at | date: format: 'article_short' }}{% endcapture %}
   <li>{{ 'blog.article_list.published_date_html' | t: date: date }}</li>
+  
+  {% if settings.blog_show_author %}
+  <li>{{ 'blog.article_list.author_html' | t: author: article.author }}</li>
+  {% endif %}
+  
+  {% if article.tags.size > 0 %}
+  {% capture tags %}{% for tag in article.tags %}{{ tag | link_to_tag: tag }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+  <li>{{ 'blog.article_list.tags_html' | t: tags: tags }}</li>
+  {% endif %}
+  
   {% if article.comments_enabled? %}
-  <li>{{ 'blog.article_list.comments_html' | t: comments_count: article.comments_count }}</li>
+  {% capture comments_link %}<a href="{{ article.url }}#comments">{{ 'blog.article_list.comments_link' | t: comments_count: article.comments_count }}</a>{% endcapture %}
+  <li>{{ 'blog.article_list.comments_html' | t: comments_link: comments_link }}</li>
   {% endif %}
 </ul>

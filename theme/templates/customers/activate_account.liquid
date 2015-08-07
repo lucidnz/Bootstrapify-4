@@ -8,6 +8,7 @@
       <div class="customer-activate-form">
         <p class="description">{{ 'customer_accounts.activate_account.description' | t }}</p>
   		  {% form 'activate_customer_password' %}
+          {% assign form_errors_message = 'errors.customer_accounts.form_message' | t %}
           {% include 'form_errors' %}
       
           <div class="form-group">

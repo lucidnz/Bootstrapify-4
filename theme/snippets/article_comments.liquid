@@ -1,0 +1,20 @@
+<div class="comments">
+  <h3>{{ 'blog.comments.title' | t }}</h3>
+  {% if article.comments.size > 0 %}
+    {% include 'pagination_limit' with 'comments' %}
+    {% paginate article.comments by pagination_limit %}
+    
+      <ul class="media-list">
+      {% for comment in article.comments %}
+        {% include 'article_comment' %}
+      {% endfor %}
+      </ul>
+      
+      {% include 'pagination' %}
+    {% endpaginate %}
+  {% else %}
+    <p>{{ 'blog.comments.no_comments_message' | t }}</p>
+  {% endif %}
+</div>
+
+{% include 'article_comments_form' %}

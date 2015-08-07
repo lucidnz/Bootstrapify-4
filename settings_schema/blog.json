@@ -6,6 +6,37 @@
       "id": "pagination_limit_articles",
       "type": "text",
       "default": "50"
+    },
+    {
+      "label": "Truncate words for articles",
+      "id": "truncate_article_results",
+      "type": "text",
+      "default": "200",
+      "info": "This will stop articles with long content from making the blog to long. If left blank then the whole articles content will be shown."
+    },
+    {
+      "label": "Show Author",
+      "id": "blog_show_author",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "label": "Show Author Bios",
+      "id": "blog_show_author_bio",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "label": "Show RSS feed link",
+      "id": "enable_rss_link",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "label": "Comment pagination limit",
+      "id": "pagination_limit_comments",
+      "type": "text",
+      "default": "25"
     }
   ]
 }

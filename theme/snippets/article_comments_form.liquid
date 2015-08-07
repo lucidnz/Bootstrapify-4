@@ -1,0 +1,38 @@
+<div class="comments-form">
+  <h4>{{ 'blog.comments.comment_form_title' | t }}</h4>
+  {% form article %}
+  
+    {% if form.posted_successfully? %}
+      {% if blog.moderated? %}
+      <div class="alert alert-success">{{ 'blog.comments.error_message_moderated' | t }}</div>
+      {% else %}
+      <div class="alert alert-success">{{ 'blog.comments.error_message' | t }}</div>
+      {% endif %}
+    {% else %}
+      {% assign form_errors_message = 'blog.comments.error_message' | t %}
+      {% include 'form_errors' %}
+    {% endif %}
+    
+    <div class="form-group">
+      <label for="comment-author">{{ 'blog.comments_form.name' | t }}</label>
+      <input class="form-control" type="text" value="{{ form.author }}" name="comment[author]" id="comment-author" placeholder="{{ 'blog.comments_form.name_placeholder' | t }}">
+    </div>
+    
+    <div class="form-group">
+      <label for="comment-email">{{ 'blog.comments_form.email' | t }}</label>
+      <input class="form-control" type="text" value="{{ form.email }}" name="comment[email]" id="comment-email" placeholder="{{ 'blog.comments_form.email_placeholder' | t }}">
+    </div>
+    {% capture help_note %}{{ 'blog.comments_form.email_help_note' | t }}{% endcapture %}
+    {% unless help_note == blank %}
+    <span class="help-block">{{ help_note }}</span>
+    {% endunless %}
+    
+    <div class="form-group">
+      <label for="comment-body">{{ 'blog.comments_form.body' | t }}</label>
+      <textarea class="form-control" type="text" name="comment[body]" id="comment-body" rows="3" placeholder="{{ 'blog.comments_form.body_placeholder' | t }}">{{ form.body }}</textarea>
+    </div>
+    
+    <input class="btn btn-primary" type="submit" value="{{ 'blog.comments_form.submit' | t }}">
+    {% if blog.moderated? %}<span class="help-block">{{ 'blog.comments_form.moderated_note' | t }}</span>{% endif %}
+  {% endform %}
+</div>

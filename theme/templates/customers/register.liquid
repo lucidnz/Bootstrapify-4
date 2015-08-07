@@ -10,6 +10,7 @@
         <div class="customer-register-description">{{ 'customer_accounts.register.description_html' | t }}</div>
         
         {% form 'create_customer' %}
+          {% assign form_errors_message = 'errors.customer_accounts.form_message' | t %}
           {% include 'form_errors' %}
           
           <div class="form-group">
