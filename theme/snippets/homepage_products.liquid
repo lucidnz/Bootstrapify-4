@@ -9,7 +9,9 @@
       {% else %}
         <h1>{{ homepage_products.title }}</h1>
       {% endif %}
-      {{ homepage_products.description }}
+      <div class="collection-description">
+        {{ homepage_products.description }}
+      </div>
     </header>
     
     <section class="group products" data-products-size="{{ collection_size }}">
