@@ -12,7 +12,7 @@
       </aside>
     
       <section class="blog-article-content">
-        {% if settings.truncate_page_results == blank %}
+        {% if settings.truncate_article_results == blank %}
           {{ article.excerpt_or_content }}
         {% else %}
           {{ article.excerpt_or_content | strip_html | truncatewords: settings.truncate_article_results }}
