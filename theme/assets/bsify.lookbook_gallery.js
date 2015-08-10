@@ -56,11 +56,13 @@ GalleryLoader.prototype._collect_fallback_image_width = function(){
 };
 
 GalleryLoader.prototype._recalculate_carousel_width = function(){
-  console.log('----------');
   var _this = this;
   _this.$ele.find('img').each(function (i, img) {
-    console.log('img', img);
-    _this._collect_image_width(img);
+    var image = {
+      img: img,
+      isLoaded: true
+    };
+    _this._collect_image_width(image);
   });
   _this._set_carousel_width();
 };
