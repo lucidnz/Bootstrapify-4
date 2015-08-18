@@ -1,14 +1,15 @@
-{% comment %}
+{% comment note:
+
   Collection Sort By
-{% endcomment %}
+  
+ %}{% endcomment %}
+ 
 {% if settings.show_collection_sort_by %}
   <div class="collection-sort-by">
     <div class="btn-group">
       <button class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">{{ 'collections.sorting.sort_by_title' | t }} <span class="caret"></span></button>
       
-      {% comment %}
-        Set the url taking into account another template might be currently in use
-      {% endcomment %}
+      {% comment note: Set the url taking into account another template might be currently in use %}{% endcomment %}
       {% capture sort_by_url %}{{ collection.url }}?{% if current_template != default_template %}view={{ current_template }}&{% endif %}{% endcapture %}
       
       {% assign current_sort_by = collection.sort_by | default: collection.default_sort_by %}
@@ -17,10 +18,10 @@
       <ul class="dropdown-menu" role="menu">
       {% for so in sort_orders %}
       
-        {% comment %}
+        {% comment note:
           Build the translations key from the current sort order string
           Some keys don't match the sort order strings, mainly because we want to use nicer wording in the translation settings
-        {% endcomment %}
+         %}{% endcomment %}
         {% case so %}
         {% when 'manual' %}
           {% assign key = 'featured' %}
@@ -33,7 +34,6 @@
         {% endcase %}
           
         {% capture sort_by_translation_key %}collections.sorting.{{ key }}{% endcapture %}
-        
         <li {% if current_sort_by == so %}class="active"{% endif %}><a href="{{ sort_by_url }}sort_by={{ so }}">{{ sort_by_translation_key | t }}</a></li>
       {% endfor %}
       </ul>
