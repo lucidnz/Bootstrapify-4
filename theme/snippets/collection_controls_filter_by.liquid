@@ -1,0 +1,25 @@
+{% comment %}
+  Collection Filter by Tags
+  note: link_to_tag url filter will take into account the sort order and view url params
+{% endcomment %}
+{% if settings.show_collection_filter_by %}
+  <div class="collection-filter-by">
+    <div class="btn-group">
+      <button class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">{{ 'collections.filtering.filter_by_title' | t }} <span class="caret"></span></button>
+      <ul class="dropdown-menu" role="menu">
+      {% for tag in collection.all_tags %}
+        {% if settings.filter_collection_by_multiple_tags %}
+          {% if current_tags contains tag %}
+            {% capture tag_text %}{{ tag }} <span class="fa fa-times-circle"></span><span class="sr-only">Remove</span>{% endcapture %}
+            <li class="active">{{ tag_text | link_to_remove_tag: tag }}</li>
+          {% else %}
+            <li>{{ tag | link_to_add_tag: tag }}</li>
+          {% endif %}
+        {% else %}
+          <li {% if current_tags contains tag %}class="active"{% endif %}>{{ tag | link_to_tag: tag }}</li>
+        {% endif %}
+      {% endfor %} 
+      </ul>
+    </div>
+  </div>
+{% endif %}
