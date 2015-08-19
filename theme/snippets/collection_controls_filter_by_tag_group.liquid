@@ -1,4 +1,4 @@
-{% for tag in collection.all_tags %}      
+{% for tag in collection.all_tags %}
   {% if has_tag_group %}
     {% assign group = tag | split: ':' | first %}
     {% assign tag_value = tag | split: ':' | last %}

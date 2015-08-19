@@ -7,7 +7,7 @@
   Tags can be viewed as dropdowns or a tag list.
   
   Group tags into a new filter by using this syntax `group:tag`
-  If a tag group only contains one tag and all the products in the collection has that tag then it won't be shown.
+  If a tag group only contains one tag and all the products in the collection has that tag then it won't be shown. <-- TODO
   
  %}{% endcomment %}
  
@@ -36,6 +36,7 @@
       {% endif %}
     {% endfor %}
   
+    <div class="collection-filter-by collection-filter-style-{{ settings.filter_by_tag_style }}">
     {% assign tag_groups = tag_groups | split: '|' %}
     {% for tag_group in tag_groups %}
       {% assign has_tag_group = false %}
@@ -43,20 +44,25 @@
         {% assign has_tag_group = true %}
       {% endunless %}
     
+      <div class="collection-filter-by-tags{% if has_tag_group %} collection-filter-group-{{ tag_group }}{% endif %}">
       {% case settings.filter_by_tag_style %}
       {% when 'dropdown' %}
-        <div class="collection-filter-by{% if has_tag_group %} collection-filter-group-{{ tag_group }}{% endif %}">
-          <div class="btn-group">
-            <button class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">{% if has_tag_group %}{{ 'collections.filtering.filter_by_group_title' | t: group: tag_group }}{% else %}{{ 'collections.filtering.filter_by_title' | t }}{% endif %} <span class="caret"></span></button>
-            <ul class="dropdown-menu" role="menu">
-              {% include 'collection_controls_filter_by_tag_group' %} 
-            </ul>
-          </div>
+        <div class="btn-group">
+          <button class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">{% if has_tag_group %}{{ 'collections.filtering.filter_by_group_title' | t: group: tag_group }}{% else %}{{ 'collections.filtering.filter_by_title' | t }}{% endif %} <span class="caret"></span></button>
+          <ul class="dropdown-menu" role="menu">
+            {% include 'collection_controls_filter_by_tag_group' %}
+          </ul>
         </div>
         
       {% when 'button' %}
-        {% include 'collection_controls_filter_by_tag_group' %}
+        <h5>{% if has_tag_group %}{{ 'collections.filtering.filter_by_group_title' | t: group: tag_group }}{% else %}{{ 'collections.filtering.filter_by_title' | t }}{% endif %}</h5>
+        <ul class="nav nav-pills">
+          {% include 'collection_controls_filter_by_tag_group' %}
+        </ul>
+        
       {% endcase %}
+      </div>
     {% endfor %}
+    </div>
   {% endif %}
 {% endif %}
