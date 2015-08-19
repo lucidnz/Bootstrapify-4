@@ -1,0 +1,14 @@
+{% for tag in collection.all_tags %}      
+  {% if has_tag_group %}
+    {% assign group = tag | split: ':' | first %}
+    {% assign tag_value = tag | split: ':' | last %}
+    {% if tag_group == group %}
+      {% include 'collection_controls_filter_by_tag' %}
+    {% endif %}
+  {% else %}
+    {% unless tag contains ':' %}
+      {% assign tag_value = tag %}
+      {% include 'collection_controls_filter_by_tag' %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}

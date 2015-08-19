@@ -1,0 +1,10 @@
+{% if settings.filter_collection_by_multiple_tags %}
+  {% if current_tags contains tag %}
+    {% capture tag_text %}{{ tag_value }} <span class="fa fa-times-circle"></span><span class="sr-only">Remove</span>{% endcapture %}
+    <li class="active">{{ tag_text | link_to_remove_tag: tag }}</li>
+  {% else %}
+    <li>{{ tag_value | link_to_add_tag: tag }}</li>
+  {% endif %}
+{% else %}
+  <li {% if current_tags contains tag %}class="active"{% endif %}>{{ tag_value | link_to_tag: tag }}</li>
+{% endif %}

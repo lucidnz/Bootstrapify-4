@@ -52,11 +52,21 @@
       "default": true
     },
     {
-      "label": "Allow collections to be filtered by more than one tag",
+      "label": "Compound Tags: Allow collections to be filtered by more than one tag",
       "id": "filter_collection_by_multiple_tags",
       "type": "checkbox",
       "default": true,
       "info": "If left unchecked collections will be filtered by only one tag at a time"
+    },
+    {
+      "label": "Tag filtering style",
+      "id": "filter_by_tag_style",
+      "type": "select",
+      "options": [
+        { "value": "dropdown", "label": "Dropdowns" },
+        { "value": "button", "label": "Buttons" }
+      ],
+      "default": "dropdown"
     },
     {
       "type": "header",
