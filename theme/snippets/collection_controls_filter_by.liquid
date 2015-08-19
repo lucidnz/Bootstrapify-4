@@ -45,9 +45,17 @@
     
       {% case settings.filter_by_tag_style %}
       {% when 'dropdown' %}
-        {% include 'collection_controls_filter_by_dropdown' %}
+        <div class="collection-filter-by{% if has_tag_group %} collection-filter-group-{{ tag_group }}{% endif %}">
+          <div class="btn-group">
+            <button class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">{% if has_tag_group %}{{ 'collections.filtering.filter_by_group_title' | t: group: tag_group }}{% else %}{{ 'collections.filtering.filter_by_title' | t }}{% endif %} <span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu">
+              {% include 'collection_controls_filter_by_tag_group' %} 
+            </ul>
+          </div>
+        </div>
+        
       {% when 'button' %}
-        {% include 'collection_controls_filter_by_button' %}
+        {% include 'collection_controls_filter_by_tag_group' %}
       {% endcase %}
     {% endfor %}
   {% endif %}
