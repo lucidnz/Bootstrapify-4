@@ -19,7 +19,7 @@
        We have to loop the collected tag groups to check if it contains the current tag otherwise we get an issue where 'group' is not included if 'grouping' comes before it. 
      %}{% endcomment %}
      
-    {% capture tag_groups %}{% endcapture %}
+    {% capture tag_groups %}TAGS{% endcapture %}
     {% for tag in collection.all_tags %}
       {% if tag contains ':' %}
         {% assign group_name = tag | split: ':' | first %}
@@ -42,7 +42,7 @@
     {% assign tag_groups = tag_groups | split: '|' %}
     {% for tag_group in tag_groups %}
       {% assign has_tag_group = false %}
-      {% unless tag_group == blank %}
+      {% unless tag_group == 'TAGS' %}
         {% assign has_tag_group = true %}
       {% endunless %}
       
