@@ -1,10 +1,30 @@
-{% if settings.filter_collection_by_multiple_tags %}
-  {% if current_tags contains tag %}
-    {% capture tag_text %}{{ tag_value }} <span class="fa fa-times-circle"></span><span class="sr-only">Remove</span>{% endcapture %}
-    <li class="active">{{ tag_text | link_to_remove_tag: tag }}</li>
+{% comment note:
+  Don't show this tag if it exists on every product in the collection
+ %}{% endcomment %}
+
+{% assign tag_count = 0 %}
+{% for product in collection.products %}
+  {% for product_tag in product.tags %}
+    {% if product_tag == tag %}
+      {% assign tag_count = tag_count | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+{% assign include_tag = false %}
+{% if tag_count != collection.products.size or current_tags contains tag %}
+  {% assign include_tag = true %}
+{% endif %}
+
+{% if include_tag %}
+  {% if settings.filter_collection_by_multiple_tags %}
+    {% if current_tags contains tag %}
+      {% capture tag_text %}{{ tag_value }} <span class="fa fa-times-circle"></span><span class="sr-only">Remove</span>{% endcapture %}
+      <li class="active">{{ tag_text | link_to_remove_tag: tag }}</li>
+    {% else %}
+      <li>{{ tag_value | link_to_add_tag: tag }}</li>
+    {% endif %}
   {% else %}
-    <li>{{ tag_value | link_to_add_tag: tag }}</li>
+    <li {% if current_tags contains tag %}class="active"{% endif %}>{{ tag_value | link_to_tag: tag }}</li>
   {% endif %}
-{% else %}
-  <li {% if current_tags contains tag %}class="active"{% endif %}>{{ tag_value | link_to_tag: tag }}</li>
 {% endif %}

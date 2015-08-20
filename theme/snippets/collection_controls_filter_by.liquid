@@ -23,6 +23,7 @@
     {% for tag in collection.all_tags %}
       {% if tag contains ':' %}
         {% assign group_name = tag | split: ':' | first %}
+        
         {% assign is_in_tag_groups = false %}
         {% assign group_names = tag_groups | split: '|' %}
         {% for g_name in group_names %}
@@ -30,6 +31,7 @@
             {% assign is_in_tag_groups = true %}
           {% endif %}
         {% endfor %}
+        
         {% unless is_in_tag_groups %}
           {% capture tag_groups %}{{ tag_groups }}|{{ group_name }}{% endcapture %}
         {% endunless %}
@@ -43,25 +45,28 @@
       {% unless tag_group == blank %}
         {% assign has_tag_group = true %}
       {% endunless %}
-    
-      <div class="collection-filter-by-tags{% if has_tag_group %} collection-filter-group-{{ tag_group }}{% endif %}">
-      {% case settings.filter_by_tag_style %}
-      {% when 'dropdown' %}
-        <div class="btn-group">
-          <button class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">{% if has_tag_group %}{{ 'collections.filtering.filter_by_group_title' | t: group: tag_group }}{% else %}{{ 'collections.filtering.filter_by_title' | t }}{% endif %} <span class="caret"></span></button>
-          <ul class="dropdown-menu" role="menu">
-            {% include 'collection_controls_filter_by_tag_group' %}
+      
+      {% capture tags %}{% include 'collection_controls_filter_by_tag_group' %}{% endcapture %}
+      {% unless tags == blank %}    
+        <div class="collection-filter-by-tags{% if has_tag_group %} collection-filter-group-{{ tag_group }}{% endif %}">
+        {% case settings.filter_by_tag_style %}
+        {% when 'dropdown' %}
+          <div class="btn-group">
+            <button class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">{% if has_tag_group %}{{ 'collections.filtering.filter_by_group_title' | t: group: tag_group }}{% else %}{{ 'collections.filtering.filter_by_title' | t }}{% endif %} <span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu">
+              {{ tags }}
+            </ul>
+          </div>
+          
+        {% when 'button' %}
+          <h5>{% if has_tag_group %}{{ 'collections.filtering.filter_by_group_title' | t: group: tag_group }}{% else %}{{ 'collections.filtering.filter_by_title' | t }}{% endif %}</h5>
+          <ul class="nav nav-pills">
+            {{ tags }}
           </ul>
+          
+        {% endcase %}
         </div>
-        
-      {% when 'button' %}
-        <h5>{% if has_tag_group %}{{ 'collections.filtering.filter_by_group_title' | t: group: tag_group }}{% else %}{{ 'collections.filtering.filter_by_title' | t }}{% endif %}</h5>
-        <ul class="nav nav-pills">
-          {% include 'collection_controls_filter_by_tag_group' %}
-        </ul>
-        
-      {% endcase %}
-      </div>
+      {% endunless %}
     {% endfor %}
     </div>
   {% endif %}
