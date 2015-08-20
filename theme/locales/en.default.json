@@ -31,6 +31,8 @@
     "filtering": {
       "filter_by_title": "Filter by",
       "filter_by_group_title": "Filter by {{ group }}",
+      "tag_title_add": "Filter by {{ tag }}",
+      "tag_title_remove": "Remove {{ tag }}",
       "empty_message_title": "Whoops! You might need to broaden your search",
       "empty_message_html": {
         "one": "There is <strong>one<\/strong> product in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters.",

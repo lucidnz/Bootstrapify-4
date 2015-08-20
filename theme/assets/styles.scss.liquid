@@ -8952,11 +8952,15 @@ table {
   }
 }
 .collection-filter-by.collection-filter-style-button {
+  li strong {
+    display: block;
+    padding: $nav-link-padding;
+  }
   & > div {
     @media (min-width: $grid-float-breakpoint) {
       float: left;
       &:first-of-type {
-        margin-right: ($grid-gutter-width / 2);
+        margin-right: $grid-gutter-width;
       }
     }
   }
