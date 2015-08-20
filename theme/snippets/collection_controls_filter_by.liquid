@@ -20,20 +20,22 @@
      %}{% endcomment %}
      
     {% capture tag_groups %}TAGS{% endcapture %}
+    {% assign hidden_tag_groups = settings.hidden_tag_group_list | downcase | split: ',' %}
     {% for tag in collection.all_tags %}
       {% if tag contains ':' %}
         {% assign group_name = tag | split: ':' | first %}
+        {% assign group_name_lower = group_name | downcase %}
         
-        {% assign is_in_tag_groups = false %}
-        {% assign group_names = tag_groups | split: '|' %}
-        {% for g_name in group_names %}
-          {% if group_name == g_name %}
+        {% unless hidden_tag_groups contains group_name_lower %}
+          {% assign is_in_tag_groups = false %}
+          {% assign group_names = tag_groups | downcase | split: '|' %}
+          {% if group_names contains group_name_lower %}
             {% assign is_in_tag_groups = true %}
           {% endif %}
-        {% endfor %}
-        
-        {% unless is_in_tag_groups %}
-          {% capture tag_groups %}{{ tag_groups }}|{{ group_name }}{% endcapture %}
+          
+          {% unless is_in_tag_groups %}
+            {% capture tag_groups %}{{ tag_groups }}|{{ group_name }}{% endcapture %}
+          {% endunless %}
         {% endunless %}
       {% endif %}
     {% endfor %}

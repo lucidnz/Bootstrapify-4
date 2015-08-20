@@ -11,10 +11,12 @@
   {% endfor %}
 {% endfor %}
 
+{% comment %}
 {% assign include_tag = false %}
 {% if tag_count != collection.products.size or current_tags contains tag %}
   {% assign include_tag = true %}
 {% endif %}
+{% endcomment %}
 
 {% if include_tag %}
   {% if settings.filter_collection_by_multiple_tags %}

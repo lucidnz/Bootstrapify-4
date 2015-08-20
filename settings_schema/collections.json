@@ -69,6 +69,17 @@
       "default": "dropdown"
     },
     {
+      "type": "paragraph",
+      "content": "Grouping Tags: You can easily group tags by prefixing the tag with `groupname:`"
+    },
+    {
+      "label": "Hidden Tag Groups",
+      "id": "hidden_tag_group_list",
+      "type": "textarea",
+      "default": "hidden,",
+      "info": "A commar seperated list of tag groups that will be hidden. i.e. to hide a tag put it in a group of hidden like this `hidden:tag` and if the group name is listed here then all tags under that group will be hidden."
+    },
+    {
       "type": "header",
       "content": "Collection Template Switcher"
     },
