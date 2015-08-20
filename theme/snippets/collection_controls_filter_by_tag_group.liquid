@@ -1,3 +1,4 @@
+{% assign tag_group_contains_active_tags = false %}
 {% for tag in collection.all_tags %}
   {% if has_tag_group %}
     {% assign group = tag | split: ':' | first %}

@@ -55,7 +55,7 @@
         {% case settings.filter_by_tag_style %}
         {% when 'dropdown' %}
           <div class="btn-group">
-            <button class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">{{ tag_group_title }} <span class="caret"></span></button>
+            <button class="dropdown-toggle btn btn-default{% if tag_group_contains_active_tags %} active{% endif %}" type="button" data-toggle="dropdown" aria-expanded="false">{{ tag_group_title }} <span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
               {{ tags }}
             </ul>
