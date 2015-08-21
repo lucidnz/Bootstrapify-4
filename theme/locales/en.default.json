@@ -1,7 +1,15 @@
 {
   "general": {
-    "site": {
-      "page_title_seperator": "|"
+    "page_title": {
+      "separator": "|",
+      "shop_title": "{{ shop_title }}",
+      "page_title": "{{ page_title }}",
+      "page_number": "page {{ page_number }}",
+      "collection_filters": "filtered by {{ filters }}",
+      "title": "{{ shop_title }} {{ title_separator }} {{ page_title }}",
+      "title_with_page_number": "{{ shop_title }} {{ title_separator }} {{ page_title }} {{ title_separator }} {{ page_number }}",
+      "title_with_filters": "{{ shop_title }} {{ title_separator }} {{ page_title }} {{ title_separator }} {{ filters }}",
+      "title_with_filtersand_page_numbers": "{{ shop_title }} {{ title_separator }} {{ page_title }} {{ title_separator }} {{ filters }} {{ title_separator }} {{ page_number }}"
     },
     "navigation": {
       "mobile_menu_button": "Menu"
@@ -19,8 +27,8 @@
     },
     "collection_title_when_filtered": {
       "title_html": "{{ title }} <small>filtered by {{ filters }}</small>",
-      "filter_seperator": ", ",
-      "filter_last_seperator": " and "
+      "filter_separator": ", ",
+      "filter_last_separator": " and "
     },
     "filtering": {
       "filter_by_title": "Filter by",

@@ -1,46 +1,124 @@
 {% capture vars %}
+  {% capture separator %}{{ 'general.page_title.separator' | t }}{% endcapture %}
+  {% capture shop_title %}{{ 'general.page_title.shop_title' | t: shop_title: shop.name }}{% endcapture %}
+  {% capture page_title %}{{ 'general.page_title.page_title' | t: page_title: page_title }}{% endcapture %}
+  {% capture page_number %}{% if current_page and current_page != 1 %}{{ 'general.page_title.page_number' | t: page_number: current_page }}{% endif %}{% endcapture %}
+  {% capture collection_filters %}{% if current_tags and current_tags.size > 0 %}{% include '_collection_title_filters' %}{{ 'general.page_title.collection_filters' | t: filters: collection_title_filters }}{% endif %}{% endcapture %}
+
+  {% if template contains '404' %}
+    {% capture page_title %}{{ 'errors.404.page_title' | t }}{% endcapture %}
+    {% capture title %}{{ 'general.page_title.title' | t: shop_title: shop_title, title_separator: separator, page_title: page_title }}{% endcapture %}
+  
+  {% elsif template contains 'blog' %}
+    {% if page_number == blank %}
+      {% capture title %}{{ 'general.page_title.title' | t: shop_title: shop_title, page_title: page_title, title_separator: separator }}{% endcapture %}
+    {% else %}
+      {% capture title %}{{ 'general.page_title.title_with_page_number' | t: shop_title: shop_title, page_title: page_title, title_separator: separator, page_number: page_number }}{% endcapture %}
+    {% endif %}
+  
+  {% elsif template contains 'collection' %}
+    {% include '_collection_title_filters' %}
+    {% if page_number != blank and collection_title_filters != blank %}
+      {% capture title %}{{ 'general.page_title.title_with_filtersand_page_numbers' | t: shop_title: shop_title, page_title: page_title, title_separator: separator, page_number: page_number, filters: collection_title_filters }}{% endcapture %}
+    {% elsif collection_title_filters != blank %}
+      {% capture title %}{{ 'general.page_title.title_with_filters' | t: shop_title: shop_title, page_title: page_title, title_separator: separator, filters: collection_title_filters }}{% endcapture %}
+    {% elsif page_number != blank %}
+      {% capture title %}{{ 'general.page_title.title_with_page_number' | t: shop_title: shop_title, page_title: page_title, title_separator: separator, page_number: page_number }}{% endcapture %}
+    {% else %}
+      {% capture title %}{{ 'general.page_title.title' | t: shop_title: shop_title, page_title: page_title, title_separator: separator }}{% endcapture %}
+    {% endif  %}
+  
+  {% elsif template contains 'collections' %}
+    {% capture page_title %}{{ 'collections.list_collections.title' | t }}{% endcapture %}
+    {% if page_number == blank %}
+      {% capture title %}{{ 'general.page_title.title' | t: shop_title: shop_title, page_title: page_title, title_separator: separator }}{% endcapture %}
+    {% else %}
+      {% capture title %}{{ 'general.page_title.title_with_page_number' | t: shop_title: shop_title, page_title: page_title, title_separator: separator, page_number: page_number }}{% endcapture %}
+    {% endif %}
+  
+  {% elsif template contains 'search' %}
+    {% if search.performed %}
+      {% capture page_title %}{{ 'search.results_page.page_title_with_search_terms_html' | t: search_terms: page_title | strip_html | escape }}{% endcapture %}
+    {% else %}
+      {% capture page_title %}{{ 'search.results_page.page_title' | t: shop_name: shop.name }}{% endcapture %}
+    {% endif %}
+    {% if page_number == blank %}
+      {% capture title %}{{ 'general.page_title.title' | t: shop_title: shop_title, page_title: page_title, title_separator: separator }}{% endcapture %}
+    {% else %}
+      {% capture title %}{{ 'general.page_title.title_with_page_number' | t: shop_title: shop_title, page_title: page_title, title_separator: separator, page_number: page_number }}{% endcapture %}
+    {% endif %}
+    
+  {% else %}
+    {% capture title %}{{ 'general.page_title.title' | t: shop_title: shop_title, page_title: page_title, title_separator: separator }}{% endcapture %}
+  
+  {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% comment %}
   *** Craft the page title for SEO ***
   TODO: utilise translations better for this and push shop name to end? also smart truncating?
-{% endcomment %}
 
 {% capture title %}{{ shop.name }}{% endcapture %}
 {% if search.performed %}
   {% capture title %}
-    {{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'search.results_page.page_title_with_search_terms_html' | t: search_terms: page_title | strip_html | escape }}
+    {{ title }} {{ 'general.page_title.seperator' | t }} {{ 'search.results_page.page_title_with_search_terms_html' | t: search_terms: page_title | strip_html | escape }}
     {% if current_page != 1 %}
       - Page {{ current_page }}
     {% endif %}
   {% endcapture %}
 {% else %}
   {% if template contains 'collections' %}
-    {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'collections.list_collections.title' | t }}{% endcapture %}
+    {% capture title %}{{ title }} {{ 'general.page_title.seperator' | t }} {{ 'collections.list_collections.title' | t }}{% endcapture %}
   
   {% elsif template contains 'collection' %}
+    {% include '_collection_title_filters' %}
     {% if collection.title != blank and collection.title != page_title %}
-      {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ page_title }} {{ 'general.site.page_title_seperator' | t }} {{ collection.title }}{% endcapture %}
+      {% capture title %}{{ title }} {{ 'general.page_title.seperator' | t }} {{ page_title }} {{ 'general.page_title.seperator' | t }} {{ collection.title }} {{ 'general.page_title.seperator' | t }} {{ collection_title_filters }}{% endcapture %}
     {% else %}
-      {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ page_title }}{% endcapture %}
+      {% capture title %}{{ title }} {{ 'general.page_title.seperator' | t }} {{ page_title }} {{ 'general.page_title.seperator' | t }} {{ collection_title_filters }}{% endcapture %}
     {% endif %}
     
   {% elsif template contains 'blog' %}
     {% if blog.title != blank and blog.title != page_title %}
-      {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ page_title }} {{ 'general.site.page_title_seperator' | t }} {{ blog.title }}{% endcapture %}
+      {% capture title %}{{ title }} {{ 'general.page_title.seperator' | t }} {{ page_title }} {{ 'general.page_title.seperator' | t }} {{ blog.title }}{% endcapture %}
     {% else %}
-      {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ page_title }}{% endcapture %}
+      {% capture title %}{{ title }} {{ 'general.page_title.seperator' | t }} {{ page_title }}{% endcapture %}
     {% endif %}
   
   {% elsif template contains 'search' %}
-    {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'search.results_page.page_title' | t: shop_name: shop.name }}{% endcapture %}
+    {% capture title %}{{ title }} {{ 'general.page_title.seperator' | t }} {{ 'search.results_page.page_title' | t: shop_name: shop.name }}{% endcapture %}
   
   {% elsif template contains '404' %}
-    {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ 'errors.404.page_title' | t }}{% endcapture %}
+    {% capture title %}{{ title }} {{ 'general.page_title.seperator' | t }} {{ 'errors.404.page_title' | t }}{% endcapture %}
   
   {% else %}
     {% unless title == page_title %}
-      {% capture title %}{{ title }} {{ 'general.site.page_title_seperator' | t }} {{ page_title }}{% endcapture %}
+      {% capture title %}{{ title }} {{ 'general.page_title.seperator' | t }} {{ page_title }}{% endcapture %}
     {% endunless %}
   
   {% endif %}
 {% endif %}
+
+{% endcomment %}
+
 {% endcapture %}{{ title | replace: '&amp;','&' | strip_html | strip_newlines | strip }}
