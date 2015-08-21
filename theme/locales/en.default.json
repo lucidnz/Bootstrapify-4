@@ -17,16 +17,10 @@
       "empty_message_title": "Whoa! There are no items in this collection",
       "empty_message_html": "You could try viewing <a href='\/collections\/all'>all&nbsp;products<\/a> or <a href='\/search'>searching&nbsp;the&nbsp;site<\/a>."
     },
-    "sorting": {
-      "sort_by_title": "Sort by",
-      "featured": "Featured",
-      "best_selling": "Best Selling",
-      "title_ascending": "A–Z",
-      "title_descending": "Z–A",
-      "price_ascending": "Lowest Price",
-      "price_descending": "Highest Price",
-      "date_ascending": "Newest",
-      "date_descending": "Oldest"
+    "collection_title_when_filtered": {
+      "title_html": "{{ title }} <small>filtered by {{ filters }}</small>",
+      "filter_seperator": ", ",
+      "filter_last_seperator": " and "
     },
     "filtering": {
       "filter_by_title": "Filter by",
@@ -38,6 +32,17 @@
         "one": "There is <strong>one<\/strong> product in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters.",
         "other": "There are <strong>{{ count }}<\/strong> products in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters."
       }
+    },
+    "sorting": {
+      "sort_by_title": "Sort by",
+      "featured": "Featured",
+      "best_selling": "Best Selling",
+      "title_ascending": "A–Z",
+      "title_descending": "Z–A",
+      "price_ascending": "Lowest Price",
+      "price_descending": "Highest Price",
+      "date_ascending": "Newest",
+      "date_descending": "Oldest"
     },
     "collection_controls": {
       "switcher_title": "View {{ collection_title }} as {{ template_type }}"

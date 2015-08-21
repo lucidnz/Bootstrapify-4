@@ -10,7 +10,16 @@
     
     <div class="sheet collection-description">
       <header class="sheet-header page-header">
-        <h1>{{ collection.title }}</h1>
+        {% if current_tags.size > 0 %}
+          {% capture collection_filters %}
+          {% for tag in current_tags %}
+            {{ tag | split: ':' | last }}{% if forloop.length > 1 and forloop.index != forloop.length %}{% if forloop.rindex0 == 1 %}{{ 'collections.collection_title_when_filtered.filter_last_seperator' | t }}{% else %}{{ 'collections.collection_title_when_filtered.filter_seperator' | t }}{% endif %}{% endif %}
+          {% endfor %}
+          {% endcapture %}
+          <h1>{{ 'collections.collection_title_when_filtered.title_html' | t: title: collection.title, filters: collection_filters }}</h1>
+        {% else %}
+          <h1>{{ collection.title }}</h1>
+        {% endif %}
         {{ collection.description }}
       </header>
     </div>
