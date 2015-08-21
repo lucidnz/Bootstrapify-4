@@ -9,7 +9,7 @@
       "label": "Product pagination limit",
       "id": "pagination_limit_products",
       "type": "text",
-      "default": "50",
+      "default": "48",
       "info": "The maximum amount of thumbs you can show on a page is 50. For best results use a multiple of your thumbs column count."
     },
     {
