@@ -8938,6 +8938,9 @@ table {
 
 .collection-controls > div {
   margin-bottom: ($grid-gutter-width / 2);
+  .nav-pills > li > a {
+    padding: $padding-base-vertical $padding-base-horizontal;
+  }
 }
 
 .collection-controls > div,
@@ -8954,9 +8957,11 @@ table {
 .collection-filter-by.collection-filter-style-button {
   li strong {
     display: block;
-    padding: $nav-link-padding;
+    padding: $padding-base-vertical $padding-base-horizontal;
+    padding-left: 0;
   }
   & > div {
+    margin-bottom: 0.25em;
     @media (min-width: $grid-float-breakpoint) {
       float: left;
       &:first-of-type {
@@ -8964,7 +8969,7 @@ table {
       }
     }
   }
-  $collection-controls-right-buffer: 225px + $grid-gutter-width;
+  $collection-controls-right-buffer: 250px + $grid-gutter-width;
   @media (min-width: $grid-float-breakpoint) {
     float: left;
     max-width: $container-sm - $collection-controls-right-buffer;
@@ -8976,7 +8981,6 @@ table {
     max-width: $container-lg - $collection-controls-right-buffer;
   }
 }
-
 
 .collection-sort-by,
 .collection-filter-by.collection-filter-style-dropdown {
