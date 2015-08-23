@@ -8,7 +8,7 @@
     {% endif %}
     {% endcomment %}
     
-    <div class="sheet collection-description">
+    <div class="sheet collection-header">
       <header class="sheet-header page-header">
         {% if current_tags.size > 0 %}
           {% include '_collection_title_filters' %}
@@ -16,7 +16,9 @@
         {% else %}
           <h1>{{ collection.title }}</h1>
         {% endif %}
-        {{ collection.description }}
+        {% if collection.description != blank %}
+          <div class="collection-description">{{ collection.description }}</div>
+        {% endif %}
       </header>
     </div>
   </section>
