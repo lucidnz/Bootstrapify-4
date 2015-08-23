@@ -71,6 +71,14 @@
         </div>
       {% endunless %}
     {% endfor %}
+  
+    {% if current_tags.size > 0 %}
+      <div class="collection-filter-by-tags collection-filter-clear-all">
+        <ul class="nav nav-pills">
+          <li><a href="{% if collection.url != blank %}{{ collection.url }}{% else %}/collections/all{% endif %}">{{ 'collections.filtering.clear_all' | t }}</a></li>
+        </ul>
+      </div>
+    {% endif %}
     </div>
   {% endif %}
 {% endif %}

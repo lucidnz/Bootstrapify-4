@@ -1,7 +1,15 @@
 {
   "general": {
-    "site": {
-      "page_title_seperator": "|"
+    "page_title": {
+      "separator": "|",
+      "shop_title": "{{ shop_title }}",
+      "page_title": "{{ page_title }}",
+      "page_number": "page {{ page_number }}",
+      "collection_filters": "filtered by {{ filters }}",
+      "title": "{{ shop_title }} {{ title_separator }} {{ page_title }}",
+      "title_with_page_number": "{{ shop_title }} {{ title_separator }} {{ page_title }} {{ title_separator }} {{ page_number }}",
+      "title_with_filters": "{{ shop_title }} {{ title_separator }} {{ page_title }} {{ title_separator }} {{ filters }}",
+      "title_with_filtersand_page_numbers": "{{ shop_title }} {{ title_separator }} {{ page_title }} {{ title_separator }} {{ filters }} {{ title_separator }} {{ page_number }}"
     },
     "navigation": {
       "mobile_menu_button": "Menu"
@@ -17,6 +25,23 @@
       "empty_message_title": "Whoa! There are no items in this collection",
       "empty_message_html": "You could try viewing <a href='\/collections\/all'>all&nbsp;products<\/a> or <a href='\/search'>searching&nbsp;the&nbsp;site<\/a>."
     },
+    "collection_title_when_filtered": {
+      "title_html": "{{ title }} <small>filtered by {{ filters }}</small>",
+      "filter_separator": ", ",
+      "filter_last_separator": " and "
+    },
+    "filtering": {
+      "filter_by_title": "Filter by",
+      "filter_by_group_title": "Filter by {{ group }}",
+      "clear_all": "Clear all tags",
+      "tag_title_add": "Filter by {{ tag }}",
+      "tag_title_remove": "Remove {{ tag }}",
+      "empty_message_title": "Whoops! You might need to broaden your search",
+      "empty_message_html": {
+        "one": "There is <strong>one<\/strong> product in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters.",
+        "other": "There are <strong>{{ count }}<\/strong> products in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters."
+      }
+    },
     "sorting": {
       "sort_by_title": "Sort by",
       "featured": "Featured",
@@ -27,17 +52,6 @@
       "price_descending": "Highest Price",
       "date_ascending": "Newest",
       "date_descending": "Oldest"
-    },
-    "filtering": {
-      "filter_by_title": "Filter by",
-      "filter_by_group_title": "Filter by {{ group }}",
-      "tag_title_add": "Filter by {{ tag }}",
-      "tag_title_remove": "Remove {{ tag }}",
-      "empty_message_title": "Whoops! You might need to broaden your search",
-      "empty_message_html": {
-        "one": "There is <strong>one<\/strong> product in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters.",
-        "other": "There are <strong>{{ count }}<\/strong> products in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters."
-      }
     },
     "collection_controls": {
       "switcher_title": "View {{ collection_title }} as {{ template_type }}"

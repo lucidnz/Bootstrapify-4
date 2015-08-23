@@ -1,0 +1,5 @@
+{% capture collection_title_filters %}
+  {% for tag in current_tags %}
+    {{ tag | split: ':' | last }}{% if forloop.length > 1 and forloop.index != forloop.length %}{% if forloop.rindex0 == 1 %}{{ 'collections.collection_title_when_filtered.filter_last_separator' | t }}{% else %}{{ 'collections.collection_title_when_filtered.filter_separator' | t }}{% endif %}{% endif %}
+  {% endfor %}
+{% endcapture %}
