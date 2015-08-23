@@ -1,6 +1,13 @@
 {% if collection.all_products_count > 0 %}
   <div class="collection-controls clearfix">
     {% include 'collection_controls_template_switcher' %}
+    {% if current_tags.size > 0 %}
+      <div class="collection-clear-all">
+        <ul class="nav nav-pills">
+          <li><a href="{% if collection.url != blank %}{{ collection.url }}{% else %}/collections/all{% endif %}">{{ 'collections.collection_controls.clear_all' | t }}</a></li>
+        </ul>
+      </div>
+    {% endif %}
     {% include 'collection_controls_sort_by' %}
     {% include 'collection_controls_filter_by' %}
   </div>

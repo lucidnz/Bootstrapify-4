@@ -19,15 +19,12 @@
 
 .collection-controls > div {
   margin-bottom: ($grid-gutter-width / 2);
-  .nav-pills > li > a {
-    padding: $padding-base-vertical $padding-base-horizontal;
-  }
 }
 
 .collection-controls > div,
 .collection-filter-by > div {
   float: left;
-  margin-right: ($grid-gutter-width / 2);
+  margin-right: 2px;
   @media (min-width: $grid-float-breakpoint) {
     float: right;
     &:first-of-type {
@@ -38,19 +35,17 @@
 .collection-filter-by.collection-filter-style-button {
   li strong {
     display: block;
-    padding: $padding-base-vertical $padding-base-horizontal;
+    padding: $nav-link-padding;
     padding-left: 0;
   }
   & > div {
     margin-bottom: 0.25em;
     @media (min-width: $grid-float-breakpoint) {
       float: left;
-      &:first-of-type {
-        margin-right: $grid-gutter-width;
-      }
+      margin-right: $grid-gutter-width;
     }
   }
-  $collection-controls-right-buffer: 250px + $grid-gutter-width;
+  $collection-controls-right-buffer: 350px + $grid-gutter-width;
   @media (min-width: $grid-float-breakpoint) {
     float: left;
     max-width: $container-sm - $collection-controls-right-buffer;
@@ -68,13 +63,6 @@
   .fa {
     float: right;
     padding: 0.2em 0;
-  }
-}
-
-.collection-template-switcher {
-  ul > li > a {
-    padding-left: $grid-gutter-width / 4;
-    padding-right: $grid-gutter-width / 4;
   }
 }
 

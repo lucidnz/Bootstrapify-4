@@ -50,16 +50,28 @@
       
       {% capture tags %}{% include 'collection_controls_filter_by_tag_group' %}{% endcapture %}
       {% capture tag_group_title %}{% if has_tag_group %}{{ 'collections.filtering.filter_by_group_title' | t: group: tag_group }}{% else %}{{ 'collections.filtering.filter_by_title' | t }}{% endif %}{% endcapture %}
-      {% unless tags == blank %}    
+      {% unless tags == blank %}
         <div class="collection-filter-by-tags{% if has_tag_group %} collection-filter-group-{{ tag_group }}{% endif %}">
         {% case settings.filter_by_tag_style %}
         {% when 'dropdown' %}
+          <ul class="nav nav-pills">
+            <li class="dropdown{% if tag_group_contains_active_tags %} active{% endif %}">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">{{ tag_group_title }} <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                {{ tags }}
+              </ul>
+            </li>
+          </ul>
+        
+        
+        {% comment %}
           <div class="btn-group">
             <button class="dropdown-toggle btn btn-default{% if tag_group_contains_active_tags %} active{% endif %}" type="button" data-toggle="dropdown" aria-expanded="false">{{ tag_group_title }} <span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
               {{ tags }}
             </ul>
           </div>
+        {% endcomment %}
           
         {% when 'button' %}
           <ul class="nav nav-pills">
@@ -71,14 +83,6 @@
         </div>
       {% endunless %}
     {% endfor %}
-  
-    {% if current_tags.size > 0 %}
-      <div class="collection-filter-by-tags collection-filter-clear-all">
-        <ul class="nav nav-pills">
-          <li><a href="{% if collection.url != blank %}{{ collection.url }}{% else %}/collections/all{% endif %}">{{ 'collections.filtering.clear_all' | t }}</a></li>
-        </ul>
-      </div>
-    {% endif %}
     </div>
   {% endif %}
 {% endif %}
