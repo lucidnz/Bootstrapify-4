@@ -1,5 +1,14 @@
 {
   "general": {
+    "navigation": {
+      "mobile_menu_button": "Menu"
+    },
+    "pagination": {
+      "previous_html": "&laquo; Previous",
+      "next_html": "Next &raquo;"
+    }
+  },
+  "SEO": {
     "page_title": {
       "separator": "|",
       "shop_title": "{{ shop_title }}",
@@ -10,13 +19,6 @@
       "title_with_page_number": "{{ shop_title }} {{ title_separator }} {{ page_title }} {{ title_separator }} {{ page_number }}",
       "title_with_filters": "{{ shop_title }} {{ title_separator }} {{ page_title }} {{ title_separator }} {{ filters }}",
       "title_with_filtersand_page_numbers": "{{ shop_title }} {{ title_separator }} {{ page_title }} {{ title_separator }} {{ filters }} {{ title_separator }} {{ page_number }}"
-    },
-    "navigation": {
-      "mobile_menu_button": "Menu"
-    },
-    "pagination": {
-      "previous_html": "&laquo; Previous",
-      "next_html": "Next &raquo;"
     }
   },
   "collections": {
