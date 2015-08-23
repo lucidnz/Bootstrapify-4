@@ -8,7 +8,7 @@
       "next_html": "Next &raquo;"
     }
   },
-  "SEO": {
+  "seo": {
     "page_title": {
       "separator": "|",
       "shop_title": "{{ shop_title }}",
