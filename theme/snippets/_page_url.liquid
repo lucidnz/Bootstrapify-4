@@ -2,7 +2,8 @@
   {% comment note:
     Shopify, crazily enough, does not have a global object that returns the current url like it does for the page_title.
     So lets fake one.
-    It will not take into account url params and hash anchors.
+    It will take into account filtered collections.
+    It will not take into account url params and hash anchors, because reasons.
    %}{% endcomment %}
    
   {% if template contains '404' %}
