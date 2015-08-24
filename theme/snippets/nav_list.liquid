@@ -34,8 +34,20 @@
       <li class="dropdown">
         <a class="dropdown-toggle" href="{{ link.url }}" data-toggle="dropdown">{{ link.title }} <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
+          {% comment note: childlink.active doesn't take filtered collection urls into count so use (faked) global page_url match %}{% endcomment %}
           {% for childlink in linklists[child_list_handle].links %}
-            <li{% if childlink.active %} class="active"{% endif %}><a href="{{ childlink.url }}" title="{{ childlink.title | strip_html }}">{{ childlink.title }}</a></li>
+            {% assign is_active = false %}
+            {% if page_url %}
+              {% if childlink.url == page_url %}
+                {% assign is_active = true %}
+              {% endif %}
+            {% else %}
+              {% if childlink.active %}
+                {% assign is_active = true %}
+              {% endif %}
+            {% endif %}
+          
+            <li{% if is_active %} class="active"{% endif %}><a href="{{ childlink.url }}" title="{{ childlink.title | strip_html }}">{{ childlink.title }}</a></li>
           {% endfor %}
         </ul>
       </li>

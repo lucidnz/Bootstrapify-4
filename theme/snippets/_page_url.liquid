@@ -1,0 +1,43 @@
+{% capture function %}
+  {% comment note:
+    Shopify, crazily enough, does not have a global object that returns the current url like it does for the page_title.
+    So lets fake one.
+    It will take into account filtered collections.
+    It will not take into account url params and hash anchors, because reasons.
+   %}{% endcomment %}
+   
+  {% if template contains '404' %}
+    {% assign page_url = '/404' %}
+  {% elsif template contains 'article' %}
+    {% assign page_url = article.url %}
+  {% elsif template contains 'blog' %}
+    {% assign page_url = blog.url %}
+  {% elsif template contains 'cart' %}
+    {% assign page_url = '/cart' %}
+  {% elsif template contains 'list-collections' %}
+    {% assign page_url = '/collections' %}
+  {% elsif template contains 'collection' %}
+    {% if collection.url != blank %}
+      {% assign page_url = collection.url %}
+    {% else %}
+      {% assign page_url = '/collections/all' %}
+    {% endif %}
+    {% if current_tags.size > 0 %}
+      {% capture current_tag_params %}{% endcapture %}
+      {% for current_tag in current_tags %}
+        {% capture current_tag_params %}{{ current_tag_params }}{% unless forloop.first %}+{% endunless %}{{ current_tag | handle }}{% endcapture %}
+      {% endfor %}
+      {% assign page_url = page_url | append: '/' | append: current_tag_params %}
+    {% endif %}
+  {% elsif template contains 'index' %}
+    {% assign page_url = '/' %}
+  {% elsif template contains 'page' %}
+    {% assign page_url = page.url %}
+  {% elsif template contains 'product' %}
+    {% assign page_url = product.url %}
+  {% elsif template contains 'search' %}
+    {% assign page_url = '/search' %}
+  {% else %}
+    {% assign page_url = null %}
+  {% endif %}
+{% endcapture %}
