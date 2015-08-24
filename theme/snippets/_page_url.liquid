@@ -4,6 +4,7 @@
     So lets fake one.
     It will take into account filtered collections.
     It will not take into account url params and hash anchors, because reasons.
+    page_url_with_shop_domain gives you the page_url with the shop.url prepended.
    %}{% endcomment %}
    
   {% if template contains '404' %}
@@ -37,7 +38,33 @@
     {% assign page_url = product.url %}
   {% elsif template contains 'search' %}
     {% assign page_url = '/search' %}
+  {% elsif template contains 'customers' %}
+    {% if template contains 'activate_account' %}
+      {% assign page_url = '/account/activate' %}
+    {% elsif template contains 'account' %}
+      {% assign page_url = '/account' %}
+    {% elsif template contains 'addresses' %}
+      {% assign page_url = '/account/addresses' %}
+    {% elsif template contains 'login' %}
+      {% assign page_url = '/account/login' %}
+    {% elsif template contains 'order' %}
+      {% if order != blank %}
+        {% assign page_url = order.customer_url | remove: shop.url %}
+      {% else %}
+        {% assign page_url = '/account/orders' %}
+      {% endif %}
+    {% elsif template contains 'register' %}
+      {% assign page_url = '/account/register' %}
+    {% elsif template contains 'reset' %}
+      {% assign page_url = '/account/reset' %}
+    {% else %}
+      {% assign page_url = null %}
+    {% endif %}
   {% else %}
     {% assign page_url = null %}
+  {% endif %}
+  
+  {% if page_url != null %}
+    {% assign page_url_with_shop_domain = page_url | prepend: shop.url %}
   {% endif %}
 {% endcapture %}
