@@ -31,8 +31,8 @@
   {% for link in linklists[nav_list].links %}
     {% assign child_list_handle = link.handle %}
     {% if linklists[child_list_handle].links != blank and include_dropdowns %}
-      <li class="dropdown">
-        <a class="dropdown-toggle" href="{{ link.url }}" data-toggle="dropdown">{{ link.title }} <span class="caret"></span></a>
+      {% assign has_active_child = false %}
+      {% capture dropdown %}
         <ul class="dropdown-menu" role="menu">
           {% comment note: childlink.active doesn't take filtered collection urls into count so use (faked) global page_url match %}{% endcomment %}
           {% for childlink in linklists[child_list_handle].links %}
@@ -46,10 +46,18 @@
                 {% assign is_active = true %}
               {% endif %}
             {% endif %}
+            {% if is_active %}
+              {% assign has_active_child = true %}
+            {% endif %}
           
             <li{% if is_active %} class="active"{% endif %}><a href="{{ childlink.url }}" title="{{ childlink.title | strip_html }}">{{ childlink.title }}</a></li>
           {% endfor %}
         </ul>
+      {% endcapture %}
+    
+      <li class="dropdown{% if has_active_child %} active{% endif %}">
+        <a class="dropdown-toggle" href="{{ link.url }}" data-toggle="dropdown">{{ link.title }} <span class="caret"></span></a>
+        {{ dropdown }}
       </li>
     {% else %}
       <li{% if link.active %} class="active"{% endif %}><a href="{{ link.url }}" title="{{ link.title | strip_html }}">{{ link.title }}</a></li>
