@@ -68,10 +68,10 @@
       {% comment note:
         Each header layouts has it's own snippet file, this allows us to create maintainable modular layouts that can be swapped out or new ones added to easily.
         All header layouts can be selected from the theme settings.
-        Header snippets are prefixed with 'header_'.
+        Header snippets are prefixed with 'header_layout_'.
        %}{% endcomment %}
 
-      {% assign header_layout = settings.header_layout | default: 'header_centered' %}
+      {% assign header_layout = settings.header_layout | default: 'header_layout_centered' %}
       {% include header_layout %}
     </header>
 

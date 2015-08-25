@@ -26,7 +26,8 @@
       "type": "select",
       "options": [
         { "value": "header_layout_navbar", "label": "Navbar" },
-        { "value": "header_layout_centered", "label": "Centered" }
+        { "value": "header_layout_centered", "label": "Centered" },
+        { "value": "header_layout_stacked", "label": "Stacked" }
       ],
       "default": "header_layout_centered",
       "info": "You can see each option here [TODO: add link]"

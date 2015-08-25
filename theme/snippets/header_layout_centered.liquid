@@ -1,8 +1,4 @@
-{% if settings.main_menu_linklist == blank and settings.secondary_menu_linklist == blank and settings.tertiary_menu_linklist == blank %}
-  {% assign has_menu = false %}
-{% else %}
-  {% assign has_menu = true %}
-{% endif %}
+{% include '_has_menu' %}
 
 <div id="header-layout-centered">
   {% comment note: Mobile and small screen nav %}{% endcomment %}
