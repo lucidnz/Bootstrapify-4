@@ -1,3 +1,5 @@
+/*
+  TODO: SEE ISSUE https://github.com/luciddesign/Bootstrapify-4/issues/41
 .collection-banner {
   {% if settings.collection_fullscreen_banner %}
     img { width: 100%; }
@@ -7,6 +9,7 @@
   
   img { margin: 0 auto; }
 }
+*/
 
 .banner {
   // create the fade transition
@@ -34,7 +37,11 @@
   }
   
   // center images inside the banner
-  img { margin: auto; }
+  // and make sure the fill the screen
+  img {
+    margin: auto;
+    width: 100%;
+  }
 }
 
 // Banner controls
@@ -83,7 +90,7 @@
     
     .banner-content-wrap {
       position: relative;
-      @if $slide-size!= 'full_width' and $slide-size != 'full_screen' {
+      @if $slide-size!= 'full_width' {
         @include container;
       }
     }
