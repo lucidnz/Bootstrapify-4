@@ -13,12 +13,7 @@
 .group,
 .list {
   @include make-row();
-}
-
-.group-item-wrap {
-  @include make-xs-column(12);
-  @include make-sm-column(6);
-  @include make-md-column(3);
+  @include columns('.group-item-wrap');
 }
 
 .list-item-wrap {
@@ -86,33 +81,8 @@ footer {
   Default page specific layouts
 */
 
-.index {
-  @include adaptive-columns('.group-item-wrap');
-}
-
 // all collection templates
 body[class*="collection"] {
-  
-  @include adaptive-columns('.group-item-wrap');
-  
-  .sheet-content {
-    @include make-row();
-  }
-  .collection-message {
-    @include make-sm-column(12);
-  }
-}
-
-// /collections template
-.list-collections {
-  @include adaptive-columns('.group-item-wrap');
-}
-
-// all collection templates
-body[class*="collection"] {
-  
-  @include adaptive-columns('.group-item-wrap');
-  
   .sheet-content {
     @include make-row();
   }
