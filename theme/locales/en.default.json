@@ -36,6 +36,7 @@
     "filtering": {
       "filter_by_title": "Filter by",
       "filter_by_group_title": "Filter by {{ group }}",
+      "clear_all_filters": "Clear all filters",
       "tag_title_add": "Filter by {{ tag }}",
       "tag_title_remove": "Remove {{ tag }}",
       "empty_message_title": "Whoops! You might need to broaden your search",
@@ -56,8 +57,7 @@
       "date_descending": "Oldest"
     },
     "collection_controls": {
-      "switcher_title": "View {{ collection_title }} as {{ template_type }}",
-      "clear_all": "Clear all"
+      "switcher_title": "View {{ collection_title }} as {{ template_type }}"
     },
     "list_collections" : {
       "title" : "All collections",
