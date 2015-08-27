@@ -5,7 +5,7 @@
     <header class="sheet-header page-header">
       {% if homepage_products.products.size > product_limit %}
         <h1><a href="{{ homepage_products.url }}">{{ homepage_products.title }}</a></h1>
-        <a class="view-all-link" href="{{ homepage_products.url }}">{{ 'collections.general.view_all_html' | t }}</a>
+        <a class="view-all-link" href="{{ homepage_products.url }}">{{ 'collections.general.view_all_products_html' | t }}</a>
       {% else %}
         <h1>{{ homepage_products.title }}</h1>
       {% endif %}

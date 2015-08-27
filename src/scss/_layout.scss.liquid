@@ -230,7 +230,7 @@ body.search .search-results {
     }
     {% unless is_centered %}
     @media (min-width: $grid-float-breakpoint) {
-      margin-top: ($line-height-computed * 3); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
+      margin-top: ($line-height-computed * 2); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
     }
     {% endunless %}
   }
@@ -495,12 +495,6 @@ body.search .search-results {
     margin-bottom: 0;
   }
   
-  
-  h1, h2 {
-    &:first-child {
-      margin-top: 0; 
-    }
-  }
   .page-header {
     margin-top: 0;
   }
@@ -512,10 +506,6 @@ body.search .search-results {
   .banner {
     margin-top: (0 - $grid-gutter-width);
     margin-bottom: (0 - $grid-gutter-width);
-  }
-  
-  .collection-description {
-    clear: both;
   }
 }
 
