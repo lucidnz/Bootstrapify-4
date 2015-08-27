@@ -41,8 +41,8 @@
       "tag_title_remove": "Remove {{ tag }}",
       "empty_message_title": "Whoops! You might need to broaden your search",
       "empty_message_html": {
-        "one": "There is <strong>one<\/strong> product in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters.",
-        "other": "There are <strong>{{ count }}<\/strong> products in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters."
+        "one": "There is <strong>one<\/strong> product in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters:",
+        "other": "There are <strong>{{ count }}<\/strong> products in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters:"
       }
     },
     "sorting": {

@@ -44,7 +44,12 @@
           <p>{{ 'collections.filtering.empty_message_html' | t: count: collection.all_products_count, collection_title: collection.title }}</p>
           <ul class="list-unstyled">
       		{% for tag in current_tags %}
-            {% capture tag_text %}<span class="fa fa-times-circle"></span><span class="sr-only">remove</span> {{ tag }}{% endcapture %}
+      		  {% if tag contains ':' %}
+              {% assign tag_value = tag | split: ':' | last %}
+            {% else %}
+              {% assign tag_value = tag %}
+            {% endif %}
+        		{% capture tag_text %}<span class="fa fa-times-circle"></span><span class="sr-only">{{ 'collections.filtering.tag_title_remove' | t: tag: tag_value }}</span> {{ tag_value }}{% endcapture %}
         		<li>{{ tag_text | link_to_remove_tag: tag }}</li>
       		{% endfor %}
         	</ul>
