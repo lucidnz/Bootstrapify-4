@@ -2,74 +2,28 @@
   {% assign parts = content_sections | split: '<h2' %}
 {% endunless %}
 
+{% assign content_sections_description = null %}
+{% capture content_sections_output %}{% endcapture %}
 
-
-{% assign parts = null %}
-
-
-
-
-
-{% comment TODO: this! %}{% endcomment %}
-
-
-
-
-
-
-
-
-
-
-
-----
-{% comment %}
-{% if settings.product_description_tabs and product_description contains '<h2' %}
-
-  {% assign tab_count = 0 %}
-  {% assign tab_title_list = '|' %}
-  {% capture tab_titles %}{% endcapture %}
-  {% capture tab_contents %}{% endcapture %}
-
-  {% assign tabs = product_description | split: '<h2' %}
-  {% for tab in tabs %}
-    {% assign tab_parts = tab | split: '</h2>' %}
-    {% assign tab_title = tab_parts.first | split: '>' | last %}
-    {% assign tab_handle = tab_title | handleize %}
-    {% capture tab_content %}
-      {% comment %}{{ tab_parts.first | prepend: '<h2' | append: '</h2>' }}{% endcomment %}
-      {{ tab_parts.last }}
-    {% endcapture %}
-    
-    {% if tab_title == blank %}
-      {% assign first_block = tab_parts.last %}
-    {% else %}
-      {% assign tab_count = tab_count | plus: 1 %}
-      {% assign tab_title_list = tab_title_list | prepend: '|' | prepend: tab_handle %}
-
-      {% capture tab_titles %}
-        {{ tab_titles }}
-        <li{% if tab_count == 1 %} class="active"{% endif %}><a href="#{{ tab_handle | prepend: 'tab-' }}" data-toggle="tab">{{ tab_title }}</a></li>
-      {% endcapture %}
-
-      {% capture tab_contents %}
-        {{ tab_contents }}
-        <div class="tab-pane fade{% if tab_count == 1 %} in active{% endif %}" id="{{ tab_handle | prepend: 'tab-' }}">
-          {{ tab_content }}
+{% for section in parts %}
+  {% assign section_parts = section | split: '</h2>' %}
+  {% assign section_title = section_parts.first | split: '>' | last %}
+  {% assign section_content = section_parts.last  %}
+  
+  {% if forloop.first and section_content != blank %}
+    {% assign content_sections_description = section %}
+  {% else %}
+    {% capture content_sections_output %}
+      {{ content_sections_output }}
+      <section class="product-section product-section-{{ forloop.index0 }}" id="{{ section_title | handle }}">
+        <div class="sheet">
+          {% capture section_content_for_split %}
+            <h2>{{ section_title }}</h2>
+            {{ section_content }}
+          {% endcapture %}
+          {% include 'content_split' with section_content_for_split %}
         </div>
-      {% endcapture %}
-    {% endif %}
-  {% endfor %}
-  
-  {{ first_block }}
-  
-  <ul class="nav nav-tabs">
-    {{ tab_titles }}
-  </ul>
-  <div class="tab-content">
-    {{ tab_contents }}
-  </div>
-{% else %}
-  <div itemprop="description">{{ product_description }}</div>
-{% endif %}
-{% endcomment %}
+      </section>
+    {% endcapture %}
+  {% endif %}
+{% endfor %}
