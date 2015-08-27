@@ -51,45 +51,54 @@ $homepage-section-alt-background: rgba(#000,.03);
 }
 
 @mixin adaptive-columns ( $column-selector ) {
-  /*
-    Display cols based on the amount of content in them:
-      1 item shows 1x12 col
-      2 items shows 2x6 cols
-      3 items shows 3x4 cols
-      4 or more items shows 4x3 cols
-      
-    You must pass in the column element selector to target. This helps keep the selector from getting all junked up if it's nested inside things
-  */
-  #{$column-selector} {
-    @include make-xs-column(12);
-    @include make-sm-column(6);
-    @include make-md-column(3);
-  }
-  
-  [data-group-size="0"] #{$column-selector},
-  [data-products-size="0"] #{$column-selector},
-  [data-collections-size="0"] #{$column-selector} {
-    display: none;
-  }
-
-  @for $i from 1 through 3 {
-    [data-group-size="#{$i}"] #{$column-selector},
-    [data-products-size="#{$i}"] #{$column-selector},
-    [data-collections-size="#{$i}"] #{$column-selector} {
-      @include make-sm-column(12 / $i);
-      @include make-md-column(12 / $i);
+  {% if settings.enable_adaptive_columns %}
+    /*
+      Display cols based on the amount of content in them:
+        1 item shows 1x12 col
+        2 items shows 2x6 cols
+        3 items shows 3x4 cols
+        4 or more items shows 4x3 cols
+        
+      You must pass in the column element selector to target. This helps keep the selector from getting all junked up if it's nested inside things
+    */
+    #{$column-selector} {
+      @include make-xs-column(12);
+      @include make-sm-column(6);
+      @include make-md-column(3);
     }
-  }
+    
+    [data-group-size="0"] #{$column-selector},
+    [data-products-size="0"] #{$column-selector},
+    [data-collections-size="0"] #{$column-selector} {
+      display: none;
+    }
   
-  [data-group-size="5"] #{$column-selector},
-  [data-products-size="5"] #{$column-selector},
-  [data-collections-size="5"] #{$column-selector},
-  [data-group-size="6"] #{$column-selector},
-  [data-products-size="6"] #{$column-selector},
-  [data-collections-size="6"] #{$column-selector} {
-    @include make-sm-column(6);
-    @include make-md-column(4);
-  }
+    @for $i from 1 through 3 {
+      [data-group-size="#{$i}"] #{$column-selector},
+      [data-products-size="#{$i}"] #{$column-selector},
+      [data-collections-size="#{$i}"] #{$column-selector} {
+        @include make-sm-column(12 / $i);
+        @include make-md-column(12 / $i);
+      }
+    }
+    
+    [data-group-size="5"] #{$column-selector},
+    [data-products-size="5"] #{$column-selector},
+    [data-collections-size="5"] #{$column-selector},
+    [data-group-size="6"] #{$column-selector},
+    [data-products-size="6"] #{$column-selector},
+    [data-collections-size="6"] #{$column-selector} {
+      @include make-sm-column(6);
+      @include make-md-column(4);
+    }
+  {% else %}
+    #{$column-selector} {
+      @include make-xs-column(12 / {{ settings.col_count_xs | times: 1 }});
+      @include make-sm-column(12 / {{ settings.col_count_sm | times: 1 }});
+      @include make-md-column(12 / {{ settings.col_count_md | times: 1 }});
+      @include make-lg-column(12 / {{ settings.col_count_lg | times: 1 }});
+    }
+  {% endif %}
 }
 
 @mixin hover-captions {

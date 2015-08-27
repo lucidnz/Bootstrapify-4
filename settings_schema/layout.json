@@ -31,6 +31,76 @@
       ],
       "default": "header_layout_centered",
       "info": "You can see each option here [TODO: add link]"
+    },
+    {
+      "type": "header",
+      "content": "Column Layout"
+    },
+    {
+      "type": "paragraph",
+      "content": "If adaptive columns is enabled then column widths will be calculated based on the amount of the items in each collection. This will reduce the empty columns created by small amounts of content."
+    },
+    {
+      "type": "paragraph",
+      "content": "If disabled then column widths will use the below settings. Products, collections and homepage content will all be effected by these settings."
+    },
+    {
+      "label": "Enable adaptive columns",
+      "id": "enable_adaptive_columns",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "label": "Xtra-small screen column count",
+      "id": "col_count_xs",
+      "type": "select",
+      "options": [
+        { "value": "1", "label": "1 column" },
+        { "value": "2", "label": "2 columns" },
+        { "value": "3", "label": "3 columns" },
+        { "value": "4", "label": "4 columns" },
+        { "value": "6", "label": "6 columns" }
+      ],
+      "default": "1"
+    },
+    {
+      "label": "Small screen column count",
+      "id": "col_count_sm",
+      "type": "select",
+      "options": [
+        { "value": "1", "label": "1 column" },
+        { "value": "2", "label": "2 columns" },
+        { "value": "3", "label": "3 columns" },
+        { "value": "4", "label": "4 columns" },
+        { "value": "6", "label": "6 columns" }
+      ],
+      "default": "2"
+    },
+    {
+      "label": "Medium screen column count",
+      "id": "col_count_md",
+      "type": "select",
+      "options": [
+        { "value": "1", "label": "1 column" },
+        { "value": "2", "label": "2 columns" },
+        { "value": "3", "label": "3 columns" },
+        { "value": "4", "label": "4 columns" },
+        { "value": "6", "label": "6 columns" }
+      ],
+      "default": "4"
+    },
+    {
+      "label": "Large screen column count",
+      "id": "col_count_lg",
+      "type": "select",
+      "options": [
+        { "value": "1", "label": "1 column" },
+        { "value": "2", "label": "2 columns" },
+        { "value": "3", "label": "3 columns" },
+        { "value": "4", "label": "4 columns" },
+        { "value": "6", "label": "6 columns" }
+      ],
+      "default": "4"
     }
   ]
 }
