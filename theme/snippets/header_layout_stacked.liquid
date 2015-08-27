@@ -1,63 +1,58 @@
 {% include '_has_menu' %}
 
 <div id="header-layout-stacked">
-  <div class="navbar navbar-static-top">
-    <div class="header-top-menu">
-      {% capture navbar_content %}
-        {% if has_menu %}
-          {% unless settings.main_menu_linklist == blank %}
-            <div class="header-layout-sm visible-xs-block">
-              {% assign nav_classes = 'nav navbar-nav' %}
-              {% include 'nav_list' with settings.main_menu_linklist %}
-            </div>
-          {% endunless %}
+  
+  <div class="header-layout-sm visible-xs-block">
+    {% include 'header_component_mobile_navbar' %}
+  </div>
+  
+  <div class="header-layout-lg hidden-xs">
+    <div class="navbar">
+      <div class="header-top-menu">
+        {% capture navbar_content %}
+          {% if has_menu %}
+            {% unless settings.secondary_menu_linklist == blank %}
+              {% assign nav_classes = 'nav navbar-nav navbar-left' %}
+              {% include 'nav_list' with settings.secondary_menu_linklist %}
+            {% endunless %}
+            
+            {% assign form_classes = 'navbar-form navbar-right' %}
+            {% assign form_size = 'sm' %}
+            {% include 'search_form' %}
+            
+            {% assign nav_classes = 'nav navbar-nav navbar-right' %}
+            {% assign nav_list_items = 'accounts' %}
+            {% include 'nav_list' with settings.tertiary_menu_linklist %}
+          {% else %}
           
-          {% unless settings.secondary_menu_linklist == blank %}
-            {% assign nav_classes = 'nav navbar-nav navbar-left' %}
-            {% include 'nav_list' with settings.secondary_menu_linklist %}
-          {% endunless %}
-          
-          {% assign form_classes = 'navbar-form navbar-right' %}
-          {% assign form_size = 'sm' %}
-          {% include 'search_form' %}
-          
-          {% assign nav_classes = 'nav navbar-nav navbar-right' %}
-          {% assign nav_list_items = 'accounts' %}
-          {% include 'nav_list' with settings.tertiary_menu_linklist %}
-          
-        {% else %}
-          <div class="header-layout-sm visible-xs-block">
-            {% assign nav_classes = 'nav navbar-nav' %}
-            {% include 'nav_list' with 'main-menu' %}
-          </div>
-          
-          {% assign form_classes = 'navbar-form navbar-right' %}
-          {% assign form_size = 'sm' %}
-          {% include 'search_form' %}
-          
-          {% assign nav_classes = 'nav navbar-nav navbar-right' %}
-          {% assign nav_list_items = 'accounts,cart' %}
-          {% include 'nav_list' %}
-          
-        {% endif %}
-      {% endcapture %}
-      {% assign include_cart_in_header = true %}
-      {% include 'header_component_navbar' %}
-    </div>
-    
-    <div class="header-main-menu hidden-xs">
-      {% capture navbar_content %}
-        {% assign nav_classes = 'nav navbar-nav' %}
-        {% if has_menu %}
-          {% include 'nav_list' with settings.main_menu_linklist %}
-        {% else %}
-          {% include 'nav_list' with 'main-menu' %}
-        {% endif %}
-      {% endcapture %}
+            {% assign form_classes = 'navbar-form navbar-right' %}
+            {% assign form_size = 'sm' %}
+            {% include 'search_form' %}
+            
+            {% assign nav_classes = 'nav navbar-nav navbar-right' %}
+            {% assign nav_list_items = 'accounts,cart' %}
+            {% include 'nav_list' %}
+            
+          {% endif %}
+        {% endcapture %}
+        {% assign navbar_classes = 'navbar navbar-static-top' %}
+        {% include 'header_component_navbar' %}
+      </div>
       
-      {% assign include_header = false %}
-      {% assign navbar_classes = 'navbar navbar-default' %}
-      {% include 'header_component_navbar' %}
+      <div class="header-main-menu hidden-xs">
+        {% capture navbar_content %}
+          {% assign nav_classes = 'nav navbar-nav' %}
+          {% if has_menu %}
+            {% include 'nav_list' with settings.main_menu_linklist %}
+          {% else %}
+            {% include 'nav_list' with 'main-menu' %}
+          {% endif %}
+        {% endcapture %}
+        
+        {% assign include_header = false %}
+        {% assign navbar_classes = 'navbar navbar-default navbar-static-top' %}
+        {% include 'header_component_navbar' %}
+      </div>
     </div>
   </div>
 </div>

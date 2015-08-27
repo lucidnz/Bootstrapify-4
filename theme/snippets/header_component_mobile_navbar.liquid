@@ -1,0 +1,38 @@
+{% comment note: Mobile and small screen nav %}{% endcomment %}
+{% capture navbar_content %}
+  
+  {% comment note: fallback for if no menus are set %}{% endcomment %}
+  {% if has_menu %}
+    {% unless settings.main_menu_linklist == blank %}
+      {% assign nav_classes = 'nav navbar-nav' %}
+      {% include 'nav_list' with settings.main_menu_linklist %}
+    {% endunless %}
+    
+    {% unless settings.secondary_menu_linklist == blank %}
+      {% assign nav_classes = 'nav navbar-nav' %}
+      {% include 'nav_list' with settings.secondary_menu_linklist %}
+    {% endunless %}
+    
+    {% assign nav_classes = 'nav navbar-nav' %}
+    {% assign nav_list_items = 'accounts' %}
+    {% include 'nav_list' with settings.tertiary_menu_linklist %}
+    
+    {% assign form_classes = 'navbar-form' %}
+    {% include 'search_form' %}
+    
+  {% else %}
+    {% assign nav_classes = 'nav navbar-nav' %}
+    {% include 'nav_list' with 'main-menu' %}
+    
+    {% assign nav_classes = 'nav navbar-nav' %}
+    {% assign nav_list_items = 'accounts' %}
+    {% include 'nav_list' %}
+    
+    {% assign form_classes = 'navbar-form' %}
+    {% include 'search_form' %}
+    
+  {% endif %}
+{% endcapture %}
+{% assign navbar_classes = 'navbar navbar-default' %}
+{% assign include_cart_in_header = true %}
+{% include 'header_component_navbar' %}
