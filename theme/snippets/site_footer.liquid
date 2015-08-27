@@ -1,7 +1,7 @@
-{% comment %}
+{% comment note:
   Loop the footer settings and check if we have content for each col.
   If we do then build up that content and display it
-{% endcomment %}
+ %}{% endcomment %}
 
 {% capture footer_content %}{% endcapture %}
 {% assign max_col_count = 0 %}
@@ -28,10 +28,14 @@
   {% assign footer_col_newsletter_key = footer_col | append: '_newsletter' %}
   {% assign footer_col_newsletter = settings[footer_col_newsletter_key] %}
 
-  {% if footer_col_text != blank or footer_col_blog.articles != blank or footer_col_linklist.links != blank or footer_col_social or footer_col_newsletter %}
-    {% comment %}
-      We have footer content so collect it
-    {% endcomment %}
+  {% assign footer_col_payment_icons_key = footer_col | append: '_payment_icons' %}
+  {% assign footer_col_payment_icons = settings[footer_col_payment_icons_key] %}
+  {% if footer_col_payment_icons and shop.enabled_payment_types.size == 0 %}
+    {% assign footer_col_payment_icons = false %}
+  {% endif %}
+
+  {% if footer_col_text != blank or footer_col_blog.articles != blank or footer_col_linklist.links != blank or footer_col_social or footer_col_newsletter or footer_col_payment_icons %}
+    {% comment note: We have footer content so collect it %}{% endcomment %}
 
     {% if footer_col_text != blank %}
       {% capture footer_col_content %}
@@ -51,10 +55,10 @@
         {{ footer_col_content }}
         <div class="footer-linklist">
           {% unless footer_col_linklist.title == 'Footer' %}<h4>{{ footer_col_linklist.title }}</h4>{% endunless %}
-          {% comment %}
+          {% comment note:
             Nav list accepts the string name of the link_list, not the link_list object
             We also disable dropdowns here
-          {% endcomment %}
+           %}{% endcomment %}
           {% include 'link_list' with footer_col_linklist_setting %}
         </div>
       {% endcapture %}
@@ -81,13 +85,24 @@
         </div>
       {% endcapture %}
     {% endif %}
-
+    
+    {% if footer_col_payment_icons %}
+      {% capture footer_col_content %}
+        {{ footer_col_content }}
+        <div class="footer-payment-icons">
+          {% for type in shop.enabled_payment_types %}
+            <img src="{{ type | payment_type_img_url }}" />
+          {% endfor %}
+        </div>
+      {% endcapture %}
+    {% endif %}
+    
     {% assign max_col_count = forloop.index %}
   {% endif %}
 
-  {% comment %}
+  {% comment note:
     Capture each col weather it has content or not so we can include empty cols if they are in between ones with content.
-  {% endcomment %}
+   %}{% endcomment %}
 
   {% capture footer_content %}
     {% unless footer_content == blank %}{{ footer_content }}[SPLIT]{% endunless %}
@@ -97,10 +112,10 @@
   {% endcapture %}
 {% endfor %}
 
-{% comment %}
+{% comment note:
   Output col up to the max col so that we get blank ones if they exist in between ones with content
   but not if they are blank _after_ the content
-{% endcomment %}
+ %}{% endcomment %}
 {% if max_col_count > 0 %}
 <section class="footer-content" data-col-count="{{ max_col_count }}">
   <div class="sheet">
