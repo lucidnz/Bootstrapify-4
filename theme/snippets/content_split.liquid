@@ -1,42 +1,48 @@
-{% comment TODO: retain alt attrs from images %}{% endcomment %}
+{% comment Note:
 
-{% if content_split contains '<img' %}
-  {% capture content %}{% endcapture %}
-  {% capture images %}{% endcapture %}
+  Takes a block of content, separates out the images from the text and then wraps
+  them in markup so that they can be displayed in columns side by side.
   
-  {% assign parts = content_split | split: '<img' %}
+  We split the content on tags and spaces then scan through it all looking for the things we want.
+  Why?! Because reasons!
 
-  {% for part in parts %}
-    {% if part contains 'src=' %}
-      {% assign img = part | split: 'src="' %}
-      {% assign img = img.last | split: '"' %}
-      {% assign img = img.first %}
-      {% capture images %}{{ images }}{% unless images == blank %}|{% endunless %}{{ img }}{% endcapture %}
-      
-    {% else %}
-      {% capture part_content %}{% endcapture %}
-      {% assign part_sections = part | split: '</p>' %}
-      {% for part_section in part_sections %}
-        {% unless forloop.last %}
-          {% capture part_content %}{{ part_content }}{{part_section}}</p>{% endcapture %}
-        {% endunless %}
-      {% endfor %}
-      {% capture content %}{{ content }}{{ part_content }}{% endcapture %}
+ %}{% endcomment %}
+ 
+{% comment note: Split content %}{% endcomment %}
+{% assign split = content_split | split:' ' | join:'~~' | replace: '>', '>~~' | replace: '<', '~~<' | split: '~~' %}
+
+{% comment note: Find all the images %}{% endcomment %}
+{% assign in_img = false %}
+{% capture images %}{% endcapture %}
+{% for s in split %}
+  {% unless s == blank %}
+    {% if s == '<img' %}
+      {% assign in_img = true %}
     {% endif %}
-  {% endfor %}
-
-  <div class="content-split">
-    <div class="content-split-text">
-      {{ content }}
-    </div>
-    <div class="content-split-images">
-      {% assign images = images | split: '|' %}
-      {% for image in images %}
-        <img src="{{ image }}" />
-      {% endfor  %}
-    </div>
+    {% if in_img %}
+      {% capture images %}{{ images }} {{ s }}{% endcapture %}
+    {% endif %}
+    {% if in_img and s contains '>' %}
+      {% assign in_img = false %}
+    {% endif %}
+  {% endunless %}
+{% endfor %}
+{% assign images = images | replace: ' <','~~<' | split: '~~' %}
+ 
+{% assign content = content_split %}
+{% for image in images %}
+  {% assign content = content | remove: image %}
+{% endfor %}
+{% assign content = content | remove: '<p></p>' %}
+ 
+{% comment note: Output content %}{% endcomment %}
+<div class="content-split">
+  <div class="content-split-text">
+    {{ content }}
   </div>
-
-{% else %}
-  {{ content_split }}
-{% endif %}
+  <div class="content-split-images">
+    {% for image in images %}
+      {{ image }}
+    {% endfor  %}
+  </div>
+</div>
