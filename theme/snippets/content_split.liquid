@@ -5,6 +5,7 @@
   {% capture images %}{% endcapture %}
   
   {% assign parts = content_split | split: '<img' %}
+
   {% for part in parts %}
     {% if part contains 'src=' %}
       {% assign img = part | split: 'src="' %}
