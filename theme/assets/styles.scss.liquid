@@ -8611,14 +8611,17 @@ body.search .search-results {
 */
 
 .content-split {
-  @include make-row();
-  
   .content-split-text {
+    @include make-xs-column(12);
     @include make-sm-column(8);
   }
   .content-split-images {
+    @include make-xs-column(12);
     @include make-sm-column(4);
   }
+}
+.content-full {
+  @include make-xs-column(12);
 }
 .homepage-section,
 .product-section {
