@@ -8388,10 +8388,12 @@ body.search .search-results {
     @include make-row();
     & ul {
       text-align: center;
+      @include make-xs-column(12);
       {% if is_centered %}
         @include make-sm-column(12);
       {% else %}
-        @include make-sm-column(6);
+        @include make-md-column(8);
+        @include make-lg-column(6);
       {% endif %}
     }
   }
