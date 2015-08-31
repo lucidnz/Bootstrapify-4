@@ -85,7 +85,7 @@
     },
     "form" : {
       "quantity" : "Quantity",
-      "after_product_added_message_html" : "<h4>Thanks! Your item <strong>&ldquo;{{ item_title }}&rdquo;</strong> was added to <a href='/cart'>the cart</a>.</h4><p><a href='/cart'>View your cart now</a> or <a href='/collections/all'>Continue&nbsp;shopping</a>.</p>",
+      "after_product_added_message_html" : "<h4>Thanks! Your item <strong>&ldquo;{{ item_title }}&rdquo;</strong> was added to <a href='/cart'>the cart</a>.</h4><p><a href='/cart'>View your cart now</a> or <a href='{{ collection_url }}'>Continue&nbsp;shopping</a>.</p>",
       "after_product_added_error_message_html" : "<h4>There was an error adding <strong>&ldquo;{{ item_title }}&rdquo;</strong> to <a href='/cart'>the cart</a>.</h4><p><em>{{ error_message }}</em></p><p>Please try again later, or feel free to <a href='/pages/contact'>contact us</a>.</p>",
       "item_title_seperator" : " — "
     },
@@ -93,8 +93,8 @@
       "view_product" : "View Product",
       "add_to_cart" : "Add to Cart",
       "adding_to_cart" : "Adding",
-      "added_to_cart" : "Added. Add Another",
-      "add_another" : "Add Another",
+      "added_to_cart" : "Added. Add Again",
+      "add_another" : "Add Again",
       "sold_out" : "Sold Out",
       "unavailable" : "Unavailable"
     },

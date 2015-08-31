@@ -13,7 +13,11 @@
 <div class="group-item-wrap">
   <div class="group-item group-item-list">
     <div class="group-item-image">
-      <a class="thumbnail" href="{{ p.url }}" title="{{ p.title | escape }}">
+      {% assign item_url = p.url %}
+      {% if collection %}
+        {% assign item_url = p.url | within: collection %}
+      {% endif %}
+      <a class="thumbnail" href="{{ item_url }}" title="{{ p.title | escape }}">
         {% if p.featured_image %}
           {% capture img_size %}{% if collection_size > 1 %}1024x1024{% else %}2048x2048{% endif %}{% endcapture %}
           {{ p.featured_image | img_url: img_size | img_tag: p.title }}
