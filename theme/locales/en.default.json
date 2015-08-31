@@ -110,6 +110,7 @@
     },
     "cart_page": {
       "page_title": "Cart",
+      "description": "",
       "empty_message_html": "<h3>Your cart is empty.<\/h3><p><a href='\/collections\/all'>Continue&nbsp;shopping<\/a><\/p>",
       "subtotal_title": "Subtotal",
       "shipping_note": "Shipping & taxes calculated at checkout",
