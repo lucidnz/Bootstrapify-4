@@ -10,22 +10,24 @@
   {% assign section_title = section_parts.first | split: '>' | last %}
   {% assign section_content = section_parts.last  %}
   
-  {% if forloop.first and section_content != blank %}
-    {% assign content_sections_description = section %}
-  {% else %}
-    {% capture content_sections_output %}
-      {{ content_sections_output }}
-      <section class="product-section product-section-{{ forloop.index0 }}" id="{{ section_title | handle }}">
-        <div class="sheet">
-          <div class="sheet-content">
-            {% capture section_content_for_split %}
-              <h2>{{ section_title }}</h2>
-              {{ section_content }}
-            {% endcapture %}
-            {% include 'content_split' with section_content_for_split %}
+  {% if section_content != blank %}
+    {% if forloop.first %}
+      {% assign content_sections_description = section %}
+    {% else %}
+      {% capture content_sections_output %}
+        {{ content_sections_output }}
+        <section class="product-section product-section-{{ forloop.index0 }}" id="{{ section_title | handle }}">
+          <div class="sheet">
+            <div class="sheet-content">
+              {% capture section_content_for_split %}
+                <h2>{{ section_title }}</h2>
+                {{ section_content }}
+              {% endcapture %}
+              {% include 'content_split' with section_content_for_split %}
+            </div>
           </div>
-        </div>
-      </section>
-    {% endcapture %}
+        </section>
+      {% endcapture %}
+    {% endif %}
   {% endif %}
 {% endfor %}
