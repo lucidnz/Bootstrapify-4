@@ -104,8 +104,15 @@
       "email_body" : "Hey, I was just looking at {{ product_title }} on {{ shop_name }} and wanted to share it with you. Checkout {{ url }}."
     },
     "navigation": {
-      "previous_product_link_html": "<span class='fa fa-chevron-left'></span> Previous Product",
-      "next_product_link_html": "Next Product <span class='fa fa-chevron-right'></span>"
+      "previous_product_link_html": {
+        "zero": "<span class='fa fa-chevron-left'></span> Previous product",
+        "other": "<span class='fa fa-chevron-left'></span> {{ previous_product_title }}"
+      },
+      "next_product_link_html": {
+        "zero": "Next product <span class='fa fa-chevron-right'></span>",
+        "other": "{{ next_product_title }} <span class='fa fa-chevron-right'></span>"
+      },
+      "collection_link_html": "{{ collection_title }}"
     }
   },
   "cart": {
