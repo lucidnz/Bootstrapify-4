@@ -229,7 +229,7 @@ body.search .search-results {
       margin: auto;
     }
     {% unless is_centered %}
-    @media (min-width: $grid-float-breakpoint) {
+    @media (min-width: $screen-sm-min) {
       margin-top: ($line-height-computed * 2); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
     }
     {% endunless %}
@@ -238,26 +238,26 @@ body.search .search-results {
   {% if settings.product_image_layout == 'left' %}
     .product-header, .product-content {
       @include make-sm-column(6);
-      @media (min-width: $grid-float-breakpoint) {
+      @media (min-width: $screen-sm-min) {
         float: right;
       }
     }
     .product-images {
       @include make-sm-column(6);
-      @media (min-width: $grid-float-breakpoint) {
+      @media (min-width: $screen-sm-min) {
         float: left;
       }
     }
   {% elsif settings.product_image_layout == 'right' %}
     .product-header, .product-content {
       @include make-sm-column(6);
-      @media (min-width: $grid-float-breakpoint) {
+      @media (min-width: $screen-sm-min) {
         float: left;
       }
     }
     .product-images {
       @include make-sm-column(6);
-      @media (min-width: $grid-float-breakpoint) {
+      @media (min-width: $screen-sm-min) {
         float: right;
       }
     }
@@ -267,7 +267,7 @@ body.search .search-results {
     }
     .product-details, .product-description {
       @include make-sm-column(6);
-      @media (min-width: $grid-float-breakpoint) {
+      @media (min-width: $screen-sm-min) {
         float: right;
       }
     }
