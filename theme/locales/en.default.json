@@ -102,6 +102,10 @@
       "twitter_message" : "Check out {{ product_title }} — {{ url }} (via {{ handle }})",
       "email_subject" : "Check out {{ product_title }} on {{ shop_name }}",
       "email_body" : "Hey, I was just looking at {{ product_title }} on {{ shop_name }} and wanted to share it with you. Checkout {{ url }}."
+    },
+    "navigation": {
+      "previous_product_link_html": "<span class='fa fa-chevron-left'></span> Previous Product",
+      "next_product_link_html": "Next Product <span class='fa fa-chevron-right'></span>"
     }
   },
   "cart": {

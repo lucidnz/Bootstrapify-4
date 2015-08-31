@@ -115,11 +115,22 @@
           <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
         </section>
   
-        <section class="product-description" itemprop="description">
+        <section class="product-description">
           {% include 'product_description' with product.description %}
         </section>
       </div>
-
+        
+      {% if collection %}
+      <section class="product-navigation">
+        <nav>
+          <ul class="pager">
+            <li class="previous{% unless collection.previous_product %} disabled{% endunless %}">{{ 'products.navigation.previous_product_link_html' | t | link_to: collection.previous_product }}</a></li>
+            <li><a href="{{ collection.url }}">{{ collection.title }}</a></li>
+            <li class="next{% unless collection.next_product %} disabled{% endunless %}">{{ 'products.navigation.next_product_link_html' | t | link_to: collection.next_product }}</li>
+          </ul>
+        </nav>
+      </section>
+      {% endif %}
     </div>
   </div>
   {% if product_description_sections != blank %}
