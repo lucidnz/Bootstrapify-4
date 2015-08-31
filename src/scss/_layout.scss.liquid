@@ -488,13 +488,13 @@ body.search .search-results {
 /*
   Page
 */
-
 .page-contact {
   .sheet-content {
     @include make-row();
   }
 
   .page-content, .contact-content {
+    @include make-xs-column(12);
     @include make-sm-column(6);
   }
   .page-content {
@@ -524,24 +524,26 @@ body.search .search-results {
   Sections
 */
 
-.content-split {
-  .content-split-text {
-    @include make-xs-column(12);
-    @include make-sm-column(8);
-  }
-  .content-split-images {
-    @include make-xs-column(12);
-    @include make-sm-column(4);
-  }
-}
-.content-full {
-  @include make-xs-column(12);
-}
 .homepage-section,
 .product-section {
   padding: $grid-gutter-width 0;
   .sheet-content {
+    @include make-row();
     margin-bottom: 0;
+  }
+  
+  .content-split {
+    .content-split-text {
+      @include make-xs-column(12);
+      @include make-sm-column(8);
+    }
+    .content-split-images {
+      @include make-xs-column(12);
+      @include make-sm-column(4);
+    }
+  }
+  .content-full {
+    @include make-xs-column(12);
   }
   
   &:nth-of-type(odd) {
