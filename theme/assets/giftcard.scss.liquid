@@ -8204,1238 +8204,712 @@ table {
     margin-bottom: 0.5em;
   }
 }
-/*
-  Sticky footer
-  Display table breaks full width content due to images without max-width:100%; so don't use it on mobiles
-  I know, you're asking 'whut?! why is this even a thing?' but there is some javascript thing involved
-  (*cough* uniformThumbs for constraining images *cough*)
-*/
-@media (min-width: $grid-float-breakpoint) {
-  html,
-  body { height: 100%; }
-   
-  body {
+/*============================================================================
+  Table of Contents
+
+  #General Variables
+  #Sass Mixins
+  #Base Styles
+  #Media Queries
+  #Print Styles
+  #Keyframe Animations
+==============================================================================*/
+
+/*============================================================================
+  #General Variables
+==============================================================================*/
+// Timber Colors
+$colorBody: $body-bg; //{{ settings.color_body_bg }};
+$colorBorder: $modal-content-border-color; //{{ settings.color_borders }};
+
+// Gift Card Colors
+$colorGiftText: #999; // note, this is always on a white background
+$colorGiftBorder: $brand-primary; //{{ settings.color_primary }};
+
+// Sizes
+$gutter: 30px;
+
+/*============================================================================
+  #Sass Mixins
+    - Copied from timber.scss.liquid
+==============================================================================*/
+.clearfix {
+  &:after {
+    content: "";
     display: table;
-    width: 100%;
-  }
-   
-  .site-content, .site-footer {
-    display: table-row;
-    height: 1px;
-  }
-   
-  .site-content { height: 100%; }
-}
-/*
-  Base Layouts and Grids
-*/
-
-.sheet {
-  @include container;
+    clear: both; }
+  *zoom: 1;
 }
 
-.sheet-content {
-  margin-bottom: $line-height-computed * 2;
+@mixin clearfix() {
+  &:after {
+    content: "";
+    display: table;
+    clear: both; }
+  *zoom: 1;
 }
 
-.group,
-.list {
-  @include make-row();
-  @include columns('.group-item-wrap');
+@mixin prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+  -moz-#{$property}: #{$value};
+  -ms-#{$property}: #{$value};
+  -o-#{$property}: #{$value};
+  #{$property}: #{$value};
 }
 
-.list-item-wrap {
-  @include make-xs-column(12);
+/*============================================================================
+  #Base Styles
+==============================================================================*/
+header, nav, section, article, aside, footer {
+  display:block;
 }
 
-.group-item {
-  img {
-    margin-left: auto;
-    margin-right: auto;
+.template-giftcard,
+.template-giftcard body {
+  background: $colorBody;
+
+  a {
+    text-decoration: none;
   }
 }
 
-.group-item-title {
-  margin-top: $grid-gutter-width / 2;
-  margin-bottom: $grid-gutter-width / 2;
-}
+.template-giftcard .wrapper {
+  max-width: 588px;
+  margin: auto;
+  text-align: center;
 
-.group-item-buttons {
-  margin-top: $grid-gutter-width / 2;
-}
-
-table {
-  .money {
-    text-align: right;
+  img, object, iframe {
+    max-width: 100%;
   }
 }
 
-footer {
-  overflow: hidden;
-
-  .sheet-content {
-    @include make-row();
-    margin-bottom: 0;
-  }
-
-  .footer-content,
-  .site-credits {
-    margin: $grid-gutter-width / 2 auto;
-  }
-
-  [data-col-count="0"] {
-    display: none;
-  }
-
-  @for $i from 1 through 4 {
-    [data-col-count="#{$i}"] {
-      [class*="footer-col"] {
-        @include make-sm-column(12 / $i);
-      }
-    }
-  }
-
-  .site-credits {
-    text-align: center;
-    @media (min-width: $grid-float-breakpoint) {
-      br {
-        display: none;
-      }
-    }
-  }
+.giftcard-header {
+  padding: ($gutter * 2) 0;
+  font-size: 1em;
+  text-align: center;
+  -webkit-animation: fadein 0.5s ease-in-out both 0.4s;
+  animation: fadein 0.5s ease-in-out both 0.4s;
 }
 
-/*
-  Default page specific layouts
-*/
-
-// all collection templates
-body[class*="collection"] {
-  .sheet-content {
-    @include make-row();
-  }
-  .collection-message {
-    @include make-sm-column(12);
-  }
+.shop-url {
+  display: none;
 }
 
-body.collection-list,
-body.search .search-results {
-  // override the grid cols so that we have a list form
-  .products {
-    .group-item-wrap {
-      @include make-xs-column(12);
-      @include make-sm-column(12);
-      @include make-md-column(12);
-      @include make-lg-column(12);
-      
-      margin-bottom: $grid-gutter-width;
-      @media (min-width: $grid-float-breakpoint) {
-        margin-bottom: $grid-gutter-width / 2;
-      }
-    }
-    .group-item {
-      @include make-row();
-    };
-    .group-item-image {
-      @include make-sm-column(3);
-    }
-    .group-item-details {
-      text-align: left;
-      @include make-sm-column(9);
-    }
-    .product-price {
-      margin-right: 0.5em;
-    }
-  }
+.giftcard {
+  -webkit-animation: slideup 0.8s ease-in-out;
+  animation: slideup 0.8s ease-in-out
 }
 
-.collection-lookbook {
-  // we need to undo the sticky footer to get this to work properlly because the images are hidden off the page and display:table mucks things up
-  display: block;
-  .site-content, .site-footer {
-    display: block;
-    height: auto;
-  }
-
-  // Image scroller
-  .js & .products-wrap {
-    // make the products span the whole of the page but hide the ones that go off the edge
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    opacity: 0;
-    margin-bottom: $line-height-computed * 2;
-
-    .group-item-wrap {
-      background-color: #fff; // TODO: use site background color
-      transition: margin 1s ease;
-      // override grid cols for lookbook
-      @include make-xs-column(3);
-      @include make-sm-column(3);
-      @include make-md-column(3);
-      @include make-lg-column(3);
-
-      width: $lookbook-item-max-width-xs;
-      @media (orientation: portrait) {
-        width: $lookbook-item-max-width-sm;
-      }
-      @media (min-width: $screen-sm-min) {
-        width: $lookbook-item-max-width-sm;
-      }
-      @media (min-width: $screen-md-min) and (min-height: $lookbook-min-height-md) {
-        width: $lookbook-item-max-width-md;
-      }
-      @media (min-width: $screen-lg-min) and (min-height: $lookbook-min-height-lg) {
-        width: $lookbook-item-max-width-lg;
-      }
-    }
-
-    [data-gallery-direction] {
-      position: absolute;
-      font-size: 2.75em;
-      color: rgba(255,255,255,.5);
-      text-shadow: 0px 1px 4px rgba(0,0,0,.3);
-      .no-touch &:hover {
-        color: #fff;
-      }
-    }
-
-    [data-gallery-direction] {
-      top: 50%;
-      -webkit-transform: translateY(-50%);
-      -moz-transform: translateY(-50%);
-      transform: translateY(-50%);
-      &.disabled, &.disabled:hover {
-        color: rgba(0,0,0,.3);
-        text-shadow: none;
-        cursor: not-allowed;
-      }
-    }
-
-    [data-gallery-direction="left"] {
-      left: 2.5%;
-    }
-
-    [data-gallery-direction="right"] {
-      right: 2.5%;
-    }
-  }
-  .touch & {
-    .lookbook-controls {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .collection-controls,
-    .group-item-details {
-      position: relative;
-      z-index: 1;
-    }
-  }
+.giftcard__border {
+  background-color: $colorGiftBorder;
+  border-radius: 4px;
+  border: 1px solid darken($colorGiftBorder, 5%);
+  padding: 1em;
+  -webkit-animation: container-slide 0.8s ease-in-out;
+  animation: container-slide 0.8s ease-in-out
 }
 
-.product {
-  {% assign centered = false %}
-  {% if settings.product_image_layout == 'center' %}
-    {% assign is_centered = true %}
-  {% endif %}
-
-  .sheet-content, .product-details-content {
-    @include make-row();
-  }
-
-  .product-header, .product-images, .product-details, .product-description {
-    margin-bottom: $line-height-computed;
-  }
-
-  .product-images {
-    text-align: center;
-    img {
-      margin: auto;
-    }
-    {% unless is_centered %}
-    @media (min-width: $screen-sm-min) {
-      margin-top: ($line-height-computed * 2); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
-    }
-    {% endunless %}
-  }
-
-  {% if settings.product_image_layout == 'left' %}
-    .product-header, .product-content {
-      @include make-sm-column(6);
-      @media (min-width: $screen-sm-min) {
-        float: right;
-      }
-    }
-    .product-images {
-      @include make-sm-column(6);
-      @media (min-width: $screen-sm-min) {
-        float: left;
-      }
-    }
-  {% elsif settings.product_image_layout == 'right' %}
-    .product-header, .product-content {
-      @include make-sm-column(6);
-      @media (min-width: $screen-sm-min) {
-        float: left;
-      }
-    }
-    .product-images {
-      @include make-sm-column(6);
-      @media (min-width: $screen-sm-min) {
-        float: right;
-      }
-    }
-  {% elsif settings.product_image_layout == 'center' %}
-    .product-header, .product-images {
-      @include make-sm-column(12);
-    }
-    .product-details, .product-description {
-      @include make-sm-column(6);
-      @media (min-width: $screen-sm-min) {
-        float: right;
-      }
-    }
-  {% endif %}
-  
-  .product-navigation {
-      @include make-xs-column(12);
-  }
-
-  .product-price {
-    margin-top: $line-height-computed / 2;
-    margin-bottom: $line-height-computed;
-    @include make-sm-column(12);
-  }
-
-  .add-to-cart-message {
-    @include make-sm-column(12);
-  }
-
-  .add-to-cart-form {
-    margin-bottom: $line-height-computed;
-    @include make-xs-column(12);
-    {% if is_centered %}
-      @include make-sm-column(12);
-    {% else %}
-      @include make-md-column(8);
-      @include make-lg-column(6);
-    {% endif %}
-  }
-
-  .social-share-links {
-    @include make-row();
-    & ul {
-      text-align: center;
-      @include make-xs-column(12);
-      {% if is_centered %}
-        @include make-sm-column(12);
-      {% else %}
-        @include make-md-column(8);
-        @include make-lg-column(6);
-      {% endif %}
-    }
-  }
-
-  .product-image-main {
-    margin-bottom: $grid-gutter-width;
-  }
-  .product-image-thumbs {
-    @include make-row();
-    li {
-      @include make-xs-column(6);
-      @include make-sm-column(3);
-      margin-bottom: $grid-gutter-width;
-    }
-  }
+.giftcard__content {
+  @include clearfix;
+  background-color: #fff;
+  color: $colorGiftText;
+  border: 1px solid darken($colorGiftBorder, 5%);
+  border-radius: 3px;
+  -webkit-animation: cardslide 0.8s ease-in-out;
+  animation: cardslide 0.8s ease-in-out;
 }
 
-.cart {
-  .sheet-content {
-    @include make-row();
-  }
-
-  .cart-items,
-  .cart-details,
-  .cart-extras {
-    margin: $grid-gutter-width auto;
-  }
-
-  .cart-items {
-    @include make-xs-column(12);
-    margin-top: 0;
-  }
-
-  .cart-details {
-    @include make-xs-column(12);
-    @include make-sm-column(6);
-    @include make-md-column(4);
-    h3 {
-      margin-top: 0;
-      margin-bottom: $grid-gutter-width / 2;
-    }
-    .cart-shipping-note,
-    .cart-additional-buttons {
-      margin: ($grid-gutter-width / 2) auto;
-    }
-  }
-
-  .cart-extras {
-    @include make-xs-column(12);
-    @include make-sm-column(6);
-    @include make-md-column(8);
-
-    .cart-extras-content {
-      @include make-row();
-    }
-
-    .cart-instructions {
-      @include make-md-column(6);
-      textarea {
-        min-height: 6em;
-      }
-    }
-  }
-
-  .cart-message {
-    @include make-sm-column(12);
-  }
-
-  .cart-item-label-mini {
-    display: none;
-  }
-
-  .cart-item-quantity {
-    text-align: center;
-    .input-group {
-      max-width: 8em;
-      margin: auto;
-    }
-  }
-
-  // Display cart table as a list on mobiles
-  @media (max-width: $grid-float-breakpoint-max) {
-    .cart-table {
-      thead {
-        display: none;
-      }
-      table, tr, td {
-        display: block;
-      }
-      tr {
-        overflow: hidden;
-        border-bottom: 1px solid $table-border-color;
-      }
-      td {
-        border-top: none;
-      }
-      .cart-item {
-        text-align: center;
-      }
-      .cart-item-quantity,
-      .cart-item-price,
-      .cart-item-total {
-        display: inline-block;
-        vertical-align: middle;
-      }
-      .cart-item-label-mini {
-        display: inline;
-      }
-    }
-  }
-
-  @media (min-width: $grid-float-breakpoint) {
-    .cart-table td {
-      vertical-align: middle;
-    }
-    .cart-item a {
-      display: table-row;
-    }
-    .cart-item-image,
-    .cart-item-details {
-      display: table-cell;
-      vertical-align: middle;
-    }
-    .cart-item-image {
-      width: 35%;
-    }
-    .cart-item-details {
-      padding-left: $grid-gutter-width / 2;
-    }
-    .cart-item-quantity,
-    .cart-item-price,
-    .cart-item-total {
-      width: 20%;
-    }
-  }
-
+.giftcard__header {
+  @include clearfix;
+  border-bottom: 1px solid $colorBorder;
+  padding: $gutter / 2;
 }
 
-.customers-register,
-.customers-login,
-.customers-activate-account,
-.customers-reset-password {
-  main {
-    .sheet-header {
-      text-align: center;
-    }
-    
-    .sheet-content {
-      @include make-row();
-    }
-    
-    .sheet-content > div {
-      @include make-xs-column(10);
-      @include make-xs-column-offset(1);
-      @include make-sm-column(6);
-      @include make-sm-column-offset(3);
-    }
-  }
-}
-
-.customers-order {
-  .order-address-content {
-    @include make-row();
-  }
-  .order-billing,
-  .order-shipping {
-    @include make-sm-column(6);
-  }
-}
-
-.customers-addresses { 
-  .customer-addresses { 
-    @include make-row();
-  }
-  .customer-addresses-card {
-    @include make-md-column(6);
-  }
-  address,
-  .customer-addresses-edit-links {
-    margin-bottom: 0;
-  }
-}
-
-/*
-  Page
-*/
-.page-contact {
-  .sheet-content {
-    @include make-row();
-  }
-
-  .page-content, .contact-content {
-    @include make-xs-column(12);
-    @include make-sm-column(6);
-  }
-  .page-content {
-    @include make-sm-column-push(6);
-  }
-  .contact-content {
-    @include make-sm-column-pull(6);
-  }
-}
-
-/*
-  Homepage
-*/
-
-.homepage-section {
-  .page-header {
-    margin-top: 0;
-  }
-  
-  .banner {
-    margin-top: (0 - $grid-gutter-width);
-    margin-bottom: (0 - $grid-gutter-width);
-  }
-}
-
-/*
-  Sections
-*/
-
-.homepage-section,
-.product-section {
-  padding: $grid-gutter-width 0;
-  .sheet-content {
-    @include make-row();
-    margin-bottom: 0;
-  }
-  
-  .content-split {
-    .content-split-text {
-      @include make-xs-column(12);
-      @include make-sm-column(8);
-    }
-    .content-split-images {
-      @include make-xs-column(12);
-      @include make-sm-column(4);
-    }
-  }
-  .content-full {
-    @include make-xs-column(12);
-  }
-  
-  &:nth-of-type(odd) {
-    .content-split-text {
-      @include make-sm-column-push(4);
-    }
-    .content-split-images {
-      @include make-sm-column-pull(8);
-    }
-  }
-  
-  &:nth-child(even) {
-   background-color: $homepage-section-alt-background;
-  }
-}
-.product-section {
-  h2 {
-    margin-top: 0;
-  }
-}
-
-/*
-  Tabs
-*/
-
-.nav-tabs {
-  margin-top: $grid-gutter-width;
-  
-  & > li.active > a {
-    
-    &,
-    &:hover {
-      background-color: white;
-    }
-  }
-}
-
-.tab-pane {
-  padding: ($grid-gutter-width / 2);
-  border: 1px #ddd solid;
-  border-top: none;
-  background-color: white;
-  
-  h1, h2, h3, h4, h5, h6, p, ul, ol {
-    &:first-child {
-      margin-top: 0;
-    }
-  }
-}
-
-/*
-  Search
-*/
-.search-lg {
-  @include make-xs-column(12);
-  @include make-md-column(8);
-  @include make-md-column-offset(2);
-}
-
-.search,
-.not-found {    
-  .sheet-content {
-    @include make-row();
-  }
-  .search-message {
-    @include make-xs-column(12);
-  }
-}
-.read-more {
-  text-align: right;
+.giftcard__title {
+  float: left;
   margin-bottom: 0;
 }
 
-/*
-  Blog
-*/
-.blog-article {
-  margin-bottom: $grid-gutter-width;
-  footer {
-    margin-top: $grid-gutter-width;
-  }
-}
-.blog-article-content-wrap,
-.blog-article-comments {
-  @include make-row();
-}
-.blog-article-content {
-  @include make-xs-column(12);
-  @include make-sm-column(9);
-  @include make-sm-column-pull(3);
-  @include make-lg-column(10);
-  @include make-lg-column-pull(2);
-}
-.blog-article-meta {
-  line-height: 1.5em;
-  
-  @include make-xs-column(12);
-  @include make-sm-column(3);
-  @include make-sm-column-push(9);
-  @include make-lg-column(2);
-  @include make-lg-column-push(10);
-  
-  @media (max-width: $grid-float-breakpoint) {
-    ul li {
-      display: inline-block;
-      padding-left: ($grid-gutter-width / 4);
-      padding-right: ($grid-gutter-width / 4);
-      &:first-child {
-        margin-left: -($grid-gutter-width / 4);
-      }
-    }
-  }
-}
-.comments,
-.comments-form {
-  @include make-xs-column(12);
-  @include make-sm-column(9);
-  @include make-lg-column(6);
-  clear: both;
-}
-.comments {
-  margin-bottom: $grid-gutter-width;
-}
-/*
-  Styles for centered header layout snippet
-*/
-
-#header-layout-centered {
-  .header-logo {
-    text-align: center;
-    a {
-      overflow: hidden;
-      display: inline-block;
-      vertical-align: middle;
-    }
-    
-    {% unless settings.logo_max_height == blank %}
-    img {
-      max-height: {{ settings.logo_max_height }};
-    }
-    {% endunless %}
-  }
-  
-  .header-main-menu {
-    .navbar {
-      margin-top: $grid-gutter-width;
-      margin-bottom: 0;
-    }
-    .navbar-nav {
-      float: none;
-      text-align: center;
-    }
-    .navbar-nav > li {
-      float: none;
-      display: inline-block;
-    }
-    .navbar-nav > li > a {
-      display: inline-block;
-    }
-  }
-  
-  .header-top-menu {
-    .navbar-left:first-child {
-      margin-left: -($grid-gutter-width/2);
-    }
-  }
+.giftcard__tag {
+  display: block;
+  float: right;
+  background-color: lighten($colorGiftText, 10%);
+  border: 1px solid transparent;
+  color: #fff;
+  padding: $gutter / 3;
+  border-radius: 4px;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  line-height: 1;
 }
 
-/*
-  Styles for navbar header layout snippet
-*/
-
-#header-layout-navbar {  
-  .cart-link {
-    @media (min-width: $grid-float-breakpoint) {
-      display: none;
-    }
-  }
-  
-  .header-top-menu {
-    .navigation-cart {
-      @media (max-width: $grid-float-breakpoint) {
-        display: none;
-      }
-    }
-  }
-}
-#header-layout-stacked .header-layout-lg {
-  .navbar .navbar {
-    margin-bottom: 0;
-  }
-  
-  .navigation .navigation-cart {
-    display: none;
-    @media (min-width: $grid-float-breakpoint) {
-      display: block;
-    }
-  }
-  
-  .header-top-menu {
-    @media (min-width: $grid-float-breakpoint) {
-      font-size: .9em;
-      .navbar {
-        border: none;
-      }
-    }
-  }
-  
-  .header-main-menu {
-    .navbar-nav {
-      float: none;
-      text-align: center;
-    }
-    .navbar-nav > li {
-      float: none;
-      display: inline-block;
-    }
-    .navbar-nav > li > a {
-      display: inline-block;
-    }
-  }
-}
-/* General styles for all navigations */
-
-.navbar-brand img {
-  max-height: 200%;
-  margin-top: -25%;
+.giftcard__tag--active {
+  background: transparent;
+  color: $colorGiftText;
+  border: 1px solid lighten($colorGiftText, 20%);
 }
 
-.navbar-header {
-  .cart-link {
-    margin-right: 0;
-  }
-}
-
-.nav-inline {
-  li, li > a {
-    display: inline-block;
-  }
-}
-
-.collection-controls > div {
-  margin-bottom: ($grid-gutter-width / 2);
-}
-
-.collection-controls > div,
-.collection-filter-by > div {
-  float: left;
-  margin-right: 2px;
-  @media (min-width: $grid-float-breakpoint) {
-    float: right;
-    &:first-of-type {
-      margin-right: 0;
-    }
-  }
-}
-.collection-filter-by.collection-filter-style-button {
-  li strong {
-    display: block;
-    padding: $nav-link-padding;
-    padding-left: 0;
-  }
-  & > div {
-    margin-bottom: 0.25em;
-    @media (min-width: $grid-float-breakpoint) {
-      float: left;
-      margin-right: $grid-gutter-width;
-    }
-  }
-  $collection-controls-right-buffer: 350px + $grid-gutter-width;
-  @media (min-width: $grid-float-breakpoint) {
-    float: left;
-    max-width: $container-sm - $collection-controls-right-buffer;
-  }
-  @media (min-width: $screen-md-min) {
-    max-width: $container-md - $collection-controls-right-buffer;
-  }
-  @media (min-width: $screen-lg-min) {
-    max-width: $container-lg - $collection-controls-right-buffer;
-  }
-}
-
-.collection-sort-by,
-.collection-filter-by.collection-filter-style-dropdown {
-  .fa {
-    float: right;
-    padding: 0.2em 0;
-  }
-}
-
-.pagination-wrapper {
-  @include make-xs-column(12);
-  text-align: center;
-}
-
-.list-links {
-  li + li {
-    margin-top: 0.5em;
-  }
-}
-/*
-  TODO: SEE ISSUE https://github.com/luciddesign/Bootstrapify-4/issues/41
-.collection-banner {
-  {% if settings.collection_fullscreen_banner %}
-    img { width: 100%; }
-  {% else %}
-    @include container;
-  {% endif %}
-  
-  img { margin: 0 auto; }
-}
-*/
-
-.banner {
-  // create the fade transition
-  &.fade {
-    opacity: 1;
-  	.carousel-inner {
-  		.item {
-  			opacity: 0;
-  			transition-property: opacity;
-  		}
-  		.active {
-  			opacity: 1;
-  		}
-  		.active.left,
-  		.active.right {
-  			left: 0;
-  			opacity: 0;
-  			z-index: 1;
-  		}
-  		.next.left,
-  		.prev.right {
-  			opacity: 1;
-  		}
-  	}
-  }
-  
-  // center images inside the banner
-  // and make sure the fill the screen
-  img {
-    margin: auto;
-    width: 100%;
-  }
-}
-
-// Banner controls
-.carousel-control.left, .carousel-control.right {
-  background-image: none;
-  [class*=icon] {
-    font-family: FontAwesome;
-  }
-}
-
-/* Banner slides */
-{% comment note: Setup individual slide styles %}{% endcomment %}
-
-{% capture slides %}{% endcapture %}
-{% for i in (1..5) %}
-  
-  {% comment note: Create the scss vars for each slides settings %}{% endcomment %}
-  
-  {% assign slide_count = forloop.index %}
-  
-  {% assign slide = 'banner_slide_' | append: slide_count %}
-  {% assign slide_enabled_setting = slide | append: '_enabled' %}
-  {% assign slide_size_setting = slide | append: '_size' %}
-  {% assign slide_alignment_setting = slide | append: '_alignment' %}
-  {% assign slide_vertical_alignment_setting = slide | append: '_vertical_alignment' %}
-  {% assign slide_text_colour_setting = slide | append: '_text_colour' %}
-  {% assign slide_button_colour_setting = slide | append: '_button_colour' %}
-  {% assign slide_background_colour_setting = slide | append: '_background_colour' %}
-
-  $slide-{{ slide_count }}-enabled: {{ settings[slide_enabled_setting] | default: 'false' }};
-  $slide-{{ slide_count }}-size: {{ settings[slide_size_setting] | default: 'full_container' }};
-  $slide-{{ slide_count }}-alignment: {{ settings[slide_alignment_setting] | default: 'center' }};
-  $slide-{{ slide_count }}-vertical-alignment: {{ settings[slide_vertical_alignment_setting] | default: 'middle' }};
-  $slide-{{ slide_count }}-text-colour: {{ settings[slide_text_colour_setting] | default: '$text-color' }};
-  $slide-{{ slide_count }}-button-colour: {{ settings[slide_button_colour_setting] | default: '$btn-primary-bg' }};
-  $slide-{{ slide_count }}-background-colour: {{ settings[slide_background_colour_setting] | default: 'transparent' }};
-  
-  {% comment note: Capture the scss vars for use with a scss array %}{% endcomment %}
-
-  {% capture slides %}{{ slides }} ($slide-{{ slide_count }}-enabled $slide-{{ slide_count }}-size $slide-{{ slide_count }}-alignment $slide-{{ slide_count }}-vertical-alignment $slide-{{ slide_count }}-text-colour $slide-{{ slide_count }}-button-colour $slide-{{ slide_count }}-background-colour){% endcapture %}
-{% endfor %}
-
-// mixin for slides
-@mixin slide($slide-count, $slide-size, $slide-alignment, $slide-vertical-alignment, $slide-text-colour, $slide-button-bg-colour, $slide-background-colour){
-  [data-banner="#{$slide-count}"] {
-    
-    .banner-content-wrap {
-      position: relative;
-      @if $slide-size!= 'full_width' {
-        @include container;
-      }
-    }
-    
-    .banner-caption {
-      @include banner-caption-styles($slide-alignment, $slide-text-colour, $slide-button-bg-colour);
-    }
-    
-    .item {
-      background-color: $slide-background-colour;
-    }
-    
-    @if $slide-size == 'half_container_left' or $slide-size == 'half_container_right' {
-      .banner-content {
-        @include make-row();
-      }
-      
-      // cols
-      .banner-caption, .banner-image {
-        @include make-sm-column(6);
-      }
-      
-      // vertical align banner caption
-      @media (min-width: $grid-float-breakpoint) {
-        .banner-caption {
-          position: absolute;
-          @include banner-caption-vertical-align($slide-vertical-alignment);
-        }
-        .banner-image {
-          float: right;
-        }
-      }
-      
-      @if $slide-size == 'half_container_left' {
-        .banner-caption {
-          @include make-sm-column-push(6);
-        }
-        .banner-image {
-          @include make-sm-column-pull(6);
-        }
-      }
-      
-    } @else {
-      .banner-caption {
-        @include banner-caption-vertical-align($slide-vertical-alignment);
-      }
-      
-      .banner-image {
-        @include small-screen-banner-image;
-      }
-    }
-  }
-}
-
-@mixin small-screen-banner-image {
-  @media (max-width: $grid-float-breakpoint) {
-    overflow: hidden;
-    height: $banner-height-xs;
-    img {
-      max-width: none;
-      width: auto;
-      height: $banner-height-xs;
-      margin-left: 50%;
-      -webkit-transform: translateX(-50%);
-      -moz-transform: translateX(-50%);
-    	transform: translateX(-50%);
-    }
-  }
-  @media (max-width: $grid-float-breakpoint) and (orientation: landscape) {
-    height: $banner-height-xs-landscape;
-    img {
-      height: $banner-height-xs-landscape;
-    }
-  }
-}
-
-@mixin banner-caption-styles ($text-alignment, $text-colour, $button-bg-colour) {
-  text-align: $text-alignment;
-  color: $text-colour;
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: $text-colour;
-  }
-  .call-to-action {
-    $button-text-colour: button-text-color($button-bg-colour);
-    $button-border-colour: border-color($button-bg-colour);
-    @include button-variant($button-text-colour, $button-bg-colour, $button-border-colour);
-  }
-}
-
-@mixin banner-caption-vertical-align ($alignment) {
-  @if $alignment == 'top' {
-    top: 20px;
-    bottom: auto;
-  } @else if $alignment == 'bottom' {
-    top: auto;
-    bottom: 20px;
-  } @else {
-    top: 50%;
-    bottom: auto;
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-  	transform: translateY(-50%);
-  }
-}
-
-{% unless slides == blank %}
-// Styles for each slide
-$slides: {{ slides }};
-$slide-count: 1;
-
-@each $slide in $slides {
-  @if nth($slide, 1) == true {
-    @include slide($slide-count, nth($slide, 2), nth($slide, 3), nth($slide, 4), nth($slide, 5), nth($slide, 6), nth($slide, 7));
-    $slide-count: $slide-count + 1;
-  }
-}
-{% endunless %}
-
-/* Video Banner */
-.banner-video {
+.giftcard__wrap {
   position: relative;
-  .banner-caption {
-    $vb-text-alignment: {{ settings.video_banner_alignment | default: 'center' }};
-    $vb-text-colour: {{ settings.video_banner_text_colour | default: '$text-color' }};
-    $vb-button-bg-colour: {{ settings.video_banner_button_colour | default: '$btn-primary-bg' }};
-    $vb-vertical-alignment: {{ settings.video_banner_vertical_alignment | default: 'middle' }};
-    
-    @include banner-caption-vertical-align($vb-vertical-alignment);
-    @include banner-caption-styles($vb-text-alignment, $vb-text-colour, $vb-button-bg-colour);
-  }
-}
-.banner-video.fallback-img .banner-video-embed {
-  height: auto;
-  padding-bottom: 0;
-}
-.banner-video-player {
-  @include small-screen-banner-image;
-}
-// TODO: refactor this to remove nested-ness and extends
+  margin: ($gutter / 2) ($gutter / 2) $gutter;
 
-.add-to-cart-form,
-.cart-form,
-.contact-form,
-.newsletter-form,
-.customer-register-form,
-.customer-login-form,
-.customer-recover-password-form,
-.customer-activate-form,
-.customer-reset-form,
-.customer-address-form-new,
-.customer-address-form-edit {
-  
-  .selector-wrapper {
-    // added in by shopify's js so we have no control of this
-    // here we have to use extend
-    @extend .form-group;
-    select {
-      @extend .form-control;
-    }
+  img {
+    position: relative;
+    display: block;
+    border-radius: 10px;
+    z-index: 2;
   }
-  
-  // notes and errors are either created by Shopify or JS
-  .errors, .note {
-    @extend .alert;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    width: 47px;
+    height: 47px;
+    z-index: 3;
   }
-  
-  .errors, .note.error {
-    @extend .alert-danger;
+
+  &:before {
+    background: url('//cdn.shopify.com/s/assets/gift-card/corner-top-left-2ba3edcd9e97ba146cd01a8161365c5e.svg') 0 0 no-repeat;
+    top: -1px;
+    left: -1px;
   }
-  
-  .note.success {
-    @extend .alert-success;
+
+  &:after {
+    background: url('//cdn.shopify.com/s/assets/gift-card/corner-bottom-right-1fb9bf49ff9564325e6b7c0fb0a7ff45.svg') 0 0 no-repeat;
+    bottom: -1px;
+    right: -1px;
+  }
+
+  .lt-ie9 &:before,
+  .lt-ie9 &:after {
+    display: none;
   }
 }
 
-.add-to-cart-message, .cart-message {
-  .note {
-    @extend .alert;
-  }
-  .note.success {
-    @extend .alert-success;
-  }
-}
-
-.search-lg {
-  padding: 1.5em 1em;
+.giftcard__code {
+  position: absolute;
+  bottom: $gutter;
   text-align: center;
-}
-
-[type="submit"] + .cancel-link {
-  margin-left: 0.25em;
-}
-
-input.btn-link {
-  padding: 0;
-}
-
-.placeholder {
-  [class*="customers"] {
-    label {
-      display: none;
-    }
-  }
-  .customers-addresses {
-    label {
-      display: block;
-    }
-  }
-}
-.fallback-image {
   width: 100%;
-  padding-top: 150%; // What is this crazy black magic?!
-  background-color: rgba($brand_primary, 0.2);
+  z-index: 50;
 }
 
-.footer-payment-icons img {
-  width: 2.5em;
+.giftcard__code--medium {
+  font-size: .875em;
+}
+
+.giftcard__code--small {
+  font-size: .75em;
+}
+
+.giftcard__code__inner {
   display: inline-block;
-  margin-right: 0.15em;
-  margin-bottom: 0.15em;
-}
-/* Styles for social links and feeds */
+  vertical-align: baseline;
+  background-color: #fff;
+  padding: .5em;
+  border-radius: 4px;
+  max-width: 450px;
+  -webkit-box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
 
-.social-links, .social-share-links {
-  ul > li > a {
+  .giftcard__code--small & {
+    overflow: auto;
+  }
+}
+
+.giftcard__code__text {
+  font-weight: 400;
+  font-size: 1.875em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  border: 1px dashed $colorBorder;
+  padding: .4em .5em;
+  display: inline-block;
+  vertical-align: baseline;
+  color: #777;
+  line-height: 1;
+
+  .disabled & {
+    color: #999;
+    text-decoration: line-through;
+  }
+}
+
+.giftcard__amount {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #fff;
+  font-size: 2.75em;
+  line-height: 1.2;
+  padding: $gutter / 2;
+  z-index: 50;
+
+  strong {
+    display: block;
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+  }
+}
+
+.giftcard__amount--medium {
+  font-size: 2em;
+}
+
+.tooltip {
+  display: block;
+  position: absolute;
+  top: -50%;
+  right: 50%;
+  margin-top: 16px;
+  z-index: 3;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-animation: popup 0.5s ease-in-out both 0.7s;
+  animation: popup 0.5s ease-in-out both 0.7s;
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 100%;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    margin-left: -5px;
+    margin-bottom: -5px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 5px solid #333;
+    border-top: 5px solid rgba(51,51,51,0.9);
+  }
+}
+
+.tooltip__label {
+  display: block;
+  position: relative;
+  right: -50%;
+  border: none;
+  border-radius: 4px;
+  background: #333;
+  background: rgba(51,51,51,0.9);
+  min-height: 14px;
+  font-weight: 400;
+  font-size: 12px;
+  text-decoration: none;
+  line-height: 16px;
+  text-shadow: none;
+  padding: .5em .75em;
+  margin-left: .25em;
+
+  small {
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #b3b3b3;
+    font-size: .875em;
+  }
+}
+
+.giftcard__instructions {
+  text-align: center;
+  margin: 0 ($gutter / 2) $gutter;
+}
+
+.giftcard__actions {
+  position: relative;
+  border-top: 1px solid $colorBorder;
+  padding: $gutter ($gutter / 2);
+  text-align: center;
+  overflow: hidden;
+}
+
+.action-link {
+  position: absolute;
+  left: $gutter / 2;
+  top: 50%;
+  font-size: 0.875em;
+  font-weight: bold;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: lighten($colorGiftText, 10%);
+  margin-top: -10px;
+
+  &:hover,
+  &:focus {
+    color: $colorGiftText;
+  }
+}
+
+.action-link__print {
+  display: inline-block;
+  vertical-align: baseline;
+  width: 17px;
+  height: 17px;
+  vertical-align: middle;
+  margin-right: 5px;
+  opacity: 0.25;
+  background: {
+    image: url('//cdn.shopify.com/s/assets/gift-card/icon-print-164daa1ae32d10d1f9b83ac21b6f2c70.png');
+    repeat: no-repeat;
+    position: 0 0;
+  }
+
+  .svg & {
+    background-image: url('//cdn.shopify.com/s/assets/gift-card/icon-print-6a10b2fb86d223b8c783c9696eaf4c31.svg');
+  }
+
+  .action-link:hover & {
+    opacity: 0.4;
+  }
+}
+
+.giftcard__footer {
+  text-align: center;
+  padding: ($gutter * 2) 0;
+  -webkit-animation: fadein 0.5s ease-in-out both 0.4s;
+  animation: fadein 0.5s ease-in-out both 0.4s
+}
+
+
+.giftcard__icon {
+  display: none;
+
+  .svg & {
+    display: inline-block;
+    vertical-align: baseline;
+  }
+}
+
+#QrCode {
+  display: none;
+
+  img {
+    padding: $gutter;
+    border: 1px solid $colorBorder;
+    border-radius: 4px;
+    margin: 0 auto $gutter;
+  }
+}
+
+
+/*============================================================================
+  #Media Queries
+==============================================================================*/
+
+/*================ Medium-down width ================*/
+@media screen and (max-width: 580px) {
+  .giftcard {
+    font-size: 12px;
+  }
+
+  .giftcard-header {
+    padding: $gutter 0;
+  }
+
+  .header-logo {
+    font-size: 2em;
+  }
+
+  .giftcard__border {
+    padding: $gutter / 2;
+  }
+
+  .giftcard__actions {
+    padding: $gutter / 2;
+  }
+
+  .giftcard__actions .btn {
+    width: 100%;
     padding-left: 0;
     padding-right: 0;
   }
-  & .fa {
-    font-size: 1.5em;
+
+  .action-link {
+    display: none;
   }
 }
 
-[data-social-feed="instagram"] {
-  & > p {
-    color: $text-muted;
-    margin-bottom: 3em;
+/*================ Small width ================*/
+@media screen and (max-width: 400px) {
+  .giftcard__amount strong {
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
   }
-  .group-item-wrap {
-    @include make-xs-column(6);
-    @include make-sm-column(3);
-    @include make-md-column(2);
+
+  .giftcard__wrap:before,
+  .giftcard__wrap:after {
+    display: none;
   }
-  
-  .group-item .group-item-details {
-    padding: 1em;
-    font-size: 0.85em;
-    p {
-      overflow: hidden;
-      height: 100%;
-      margin: 0;
-    }
-    .user {
-      display: block;
-      font-weight: bold;
-    }
+
+  .giftcard__code {
+    font-size: .75em;
   }
-  
-  @include hover-captions;
+
+  .giftcard__code--medium {
+    font-size: .65em;
+  }
+
+  .giftcard__code--small {
+    font-size: .55em;
+  }
 }
+
+
+/*================ Small height ================*/
+@media screen and (max-height: 800px) {
+  .header-logo img {
+    max-height: 90px;
+  }
+}
+
+
+/*============================================================================
+  #Print Styles
+==============================================================================*/
+@media print {
+  @page {
+    margin: 0.5cm;
+  }
+
+  p, h2, h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2, h3 {
+    page-break-after: avoid;
+  }
+
+  html, body {
+    background-color: #fff;
+  }
+
+  .giftcard-header {
+    padding: 10px 0;
+  }
+
+  .giftcard__content,
+  .giftcard__border {
+    border: 0 none;
+  }
+
+  .giftcard__actions,
+  .giftcard__wrap:before,
+  .giftcard__wrap:after,
+  .tooltip {
+    display: none;
+  }
+
+  .giftcard__title {
+    float: none;
+    text-align: center;
+  }
+
+  .giftcard__code__text {
+    color: #555;
+  }
+
+  .shop-url {
+    display: block;
+  }
+
+  .logo {
+    color: #58686F;
+  }
+
+  #QrCode {
+    display: block;
+  }
+}
+
+/*============================================================================
+  #Keyframe Animations
+==============================================================================*/
+@-webkit-keyframes slideup {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(2000px) rotate(10deg)
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translateY(-30px)
+  }
+
+  80% {
+    -webkit-transform: translateY(10px)
+  }
+
+  100% {
+    -webkit-transform: translateY(0) rotate(0deg)
+  }
+}
+
+@-ms-keyframes slideup {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(2000px) rotate(10deg)
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translateY(-30px)
+  }
+
+  80% {
+    -webkit-transform: translateY(10px)
+  }
+
+  100% {
+    -webkit-transform: translateY(0) rotate(0deg)
+  }
+}
+
+@keyframes slideup {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(2000px) rotate(10deg)
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translateY(-30px)
+  }
+
+  80% {
+    -webkit-transform: translateY(10px)
+  }
+
+  100% {
+    -webkit-transform: translateY(0) rotate(0deg)
+  }
+}
+
+@-webkit-keyframes popup {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(30px)
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translateY(-10px)
+  }
+
+  80% {
+    -webkit-transform: translateY(2px)
+  }
+
+  100% {
+    -webkit-transform: translateY(0)
+  }
+}
+
+@-ms-keyframes popup {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(30px)
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translateY(-10px)
+  }
+
+  80% {
+    -webkit-transform: translateY(2px)
+  }
+
+  100% {
+    -webkit-transform: translateY(0)
+  }
+}
+
+@keyframes popup {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(30px)
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translateY(-10px)
+  }
+
+  80% {
+    -webkit-transform: translateY(2px)
+  }
+
+  100% {
+    -webkit-transform: translateY(0)
+  }
+}
+
+@-webkit-keyframes container-slide {
+  0% {
+    opacity: 0;
+    -webkit-transform: rotate(0deg)
+  }
+
+  100% {
+    -webkit-transform: rotate(0deg)
+  }
+}
+
+@-ms-keyframes container-slide {
+  0% {
+    opacity: 0;
+    -webkit-transform: rotate(0deg)
+  }
+
+  100% {
+    -webkit-transform: rotate(0deg)
+  }
+}
+
+@keyframes container-slide {
+  0% {
+    opacity: 0;
+    -webkit-transform: rotate(0deg)
+  }
+
+  100% {
+    -webkit-transform: rotate(0deg)
+  }
+}
+
+@-webkit-keyframes fadein {
+  0% {
+    opacity: 0
+  }
+
+  100% {
+    opacity: 100
+  }
+}
+
+@-ms-keyframes fadein {
+  0% {
+    opacity: 0
+  }
+
+  100% {
+    opacity: 100
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0
+  }
+
+  100% {
+    opacity: 100
+  }
+}
+
 /*
   Put your project specific custom overrides here
 */

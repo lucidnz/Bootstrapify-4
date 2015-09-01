@@ -21,7 +21,6 @@
   @extend {% if settings.container_width == 'fluid' %}.container-fluid{% else %}.container{% endif %};
 }
 
-
 @mixin columns ( $column-selector ) {
   {% if settings.enable_adaptive_columns %}
     @include adaptive-columns($column-selector);

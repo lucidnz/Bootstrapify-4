@@ -1,0 +1,22 @@
+/*
+  Sticky footer
+  Display table breaks full width content due to images without max-width:100%; so don't use it on mobiles
+  I know, you're asking 'whut?! why is this even a thing?' but there is some javascript thing involved
+  (*cough* uniformThumbs for constraining images *cough*)
+*/
+@media (min-width: $grid-float-breakpoint) {
+  html,
+  body { height: 100%; }
+   
+  body {
+    display: table;
+    width: 100%;
+  }
+   
+  .site-content, .site-footer {
+    display: table-row;
+    height: 1px;
+  }
+   
+  .site-content { height: 100%; }
+}

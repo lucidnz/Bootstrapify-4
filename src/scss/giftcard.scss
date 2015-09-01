@@ -1,18 +1,9 @@
+/* Only include the styles needed for the giftcard */
 @import 'base/_variables.scss.liquid';
 @import 'base/_mixins.scss.liquid';
 @import '../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap';
 @import 'base/_foundation.scss.liquid';
 @import 'base/_typography.scss.liquid';
-
-@import 'layout/_sticky_footer.scss.liquid';
-@import 'layout/_layout.scss.liquid';
-@import 'layout/_headers.scss.liquid';
-@import 'layout/_navigation.scss.liquid';
-
-@import 'module/_banner.scss.liquid';
-@import 'module/_forms.scss.liquid';
-@import 'module/_images.scss.liquid';
-@import 'module/_social.scss.liquid';
-
+@import 'module/_gift_card.scss.liquid';
 @import 'theme/_custom_overrides.scss.liquid';
 @import 'theme/_overrides.scss.liquid';
