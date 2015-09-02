@@ -1,6 +1,20 @@
+{% if settings.truncate_article_results == blank %}
+  {% assign content = article.excerpt_or_content %}
+{% else %}
+  {% assign content = article.excerpt_or_content | strip_html | truncatewords: settings.truncate_article_results %}
+{% endif %}
+
 <div class="list-item-wrap">
   <article class="list-item blog-article">
     <header>
+
+      {% if settings.enable_article_list_banners and content contains 'src=' %}
+        {% include '_extract_images' with article.content %}
+        {% assign image = images | first %}
+        {% assign content = content | remove: image %}
+        {{ image }}
+      {% endif %}
+      
       <h1 class="h3">
         <a href="{{ article.url }}">{{ article.title }}</a>
       </h1>
@@ -12,11 +26,7 @@
       </aside>
     
       <section class="blog-article-content">
-        {% if settings.truncate_article_results == blank %}
-          {{ article.excerpt_or_content }}
-        {% else %}
-          {{ article.excerpt_or_content | strip_html | truncatewords: settings.truncate_article_results }}
-        {% endif %}
+        {{ content }}
         <p class="read-more">
           <a href="{{ article.url }}">{{ 'blog.article_list.read_more_html' | t: page_title: article.title }}</a>
         </p>
