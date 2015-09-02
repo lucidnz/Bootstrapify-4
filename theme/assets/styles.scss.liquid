@@ -8758,26 +8758,26 @@ body.search .search-results {
   Sections
 */
 
+.content-split {
+  .content-split-text {
+    @include make-xs-column(12);
+    @include make-sm-column(8);
+  }
+  .content-split-images {
+    @include make-xs-column(12);
+    @include make-sm-column(4);
+  }
+}
+.content-full {
+  @include make-xs-column(12);
+}
+
 .homepage-section,
 .product-section {
   padding: $grid-gutter-width 0;
   .sheet-content {
     @include make-row();
     margin-bottom: 0;
-  }
-  
-  .content-split {
-    .content-split-text {
-      @include make-xs-column(12);
-      @include make-sm-column(8);
-    }
-    .content-split-images {
-      @include make-xs-column(12);
-      @include make-sm-column(4);
-    }
-  }
-  .content-full {
-    @include make-xs-column(12);
   }
   
   &:nth-of-type(odd) {
@@ -9014,6 +9014,18 @@ body.search .search-results {
 
 .collection-banner-container {
   @include container;
+}
+.collection-header-split .content-split {
+  @include make-row();
+}
+
+.collection-header-split-image-left {
+  .content-split-text {
+    @include make-sm-column-push(4);
+  }
+  .content-split-images {
+    @include make-sm-column-pull(8);
+  }
 }
 /* General styles for all navigations */
 

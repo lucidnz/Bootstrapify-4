@@ -1,0 +1,12 @@
+.collection-header-split .content-split {
+  @include make-row();
+}
+
+.collection-header-split-image-left {
+  .content-split-text {
+    @include make-sm-column-push(4);
+  }
+  .content-split-images {
+    @include make-sm-column-pull(8);
+  }
+}
