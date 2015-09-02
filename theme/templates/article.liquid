@@ -42,9 +42,9 @@
     
 		{% if blog.previous_article or blog.next_article %}
 		<ul class="pager">
-			{% if blog.previous_article %}<li>{{ 'blog.general.previous_article_html' | t | link_to: blog.previous_article }}</li>{% endif %}
+			<li class="previous{% unless blog.previous_article %} disabled{% endunless %}">{{ 'blog.general.previous_article_html' | t | link_to: blog.previous_article }}</li>
       <li>{{ blog.title | link_to: blog.url }}</li>
-			{% if blog.next_article %}<li>{{ 'blog.general.next_article_html' | t | link_to: blog.next_article }}</li>{% endif %}
+			<li class="next{% unless blog.next_article %} disabled{% endunless %}">{{ 'blog.general.next_article_html' | t | link_to: blog.next_article }}</li>
 		</ul>
 		{% endif %}
 		

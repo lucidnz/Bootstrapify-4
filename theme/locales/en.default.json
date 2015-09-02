@@ -282,8 +282,8 @@
       "empty_message_title": "Whoa! There are no articles",
       "empty_message_html": "You could sign up for our mailing list or check back soon.",
       "rss_link_html": "<span class='fa fa-rss'></span> Subscribe to the RSS feed for {{ blog_title }}",
-      "previous_article_html": "&laquo; Previous",
-      "next_article_html": "Next &raquo;"
+      "previous_article_html": "<span class='fa fa-chevron-left'></span> Previous",
+      "next_article_html": "Next <span class='fa fa-chevron-right'></span>"
     },
     "article_list": {
       "published_date_html": "Published on {{ date }}",
