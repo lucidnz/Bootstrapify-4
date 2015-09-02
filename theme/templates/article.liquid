@@ -1,9 +1,11 @@
 <main role="main">
   {% assign content = article.content %}
   {% if settings.enable_article_banners and content contains 'src=' %}
+    {% assign image_size = '2048x2048' %}
     {% include '_extract_images' with content %}
     {% assign image = images | first %}
-    {% assign content = content | remove: image %}
+    {% assign image_to_remove = unsized_images | first %}
+    {% assign content = content | remove: image_to_remove %}
     <div class="banner-image banner-image-fullscreen">
       {{ image }}
     </div>

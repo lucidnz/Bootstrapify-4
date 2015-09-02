@@ -6,10 +6,11 @@
  %}{% endcomment %}
  
 {% if content_split contains 'src=' %}
+    {% assign image_size = 'grande' %}
   {% include '_extract_images' with content_split %}
   
   {% assign content = content_split %}
-  {% for image in images %}
+  {% for image in unsized_images %}
     {% assign content = content | remove: image %}
   {% endfor %}
   {% assign content = content | remove: '<p></p>' %}
