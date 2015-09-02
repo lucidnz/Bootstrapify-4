@@ -5,7 +5,7 @@
 
  %}{% endcomment %}
  
-{% if content_split contains '<img' %}
+{% if content_split contains 'src=' %}
   {% include '_extract_images' with content_split %}
   
   {% assign content = content_split %}

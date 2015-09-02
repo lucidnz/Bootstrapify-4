@@ -221,3 +221,21 @@ $slide-count: 1;
 .banner-video-player {
   @include small-screen-banner-image;
 }
+
+/* Banner Image */
+.banner-image {
+  img {
+    margin: 0 auto;
+  }
+}
+
+.banner-image-fullscreen  {
+  margin-top: $navbar-margin-bottom * -1;
+  img {
+    width: 100%;
+  }
+}
+
+.banner-image-container {
+  @include container;
+}

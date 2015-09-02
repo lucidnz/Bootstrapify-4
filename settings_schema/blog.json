@@ -2,6 +2,10 @@
   "name": "Blog",
   "settings": [
     {
+      "type": "header",
+      "content": "Blog List"
+    },
+    {
       "label": "Article pagination limit",
       "id": "pagination_limit_articles",
       "type": "text",
@@ -13,6 +17,16 @@
       "type": "text",
       "default": "200",
       "info": "This will stop articles with long content from making the blog to long. If left blank then the whole articles content will be shown."
+    },
+    {
+      "label": "Show RSS feed link",
+      "id": "enable_rss_link",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Authors"
     },
     {
       "label": "Show Author",
@@ -27,8 +41,12 @@
       "default": true
     },
     {
-      "label": "Show RSS feed link",
-      "id": "enable_rss_link",
+      "type": "header",
+      "content": "Comments"
+    },
+    {
+      "label": "Use Gravatar for comment avatars",
+      "id": "enable_gravatars",
       "type": "checkbox",
       "default": true
     },
@@ -39,10 +57,22 @@
       "default": "25"
     },
     {
-      "label": "Use Gravatar for comment avatars",
-      "id": "enable_gravatars",
+      "type": "header",
+      "content": "Banners"
+    },
+    {
+      "label": "Use first image as a banner on articles",
+      "id": "enable_article_banners",
       "type": "checkbox",
-      "default": true
+      "default": false,
+      "info": "When checked the first image from the article will be pulled out of the content and displayed as a fullscreen banner above the article"
+    },
+    {
+      "label": "Use first image as a banner on article lists",
+      "id": "enable_article_list_banners",
+      "type": "checkbox",
+      "default": false,
+      "info": "When checked the first image from the article will be pulled out of the content and displayed as a banner above the article excerpt"
     }
   ]
 }

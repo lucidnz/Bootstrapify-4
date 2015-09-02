@@ -1,4 +1,14 @@
 <main role="main">
+  {% assign content = article.content %}
+  {% if settings.enable_article_banners and content contains 'src=' %}
+    {% include '_extract_images' with content %}
+    {% assign image = images | first %}
+    {% assign content = content | remove: image %}
+    <div class="banner-image banner-image-fullscreen">
+      {{ image }}
+    </div>
+  {% endif %}
+  
   <div class="sheet">
     <article class="blog-article">
       <header class="sheet-header page-header">
@@ -11,7 +21,7 @@
         </aside>
     
         <section class="blog-article-content">
-          {{ article.content }}
+          {{ content }}
         </section>
       </div>
       <footer>

@@ -26,5 +26,5 @@
       {% endif %}
     {% endunless %}
   {% endfor %}
-  {% assign images = images | replace: ' <','~~<' | split: '~~' %}
+  {% assign images = images | replace: ' <','~~<' | remove_first: '~~' | split: '~~' %}
 {% endcapture %}

@@ -38,7 +38,7 @@ gulp.task('default', function () {
   gulp.watch([
     './src/scss/*.scss',
     './src/scss/*.scss.liquid',
-    './src/scss/*/*.scss.liquid'
+    './src/scss/**/*.scss.liquid'
   ], ['sass']);
 
   // watch for js changes

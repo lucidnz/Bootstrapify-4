@@ -8966,6 +8966,10 @@ body.search .search-results {
   }
 }
 #header-layout-stacked .header-layout-lg {
+  & > .navbar {
+    border: none;
+  }
+  
   .navbar .navbar {
     margin-bottom: 0;
   }
@@ -9000,21 +9004,7 @@ body.search .search-results {
     }
   }
 }
-.collection-banner {
-  img {
-    margin: 0 auto;
-  }
-}
 
-.collection-banner-fullscreen  {
-  img {
-    width: 100%;
-  }
-}
-
-.collection-banner-container {
-  @include container;
-}
 .collection-header-split .content-split {
   @include make-row();
 }
@@ -9327,6 +9317,24 @@ $slide-count: 1;
 }
 .banner-video-player {
   @include small-screen-banner-image;
+}
+
+/* Banner Image */
+.banner-image {
+  img {
+    margin: 0 auto;
+  }
+}
+
+.banner-image-fullscreen  {
+  margin-top: $navbar-margin-bottom * -1;
+  img {
+    width: 100%;
+  }
+}
+
+.banner-image-container {
+  @include container;
 }
 // TODO: refactor this to remove nested-ness and extends
 
