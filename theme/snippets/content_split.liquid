@@ -2,34 +2,12 @@
 
   Takes a block of content, separates out the images from the text and then wraps
   them in markup so that they can be displayed in columns side by side.
-  
-  We split the content on tags and spaces then scan through it all looking for the things we want.
-  Why?! Because reasons!
 
  %}{% endcomment %}
  
 {% if content_split contains '<img' %}
-  {% comment note: Split content %}{% endcomment %}
-  {% assign split = content_split | split:' ' | join:'~~' | replace: '>', '>~~' | replace: '<', '~~<' | split: '~~' %}
+  {% include '_extract_images' with content_split %}
   
-  {% comment note: Find all the images %}{% endcomment %}
-  {% assign in_img = false %}
-  {% capture images %}{% endcapture %}
-  {% for s in split %}
-    {% unless s == blank %}
-      {% if s == '<img' %}
-        {% assign in_img = true %}
-      {% endif %}
-      {% if in_img %}
-        {% capture images %}{{ images }} {{ s }}{% endcapture %}
-      {% endif %}
-      {% if in_img and s contains '>' %}
-        {% assign in_img = false %}
-      {% endif %}
-    {% endunless %}
-  {% endfor %}
-  {% assign images = images | replace: ' <','~~<' | split: '~~' %}
-   
   {% assign content = content_split %}
   {% for image in images %}
     {% assign content = content | remove: image %}

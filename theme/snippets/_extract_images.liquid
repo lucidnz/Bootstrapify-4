@@ -1,0 +1,30 @@
+{% capture function %}
+  {% comment Note:
+  
+    Takes a block of content, separates out the images from the text.
+    We split the content on tags and spaces then scan through it all looking for the things we want.
+    Why?! Because reasons!
+  
+   %}{% endcomment %}
+   
+  {% comment note: Split content %}{% endcomment %}
+  {% assign split = _extract_images | split:' ' | join:'~~' | replace: '>', '>~~' | replace: '<', '~~<' | split: '~~' %}
+  
+  {% comment note: Find all the images %}{% endcomment %}
+  {% assign in_img = false %}
+  {% capture images %}{% endcapture %}
+  {% for s in split %}
+    {% unless s == blank %}
+      {% if s == '<img' %}
+        {% assign in_img = true %}
+      {% endif %}
+      {% if in_img %}
+        {% capture images %}{{ images }} {{ s }}{% endcapture %}
+      {% endif %}
+      {% if in_img and s contains '>' %}
+        {% assign in_img = false %}
+      {% endif %}
+    {% endunless %}
+  {% endfor %}
+  {% assign images = images | replace: ' <','~~<' | split: '~~' %}
+{% endcapture %}
