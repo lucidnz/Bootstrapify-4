@@ -1,0 +1,17 @@
+<section class="collection-header collection-header-{{ settings.collection_header_layout | replace: '_','-' }}">
+  {% if collection.image %}
+    <div class="collection-banner collection-banner-fullscreen">
+      <img src="{{ collection.image.src | img_url: '2048x2048' }}">
+    </div>
+  {% endif %}
+  
+  <div class="sheet">
+    <header class="sheet-header page-header">
+      {% include 'collection_header_component_title' %}
+      
+      {% if collection.description != blank %}
+        <div class="collection-description">{{ collection.description }}</div>
+      {% endif %}
+    </header>
+  </div>
+</section>

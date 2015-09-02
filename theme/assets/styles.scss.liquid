@@ -9000,6 +9000,21 @@ body.search .search-results {
     }
   }
 }
+.collection-banner {
+  img {
+    margin: 0 auto;
+  }
+}
+
+.collection-banner-fullscreen  {
+  img {
+    width: 100%;
+  }
+}
+
+.collection-banner-container {
+  @include container;
+}
 /* General styles for all navigations */
 
 .navbar-brand img {
@@ -9078,19 +9093,6 @@ body.search .search-results {
     margin-top: 0.5em;
   }
 }
-/*
-  TODO: SEE ISSUE https://github.com/luciddesign/Bootstrapify-4/issues/41
-.collection-banner {
-  {% if settings.collection_fullscreen_banner %}
-    img { width: 100%; }
-  {% else %}
-    @include container;
-  {% endif %}
-  
-  img { margin: 0 auto; }
-}
-*/
-
 .banner {
   // create the fade transition
   &.fade {

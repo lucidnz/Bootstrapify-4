@@ -1,28 +1,11 @@
 <main role="main">
-  <section class="collection-header">
-    {% comment note: DONT DO THIS. move it into a collection.banner template %}
-    {% if collection.image %}
-    <div class="collection-banner">
-      <img src="{{ collection.image.src | img_url: '2048x2048' }}">
-    </div>
-    {% endif %}
-    {% endcomment %}
-    
-    <div class="sheet">
-      <header class="sheet-header page-header">
-        {% if current_tags.size > 0 %}
-          {% include '_collection_title_filters' %}
-          <h1>{{ 'collections.collection_title_when_filtered.title_html' | t: title: collection.title, filters: collection_title_filters }}</h1>
-        {% else %}
-          <h1>{{ collection.title }}</h1>
-        {% endif %}
-        <a class="view-all-link" href="/collections">{{ 'collections.general.view_all_collections_html' | t }}</a>
-        {% if collection.description != blank %}
-          <div class="collection-description">{{ collection.description }}</div>
-        {% endif %}
-      </header>
-    </div>
-  </section>
+
+  {% if settings.collection_header_layout contains 'split_image' %}
+    {% include 'collection_header_layout_split' %}
+  {% else %}
+    {% assign collection_header_layout = 'collection_header_layout_' | append: settings.collection_header_layout %}
+    {% include collection_header_layout %}
+  {% endif %}
   
   <section class="collection-content">
     <div class="sheet {% if collection.products.size > 0 %}products-wrap{% endif %}">

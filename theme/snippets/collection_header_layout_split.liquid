@@ -1,0 +1,20 @@
+<section class="collection-header collection-header-split collection-header-split-{{ settings.collection_header_layout | replace: '_','-' }}">
+  <div class="sheet">
+    <header class="sheet-header page-header">
+      {% include 'collection_header_component_title' %}
+      
+      {% if collection.description != blank %}
+        <div class="collection-description">
+          <div class="content-split">
+            <div class="content-split-text">
+              {{ collection.description }}
+            </div>
+            <div class="content-split-images">
+              <img src="{{ collection.image.src | img_url: 'grande' }}">
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </header>
+  </div>
+</section>

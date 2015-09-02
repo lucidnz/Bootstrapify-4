@@ -1,0 +1,7 @@
+{% if current_tags.size > 0 %}
+  {% include '_collection_title_filters' %}
+  <h1>{{ 'collections.collection_title_when_filtered.title_html' | t: title: collection.title, filters: collection_title_filters }}</h1>
+{% else %}
+  <h1>{{ collection.title }}</h1>
+{% endif %}
+<a class="view-all-link" href="/collections">{{ 'collections.general.view_all_collections_html' | t }}</a>
