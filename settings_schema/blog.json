@@ -73,6 +73,60 @@
       "type": "checkbox",
       "default": false,
       "info": "When checked the first image from the article will be pulled out of the content and displayed as a banner above the article excerpt"
+    },
+    {
+      "type": "paragraph",
+      "content": "Blog banner images: Select a banner image to be shown in the header of each blog. You can have up to 5 blogs with banner images."
+    },
+    {
+      "label": "Blog 1 blog",
+      "id": "blog_banner_1",
+      "type": "blog"
+    },
+    {
+      "label": "Blog 1 image",
+      "id": "blog_banner_image_1.jpg",
+      "type": "image"
+    },
+    {
+      "label": "Blog 2 blog",
+      "id": "blog_banner_2",
+      "type": "blog"
+    },
+    {
+      "label": "Blog 2 image",
+      "id": "blog_banner_image_2.jpg",
+      "type": "image"
+    },
+    {
+      "label": "Blog 3 blog",
+      "id": "blog_banner_3",
+      "type": "blog"
+    },
+    {
+      "label": "Blog 3 image",
+      "id": "blog_banner_image_3.jpg",
+      "type": "image"
+    },
+    {
+      "label": "Blog 4 blog",
+      "id": "blog_banner_4",
+      "type": "blog"
+    },
+    {
+      "label": "Blog 4 image",
+      "id": "blog_banner_image_4.jpg",
+      "type": "image"
+    },
+    {
+      "label": "Blog 5 blog",
+      "id": "blog_banner_5",
+      "type": "blog"
+    },
+    {
+      "label": "Blog 5 image",
+      "id": "blog_banner_image_5.jpg",
+      "type": "image"
     }
   ]
 }

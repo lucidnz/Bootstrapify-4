@@ -1,4 +1,19 @@
 <main role="main">
+  {% assign image = false %}
+  {% for i in (1..5) %}
+    {% assign blog_banner_key = 'blog_banner_' | append: i %}
+    {% assign blog_banner_image_key = 'blog_banner_image_' | append: i | append: '.jpg' %}
+    {% if settings[blog_banner_key] == handle %}
+      {% assign image = blog_banner_image_key %}
+    {% endif %}
+  {% endfor %}
+  
+  {% if image %}
+    <div class="banner-image banner-image-fullscreen">
+      {{ image | asset_url | img_tag: blog.title }}
+    </div>
+  {% endif %}
+  
   <div class="sheet">
     <header class="sheet-header page-header">
       <h1>{{ blog.title }}</h1>
