@@ -37,18 +37,15 @@
       "content": "Column Layout"
     },
     {
-      "type": "paragraph",
-      "content": "If adaptive columns is enabled then column widths will be calculated based on the amount of the items in each collection. This will reduce the empty columns created by small amounts of content."
-    },
-    {
-      "type": "paragraph",
-      "content": "If disabled then column widths will use the below settings. Products, collections and homepage content will all be effected by these settings."
-    },
-    {
       "label": "Enable adaptive columns",
       "id": "enable_adaptive_columns",
       "type": "checkbox",
-      "default": true
+      "default": true,
+      "info": "Products, collections and homepage content will all be effected by these settings."
+    },
+    {
+      "type": "paragraph",
+      "content": "If adaptive columns is enabled then column widths will be calculated based on the amount of the items in each collection; this will reduce the empty columns created by small amounts of content. If disabled then column widths will use the column settings below."
     },
     {
       "label": "Xtra-small screen column count",
