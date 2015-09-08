@@ -19,6 +19,24 @@
       "default": "standard"
     },
     {
+      "label": "Header description alignment",
+      "id": "collection_header_description_alignment",
+      "type": "select",
+      "options": [
+        { "value": "left_top", "label": "Left Top" },
+        { "value": "left_middle", "label": "Left Middle" },
+        { "value": "left_bottom", "label": "Left Bottom" },
+        { "value": "center_top", "label": "Center Top" },
+        { "value": "center_middle", "label": "Center Middle" },
+        { "value": "center_bottom", "label": "Center Bottom" },
+        { "value": "right_top", "label": "Right Top" },
+        { "value": "right_middle", "label": "Right Middle" },
+        { "value": "right_bottom", "label": "Right Bottom" }
+      ],
+      "default": "center_middle",
+      "info": "IMPORTANT: This setting only applies if your header layout is set to 'Banner containing description'"
+    },
+    {
       "type": "header",
       "content": "Sort and filter"
     },
@@ -87,26 +105,6 @@
       "id": "collection_template_lookbook",
       "type": "checkbox",
       "default": false
-    },
-    {
-      "type": "header",
-      "content": "List Collections"
-    },
-    {
-      "type": "paragraph",
-      "content": "The 'List Collections' template shows all of your collections and is availble at yourshop.com/collections"
-    },
-    {
-      "label": "Show collections product count",
-      "id": "show_collection_product_count",
-      "type": "checkbox",
-      "default": true
-    },
-    {
-      "label": "Featured collection",
-      "id": "list_collections_featured_collection",
-      "type": "link_list",
-      "info": "If a link list of collections is selected then the list collections template will show just the collections in this list. If it is set to none or the link list is empty then the template will show all collections."
     }
   ]
 }

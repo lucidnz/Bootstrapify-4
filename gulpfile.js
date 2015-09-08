@@ -176,6 +176,7 @@ gulp.task('shopify_theme_settings', function () {
     'homepage_banner',
     'homepage_video_banner',
     'collections',
+    'list_collections',
     'products',
     'thumbnails',
     'blog',

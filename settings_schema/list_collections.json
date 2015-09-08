@@ -1,0 +1,38 @@
+{
+  "name": "List Collections",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The 'List Collections' template shows all of your collections and is availble at yourshop.com/collections"
+    },
+    {
+      "label": "Show collections product count",
+      "id": "show_collection_product_count",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "label": "Featured collection",
+      "id": "list_collections_featured_collection",
+      "type": "link_list",
+      "info": "If a link list of collections is selected then the list collections template will show just the collections in this list. If it is set to none or the link list is empty then the template will show all collections."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "label": "Header layout",
+      "id": "list_collections_header_layout",
+      "type": "select",
+      "options": [
+        { "value": "standard", "label": "Standard" },
+        { "value": "split_image_left", "label": "Split image left" },
+        { "value": "split_image_right", "label": "Split image right" },
+        { "value": "banner_image", "label": "Banner image above description" },
+        { "value": "banner_description", "label": "Banner containing description" }
+      ],
+      "default": "standard"
+    }
+  ]
+}
