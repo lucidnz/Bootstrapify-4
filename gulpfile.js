@@ -179,6 +179,7 @@ gulp.task('shopify_theme_settings', function () {
     'list_collections',
     'products',
     'thumbnails',
+    'pages',
     'blog',
     'search',
     'social',
