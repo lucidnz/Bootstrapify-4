@@ -3,18 +3,21 @@
     <div class="banner-image banner-image-fullscreen">
       <img src="{{ collection.image.src | img_url: '2048x2048' }}">
       <div class="banner-image-caption carousel-caption">
-        {% include 'collection_header_component_title' %}
         {% if collection.description != blank %}
           <div class="collection-description">{{ collection.description }}</div>
         {% endif %}
       </div>
     </div>
-    
-  {% else %}  
     <div class="sheet">
       <header class="sheet-header page-header">
         {% include 'collection_header_component_title' %}
-        
+      </header>
+    </div>
+    
+  {% else %}
+    <div class="sheet">
+      <header class="sheet-header page-header">
+        {% include 'collection_header_component_title' %}
         {% if collection.description != blank %}
           <div class="collection-description">{{ collection.description }}</div>
         {% endif %}
