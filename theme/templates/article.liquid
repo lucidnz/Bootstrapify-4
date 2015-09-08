@@ -1,4 +1,5 @@
 <main role="main">
+  {% assign image = false %}
   {% assign content = article.content %}
   {% if settings.enable_article_banners and content contains 'src=' %}
     {% assign image_size = '2048x2048' %}
@@ -6,16 +7,25 @@
     {% assign image = images | first %}
     {% assign image_to_remove = unsized_images | first %}
     {% assign content = content | remove: image_to_remove %}
-    <div class="banner-image banner-image-fullscreen">
-      {{ image }}
+    <div class="article-header">
+      <div class="banner-image banner-image-fullscreen">
+        {{ image }}
+        {% if settings.show_article_title_on_banner %}
+          <div class="banner-image-caption carousel-caption">
+            <h1>{{ article.title }}</h1>
+          </div>
+        {% endif %}
+      </div>
     </div>
   {% endif %}
   
   <div class="sheet">
     <article class="blog-article">
+      {% if image and settings.show_article_title_on_banner == false %}
       <header class="sheet-header page-header">
         <h1>{{ article.title }}</h1>
       </header>
+      {% endif %}
     
       <div class="blog-article-content-wrap">
         <aside class="blog-article-meta">

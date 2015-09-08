@@ -9360,6 +9360,15 @@ $slide-count: 1;
     }
   {% endfor %}
 }
+.article-header .banner-image {
+  margin-bottom: $line-height-computed * 2;
+  .banner-image-caption {
+    $bi-text-alignment: {{ settings.artcle_title_alignment | split: '_' | last | default: 'center' }};
+    $bi-vertical-alignment: {{ settings.artcle_title_alignment | split: '_' | first | default: 'middle' }};
+    @include banner-caption-vertical-align($bi-vertical-alignment);
+    text-align: $bi-text-alignment;
+  }
+}
 // TODO: refactor this to remove nested-ness and extends
 
 .add-to-cart-form,

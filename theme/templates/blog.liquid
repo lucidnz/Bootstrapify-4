@@ -1,5 +1,4 @@
 <main role="main">
-  <div class="blog-header">
     {% assign image = false %}
     {% assign banner_index = false %}
     {% assign title_over_banner = false %}
@@ -15,16 +14,17 @@
     {% endfor %}
     
     {% if image %}
-      <div class="banner-image banner-image-fullscreen" data-blog-banner="{{ banner_index }}">
-        {{ image | asset_url | img_tag: blog.title }}
-        {% if title_over_banner %}
-        <div class="banner-image-caption carousel-caption">
-          <h1>{{ blog.title }}</h1>
+      <div class="blog-header">
+        <div class="banner-image banner-image-fullscreen" data-blog-banner="{{ banner_index }}">
+          {{ image | asset_url | img_tag: blog.title }}
+          {% if title_over_banner %}
+          <div class="banner-image-caption carousel-caption">
+            <h1>{{ blog.title }}</h1>
+          </div>
+          {% endif %}
         </div>
-        {% endif %}
       </div>
     {% endif %}
-  </div>
   
   <div class="sheet">
     {% if image and title_over_banner == false %}

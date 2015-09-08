@@ -33,7 +33,7 @@
         { "value": "bottom_center", "label": "Bottom Center" },
         { "value": "bottom_right", "label": "Bottom Right" }
       ],
-      "default": "center_middle",
+      "default": "middle_center",
       "info": "IMPORTANT: This setting only applies if your header layout is set to 'Banner containing description'"
     },
     {
