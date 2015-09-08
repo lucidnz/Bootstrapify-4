@@ -9021,6 +9021,14 @@ body.search .search-results {
     @include make-sm-column-pull(8);
   }
 }
+.list-collection-header-split-image-left {
+  .content-split-text {
+    @include make-sm-column-push(4);
+  }
+  .content-split-images {
+    @include make-sm-column-pull(8);
+  }
+}
 /* General styles for all navigations */
 
 .navbar-brand img {
@@ -9345,6 +9353,13 @@ $slide-count: 1;
 .collection-header .banner-image-caption {
   $bi-text-alignment: {{ settings.collection_header_description_alignment | split: '_' | last | default: 'center' }};
   $bi-vertical-alignment: {{ settings.collection_header_description_alignment | split: '_' | first | default: 'middle' }};
+  @include banner-caption-vertical-align($bi-vertical-alignment);
+  text-align: $bi-text-alignment;
+}
+
+.list-collection-header .banner-image-caption {
+  $bi-text-alignment: {{ settings.list_collection_header_description_alignment | split: '_' | last | default: 'center' }};
+  $bi-vertical-alignment: {{ settings.list_collection_header_description_alignment | split: '_' | first | default: 'middle' }};
   @include banner-caption-vertical-align($bi-vertical-alignment);
   text-align: $bi-text-alignment;
 }

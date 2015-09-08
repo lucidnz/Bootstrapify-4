@@ -33,6 +33,29 @@
         { "value": "banner_description", "label": "Banner containing description" }
       ],
       "default": "standard"
+    },
+    {
+      "label": "Header description alignment",
+      "id": "list_collection_header_description_alignment",
+      "type": "select",
+      "options": [
+        { "value": "top_left", "label": "Top Left" },
+        { "value": "top_center", "label": "Top Center" },
+        { "value": "top_right", "label": "Top Right" },
+        { "value": "middle_left", "label": "Middle Left" },
+        { "value": "middle_center", "label": "Middle Center" },
+        { "value": "middle_right", "label": "Middle Right" },
+        { "value": "bottom_left", "label": "Bottom Left" },
+        { "value": "bottom_center", "label": "Bottom Center" },
+        { "value": "bottom_right", "label": "Bottom Right" }
+      ],
+      "default": "middle_center",
+      "info": "IMPORTANT: This setting only applies if your header layout is set to 'Banner containing description'"
+    },
+    {
+      "label": "Header image",
+      "id": "list_collections_banner_image.jpg",
+      "type": "image"
     }
   ]
 }

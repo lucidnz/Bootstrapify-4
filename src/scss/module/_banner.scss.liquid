@@ -248,6 +248,13 @@ $slide-count: 1;
   text-align: $bi-text-alignment;
 }
 
+.list-collection-header .banner-image-caption {
+  $bi-text-alignment: {{ settings.list_collection_header_description_alignment | split: '_' | last | default: 'center' }};
+  $bi-vertical-alignment: {{ settings.list_collection_header_description_alignment | split: '_' | first | default: 'middle' }};
+  @include banner-caption-vertical-align($bi-vertical-alignment);
+  text-align: $bi-text-alignment;
+}
+
 .blog-header .banner-image {
   {% for i in (1..5) %}
     &[data-blog-banner="{{ i }}"] .banner-image-caption {
