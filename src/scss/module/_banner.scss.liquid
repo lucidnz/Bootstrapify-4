@@ -204,7 +204,7 @@ $slide-count: 1;
 /* Video Banner */
 .banner-video {
   position: relative;
-  .banner-caption {
+  .banner-video-caption {
     $vb-text-alignment: {{ settings.video_banner_alignment | default: 'center' }};
     $vb-text-colour: {{ settings.video_banner_text_colour | default: '$text-color' }};
     $vb-button-bg-colour: {{ settings.video_banner_button_colour | default: '$btn-primary-bg' }};
@@ -224,6 +224,7 @@ $slide-count: 1;
 
 /* Banner Image */
 .banner-image {
+  position: relative;
   img {
     margin: 0 auto;
   }
