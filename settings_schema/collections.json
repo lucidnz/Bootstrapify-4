@@ -23,15 +23,15 @@
       "id": "collection_header_description_alignment",
       "type": "select",
       "options": [
-        { "value": "left_top", "label": "Left Top" },
-        { "value": "left_middle", "label": "Left Middle" },
-        { "value": "left_bottom", "label": "Left Bottom" },
-        { "value": "center_top", "label": "Center Top" },
-        { "value": "center_middle", "label": "Center Middle" },
-        { "value": "center_bottom", "label": "Center Bottom" },
-        { "value": "right_top", "label": "Right Top" },
-        { "value": "right_middle", "label": "Right Middle" },
-        { "value": "right_bottom", "label": "Right Bottom" }
+        { "value": "top_left", "label": "Top Left" },
+        { "value": "top_center", "label": "Top Center" },
+        { "value": "top_right", "label": "Top Right" },
+        { "value": "middle_left", "label": "Middle Left" },
+        { "value": "middle_center", "label": "Middle Center" },
+        { "value": "middle_right", "label": "Middle Right" },
+        { "value": "bottom_left", "label": "Bottom Left" },
+        { "value": "bottom_center", "label": "Bottom Center" },
+        { "value": "bottom_right", "label": "Bottom Right" }
       ],
       "default": "center_middle",
       "info": "IMPORTANT: This setting only applies if your header layout is set to 'Banner containing description'"

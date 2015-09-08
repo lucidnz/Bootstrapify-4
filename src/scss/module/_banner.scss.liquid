@@ -230,14 +230,6 @@ $slide-count: 1;
   }
 }
 
-.banner-image-caption {
-  $bi-text-alignment: {{ settings.collection_header_description_alignment | split: '_' | first | default: 'center' }};
-  $bi-vertical-alignment: {{ settings.collection_header_description_alignment | split: '_' | last | default: 'middle' }};
-  
-  @include banner-caption-vertical-align($bi-vertical-alignment);
-  text-align: $bi-text-alignment;
-}
-
 .banner-image-fullscreen  {
   margin-top: $navbar-margin-bottom * -1;
   img {
@@ -247,4 +239,23 @@ $slide-count: 1;
 
 .banner-image-container {
   @include container;
+}
+
+.collection-header .banner-image-caption {
+  $bi-text-alignment: {{ settings.collection_header_description_alignment | split: '_' | last | default: 'center' }};
+  $bi-vertical-alignment: {{ settings.collection_header_description_alignment | split: '_' | first | default: 'middle' }};
+  @include banner-caption-vertical-align($bi-vertical-alignment);
+  text-align: $bi-text-alignment;
+}
+
+.blog-header .banner-image {
+  {% for i in (1..5) %}
+    &[data-blog-banner="{{ i }}"] .banner-image-caption {
+      {% assign banner_alignment_key = 'blog_banner_' | append: i | append: '_title_alignment' %}
+      $bi-text-alignment: {{ settings[banner_alignment_key] | split: '_' | last | default: 'center' }};
+      $bi-vertical-alignment: {{ settings[banner_alignment_key] | split: '_' | first | default: 'middle' }};
+      @include banner-caption-vertical-align($bi-vertical-alignment);
+      text-align: $bi-text-alignment;
+    }
+  {% endfor %}
 }

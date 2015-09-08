@@ -86,103 +86,172 @@
     },
     {
       "type": "paragraph",
-      "content": "Blog banner images: Select a banner image to be shown in the header of each blog. You can have up to 5 blogs with banner images."
+      "content": "Select a banner image to be shown in the header of each blog. You can have up to 5 blogs with banner images."
     },
     {
-      "type": "paragraph",
-      "content": "Blog 1"
-    },
-    {
-      "label": "Banner image",
-      "id": "blog_banner_image_1.jpg",
-      "type": "image"
-    },
-    {
-      "label": "Blog",
+      "label": "Blog 1",
       "id": "blog_banner_1",
       "type": "blog"
     },
     {
-      "label": "Show blog title over banner",
-      "id": "blog_banner_1_title",
+      "label": "Blog 1 banner image",
+      "id": "blog_banner_image_1.jpg",
+      "type": "image"
+    },
+    {
+      "label": "Show blog 1 title over banner",
+      "id": "blog_banner_1_title_over_banner",
       "type": "checkbox",
       "default": false
     },
     {
-      "label": "Banner title alignment",
+      "label": "Blog 1 title alignment",
       "id": "blog_banner_1_title_alignment",
       "type": "select",
       "options": [
-        { "value": "left_top", "label": "Left Top" },
-        { "value": "left_middle", "label": "Left Middle" },
-        { "value": "left_bottom", "label": "Left Bottom" },
-        { "value": "center_top", "label": "Center Top" },
-        { "value": "center_middle", "label": "Center Middle" },
-        { "value": "center_bottom", "label": "Center Bottom" },
-        { "value": "right_top", "label": "Right Top" },
-        { "value": "right_middle", "label": "Right Middle" },
-        { "value": "right_bottom", "label": "Right Bottom" }
+        { "value": "top_left", "label": "Top Left" },
+        { "value": "top_center", "label": "Top Center" },
+        { "value": "top_right", "label": "Top Right" },
+        { "value": "middle_left", "label": "Middle Left" },
+        { "value": "middle_center", "label": "Middle Center" },
+        { "value": "middle_right", "label": "Middle Right" },
+        { "value": "bottom_left", "label": "Bottom Left" },
+        { "value": "bottom_center", "label": "Bottom Center" },
+        { "value": "bottom_right", "label": "Bottom Right" }
       ],
       "default": "center_middle"
     },
-    
-    
-    
     {
-      "type": "paragraph",
-      "content": "Blog 2"
-    },
-    {
-      "label": "Blog 2 blog",
+      "label": "Blog 2",
       "id": "blog_banner_2",
       "type": "blog"
     },
     {
-      "label": "Blog 2 image",
+      "label": "Blog 2 banner image",
       "id": "blog_banner_image_2.jpg",
       "type": "image"
     },
     {
-      "type": "paragraph",
-      "content": "Blog 3"
+      "label": "Show blog 2 title over banner",
+      "id": "blog_banner_2_title_over_banner",
+      "type": "checkbox",
+      "default": false
     },
     {
-      "label": "Blog 3 blog",
+      "label": "Blog 2 title alignment",
+      "id": "blog_banner_2_title_alignment",
+      "type": "select",
+      "options": [
+        { "value": "top_left", "label": "Top Left" },
+        { "value": "top_center", "label": "Top Center" },
+        { "value": "top_right", "label": "Top Right" },
+        { "value": "middle_left", "label": "Middle Left" },
+        { "value": "middle_center", "label": "Middle Center" },
+        { "value": "middle_right", "label": "Middle Right" },
+        { "value": "bottom_left", "label": "Bottom Left" },
+        { "value": "bottom_center", "label": "Bottom Center" },
+        { "value": "bottom_right", "label": "Bottom Right" }
+      ],
+      "default": "center_middle"
+    },
+    {
+      "label": "Blog 3",
       "id": "blog_banner_3",
       "type": "blog"
     },
     {
-      "label": "Blog 3 image",
+      "label": "Blog 3 banner image",
       "id": "blog_banner_image_3.jpg",
       "type": "image"
     },
     {
-      "type": "paragraph",
-      "content": "Blog 4"
+      "label": "Show blog 3 title over banner",
+      "id": "blog_banner_3_title_over_banner",
+      "type": "checkbox",
+      "default": false
     },
     {
-      "label": "Blog 4 blog",
+      "label": "Blog 3 title alignment",
+      "id": "blog_banner_3_title_alignment",
+      "type": "select",
+      "options": [
+        { "value": "top_left", "label": "Top Left" },
+        { "value": "top_center", "label": "Top Center" },
+        { "value": "top_right", "label": "Top Right" },
+        { "value": "middle_left", "label": "Middle Left" },
+        { "value": "middle_center", "label": "Middle Center" },
+        { "value": "middle_right", "label": "Middle Right" },
+        { "value": "bottom_left", "label": "Bottom Left" },
+        { "value": "bottom_center", "label": "Bottom Center" },
+        { "value": "bottom_right", "label": "Bottom Right" }
+      ],
+      "default": "center_middle"
+    },
+    {
+      "label": "Blog 4",
       "id": "blog_banner_4",
       "type": "blog"
     },
     {
-      "label": "Blog 4 image",
+      "label": "Blog 4 banner image",
       "id": "blog_banner_image_4.jpg",
       "type": "image"
     },
     {
-      "type": "paragraph",
-      "content": "Blog 5"
+      "label": "Show blog 4 title over banner",
+      "id": "blog_banner_4_title_over_banner",
+      "type": "checkbox",
+      "default": false
     },
     {
-      "label": "Blog 5 blog",
+      "label": "Blog 4 title alignment",
+      "id": "blog_banner_4_title_alignment",
+      "type": "select",
+      "options": [
+        { "value": "top_left", "label": "Top Left" },
+        { "value": "top_center", "label": "Top Center" },
+        { "value": "top_right", "label": "Top Right" },
+        { "value": "middle_left", "label": "Middle Left" },
+        { "value": "middle_center", "label": "Middle Center" },
+        { "value": "middle_right", "label": "Middle Right" },
+        { "value": "bottom_left", "label": "Bottom Left" },
+        { "value": "bottom_center", "label": "Bottom Center" },
+        { "value": "bottom_right", "label": "Bottom Right" }
+      ],
+      "default": "center_middle"
+    },
+    {
+      "label": "Blog 5",
       "id": "blog_banner_5",
       "type": "blog"
     },
     {
-      "label": "Blog 5 image",
+      "label": "Blog 5 banner image",
       "id": "blog_banner_image_5.jpg",
       "type": "image"
+    },
+    {
+      "label": "Show blog 5 title over banner",
+      "id": "blog_banner_5_title_over_banner",
+      "type": "checkbox",
+      "default": false
+    },
+    {
+      "label": "Blog 5 title alignment",
+      "id": "blog_banner_5_title_alignment",
+      "type": "select",
+      "options": [
+        { "value": "top_left", "label": "Top Left" },
+        { "value": "top_center", "label": "Top Center" },
+        { "value": "top_right", "label": "Top Right" },
+        { "value": "middle_left", "label": "Middle Left" },
+        { "value": "middle_center", "label": "Middle Center" },
+        { "value": "middle_right", "label": "Middle Right" },
+        { "value": "bottom_left", "label": "Bottom Left" },
+        { "value": "bottom_center", "label": "Bottom Center" },
+        { "value": "bottom_right", "label": "Bottom Right" }
+      ],
+      "default": "center_middle"
     }
   ]
 }
