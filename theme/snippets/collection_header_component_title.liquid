@@ -1,0 +1,6 @@
+{% if current_tags.size > 0 %}
+  {% include '_collection_title_filters' %}
+  <h1>{{ 'collections.collection_title_when_filtered.title_html' | t: title: collection_title, filters: collection_title_filters }}</h1>
+{% else %}
+  <h1>{{ collection_title }}</h1>
+{% endif %}

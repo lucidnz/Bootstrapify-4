@@ -1,0 +1,39 @@
+{
+  "name": "Pages",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header Layout"
+    },
+    {
+      "label": "Use first image as a banner",
+      "id": "enable_page_banner",
+      "type": "checkbox",
+      "default": false,
+      "info": "When checked the first image from the page will be pulled out of the content and displayed as a fullscreen banner above the article"
+    },
+    {
+      "label": "Show page title over banner",
+      "id": "show_page_title_on_banner",
+      "type": "checkbox",
+      "default": false
+    },
+    {
+      "label": "Page title alignment",
+      "id": "page_title_alignment",
+      "type": "select",
+      "options": [
+        { "value": "top_left", "label": "Top Left" },
+        { "value": "top_center", "label": "Top Center" },
+        { "value": "top_right", "label": "Top Right" },
+        { "value": "middle_left", "label": "Middle Left" },
+        { "value": "middle_center", "label": "Middle Center" },
+        { "value": "middle_right", "label": "Middle Right" },
+        { "value": "bottom_left", "label": "Bottom Left" },
+        { "value": "bottom_center", "label": "Bottom Center" },
+        { "value": "bottom_right", "label": "Bottom Right" }
+      ],
+      "default": "middle_center"
+    }
+  ]
+}

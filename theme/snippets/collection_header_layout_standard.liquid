@@ -1,0 +1,11 @@
+<section class="{{ header_classes }}">
+  <div class="sheet">
+    <header class="sheet-header page-header">
+      {% include 'collection_header_component_title' %}
+      
+      {% if collection_description != blank %}
+        <div class="collection-description">{{ collection_description }}</div>
+      {% endif %}
+    </header>
+  </div>
+</section>

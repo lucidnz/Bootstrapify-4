@@ -3,37 +3,38 @@
   "settings": [
     {
       "type": "header",
-      "content": "Banner"
+      "content": "Layout"
     },
     {
-      "label": "Fullscreen banner",
-      "id": "collection_fullscreen_banner",
-      "type": "checkbox",
-      "default": true
+      "label": "Header layout",
+      "id": "collection_header_layout",
+      "type": "select",
+      "options": [
+        { "value": "standard", "label": "Standard" },
+        { "value": "split_image_left", "label": "Split image left" },
+        { "value": "split_image_right", "label": "Split image right" },
+        { "value": "banner_image", "label": "Banner image above description" },
+        { "value": "banner_description", "label": "Banner containing description" }
+      ],
+      "default": "standard"
     },
     {
-      "type": "header",
-      "content": "List Collections"
-    },
-    {
-      "type": "paragraph",
-      "content": "The 'List Collections' template shows all of your collections and is availble at yourshop.com/collections"
-    },
-    {
-      "label": "Featured collection",
-      "id": "list_collections_featured_collection",
-      "type": "link_list",
-      "info": "If a link list of collections is selected then the list collections template will show just the collections in this list. If it is set to none or the link list is empty then the template will show all collections."
-    },
-    {
-      "type": "header",
-      "content": "Collection Thumbs"
-    },
-    {
-      "label": "Show collections product count",
-      "id": "show_collection_product_count",
-      "type": "checkbox",
-      "default": true
+      "label": "Header description alignment",
+      "id": "collection_header_description_alignment",
+      "type": "select",
+      "options": [
+        { "value": "top_left", "label": "Top Left" },
+        { "value": "top_center", "label": "Top Center" },
+        { "value": "top_right", "label": "Top Right" },
+        { "value": "middle_left", "label": "Middle Left" },
+        { "value": "middle_center", "label": "Middle Center" },
+        { "value": "middle_right", "label": "Middle Right" },
+        { "value": "bottom_left", "label": "Bottom Left" },
+        { "value": "bottom_center", "label": "Bottom Center" },
+        { "value": "bottom_right", "label": "Bottom Right" }
+      ],
+      "default": "middle_center",
+      "info": "IMPORTANT: This setting only applies if your header layout is set to 'Banner containing description'"
     },
     {
       "type": "header",

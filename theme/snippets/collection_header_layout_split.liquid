@@ -1,0 +1,24 @@
+<section class="{{ header_classes }}">
+  <div class="sheet">
+    <header class="sheet-header page-header">
+      {% include 'collection_header_component_title' %}
+      
+      {% if collection_image and collection_description != blank %}
+        {% if collection_image %}
+          <div class="collection-description">
+            <div class="content-split">
+              <div class="content-split-text">
+                {{ collection_description }}
+              </div>
+              <div class="content-split-images">
+                <img src="{{ collection_image }}">
+              </div>
+            </div>
+          </div>
+        {% else %}
+          <div class="collection-description">{{ collection_description }}</div>
+        {% endif %}
+      {% endif %}
+    </header>
+  </div>
+</section>

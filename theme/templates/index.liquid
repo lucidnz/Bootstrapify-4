@@ -1,11 +1,11 @@
 <main role="main">
 
-  {% comment %}
+  {% comment note:
     Loop the homepage content settings and add each section if applicable.
     Then loop the advanced content link list to add additional sections if needed.
     
     `section_count` is used across both standard & advanced sections and only increments if a section is included.
-  {% endcomment %}
+   %}{% endcomment %}
 
   {% assign section_count = 1 %}
   
@@ -15,14 +15,14 @@
     
     {% unless homepage_section == blank or homepage_section == 'none' %}
     
-      {% comment %}
+      {% comment note:
         Check for each section type and collect it's relevant content inside the homepage_section_content variable
         
         All except for the banner and video banner create three variables:
          - homepage_section_object which is passed to the snippet to be rendered
          - homepage_section_id to be used to identify each section
          - homepage_section_type to be used to identify each sections type
-      {% endcomment %}
+       %}{% endcomment %}
     
       {% case homepage_section %}
       {% when 'banner' %}
@@ -60,22 +60,22 @@
         {% endunless %}
       {% endcase %}
     
-      {% comment %}
+      {% comment note:
         If we have collected content inside homepage_section_content then add it to the page
-      {% endcomment %}
+       %}{% endcomment %}
       
       {% include 'homepage_section' %}
       
     {% endunless %}
   {% endfor %}
   
-  {% comment %}
+  {% comment note:
     Advanced layout.
     
     The advanced layout uses nested linklists like dropdown menus do, but the layout of the content is changed by it's level
     i.e. a product on the top level of the list will show a 'homepage product' layout with product form and description,
     but a product on the 2nd level will show a product thumbnail.
-  {% endcomment %}
+   %}{% endcomment %}
   
   {% unless settings.homepage_advanced_layout == blank %}
     
@@ -98,17 +98,17 @@
         {% endif %}
       
         {% if linklists[child_list_handle].links == blank %}
-          {% comment %}
+          {% comment note:
             We have no nested linklist so build the top level sections
-          {% endcomment %}
+           %}{% endcomment %}
       
           {% case advanced_section_link.type %}
           {% when 'relative_link' %}
-            {% comment %} This could be a couple of things so check again to see what we are working with {% endcomment %}
+            {% comment note: This could be a couple of things so check again to see what we are working with %}{% endcomment %}
             
             {% case advanced_section_link.url %}
             {% when '/collections/all' %}
-              {% comment %} Show the product loop for this collection {% endcomment %}
+              {% comment note: Show the product loop for this collection %}{% endcomment %}
               {% assign homepage_section_object = collections.all %}
               {% assign homepage_section_id = homepage_section_object.handle %}
               {% assign homepage_section_type = 'collection' %}
@@ -120,37 +120,37 @@
               {% capture homepage_section_content %}{% include 'homepage_search' %}{% endcapture %}
               
             {% else %}
-              {% comment %} We've got the front page; that's pretty meta. http://gph.is/1kPdp9x {% endcomment %}
+              {% comment note: We've got the front page; that's pretty meta. http://gph.is/1kPdp9x %}{% endcomment %}
             {% endcase %}
             
           {% when 'collection_link' %}
-            {% comment %} Show the product loop for this collection {% endcomment %}
+            {% comment note: Show the product loop for this collection %}{% endcomment %}
             {% assign homepage_section_object = advanced_section_link.object %}
             {% assign homepage_section_id = homepage_section_object.handle %}
             {% assign homepage_section_type = 'collection' %}
             {% capture homepage_section_content %}{% include 'homepage_products' with homepage_section_object %}{% endcapture %}
           
           {% when 'product_link' %}
-            {% comment %} TODO: Show the special homepage product details {% endcomment %}
+            {% comment TODO: Show the special homepage product details %}{% endcomment %}
           
           {% when 'page_link' %}
-            {% comment %} Show the page content {% endcomment %}
+            {% comment note: Show the page content %}{% endcomment %}
             {% assign homepage_section_object = advanced_section_link.object %}
             {% assign homepage_section_id = homepage_section_object.handle %}
             {% assign homepage_section_type = 'page' %}
             {% capture homepage_section_content %}{% include 'homepage_page' with homepage_section_object %}{% endcapture %}
           
           {% when 'blog_link' %}
-            {% comment %} TODO: Show a list of articles from this blog. limit in settings? {% endcomment %}
+            {% comment TODO: Show a list of articles from this blog. limit in settings? %}{% endcomment %}
           
           {% when 'http_link' %}
-            {% comment %}
+            {% comment note:
               SOCIAL LINKS
               i.e.
               - url contains instagram.com/username or instagram.com/#hashtag then show a feed of images
               - url contains twitter.com/username then show a feed of tweets
               - url contains youtube.com/video or vimeo.com/video then embed the video
-            {% endcomment %}
+             %}{% endcomment %}
             {% assign homepage_section_id = advanced_section_link.handle %}
             {% assign homepage_section_type = 'social' %}
             {% capture homepage_section_content %}{% include 'homepage_social' with advanced_section_link %}{% endcapture %}
@@ -158,10 +158,10 @@
           {% endcase %}
         
         {% else %}
-          {% comment %}
+          {% comment note:
             Nested linklist
             Drop down a level and change context of snippets
-          {% endcomment %}
+           %}{% endcomment %}
         
           {% capture homepage_sub_section_content %}{% endcapture %}
           {% assign homepage_sub_section_size = 0 %}
@@ -169,11 +169,11 @@
         
             {% case advanced_section_child_link.type %}
             {% when 'relative_link' %}
-              {% comment %} This could be a couple of things so check again to see what we are working with {% endcomment %}
+              {% comment note: This could be a couple of things so check again to see what we are working with %}{% endcomment %}
               
               {% case advanced_section_child_link.url %}
               {% when '/collections/all' %}
-                {% comment %} Show the collection thumbnail for the all collection {% endcomment %}
+                {% comment note: Show the collection thumbnail for the all collection %}{% endcomment %}
                 {% assign c = collections.all %}
                 {% assign collection_item_title = advanced_section_child_link.title %}
                 {% capture new_homepage_sub_section_content %}{% include 'collection_item' %}{% endcapture %}
@@ -182,11 +182,11 @@
                 {% capture new_homepage_sub_section_content %}{% include 'homepage_sub_search' %}{% endcapture %}
                 
               {% else %}
-                {% comment %} We've got the front page; that's pretty meta. http://gph.is/1kPdp9x {% endcomment %}
+                {% comment note: We've got the front page; that's pretty meta. http://gph.is/1kPdp9x %}{% endcomment %}
               {% endcase %}
             
             {% when 'collection_link' %}
-              {% comment %} Show the collection thumbnail {% endcomment %}
+              {% comment note: Show the collection thumbnail %}{% endcomment %}
               {% assign c = advanced_section_child_link.object %}
               {% if c.products_count > 0 %}
                 {% assign collection_item_title = advanced_section_child_link.title %}
@@ -194,25 +194,25 @@
               {% endif %}
             
             {% when 'product_link' %}
-              {% comment %} Show the products thumbnail {% endcomment %}
+              {% comment note: Show the products thumbnail %}{% endcomment %}
               {% assign p = advanced_section_child_link.object %}
               {% capture new_homepage_sub_section_content %}{% include 'product_item' %}{% endcapture %}
             
             {% when 'page_link' %}
-              {% comment %} Show the page content, with title ala features {% endcomment %}
+              {% comment note: Show the page content, with title ala features %}{% endcomment %}
               {% capture new_homepage_sub_section_content %}{% include 'homepage_sub_page' with advanced_section_child_link.object %}{% endcapture %}
             
             {% when 'blog_link' %}
-              {% comment %} TODO: Show a list of articles from this blog {% endcomment %}
+              {% comment TODO: Show a list of articles from this blog %}{% endcomment %}
             
             {% when 'http_link' %}
-              {% comment %}
+              {% comment note:
                 SOCIAL LINKS
                 i.e.
                 - url contains instagram.com/username or instagram.com/#hashtag then show a feed of images
                 - url contains twitter.com/username then show a feed of tweets
                 - url contains youtube.com/video or vimeo.com/video then embed the video
-              {% endcomment %}
+               %}{% endcomment %}
               {% capture new_homepage_sub_section_content %}{% include 'homepage_sub_social' with advanced_section_child_link %}{% endcapture %}
               
             {% endcase %}
@@ -245,10 +245,10 @@
     {% endunless %}
   {% endunless %}
   
-  {% comment %}
+  {% comment note:
     If the section count is still 1 after all of that then we haven't created any sections.
     So show the on-boarding content
-  {% endcomment %}
+   %}{% endcomment %}
   {% if section_count == 1 %}
     {% include 'homepage_onboarding' %}
   {% endif %}

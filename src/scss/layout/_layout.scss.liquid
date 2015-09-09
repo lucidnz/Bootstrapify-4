@@ -525,10 +525,28 @@ body.search .search-results {
     margin-bottom: (0 - $grid-gutter-width);
   }
 }
+.homepage-section-banner:first-child,
+.homepage-section-banner-video:first-child {
+  margin-top: $navbar-margin-bottom * -1;
+}
 
 /*
   Sections
 */
+
+.content-split {
+  .content-split-text {
+    @include make-xs-column(12);
+    @include make-sm-column(8);
+  }
+  .content-split-images {
+    @include make-xs-column(12);
+    @include make-sm-column(4);
+  }
+}
+.content-full {
+  @include make-xs-column(12);
+}
 
 .homepage-section,
 .product-section {
@@ -536,20 +554,6 @@ body.search .search-results {
   .sheet-content {
     @include make-row();
     margin-bottom: 0;
-  }
-  
-  .content-split {
-    .content-split-text {
-      @include make-xs-column(12);
-      @include make-sm-column(8);
-    }
-    .content-split-images {
-      @include make-xs-column(12);
-      @include make-sm-column(4);
-    }
-  }
-  .content-full {
-    @include make-xs-column(12);
   }
   
   &:nth-of-type(odd) {

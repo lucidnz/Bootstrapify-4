@@ -1,11 +1,13 @@
 {% if homepage_products.products.size > 0 %}
+  {% assign homepage_products_url = homepage_products.url | default: '/collections/all' %}
+
   {% assign product_limit = settings.homepage_limit_products | times: 1 %}
   {% if homepage_products.products.size < product_limit %}{% assign collection_size = homepage_products.products.size | times: 1 %}{% else %}{% assign collection_size = product_limit | times: 1 %}{% endif %}
   <div class="sheet">
     <header class="sheet-header page-header">
       {% if homepage_products.products.size > product_limit %}
-        <h1><a href="{{ homepage_products.url }}">{{ homepage_products.title }}</a></h1>
-        <a class="view-all-link" href="{{ homepage_products.url }}">{{ 'collections.general.view_all_products_html' | t }}</a>
+        <h1><a href="{{ homepage_products_url }}">{{ homepage_products.title }}</a></h1>
+        <a class="view-all-link" href="{{ homepage_products_url }}">{{ 'collections.general.view_all_products_html' | t: collection_title: homepage_products.title }}</a>
       {% else %}
         <h1>{{ homepage_products.title }}</h1>
       {% endif %}

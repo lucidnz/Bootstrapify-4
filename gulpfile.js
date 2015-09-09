@@ -38,7 +38,7 @@ gulp.task('default', function () {
   gulp.watch([
     './src/scss/*.scss',
     './src/scss/*.scss.liquid',
-    './src/scss/*/*.scss.liquid'
+    './src/scss/**/*.scss.liquid'
   ], ['sass']);
 
   // watch for js changes
@@ -58,7 +58,7 @@ gulp.task('default', function () {
 gulp.task('js', ['js_lint', 'js_modernizr', 'js_browserify']);
 
 // Helper for sass tasks
-gulp.task('sass', ['sass_concat']);
+gulp.task('sass', ['sass_concat', 'sass_concat_giftcard']);
 
 // Helper for settings tasks
 gulp.task('settings', ['shopify_theme_settings']);
@@ -84,6 +84,16 @@ gulp.task('sass_concat', function () {
       errorHandler: onError
     }))
     .pipe(concat('styles.scss.liquid'))
+    .pipe(gulp.dest('./theme/assets/'));
+});
+
+gulp.task('sass_concat_giftcard', function () {
+  var paths = new SassImport('./src/scss/giftcard.scss');
+  return gulp.src(paths)
+    .pipe(plumber({
+      errorHandler: onError
+    }))
+    .pipe(concat('giftcard.scss.liquid'))
     .pipe(gulp.dest('./theme/assets/'));
 });
 
@@ -166,8 +176,10 @@ gulp.task('shopify_theme_settings', function () {
     'homepage_banner',
     'homepage_video_banner',
     'collections',
+    'list_collections',
     'products',
     'thumbnails',
+    'pages',
     'blog',
     'search',
     'social',
