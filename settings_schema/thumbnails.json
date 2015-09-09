@@ -13,6 +13,13 @@
       "info": "The maximum amount of thumbs you can show on a page is 50. For best results use a multiple of your thumbs column count."
     },
     {
+      "label": "Nested collection product limit",
+      "id": "nested_collections_product_limit",
+      "type": "text",
+      "default": "12",
+      "info": "This is only applied to collections with the template of 'nested-products' and will limit each nested collections product length. The maximum is 50."
+    },
+    {
       "type": "header",
       "content": "Images"
     },

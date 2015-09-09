@@ -23,10 +23,8 @@
         {% endfor %}
       </section>
             
-      {% else %}
-        {% comment %}
-          No featured collections so fallback to all collections
-        {% endcomment %}
+    {% else %}
+      {% comment note: No featured collections so fallback to all collections %}{% endcomment %}
       
       {% assign collections_size = collections.size | times: 1 %}
       <section class="group collections" data-collections-size="{{ collections_size }}">
