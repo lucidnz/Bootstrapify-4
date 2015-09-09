@@ -1,11 +1,19 @@
 <main role="main">
+  {% assign image = false %}
+  {% assign content = page.content %}
+  {% if settings.enable_page_banner and content contains 'src=' %}
+    {% include 'page_banner' %}
+  {% endif %}
+  
   <article class="sheet">
+    {% unless settings.show_page_title_on_banner and image %}
     <header class="sheet-header page-header">
       <h1>{{ page.title }}</h1>
     </header>
+    {% endunless %}
 
     <section class="sheet-content">
-      {% include 'content_split' with page.content %}
+      {% include 'content_split' with content %}
     </section>
   </article>
 </main>

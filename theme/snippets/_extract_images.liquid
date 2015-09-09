@@ -50,9 +50,9 @@
       {% endfor %}
       
       {% if new_image %}
-        {% capture sized_images %}{{ sized_images }}{{ new_image }}{% endcapture %}
+        {% capture sized_images %}{{ sized_images }} {{ new_image }}{% endcapture %}
       {% else %}
-        {% capture sized_images %}{{ sized_images }}{{ image }}{% endcapture %}
+        {% capture sized_images %}{{ sized_images }} {{ image }}{% endcapture %}
       {% endif %}
     {% endfor %}
     {% assign images = sized_images %}

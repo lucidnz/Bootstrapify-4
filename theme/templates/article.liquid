@@ -7,7 +7,7 @@
     {% assign image = images | first %}
     {% assign image_to_remove = unsized_images | first %}
     {% assign content = content | remove: image_to_remove %}
-    <div class="article-header">
+    <div class="article-banner">
       <div class="banner-image banner-image-fullscreen">
         {{ image }}
         {% if settings.show_article_title_on_banner %}
@@ -21,11 +21,11 @@
   
   <div class="sheet">
     <article class="blog-article">
-      {% if image and settings.show_article_title_on_banner == false %}
+      {% unless settings.show_article_title_on_banner and image %}
       <header class="sheet-header page-header">
         <h1>{{ article.title }}</h1>
       </header>
-      {% endif %}
+      {% endunless %}
     
       <div class="blog-article-content-wrap">
         <aside class="blog-article-meta">

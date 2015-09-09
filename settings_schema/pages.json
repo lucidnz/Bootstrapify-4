@@ -7,7 +7,7 @@
     },
     {
       "label": "Use first image as a banner",
-      "id": "enable_page_banners",
+      "id": "enable_page_banner",
       "type": "checkbox",
       "default": false,
       "info": "When checked the first image from the page will be pulled out of the content and displayed as a fullscreen banner above the article"
