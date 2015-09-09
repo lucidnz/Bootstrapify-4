@@ -1,0 +1,85 @@
+{% comment note:
+
+  Nested Collections:
+  To achieve a nested collection set a master collection with the template of `collection.nested`.
+  This will then look for a linklist with a namespaced handle that matches `collection-{{ collection_handle }}`.
+  Each collection in the matched linklist will then be displayed as it's nesting.
+
+  TODO:
+    - Collections controls (sorting/filtering/views)
+    - Respect collection template (grid/list/lookbook)
+
+ %}{% endcomment %}
+
+{% assign collections_linklist_key = 'collection-' | append: handle %}
+{% assign collections_linklist = linklists[collections_linklist_key] %}
+
+{% capture nested_collections %}{% endcapture %}
+{% assign product_limit = settings.nested_collections_product_limit | times: 1 | 50 %}
+{% if product_limit > 50 %}{% assign product_limit = 50 %}{% endif %}
+{% assign products_size = collections_linklist.links | map: 'object' | sort: 'products_count' | map: 'products_count' | first | times: 1 %}
+{% if product_limit < products_size %}
+  {% assign products_size = product_limit | times: 1 %}
+{% endif %}
+
+{% for collection_link in collections_linklist.links %}
+  {% if collection_link.type == 'collection_link' %}
+    {% assign c = collection_link.object %}
+    {% capture nested_collections %}
+      {{ nested_collections }}
+      <section class="nested-collection" id="{{ c.handle }}">
+        <header class="collection-header clearfix">
+          <h2>{{ c.title }}</h2>
+          {% if c.products_count > products_size %}
+          <a class="view-all-link" href="{{ homepage_products_url }}">{{ 'collections.general.view_all_products_html' | t: collection_title: c.title }}</a>
+          {% endif %}
+          {% if c.description != blank %}
+          <div class="collection-description">{{ c.description }}</div>
+        {% endif %}
+        </header>
+        <div class="group products" data-products-size="{{ products_size }}">
+          {% for p in c.products limit: product_limit %}
+            {% if c.template_suffix == 'list' %}
+              {% include 'product_item_list' %}
+            {% else %}
+              {% include 'product_item' %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endcapture %}
+  {% endif %}
+{% endfor %}
+
+<main role="main">
+  {% comment note: Collection header layouts are also used on the list collections page, so set up the relevant variables outside the include first %}{% endcomment %}
+  {% assign collection_title = collection.title %}
+  {% assign collection_description = collection.description %}
+  {% if settings.collection_header_layout contains 'split_image' %}
+    {% assign collection_image = collection.image.src | img_url: 'grande' %}
+    {% capture header_classes %}collection-header collection-header-split collection-header-{{ settings.collection_header_layout | replace: '_','-' }}{% endcapture %}
+    {% include 'collection_header_layout_split' %}
+  {% else %}
+    {% assign collection_image = collection.image.src | img_url: '2048x2048' %}
+    {% capture header_classes %}collection-header collection-header-{{ settings.collection_header_layout | replace: '_','-' }}{% endcapture %}
+    {% assign collection_header_layout_snippet = 'collection_header_layout_' | append: settings.collection_header_layout %}
+    {% include collection_header_layout_snippet %}
+  {% endif %}
+  
+  <section class="collection-content">
+    <div class="sheet{% unless nested_collections == blank %} products-wrap{% endunless %}">
+      {% if nested_collections == blank %}
+        <section class="sheet-content">
+          <div class="collection-message">
+            <h3>{{ 'collections.general.empty_message_title' | t }}</h3>
+            <p>{{ 'collections.general.empty_message_html' | t }}</p>
+          </div>
+        </section>
+      {% else %}
+        {{ nested_collections }}
+      {% endif %}
+    </div>
+  </section>
+</main>
+
+{% include 'site_aside' %}
