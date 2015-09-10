@@ -11,7 +11,9 @@
   {% if homepage_page.template_suffix == 'split' %}
     {% include 'content_split' with homepage_page.content %}
   {% else %}
-    {{ homepage_page.content }}
+    <div class="content-full">
+      {{ homepage_page.content }}
+    </div>
   {% endif %}
   </section>
 </div>

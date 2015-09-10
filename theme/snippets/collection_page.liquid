@@ -1,78 +1,73 @@
 <main role="main">
-  <section class="collection-header">
-    {% comment note: DONT DO THIS. move it into a collection.banner template %}
-    {% if collection.image %}
-    <div class="collection-banner">
-      <img src="{{ collection.image.src | img_url: '2048x2048' }}">
-    </div>
-    {% endif %}
-    {% endcomment %}
-    
-    <div class="sheet collection-header">
-      <header class="sheet-header page-header">
-        {% if current_tags.size > 0 %}
-          {% include '_collection_title_filters' %}
-          <h1>{{ 'collections.collection_title_when_filtered.title_html' | t: title: collection.title, filters: collection_title_filters }}</h1>
-        {% else %}
-          <h1>{{ collection.title }}</h1>
-        {% endif %}
-        {% if collection.description != blank %}
-          <div class="collection-description">{{ collection.description }}</div>
-        {% endif %}
-      </header>
-    </div>
-  </section>
+  {% comment note: Collection header layouts are also used on the list collections page, so set up the relevant variables outside the include first %}{% endcomment %}
+  {% assign collection_title = collection.title %}
+  {% assign collection_description = collection.description %}
+  {% if settings.collection_header_layout contains 'split_image' %}
+    {% assign collection_image = collection.image.src | img_url: 'grande' %}
+    {% capture header_classes %}collection-header collection-header-split collection-header-{{ settings.collection_header_layout | replace: '_','-' }}{% endcapture %}
+    {% include 'collection_header_layout_split' %}
+  {% else %}
+    {% assign collection_image = collection.image.src | img_url: '2048x2048' %}
+    {% capture header_classes %}collection-header collection-header-{{ settings.collection_header_layout | replace: '_','-' }}{% endcapture %}
+    {% assign collection_header_layout_snippet = 'collection_header_layout_' | append: settings.collection_header_layout %}
+    {% include collection_header_layout_snippet %}
+  {% endif %}
   
   <section class="collection-content">
     <div class="sheet {% if collection.products.size > 0 %}products-wrap{% endif %}">
-    {% include 'collection_controls'%}
+      {% include 'collection_controls'%}
       
-    {% if collection.all_products_count == 0 %}
-      <section class="sheet-content">
-        <div class="collection-message">
-          <h3>{{ 'collections.general.empty_message_title' | t }}</h3>
-          <p>{{ 'collections.general.empty_message_html' | t }}</p>
-        </div>
-      </section>
-      
-    {% elsif collection.products_count == 0 %}
-      {% comment note: The collection has products in it but we have filtered it down to far %}{% endcomment%}
-      <section class="sheet-content">
-        <div class="collection-message">
-          <h3>{{ 'collections.filtering.empty_message_title' | t }}</h3>
-          <p>{{ 'collections.filtering.empty_message_html' | t: count: collection.all_products_count, collection_title: collection.title }}</p>
-          <ul class="list-unstyled">
-      		{% for tag in current_tags %}
-            {% capture tag_text %}<span class="fa fa-times-circle"></span><span class="sr-only">remove</span> {{ tag }}{% endcapture %}
-        		<li>{{ tag_text | link_to_remove_tag: tag }}</li>
-      		{% endfor %}
-        	</ul>
-        </div>
-      </section>
-      
-    {% else %}
-      {% include 'pagination_limit' with 'products' %}
-      {% paginate collection.products by pagination_limit %}
-        {% if collection.all_products.size < pagination_limit %}{% assign collection_size= collection.all_products.size | times: 1 %}{% else %}{% assign collection_size = pagination_limit | times: 1 %}{% endif %}
-        <section class="group products" data-products-size="{{ collection_size }}">
-          {% for p in collection.products %}
-            {% if product_list_item %}
-              {% include 'product_item_list' %}
-            {% else %}
-              {% include 'product_item' %}
-            {% endif %}
-          {% endfor %}
-          {% include 'pagination' %}
+      {% if collection.all_products_count == 0 %}
+        <section class="sheet-content">
+          <div class="collection-message">
+            <h3>{{ 'collections.general.empty_message_title' | t }}</h3>
+            <p>{{ 'collections.general.empty_message_html' | t }}</p>
+          </div>
         </section>
-      {% endpaginate %}
-      
-      {% if template contains 'lookbook' %}
-        <div class="lookbook-controls">
-          <a href="#" data-gallery-direction="left" data-scroll-to=""><span class="fa fa-chevron-left"></span></a>
-          <a href="#" data-gallery-direction="right" data-scroll-to=""><span class="fa fa-chevron-right"></span></a>
-        </div>
+        
+      {% elsif collection.products_count == 0 %}
+        {% comment note: The collection has products in it but we have filtered it down to far %}{% endcomment%}
+        <section class="sheet-content">
+          <div class="collection-message">
+            <h3>{{ 'collections.filtering.empty_message_title' | t }}</h3>
+            <p>{{ 'collections.filtering.empty_message_html' | t: count: collection.all_products_count, collection_title: collection.title }}</p>
+            <ul class="list-unstyled">
+        		{% for tag in current_tags %}
+        		  {% if tag contains ':' %}
+                {% assign tag_value = tag | split: ':' | last %}
+              {% else %}
+                {% assign tag_value = tag %}
+              {% endif %}
+          		{% capture tag_text %}<span class="fa fa-times-circle"></span><span class="sr-only">{{ 'collections.filtering.tag_title_remove' | t: tag: tag_value }}</span> {{ tag_value }}{% endcapture %}
+          		<li>{{ tag_text | link_to_remove_tag: tag }}</li>
+        		{% endfor %}
+          	</ul>
+          </div>
+        </section>
+        
+      {% else %}
+        {% include 'pagination_limit' with 'products' %}
+        {% paginate collection.products by pagination_limit %}
+          {% if collection.all_products.size < pagination_limit %}{% assign collection_size = collection.all_products.size | times: 1 %}{% else %}{% assign collection_size = pagination_limit | times: 1 %}{% endif %}
+          <section class="group products" data-products-size="{{ collection_size }}">
+            {% for p in collection.products %}
+              {% if product_list_item %}
+                {% include 'product_item_list' %}
+              {% else %}
+                {% include 'product_item' %}
+              {% endif %}
+            {% endfor %}
+            {% include 'pagination' %}
+          </section>
+        {% endpaginate %}
+        
+        {% if template contains 'lookbook' %}
+          <div class="lookbook-controls">
+            <a href="#" data-gallery-direction="left" data-scroll-to=""><span class="fa fa-chevron-left"></span></a>
+            <a href="#" data-gallery-direction="right" data-scroll-to=""><span class="fa fa-chevron-right"></span></a>
+          </div>
+        {% endif %}
       {% endif %}
-    {% endif %}
     </div>
   </section>
 </main>

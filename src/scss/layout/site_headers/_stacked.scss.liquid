@@ -1,11 +1,16 @@
-#header-layout-stacked {
+#header-layout-stacked .header-layout-lg {
+  & > .navbar {
+    border: none;
+  }
+  
   .navbar .navbar {
     margin-bottom: 0;
   }
   
   .navigation .navigation-cart {
-    @media (max-width: $grid-float-breakpoint) {
-      display: none;
+    display: none;
+    @media (min-width: $grid-float-breakpoint) {
+      display: block;
     }
   }
   

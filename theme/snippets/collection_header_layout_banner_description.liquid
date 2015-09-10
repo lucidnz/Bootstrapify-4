@@ -1,0 +1,27 @@
+<section class="{{ header_classes }}">
+  {% if collection_image %}
+    <div class="banner-image banner-image-fullscreen">
+      <img src="{{ collection_image }}">
+      <div class="banner-image-caption carousel-caption">
+        {% if collection_description != blank %}
+          <div class="collection-description">{{ collection_description }}</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="sheet">
+      <header class="sheet-header page-header">
+        {% include 'collection_header_component_title' %}
+      </header>
+    </div>
+    
+  {% else %}
+    <div class="sheet">
+      <header class="sheet-header page-header">
+        {% include 'collection_header_component_title' %}
+        {% if collection_description != blank %}
+          <div class="collection-description">{{ collection_description }}</div>
+        {% endif %}
+      </header>
+    </div>
+  {% endif %}
+</section>

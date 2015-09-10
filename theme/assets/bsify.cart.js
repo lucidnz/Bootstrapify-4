@@ -55,6 +55,9 @@ Cart.add_item_to_cart = function ($current_target) {
   var variant = Bsify.get_variant_by_id(values.id);
   var item_title = (variant.title === 'Default Title') ? Bsify.product.title : Bsify.product.title + Bsify.translations.product.item_title_seperator + variant.title;
   
+  var path_array = window.location.pathname.split('/');
+  var collection_url = (path_array[1] == 'collections') ? '/'+path_array[1]+'/'+path_array[2]+'/' : '/collections/all/';
+  
   // update the user that we are working on it
   $product_form_button.val(Bsify.translations.product.adding_to_cart_button_text);
   
@@ -63,7 +66,7 @@ Cart.add_item_to_cart = function ($current_target) {
     "success" : function (data, text_status, jqXHR) {
       
       // create and display completed message
-      var message = Bsify.translations.product.after_product_added_message_html.replace('[item_title]', item_title);
+      var message = Bsify.translations.product.after_product_added_message_html.replace('[item_title]', item_title).replace('[collection_url]', collection_url);
       Cart.show_message($product_form_message_ele, 'success', message);
       
       // update add to cart button text

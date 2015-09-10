@@ -1,0 +1,63 @@
+{% capture function %}
+  {% comment Note:
+  
+    Takes a block of content, separates out the images from the text and returns the images.
+    We split the content on tags and spaces then scan through it all looking for the things we want.
+    Why?! Because reasons!
+    
+    You can pass in a variable called `image_size` which will return any sized image with this new size.
+    If you do this then the returned `images` variable will be the sized images and you will get an `unsized_images` variable
+    which contains the images before they were resized. This is handy for removing them from content.
+  
+   %}{% endcomment %}
+   
+  {% comment note: Split content %}{% endcomment %}
+  {% assign split = _extract_images | split:' ' | join:'~~' | replace: '>', '>~~' | replace: '<', '~~<' | split: '~~' %}
+  
+  {% comment note: Find all the images %}{% endcomment %}
+  {% assign in_img = false %}
+  {% capture images %}{% endcapture %}
+  {% for s in split %}
+    {% unless s == blank %}
+      {% if s == '<img' %}
+        {% assign in_img = true %}
+      {% endif %}
+      {% if in_img %}
+        {% capture images %}{{ images }} {{ s }}{% endcapture %}
+      {% endif %}
+      {% if in_img and s contains '>' %}
+        {% assign in_img = false %}
+      {% endif %}
+    {% endunless %}
+  {% endfor %}
+  
+  {% if image_size %}
+    {% assign new_size = image_size | prepend:'_' | append:'.' %}
+    {% assign image_sizes = 'pico|icon|thumb|small|compact|medium|large|grande|original|1024x1024|2048x2048|master' | split: '|' %}
+    {% assign images = images | replace: ' <','~~<' | remove_first: '~~' | split: '~~' %}
+    {% assign unsized_images = images %}
+    {% capture sized_images %}{% endcapture %}
+    
+    {% for image in images %}
+      {% assign new_image = false %}
+      {% for size in image_sizes %}
+        {% assign size_match = size | prepend:'_' | append:'.' %}
+        {% if image contains size_match %}
+          {% if size != image_size %}
+            {% assign new_image = image | replace: size_match, new_size %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      
+      {% if new_image %}
+        {% capture sized_images %}{{ sized_images }} {{ new_image }}{% endcapture %}
+      {% else %}
+        {% capture sized_images %}{{ sized_images }} {{ image }}{% endcapture %}
+      {% endif %}
+    {% endfor %}
+    {% assign images = sized_images %}
+  {% endif %}
+  
+  {% assign images = images | replace: ' <','~~<' | remove_first: '~~' | split: '~~' %}
+  {% assign image_size = null %}
+{% endcapture %}

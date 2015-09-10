@@ -84,7 +84,7 @@
               </p>
             </div>
   
-            {% comment %} TODO: sale badges {% endcomment %}
+            {% comment TODO: sale badges %}{% endcomment %}
   
             <form class="add-to-cart-form" action="/cart/add" method="post" enctype="multipart/form-data">
               <div class="form-group">
@@ -115,14 +115,35 @@
           <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
         </section>
   
-        <section class="product-description" itemprop="description">
+        <section class="product-description">
           {% include 'product_description' with product.description %}
         </section>
       </div>
-
+        
+      {% if collection %}
+      <section class="product-navigation">
+        {% assign previous_product_title = collection.previous_product | split: '/' | last | replace:'-',' ' | capitalize %}
+        {% assign previous_count = 0 %}
+        {% if collection.previous_product %}
+          {% assign previous_count = 1 %}
+        {% endif %}
+        {% assign next_product_title = collection.next_product | split: '/' | last | replace:'-',' ' | capitalize %}
+        {% assign next_count = 0 %}
+        {% if collection.next_product %}
+          {% assign next_count = 1 %}
+        {% endif %}
+        <nav>
+          <ul class="pager">
+            <li class="previous{% unless collection.previous_product %} disabled{% endunless %}">{{ 'products.navigation.previous_product_link_html' | t: previous_product_title: previous_product_title, count: previous_count | link_to: collection.previous_product }}</a></li>
+            <li><a href="{{ collection.url }}">{{ 'products.navigation.collection_link_html' | t: collection_title: collection.title }}</a></li>
+            <li class="next{% unless collection.next_product %} disabled{% endunless %}">{{ 'products.navigation.next_product_link_html' | t: next_product_title: next_product_title, count: next_count | link_to: collection.next_product }}</li>
+          </ul>
+        </nav>
+      </section>
+      {% endif %}
     </div>
   </div>
-  {% if product_description_sections %}
+  {% if product_description_sections != blank %}
     {{ product_description_sections }}
   {% endif %}
 </main>

@@ -23,7 +23,7 @@
   },
   "collections": {
     "general": {
-      "view_all_html": "View all <span class='fa fa-chevron-right'></span>",
+      "view_all_products_html": "View all in {{ collection_title }} <span class='fa fa-chevron-right'></span>",
       "empty_message_title": "Whoa! There are no items in this collection",
       "empty_message_html": "You could try viewing <a href='\/collections\/all'>all&nbsp;products<\/a> or <a href='\/search'>searching&nbsp;the&nbsp;site<\/a>."
     },
@@ -35,12 +35,13 @@
     "filtering": {
       "filter_by_title": "Filter by",
       "filter_by_group_title": "Filter by {{ group }}",
+      "clear_all_filters": "Clear all filters",
       "tag_title_add": "Filter by {{ tag }}",
       "tag_title_remove": "Remove {{ tag }}",
       "empty_message_title": "Whoops! You might need to broaden your search",
       "empty_message_html": {
-        "one": "There is <strong>one<\/strong> product in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters.",
-        "other": "There are <strong>{{ count }}<\/strong> products in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters."
+        "one": "There is <strong>one<\/strong> product in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters:",
+        "other": "There are <strong>{{ count }}<\/strong> products in the <strong>'{{ collection_title }}'<\/strong> collection &mdash; Try removing some filters:"
       }
     },
     "sorting": {
@@ -55,8 +56,7 @@
       "date_descending": "Oldest"
     },
     "collection_controls": {
-      "switcher_title": "View {{ collection_title }} as {{ template_type }}",
-      "clear_all": "Clear all"
+      "switcher_title": "View {{ collection_title }} as {{ template_type }}"
     },
     "list_collections" : {
       "title" : "All collections",
@@ -84,7 +84,7 @@
     },
     "form" : {
       "quantity" : "Quantity",
-      "after_product_added_message_html" : "<h4>Thanks! Your item <strong>&ldquo;{{ item_title }}&rdquo;</strong> was added to <a href='/cart'>the cart</a>.</h4><p><a href='/cart'>View your cart now</a> or <a href='/collections/all'>Continue&nbsp;shopping</a>.</p>",
+      "after_product_added_message_html" : "<h4>Thanks! Your item <strong>&ldquo;{{ item_title }}&rdquo;</strong> was added to <a href='/cart'>the cart</a>.</h4><p><a href='/cart'>View your cart now</a> or <a href='{{ collection_url }}'>Continue&nbsp;shopping</a>.</p>",
       "after_product_added_error_message_html" : "<h4>There was an error adding <strong>&ldquo;{{ item_title }}&rdquo;</strong> to <a href='/cart'>the cart</a>.</h4><p><em>{{ error_message }}</em></p><p>Please try again later, or feel free to <a href='/pages/contact'>contact us</a>.</p>",
       "item_title_seperator" : " — "
     },
@@ -92,8 +92,8 @@
       "view_product" : "View Product",
       "add_to_cart" : "Add to Cart",
       "adding_to_cart" : "Adding",
-      "added_to_cart" : "Added. Add Another",
-      "add_another" : "Add Another",
+      "added_to_cart" : "Added. Add Again",
+      "add_another" : "Add Again",
       "sold_out" : "Sold Out",
       "unavailable" : "Unavailable"
     },
@@ -101,6 +101,17 @@
       "twitter_message" : "Check out {{ product_title }} — {{ url }} (via {{ handle }})",
       "email_subject" : "Check out {{ product_title }} on {{ shop_name }}",
       "email_body" : "Hey, I was just looking at {{ product_title }} on {{ shop_name }} and wanted to share it with you. Checkout {{ url }}."
+    },
+    "navigation": {
+      "previous_product_link_html": {
+        "zero": "<span class='fa fa-chevron-left'></span> Previous product",
+        "other": "<span class='fa fa-chevron-left'></span> {{ previous_product_title }}"
+      },
+      "next_product_link_html": {
+        "zero": "Next product <span class='fa fa-chevron-right'></span>",
+        "other": "{{ next_product_title }} <span class='fa fa-chevron-right'></span>"
+      },
+      "collection_link_html": "{{ collection_title }}"
     }
   },
   "cart": {
@@ -109,6 +120,7 @@
     },
     "cart_page": {
       "page_title": "Cart",
+      "description": "",
       "empty_message_html": "<h3>Your cart is empty.<\/h3><p><a href='\/collections\/all'>Continue&nbsp;shopping<\/a><\/p>",
       "subtotal_title": "Subtotal",
       "shipping_note": "Shipping & taxes calculated at checkout",
@@ -269,8 +281,8 @@
       "empty_message_title": "Whoa! There are no articles",
       "empty_message_html": "You could sign up for our mailing list or check back soon.",
       "rss_link_html": "<span class='fa fa-rss'></span> Subscribe to the RSS feed for {{ blog_title }}",
-      "previous_article_html": "&laquo; Previous",
-      "next_article_html": "Next &raquo;"
+      "previous_article_html": "<span class='fa fa-chevron-left'></span> Previous",
+      "next_article_html": "Next <span class='fa fa-chevron-right'></span>"
     },
     "article_list": {
       "published_date_html": "Published on {{ date }}",

@@ -13,12 +13,7 @@
 .group,
 .list {
   @include make-row();
-}
-
-.group-item-wrap {
-  @include make-xs-column(12);
-  @include make-sm-column(6);
-  @include make-md-column(3);
+  @include columns('.group-item-wrap');
 }
 
 .list-item-wrap {
@@ -86,60 +81,8 @@ footer {
   Default page specific layouts
 */
 
-.index {
-  @include adaptive-columns('.group-item-wrap');
-}
-
 // all collection templates
 body[class*="collection"] {
-  
-  @include adaptive-columns('.group-item-wrap');
-  
-  .sheet-content {
-    @include make-row();
-  }
-  .collection-message {
-    @include make-sm-column(12);
-  }
-}
-
-// /collections template
-.list-collections {
-  @include adaptive-columns('.group-item-wrap');
-
-  .group-item {
-    & > a {
-      overflow: hidden;
-      display: block;
-      position: relative;
-    }
-
-    .group-item-details {
-      position: absolute;
-      top: 50%;
-      width: 100%;
-      -webkit-transform: translateY(-50%);
-      -moz-transform: translateY(-50%);
-    	transform: translateY(-50%);
-    	padding: 0 $grid-gutter-width;
-    	text-align: center;
-      transition: .5s;
-      background-color: rgba(#fff, 0.8);
-    }
-    
-    &:hover {
-      .group-item-details {
-        opacity: 0;
-      }
-    }
-  }
-}
-
-// all collection templates
-body[class*="collection"] {
-  
-  @include adaptive-columns('.group-item-wrap');
-  
   .sheet-content {
     @include make-row();
   }
@@ -286,8 +229,8 @@ body.search .search-results {
       margin: auto;
     }
     {% unless is_centered %}
-    @media (min-width: $grid-float-breakpoint) {
-      margin-top: ($line-height-computed * 3); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
+    @media (min-width: $screen-sm-min) {
+      margin-top: ($line-height-computed * 2); // Line up top of image with top of page-header h1 using the same var that bs uses to calc this
     }
     {% endunless %}
   }
@@ -295,26 +238,26 @@ body.search .search-results {
   {% if settings.product_image_layout == 'left' %}
     .product-header, .product-content {
       @include make-sm-column(6);
-      @media (min-width: $grid-float-breakpoint) {
+      @media (min-width: $screen-sm-min) {
         float: right;
       }
     }
     .product-images {
       @include make-sm-column(6);
-      @media (min-width: $grid-float-breakpoint) {
+      @media (min-width: $screen-sm-min) {
         float: left;
       }
     }
   {% elsif settings.product_image_layout == 'right' %}
     .product-header, .product-content {
       @include make-sm-column(6);
-      @media (min-width: $grid-float-breakpoint) {
+      @media (min-width: $screen-sm-min) {
         float: left;
       }
     }
     .product-images {
       @include make-sm-column(6);
-      @media (min-width: $grid-float-breakpoint) {
+      @media (min-width: $screen-sm-min) {
         float: right;
       }
     }
@@ -324,11 +267,15 @@ body.search .search-results {
     }
     .product-details, .product-description {
       @include make-sm-column(6);
-      @media (min-width: $grid-float-breakpoint) {
+      @media (min-width: $screen-sm-min) {
         float: right;
       }
     }
   {% endif %}
+  
+  .product-navigation {
+      @include make-xs-column(12);
+  }
 
   .product-price {
     margin-top: $line-height-computed / 2;
@@ -342,10 +289,12 @@ body.search .search-results {
 
   .add-to-cart-form {
     margin-bottom: $line-height-computed;
+    @include make-xs-column(12);
     {% if is_centered %}
       @include make-sm-column(12);
     {% else %}
-      @include make-sm-column(6);
+      @include make-md-column(8);
+      @include make-lg-column(6);
     {% endif %}
   }
 
@@ -353,10 +302,12 @@ body.search .search-results {
     @include make-row();
     & ul {
       text-align: center;
+      @include make-xs-column(12);
       {% if is_centered %}
         @include make-sm-column(12);
       {% else %}
-        @include make-sm-column(6);
+        @include make-md-column(8);
+        @include make-lg-column(6);
       {% endif %}
     }
   }
@@ -391,6 +342,7 @@ body.search .search-results {
   }
 
   .cart-details {
+    @include make-xs-column(12);
     @include make-sm-column(6);
     @include make-md-column(4);
     h3 {
@@ -404,6 +356,7 @@ body.search .search-results {
   }
 
   .cart-extras {
+    @include make-xs-column(12);
     @include make-sm-column(6);
     @include make-md-column(8);
 
@@ -539,49 +492,15 @@ body.search .search-results {
 }
 
 /*
-  Homepage
-*/
-
-.homepage-section {
-  padding: $grid-gutter-width 0;
-  .sheet-content {
-    margin-bottom: 0;
-  }
-  
-  
-  h1, h2 {
-    &:first-child {
-      margin-top: 0; 
-    }
-  }
-  .page-header {
-    margin-top: 0;
-  }
-  
-  &:nth-child(even) {
-   background-color: $homepage-section-alt-background;
-  }
-  
-  .banner {
-    margin-top: (0 - $grid-gutter-width);
-    margin-bottom: (0 - $grid-gutter-width);
-  }
-  
-  .collection-description {
-    clear: both;
-  }
-}
-
-/*
   Page
 */
-
 .page-contact {
   .sheet-content {
     @include make-row();
   }
 
   .page-content, .contact-content {
+    @include make-xs-column(12);
     @include make-sm-column(6);
   }
   .page-content {
@@ -592,22 +511,67 @@ body.search .search-results {
   }
 }
 
-.content-split {
-  @include make-row();
+/*
+  Homepage
+*/
+
+.homepage-section {
+  .page-header {
+    margin-top: 0;
+  }
   
+  .banner {
+    margin-top: (0 - $grid-gutter-width);
+    margin-bottom: (0 - $grid-gutter-width);
+  }
+}
+.homepage-section-banner:first-child,
+.homepage-section-banner-video:first-child {
+  margin-top: $navbar-margin-bottom * -1;
+}
+
+/*
+  Sections
+*/
+
+.content-split {
   .content-split-text {
+    @include make-xs-column(12);
     @include make-sm-column(8);
   }
   .content-split-images {
+    @include make-xs-column(12);
     @include make-sm-column(4);
   }
 }
-.homepage-section:nth-of-type(odd) {
-  .content-split-text {
-    @include make-sm-column-push(4);
+.content-full {
+  @include make-xs-column(12);
+}
+
+.homepage-section,
+.product-section {
+  padding: $grid-gutter-width 0;
+  .sheet-content {
+    @include make-row();
+    margin-bottom: 0;
   }
-  .content-split-images {
-    @include make-sm-column-pull(8);
+  
+  &:nth-of-type(odd) {
+    .content-split-text {
+      @include make-sm-column-push(4);
+    }
+    .content-split-images {
+      @include make-sm-column-pull(8);
+    }
+  }
+  
+  &:nth-child(even) {
+   background-color: $homepage-section-alt-background;
+  }
+}
+.product-section {
+  h2 {
+    margin-top: 0;
   }
 }
 

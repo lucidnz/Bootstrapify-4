@@ -12,8 +12,16 @@
  %}{% endcomment %}
  
 {% if settings.show_collection_filter_by %}
-  {% if collection.all_tags.size > 0 %}
+
+  {% if current_tags.size > 0 %}
+    <div class="collection-clear-all">
+      <ul class="nav nav-pills">
+        <li><a href="{% if collection.url != blank %}{{ collection.url }}{% else %}/collections/all{% endif %}">{{ 'collections.filtering.clear_all_filters' | t }}</a></li>
+      </ul>
+    </div>
+  {% endif %}
   
+  {% if collection.all_tags.size > 0 %}
     {% comment note: Group tags
        Collect group names from each tag.
        We have to loop the collected tag groups to check if it contains the current tag otherwise we get an issue where 'group' is not included if 'grouping' comes before it. 
@@ -62,16 +70,6 @@
               </ul>
             </li>
           </ul>
-        
-        
-        {% comment %}
-          <div class="btn-group">
-            <button class="dropdown-toggle btn btn-default{% if tag_group_contains_active_tags %} active{% endif %}" type="button" data-toggle="dropdown" aria-expanded="false">{{ tag_group_title }} <span class="caret"></span></button>
-            <ul class="dropdown-menu" role="menu">
-              {{ tags }}
-            </ul>
-          </div>
-        {% endcomment %}
           
         {% when 'button' %}
           <ul class="nav nav-pills">

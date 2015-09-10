@@ -1,0 +1,15 @@
+{% assign image_size = '2048x2048' %}
+{% include '_extract_images' with content %}
+{% assign image = images | first %}
+{% assign image_to_remove = unsized_images | first %}
+{% assign content = content | remove: image_to_remove %}
+<div class="page-banner">
+  <div class="banner-image banner-image-fullscreen">
+    {{ image }}
+    {% if settings.show_page_title_on_banner %}
+      <div class="banner-image-caption carousel-caption">
+        <h1>{{ page.title }}</h1>
+      </div>
+    {% endif %}
+  </div>
+</div>

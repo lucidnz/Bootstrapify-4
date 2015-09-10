@@ -7,12 +7,14 @@
     {% if content_tabs_description %}
       <div itemprop="description">{{ content_tabs_description }}</div>
     {% endif %}
-    {{ content_tabs }}
+    {{ content_tabs_output }}
     
   {% when 'sections' %}
     {% include 'content_sections' with product_description %}
-    <div itemprop="description">{{ content_sections_first }}</div>
-    {% assign product_description_sections = content_sections_last %}
+    {% if content_sections_description %}
+      <div itemprop="description">{{ content_sections_description }}</div>
+    {% endif %}
+    {% assign product_description_sections = content_sections_output %}
     
   {% endcase %}
 {% else %}

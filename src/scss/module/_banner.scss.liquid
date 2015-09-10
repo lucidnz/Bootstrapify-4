@@ -1,13 +1,3 @@
-.collection-banner {
-  {% if settings.collection_fullscreen_banner %}
-    img { width: 100%; }
-  {% else %}
-    @include container;
-  {% endif %}
-  
-  img { margin: 0 auto; }
-}
-
 .banner {
   // create the fade transition
   &.fade {
@@ -34,7 +24,11 @@
   }
   
   // center images inside the banner
-  img { margin: auto; }
+  // and make sure the fill the screen
+  img {
+    margin: auto;
+    width: 100%;
+  }
 }
 
 // Banner controls
@@ -83,7 +77,7 @@
     
     .banner-content-wrap {
       position: relative;
-      @if $slide-size!= 'full_width' and $slide-size != 'full_screen' {
+      @if $slide-size!= 'full_width' {
         @include container;
       }
     }
@@ -210,15 +204,15 @@ $slide-count: 1;
 /* Video Banner */
 .banner-video {
   position: relative;
-  .banner-caption {
-    $vb-text-alignment: {{ settings.video_banner_alignment | default: 'center' }};
-    $vb-text-colour: {{ settings.video_banner_text_colour | default: '$text-color' }};
-    $vb-button-bg-colour: {{ settings.video_banner_button_colour | default: '$btn-primary-bg' }};
-    $vb-vertical-alignment: {{ settings.video_banner_vertical_alignment | default: 'middle' }};
-    
-    @include banner-caption-vertical-align($vb-vertical-alignment);
-    @include banner-caption-styles($vb-text-alignment, $vb-text-colour, $vb-button-bg-colour);
-  }
+}
+.banner-video-caption {
+  $vb-text-alignment: {{ settings.video_banner_alignment | default: 'center' }};
+  $vb-text-colour: {{ settings.video_banner_text_colour | default: '$text-color' }};
+  $vb-button-bg-colour: {{ settings.video_banner_button_colour | default: '$btn-primary-bg' }};
+  $vb-vertical-alignment: {{ settings.video_banner_vertical_alignment | default: 'middle' }};
+  
+  @include banner-caption-vertical-align($vb-vertical-alignment);
+  @include banner-caption-styles($vb-text-alignment, $vb-text-colour, $vb-button-bg-colour);
 }
 .banner-video.fallback-img .banner-video-embed {
   height: auto;
@@ -226,4 +220,68 @@ $slide-count: 1;
 }
 .banner-video-player {
   @include small-screen-banner-image;
+}
+
+/* Banner Image */
+.banner-image {
+  position: relative;
+  img {
+    margin: 0 auto;
+  }
+}
+
+.banner-image-fullscreen  {
+  margin-top: $navbar-margin-bottom * -1;
+  img {
+    width: 100%;
+  }
+}
+
+.banner-image-container {
+  @include container;
+}
+
+.collection-header .banner-image-caption {
+  $bi-text-alignment: {{ settings.collection_header_description_alignment | split: '_' | last | default: 'center' }};
+  $bi-vertical-alignment: {{ settings.collection_header_description_alignment | split: '_' | first | default: 'middle' }};
+  @include banner-caption-vertical-align($bi-vertical-alignment);
+  text-align: $bi-text-alignment;
+}
+
+.list-collection-header .banner-image-caption {
+  $bi-text-alignment: {{ settings.list_collection_header_description_alignment | split: '_' | last | default: 'center' }};
+  $bi-vertical-alignment: {{ settings.list_collection_header_description_alignment | split: '_' | first | default: 'middle' }};
+  @include banner-caption-vertical-align($bi-vertical-alignment);
+  text-align: $bi-text-alignment;
+}
+
+.blog-header .banner-image {
+  margin-bottom: $line-height-computed * 2;
+  {% for i in (1..5) %}
+    &[data-blog-banner="{{ i }}"] .banner-image-caption {
+      {% assign banner_alignment_key = 'blog_banner_' | append: i | append: '_title_alignment' %}
+      $bi-text-alignment: {{ settings[banner_alignment_key] | split: '_' | last | default: 'center' }};
+      $bi-vertical-alignment: {{ settings[banner_alignment_key] | split: '_' | first | default: 'middle' }};
+      @include banner-caption-vertical-align($bi-vertical-alignment);
+      text-align: $bi-text-alignment;
+    }
+  {% endfor %}
+}
+.article-banner .banner-image {
+  margin-bottom: $line-height-computed * 2;
+  .banner-image-caption {
+    $bi-text-alignment: {{ settings.artcle_title_alignment | split: '_' | last | default: 'center' }};
+    $bi-vertical-alignment: {{ settings.artcle_title_alignment | split: '_' | first | default: 'middle' }};
+    @include banner-caption-vertical-align($bi-vertical-alignment);
+    text-align: $bi-text-alignment;
+  }
+}
+.page-banner .banner-image {
+  margin-bottom: $line-height-computed * 2;
+  .banner-image-caption {
+    $bi-text-alignment: {{ settings.page_title_alignment | split: '_' | last | default: 'center' }};
+    $bi-vertical-alignment: {{ settings.page_title_alignment | split: '_' | first | default: 'middle' }};
+    @include banner-caption-vertical-align($bi-vertical-alignment);
+    text-align: $bi-text-alignment;
+  }
 }

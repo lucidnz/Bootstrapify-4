@@ -1,41 +1,33 @@
-{% comment TODO: retain alt attrs from images %}{% endcomment %}
+{% comment Note:
 
-{% if content_split contains '<img' %}
-  {% capture content %}{% endcapture %}
-  {% capture images %}{% endcapture %}
+  Takes a block of content, separates out the images from the text and then wraps
+  them in markup so that they can be displayed in columns side by side.
+
+ %}{% endcomment %}
+ 
+{% if content_split contains 'src=' %}
+    {% assign image_size = 'grande' %}
+  {% include '_extract_images' with content_split %}
   
-  {% assign parts = content_split | split: '<img' %}
-  {% for part in parts %}
-    {% if part contains 'src=' %}
-      {% assign img = part | split: 'src="' %}
-      {% assign img = img.last | split: '"' %}
-      {% assign img = img.first %}
-      {% capture images %}{{ images }}{% unless images == blank %}|{% endunless %}{{ img }}{% endcapture %}
-      
-    {% else %}
-      {% capture part_content %}{% endcapture %}
-      {% assign part_sections = part | split: '</p>' %}
-      {% for part_section in part_sections %}
-        {% unless forloop.last %}
-          {% capture part_content %}{{ part_content }}{{part_section}}</p>{% endcapture %}
-        {% endunless %}
-      {% endfor %}
-      {% capture content %}{{ content }}{{ part_content }}{% endcapture %}
-    {% endif %}
+  {% assign content = content_split %}
+  {% for image in unsized_images %}
+    {% assign content = content | remove: image %}
   {% endfor %}
-
+  {% assign content = content | remove: '<p></p>' %}
+   
+  {% comment note: Output content %}{% endcomment %}
   <div class="content-split">
     <div class="content-split-text">
       {{ content }}
     </div>
     <div class="content-split-images">
-      {% assign images = images | split: '|' %}
       {% for image in images %}
-        <img src="{{ image }}" />
+        {{ image }}
       {% endfor  %}
     </div>
   </div>
-
 {% else %}
-  {{ content_split }}
+  <div class="content-full">
+    {{ content_split }}
+  </div>
 {% endif %}

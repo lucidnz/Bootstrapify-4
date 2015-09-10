@@ -1,17 +1,18 @@
-@import '_variables.scss.liquid';
-@import '_mixins.scss.liquid';
+@import 'base/_variables.scss.liquid';
+@import 'base/_mixins.scss.liquid';
 @import '../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap';
-@import '_foundation.scss.liquid';
-@import '_layout.scss.liquid';
-@import '_typography.scss.liquid';
-@import '_navigation.scss.liquid';
-@import '_header_layouts.scss.liquid';
-@import '_social.scss.liquid';
-@import '_forms.scss.liquid';
-@import '_banner.scss.liquid';
-@import '_labels.scss.liquid';
-@import '_buttons.scss.liquid';
-@import '_images.scss.liquid';
-@import '_gift_card.scss.liquid';
-@import '_custom_overrides.scss.liquid';
-@import '_overrides.scss.liquid';
+@import 'base/_foundation.scss.liquid';
+@import 'base/_typography.scss.liquid';
+
+@import 'layout/_sticky_footer.scss.liquid';
+@import 'layout/_layout.scss.liquid';
+@import 'layout/_headers.scss.liquid';
+@import 'layout/_navigation.scss.liquid';
+
+@import 'module/_banner.scss.liquid';
+@import 'module/_forms.scss.liquid';
+@import 'module/_images.scss.liquid';
+@import 'module/_social.scss.liquid';
+
+@import 'theme/_custom_overrides.scss.liquid';
+@import 'theme/_overrides.scss.liquid';
