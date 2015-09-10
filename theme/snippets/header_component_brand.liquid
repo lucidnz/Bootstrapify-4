@@ -10,7 +10,7 @@
     This is optional and if it is not set then no class will be added.
  %}{% endcomment %}
 
-<a class="{{ brand_classes }}" href="/" title="{{ shop.name }}">
+<a class="{{ brand_classes }}{% if settings.logo_enabled %} navbar-brand-logo{% endif %}" href="/" title="{{ shop.name }}">
 {% if settings.logo_enabled %}
   <img class="logo-image" src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name | escape }}">
 {% else %}
