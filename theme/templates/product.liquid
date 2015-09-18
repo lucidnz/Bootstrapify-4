@@ -5,9 +5,11 @@
       <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
       <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
 
-      <header class="sheet-header page-header product-header">
-        <h1 itemprop="name">{{ product.title }}</h1>
-      </header>
+      <div class="sheet-header product-header">
+        <header class="page-header">
+          <h1 itemprop="name">{{ product.title }}</h1>
+        </header>
+      </div>
 
       <section class="product-images">
 
