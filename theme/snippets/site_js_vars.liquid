@@ -34,7 +34,7 @@
     empty_cart_text: "{{ 'cart.cart_page.empty_message_html' | t | replace: '"',"'" | strip_newlines }}",
     remove_item_message: "{{ 'cart.cart_table.remove_item_message_html' | t: item_title: '[item_title]' | replace: '"',"'" | strip_newlines }}",
     remove_item_error_message: "{{ 'cart.cart_table.remove_item_error_message_html' | t: item_title: '[item_title]', error_message: '[error_message]' | replace: '"',"'" | strip_newlines }}",
-    acknowledgement_checkbox_error_message: "{{ 'cart.acknowledgement_checkbox.error' | t }}"
+    acknowledgement_checkbox_error_message: "{{ 'cart.acknowledgement_checkbox.error' | t | replace: '"',"'" | strip_newlines }}"
   };
   
   /*

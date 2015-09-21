@@ -146,7 +146,7 @@
       "checkout": "Checkout"
     },
     "acknowledgement_checkbox": {
-      "label": "Accept the Terms & Conditions",
+      "label_html": "Accept the <a href='/pages/terms'>Terms & Conditions</a>",
       "error": "Please make sure you have agreed to the Terms & Conditions"
     }
   },
