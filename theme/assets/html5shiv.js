@@ -1,10 +1,10 @@
 /**
-* @preserve HTML5 Shiv 3.7.3 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
+* @preserve HTML5 Shiv 3.7.2 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
 */
 ;(function(window, document) {
 /*jshint evil:true */
   /** version */
-  var version = '3.7.3';
+  var version = '3.7.2';
 
   /** Preset options */
   var options = window.html5 || {};
@@ -121,7 +121,7 @@
    * returns a shived element for the given nodeName and document
    * @memberOf html5
    * @param {String} nodeName name of the element
-   * @param {Document|DocumentFragment} ownerDocument The context document.
+   * @param {Document} ownerDocument The context document.
    * @returns {Object} The shived element.
    */
   function createElement(nodeName, ownerDocument, data){
@@ -319,8 +319,4 @@
   // shiv the document
   shivDocument(document);
 
-  if(typeof module == 'object' && module.exports){
-    module.exports = html5;
-  }
-
-}(typeof window !== "undefined" ? window : this, document));
+}(this, document));
