@@ -144,6 +144,10 @@
     "buttons": {
       "update": "Update Cart",
       "checkout": "Checkout"
+    },
+    "acknowledgement_checkbox": {
+      "label": "Accept the Terms & Conditions",
+      "error": "Please make sure you have agreed to the Terms & Conditions"
     }
   },
   "customer_accounts" : {

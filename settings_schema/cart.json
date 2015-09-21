@@ -1,0 +1,16 @@
+{
+  "name": "Cart",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The cart checkbox is for when you want your customers to acknowledge some information before proceeding to the checkout. This maybe a disclaimer, shipping requirements or a note about allergens. You will need to update the content to suit your situation. This can be changed inside the themes language settings under Cart."
+    },
+    {
+      "label": "Enable cart checkbox",
+      "id": "enable_cart_checkbox",
+      "type": "checkbox",
+      "default": false,
+      "info": "If enabled then your customers will need to select a checkbox before moving to the checkout."
+    }
+  ]
+}

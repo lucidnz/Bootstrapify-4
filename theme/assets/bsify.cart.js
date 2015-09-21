@@ -8,6 +8,7 @@ var $cart_display_ele = $('[data-cart-display]');
 var $cart_total_ele = $('[data-cart-total]');
 var $cart_form_ele = $(Bsify.selectors.cart.form_selector);
 var $cart_message_ele = $(Bsify.selectors.cart.message_selector);
+var $acknowledgement_checkbox = $(Bsify.selectors.cart.acknowledgement_checkbox);
 
 // product vars
 if (Bsify.product) {
@@ -42,6 +43,19 @@ Cart.init = function () {
     var $current_target = $(e.currentTarget);
     Cart.remove_item_from_cart($current_target);
   });
+  
+  // If checkout acknowledgement checkbox exists
+  // and is not checked don't let the user into the checkout
+  if ($acknowledgement_checkbox.length > 0 && $cart_form_ele.length > 0) {
+    $cart_form_ele.on('submit', function (e) {
+      if (!$acknowledgement_checkbox.is(':checked')) {
+        $acknowledgement_checkbox.closest('.checkbox').addClass('has-error');
+        Cart.show_message($cart_message_ele, 'alert alert-danger', Bsify.translations.cart.acknowledgement_checkbox_error_message);
+        e.preventDefault();
+        return false;
+      }
+    });
+  }
 };
 
 /*

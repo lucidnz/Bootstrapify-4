@@ -22,7 +22,8 @@
     item_selector: ".cart-item",
     item_price_selector: ".cart-item-price .money",
     item_total_selector: ".cart-item-total .money",
-    message_selector: '.cart-message'
+    message_selector: '.cart-message',
+    acknowledgement_checkbox: '.acknowledgement-checkbox'
   };
   // Cart item translations
   {% capture price %}{% include '_price' with '[cart_total_price]' %}{% endcapture %}
@@ -32,7 +33,8 @@
     cart_display_text: "{{ 'cart.site_header.cart_link_html' | t: item_count: '[item_count]', cart_total_price: price, cart_total_price_with_currency: price_with_currency | replace: '"',"'" | strip_newlines }}",
     empty_cart_text: "{{ 'cart.cart_page.empty_message_html' | t | replace: '"',"'" | strip_newlines }}",
     remove_item_message: "{{ 'cart.cart_table.remove_item_message_html' | t: item_title: '[item_title]' | replace: '"',"'" | strip_newlines }}",
-    remove_item_error_message: "{{ 'cart.cart_table.remove_item_error_message_html' | t: item_title: '[item_title]', error_message: '[error_message]' | replace: '"',"'" | strip_newlines }}"
+    remove_item_error_message: "{{ 'cart.cart_table.remove_item_error_message_html' | t: item_title: '[item_title]', error_message: '[error_message]' | replace: '"',"'" | strip_newlines }}",
+    acknowledgement_checkbox_error_message: "{{ 'cart.acknowledgement_checkbox.error' | t }}"
   };
   
   /*

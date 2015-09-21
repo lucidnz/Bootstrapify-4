@@ -185,7 +185,8 @@ gulp.task('shopify_theme_settings', function () {
     'social',
     'newsletter',
     'footer',
-    'advanced'
+    'advanced',
+    'cart'
   ];
 
   return gulp.src('./settings_schema/*.json')
