@@ -4,6 +4,8 @@
   For when you want menu link categories and what not.
   Defined by navigation menus setup 3 levels deep. Note only the last/3rd level takes you anywhere.
   
+  Note: if you want the sites content to be pushed down when the menu is opened then remove the `mega-menu-overlay` class
+  
   TODO: Consideration for mobile menus
   
  %}{% endcomment %}
@@ -19,9 +21,21 @@
   {% for link in linklists[mm_linklist].links %}
     {% assign child_list_handle = link.handle %}
     {% if linklists[child_list_handle].links != blank %}
+      {% assign grandchild_group_count = 0 %}
+      {% assign grandchild_group_total = 0 %}
       {% capture mm_childlink_content %}{% endcapture %}
       {% capture mm_childlink_content_with_gc %}{% endcapture %}
+
+      {% comment note: Loop child links once first so we gan get the total count of grouped links %}{% endcomment %}
+      {% for childlink in linklists[child_list_handle].links %}
+        {% assign grandchild_list_handle = childlink.handle %}
+        {% if linklists[grandchild_list_handle].links != blank %}
+          {% assign grandchild_group_total = grandchild_group_total | plus: 1 %}
+        {% endif %}
+      {% endfor %}
       
+      
+      {% comment note: Loop child links for real this time %}{% endcomment %}
       {% for childlink in linklists[child_list_handle].links %}
         {% assign grandchild_list_handle = childlink.handle %}
         {% if linklists[grandchild_list_handle].links != blank %}
@@ -30,7 +44,16 @@
           {% for grandchildlink in linklists[grandchild_list_handle].links %}
             {% capture mm_grandchildlink_content %}{{ mm_grandchildlink_content }}<li><a href="{{ grandchildlink.url }}">{{ grandchildlink.title }}</a></li>{% endcapture %}
           {% endfor %}
-          {% capture mm_childlink_content_with_gc %}{{ mm_childlink_content_with_gc }}<h5>{{ childlink.title }}</h5><ul>{{ mm_grandchildlink_content }}</ul>{% endcapture %}
+          {% capture mm_childlink_content_with_gc %}
+            {{ mm_childlink_content_with_gc }}
+            <div class="mega-menu-group-list">
+              <h5>{{ childlink.title }}</h5>
+              <ul class="list-unstyled list-links">
+                {{ mm_grandchildlink_content }}
+              </ul>
+            </div>
+          {% endcapture %}
+          {% assign grandchild_group_count = grandchild_group_count | plus: 1 %}
           
         {% else %}
           {% comment note: we only have a second level link list %}{% endcomment %}
@@ -43,11 +66,17 @@
         {{ mm_content }}
         <div class="collapse" id="{{ child_list_handle }}">
           <div class="sheet">
-            {% unless mm_childlink_content_with_gc == blank %}{{ mm_childlink_content_with_gc }}{% endunless %}
+            {% unless mm_childlink_content_with_gc == blank %}
+              <div class="mega-menu-group" data-group-size="{{ grandchild_group_count }}">
+                {{ mm_childlink_content_with_gc }}
+              </div>
+            {% endunless %}
             {% unless mm_childlink_content == blank %}
-              <ul>
-                {{ mm_childlink_content }}
-              </ul>
+              <div class="mega-menu-list">
+                <ul class="list-unstyled list-links">
+                  {{ mm_childlink_content }}
+                </ul>
+              </div>
             {% endunless %}
           </div>
         </div>
@@ -56,7 +85,7 @@
   {% endfor %}
   
   {% unless mm_content == blank %}
-    <div class="mega-menu" data-menu="mega">
+    <div class="mega-menu mega-menu-overlay" data-menu="mega">
       {{ mm_content }}
     </div>
   {% endunless %}

@@ -512,25 +512,6 @@ body.search .search-results {
 }
 
 /*
-  Homepage
-*/
-
-.homepage-section {
-  .page-header {
-    margin-top: 0;
-  }
-  
-  .banner {
-    margin-top: (0 - $grid-gutter-width);
-    margin-bottom: (0 - $grid-gutter-width);
-  }
-}
-.homepage-section-banner:first-child,
-.homepage-section-banner-video:first-child {
-  margin-top: $navbar-margin-bottom * -1;
-}
-
-/*
   Sections
 */
 
@@ -573,6 +554,17 @@ body.search .search-results {
   h2 {
     margin-top: 0;
   }
+}
+
+.homepage-section {
+  .page-header {
+    margin-top: 0;
+  }
+}
+.homepage-section-banner,
+.homepage-section-banner-video {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 /*

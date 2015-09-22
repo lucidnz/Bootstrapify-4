@@ -40,6 +40,9 @@ var App = function () {
   Bsify.Banner.init();
   Bsify.BannerVideo.init();
 
+  // init event listeners for megamenu 
+  Bsify.MegaMenu.init();
+
   // init lookbook gallery
   if ($('.collection-lookbook').length > 0) {
     var lookbook = new Lookbook({

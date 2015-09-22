@@ -6,7 +6,7 @@ $line-height-base:    1.42858;
 $line-height-large:   1.5;
 
 {% unless settings.brand_primary_color == blank %}
-$brand-primary: {{ settings.brand_primary_color }};
+$brand-primary: {{ settings.brand_primary_color }} !default;
 {% endunless %}
 
 /* SCSS Variables */
@@ -15,19 +15,20 @@ $grid-gutter-width:               30px !default;
 $thumbnail-padding:               $grid-gutter-width / 2 !default; // TODO: if we have no borders this needs to be set to 0
 
 /* lookbook vars */
-$lookbook-item-max-width-xs: 180px;
-$lookbook-item-max-width-sm: 320px;
-$lookbook-item-max-width-md: 480px;
-$lookbook-item-max-width-lg: 600px;
+$lookbook-item-max-width-xs: 180px !default;
+$lookbook-item-max-width-sm: 320px !default;
+$lookbook-item-max-width-md: 480px !default;
+$lookbook-item-max-width-lg: 600px !default;
 
-$lookbook-min-height-md: 800px;
-$lookbook-min-height-lg: 1000px;
+$lookbook-min-height-md: 800px !default;
+$lookbook-min-height-lg: 1000px !default;
 
 /* Banner */
 $banner-height-xs: 30em !default;
 $banner-height-xs-landscape: 22em !default;
 
-$homepage-section-alt-background: rgba(#000,.03);
+$homepage-section-alt-background: #f8f8f8 !default;
+$mega-menu-background: $homepage-section-alt-background !default;
 
 {% unless settings.scss_variables == blank %}{{ settings.scss_variables }}{% endunless %}
 /* Functions */

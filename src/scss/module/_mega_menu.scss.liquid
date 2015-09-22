@@ -1,0 +1,44 @@
+.mega-menu {
+  margin-top: -1px;
+  border-bottom: $navbar-default-border solid 1px;
+  background-color: $mega-menu-background;
+  
+  // Remove class in markup to push content down when open
+  &.mega-menu-overlay {    
+    z-index: 100;
+    position: absolute;
+    width: 100%;
+  }
+  
+  .collapse .sheet, 
+  .collapsing .sheet {
+    padding-top: $grid-gutter-width;
+    padding-bottom: $grid-gutter-width;
+  }
+}
+
+.mega-menu-group {
+  @include make-row();
+  
+  .mega-menu-group-list {
+    @include make-xs-column(12);
+    @include make-sm-column(4);
+    @include make-md-column(2);
+  }
+  
+  // Don't show if we have no groups, this is probably not a thing anyway
+  &[data-group-size="0"] .mega-menu-group-list {
+    display: none;
+  }
+  
+  @for $i from 1 through 3 {
+    &[data-group-size="#{$i}"] .mega-menu-group-list {
+      @include make-sm-column(12 / $i);
+    }
+  }
+  
+  &[data-group-size="4"] .mega-menu-group-list {
+    @include make-sm-column(6);
+    @include make-md-column(3);
+  }
+}
