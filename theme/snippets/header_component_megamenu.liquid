@@ -21,19 +21,21 @@
   {% for link in linklists[mm_linklist].links %}
     {% assign child_list_handle = link.handle %}
     {% if linklists[child_list_handle].links != blank %}
+      {% assign child_link_count = 0 %}
+      {% assign child_link_total = 0 %}
+      {% assign child_link_groups = 0 %}
       {% assign grandchild_group_count = 0 %}
-      {% assign grandchild_group_total = 0 %}
       {% capture mm_childlink_content %}{% endcapture %}
       {% capture mm_childlink_content_with_gc %}{% endcapture %}
-
-      {% comment note: Loop child links once first so we gan get the total count of grouped links %}{% endcomment %}
+      
+      {% comment note: Loop child links and count them without groups so we know how many we are working with %}{% endcomment %}
       {% for childlink in linklists[child_list_handle].links %}
         {% assign grandchild_list_handle = childlink.handle %}
-        {% if linklists[grandchild_list_handle].links != blank %}
-          {% assign grandchild_group_total = grandchild_group_total | plus: 1 %}
+        {% if linklists[grandchild_list_handle].links == blank %}
+          {% assign child_link_total = child_link_total | plus: 1 %}
         {% endif %}
       {% endfor %}
-      
+      {% assign link_cols = child_link_total | divided_by: 6.0 | ceil %}
       
       {% comment note: Loop child links for real this time %}{% endcomment %}
       {% for childlink in linklists[child_list_handle].links %}
@@ -58,6 +60,17 @@
         {% else %}
           {% comment note: we only have a second level link list %}{% endcomment %}
           {% capture mm_childlink_content %}{{ mm_childlink_content }}<li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>{% endcapture %}
+          {% assign child_link_count = child_link_count | plus: 1 %}
+          
+          {% comment TODO: there is a missing guy here %}{% endcomment %}
+          {% if child_link_total < 12 %}
+          {% else %}
+          {% endif %}
+            {% assign mod = child_link_count | modulo: link_cols %}
+            {% if mod == 0 %}
+              {% capture mm_childlink_content %}{{ mm_childlink_content }}</ul></div><div class="mega-menu-group-list"><ul class="list-unstyled list-links">{% endcapture %}
+              {% assign child_link_groups = child_link_groups | plus: 1 %}
+            {% endif %}
           
         {% endif %}
       {% endfor %}
@@ -72,10 +85,13 @@
               </div>
             {% endunless %}
             {% unless mm_childlink_content == blank %}
-              <div class="mega-menu-list">
-                <ul class="list-unstyled list-links">
-                  {{ mm_childlink_content }}
-                </ul>
+              {% unless mm_childlink_content_with_gc == blank %}<hr>{% endunless %}
+              <div class="mega-menu-group" data-group-size="{{ child_link_groups }}">
+                <div class="mega-menu-group-list">
+                  <ul class="list-unstyled list-links">
+                    {{ mm_childlink_content }}
+                  </ul>
+                </div>
               </div>
             {% endunless %}
           </div>
