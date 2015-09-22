@@ -28,5 +28,6 @@ Bsify.BannerVideo = require('./bsify.banner_video.js');
 Bsify.Thumbnails = require('./bsify.thumbnails.js');
 Bsify.SocialFeeds = require('./bsify.social_feeds.js');
 Bsify.PasswordRecover = require('./bsify.password_recover.js');
+Bsify.MegaMenu = require('./bsify.mega_menu.js');
 
 module.exports = Bsify;
