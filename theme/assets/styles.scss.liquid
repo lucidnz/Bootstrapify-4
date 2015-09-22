@@ -8990,6 +8990,9 @@ body.search .search-results {
   }
   
   .header-top-menu {
+    & > .navbar {
+      z-index: $zindex-navbar + 1;
+    }
     @media (min-width: $grid-float-breakpoint) {
       font-size: .9em;
       .navbar {

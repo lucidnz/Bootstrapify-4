@@ -1,0 +1,63 @@
+{% comment note:
+  
+  MEGAAAA MENUUUUU!!!!
+  For when you want menu link categories and what not.
+  Defined by navigation menus setup 3 levels deep. Note only the last/3rd level takes you anywhere.
+  
+  TODO: Consideration for mobile menus
+  
+ %}{% endcomment %}
+
+{% if settings.enable_megamenu %}
+  {% if has_menu %}
+    {% assign mm_linklist = settings.main_menu_linklist %}
+  {% else %}
+    {% assign mm_linklist = 'main-menu' %}
+  {% endif %}
+
+  {% capture mm_content %}{% endcapture %}
+  {% for link in linklists[mm_linklist].links %}
+    {% assign child_list_handle = link.handle %}
+    {% if linklists[child_list_handle].links != blank %}
+      {% capture mm_childlink_content %}{% endcapture %}
+      {% capture mm_childlink_content_with_gc %}{% endcapture %}
+      
+      {% for childlink in linklists[child_list_handle].links %}
+        {% assign grandchild_list_handle = childlink.handle %}
+        {% if linklists[grandchild_list_handle].links != blank %}
+          {% comment note: we have a third level link list %}{% endcomment %}
+          {% capture mm_grandchildlink_content %}{% endcapture %}
+          {% for grandchildlink in linklists[grandchild_list_handle].links %}
+            {% capture mm_grandchildlink_content %}{{ mm_grandchildlink_content }}<li><a href="{{ grandchildlink.url }}">{{ grandchildlink.title }}</a></li>{% endcapture %}
+          {% endfor %}
+          {% capture mm_childlink_content_with_gc %}{{ mm_childlink_content_with_gc }}<h5>{{ childlink.title }}</h5><ul>{{ mm_grandchildlink_content }}</ul>{% endcapture %}
+          
+        {% else %}
+          {% comment note: we only have a second level link list %}{% endcomment %}
+          {% capture mm_childlink_content %}{{ mm_childlink_content }}<li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>{% endcapture %}
+          
+        {% endif %}
+      {% endfor %}
+      
+      {% capture mm_content %}
+        {{ mm_content }}
+        <div class="collapse" id="{{ child_list_handle }}">
+          <div class="sheet">
+            {% unless mm_childlink_content_with_gc == blank %}{{ mm_childlink_content_with_gc }}{% endunless %}
+            {% unless mm_childlink_content == blank %}
+              <ul>
+                {{ mm_childlink_content }}
+              </ul>
+            {% endunless %}
+          </div>
+        </div>
+      {% endcapture %}
+    {% endif %}
+  {% endfor %}
+  
+  {% unless mm_content == blank %}
+    <div class="megamenu">
+      {{ mm_content }}
+    </div>
+  {% endunless %}
+{% endif %}

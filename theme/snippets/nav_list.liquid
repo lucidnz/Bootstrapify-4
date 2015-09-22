@@ -26,11 +26,24 @@
 
 {% if include_dropdowns == null %}{% assign include_dropdowns = true %}{% endif %}
 
-<ul class="{{ nav_classes }}">
+{% assign is_megamenu = false %}
+{% if settings.enable_megamenu %}
+  {% if has_menu %}
+    {% if nav_list == settings.main_menu_linklist %}
+      {% assign is_megamenu = true %}
+    {% endif %}
+  {% else %}
+    {% if nav_list == 'main-menu' %}
+      {% assign is_megamenu = true %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+<ul class="{{ nav_classes }}" id="{{ nav_list }}">
   {% comment note: Create nav links from our linklist handel %}{% endcomment %}
   {% for link in linklists[nav_list].links %}
     {% assign child_list_handle = link.handle %}
-    {% if linklists[child_list_handle].links != blank and include_dropdowns %}
+    {% if linklists[child_list_handle].links != blank and include_dropdowns and is_megamenu == false %}
       {% assign has_active_child = false %}
       {% capture dropdown %}
         <ul class="dropdown-menu" role="menu">
@@ -59,6 +72,8 @@
         <a class="dropdown-toggle" href="{{ link.url }}" data-toggle="dropdown">{{ link.title }} <span class="caret"></span></a>
         {{ dropdown }}
       </li>
+    {% elsif is_megamenu and linklists[child_list_handle].links != blank %}
+      <li><a href="{{ link.url }}" data-toggle="collapse" data-target="#{{ link.handle }}" aria-expanded="false" aria-controls="{{ link.handle }}" title="{{ link.title | strip_html }}">{{ link.title }} <span class="caret"></span></a></li>
     {% else %}
       <li{% if link.active %} class="active"{% endif %}><a href="{{ link.url }}" title="{{ link.title | strip_html }}">{{ link.title }}</a></li>
     {% endif %}

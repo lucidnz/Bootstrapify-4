@@ -19,6 +19,12 @@
       "label": "Tertiary Menu",
       "id": "tertiary_menu_linklist",
       "type": "link_list"
+    },
+    {
+      "label": "Enable MegaMenu",
+      "id": "enable_megamenu",
+      "type": "checkbox",
+      "default": false
     }
   ]
 }
