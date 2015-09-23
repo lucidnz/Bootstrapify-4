@@ -124,15 +124,22 @@
         
       {% if collection %}
       <section class="product-navigation">
-        {% assign previous_product_title = collection.previous_product | split: '/' | last | replace:'-',' ' | capitalize %}
+        {% assign previous_product_title = '' %}
         {% assign previous_count = 0 %}
         {% if collection.previous_product %}
           {% assign previous_count = 1 %}
+          {% assign previous_product_handle = collection.previous_product | split: '/' | last %}
+          {% assign previous_product = all_products[previous_product_handle] %}
+          {% assign previous_product_title = previous_product.title %}
         {% endif %}
-        {% assign next_product_title = collection.next_product | split: '/' | last | replace:'-',' ' | capitalize %}
+        
+        {% assign next_product_title = '' %}
         {% assign next_count = 0 %}
         {% if collection.next_product %}
           {% assign next_count = 1 %}
+          {% assign next_product_handle = collection.next_product | split: '/' | last %}
+          {% assign next_product = all_products[next_product_handle] %}
+          {% assign next_product_title = next_product.title %}
         {% endif %}
         <nav>
           <ul class="pager">
