@@ -27,7 +27,7 @@
 {% if include_dropdowns == null %}{% assign include_dropdowns = true %}{% endif %}
 
 {% assign is_megamenu = false %}
-{% if settings.enable_megamenu %}
+{% if settings.enable_megamenu and is_mobile != true %}
   {% if has_menu %}
     {% if nav_list == settings.main_menu_linklist %}
       {% assign is_megamenu = true %}
@@ -49,6 +49,7 @@
         <ul class="dropdown-menu" role="menu">
           {% comment note: childlink.active doesn't take filtered collection urls into count so use (faked) global page_url match %}{% endcomment %}
           {% for childlink in linklists[child_list_handle].links %}
+          
             {% assign is_active = false %}
             {% if page_url %}
               {% if childlink.url == page_url %}
@@ -63,7 +64,21 @@
               {% assign has_active_child = true %}
             {% endif %}
           
-            <li{% if is_active %} class="active"{% endif %}><a href="{{ childlink.url }}" title="{{ childlink.title | strip_html }}">{{ childlink.title }}</a></li>
+            {% assign grandchild_list_handle = childlink.handle %}
+            {% assign grandchild_linklist = linklists[grandchild_list_handle] %}
+            {% if grandchild_linklist.links == blank %}
+              <li{% if is_active %} class="active"{% endif %}><a href="{{ childlink.url }}" title="{{ childlink.title | strip_html }}">{{ childlink.title }}</a></li>
+              
+            {% else %}
+              <li class="dropdown-header" title="{{ childlink.title | strip_html }}">{{ childlink.title }}</li>
+              {% for grandchildlink in grandchild_linklist.links %}
+                {% if childlink.active %}
+                  {% assign is_active = true %}
+                {% endif %}
+                <li{% if is_active %} class="active"{% endif %}><a href="{{ grandchildlink.url }}" title="{{ grandchildlink.title | strip_html }}">{{ grandchildlink.title }}</a></li>
+                {% assign is_active = false %}
+              {% endfor %}
+            {% endif %}
           {% endfor %}
         </ul>
       {% endcapture %}
@@ -115,3 +130,4 @@
 {% assign nav_list_items = null %}
 {% assign nav_classes = null %}
 {% assign include_dropdowns = null %}
+{% assign is_mobile = null %}

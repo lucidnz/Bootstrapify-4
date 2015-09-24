@@ -5,16 +5,19 @@
   {% if has_menu %}
     {% unless settings.main_menu_linklist == blank %}
       {% assign nav_classes = 'nav navbar-nav' %}
+      {% assign is_mobile = true %}
       {% include 'nav_list' with settings.main_menu_linklist %}
     {% endunless %}
     
     {% unless settings.secondary_menu_linklist == blank %}
       {% assign nav_classes = 'nav navbar-nav' %}
+      {% assign is_mobile = true %}
       {% include 'nav_list' with settings.secondary_menu_linklist %}
     {% endunless %}
     
     {% assign nav_classes = 'nav navbar-nav' %}
     {% assign nav_list_items = 'accounts' %}
+    {% assign is_mobile = true %}
     {% include 'nav_list' with settings.tertiary_menu_linklist %}
     
     {% assign form_classes = 'navbar-form' %}
@@ -22,10 +25,12 @@
     
   {% else %}
     {% assign nav_classes = 'nav navbar-nav' %}
+    {% assign is_mobile = true %}
     {% include 'nav_list' with 'main-menu' %}
     
     {% assign nav_classes = 'nav navbar-nav' %}
     {% assign nav_list_items = 'accounts' %}
+    {% assign is_mobile = true %}
     {% include 'nav_list' %}
     
     {% assign form_classes = 'navbar-form' %}
