@@ -60,7 +60,7 @@
     },
     "list_collections" : {
       "title" : "All collections",
-      "description" : "",
+      "description_html" : "",
       "item_title_html": "{{ collection_title }}",
       "item_count": {
         "zero": "No items",

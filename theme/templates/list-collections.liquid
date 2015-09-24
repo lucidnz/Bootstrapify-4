@@ -1,7 +1,7 @@
 <main role="main">
   {% comment note: List collection header layouts are also used on the collections page, so set up the relevant variables outside the include first %}{% endcomment %}
   {% capture collection_title %}{{ 'collections.list_collections.title' | t }}{% endcapture %}
-  {% capture collection_description %}{{ 'collections.list_collections.description' | t }}{% endcapture %}
+  {% capture collection_description %}{{ 'collections.list_collections.description_html' | t }}{% endcapture %}
   {% assign collection_image = 'list_collections_banner_image.jpg' | asset_url %}
   {% if settings.list_collections_header_layout contains 'split_image' %}
     {% capture header_classes %}list-collection-header collection-header-split list-collection-header-{{ settings.list_collections_header_layout | replace: '_','-' }}{% endcapture %}
