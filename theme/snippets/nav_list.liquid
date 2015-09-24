@@ -73,7 +73,7 @@
         {{ dropdown }}
       </li>
     {% elsif is_megamenu and linklists[child_list_handle].links != blank %}
-      <li><a href="{{ link.url }}" data-toggle="collapse" data-target="#{{ link.handle }}" aria-expanded="false" aria-controls="{{ link.handle }}" title="{{ link.title | strip_html }}">{{ link.title }} <span class="caret"></span></a></li>
+      <li><a class="mega-menu-collapse-action" href="{{ link.url }}" data-toggle="collapse" data-target="#{{ link.handle }}" aria-expanded="false" aria-controls="{{ link.handle }}" title="{{ link.title | strip_html }}" onclick="return false;">{{ link.title }} <span class="caret"></span></a></li>
     {% else %}
       <li{% if link.active %} class="active"{% endif %}><a href="{{ link.url }}" title="{{ link.title | strip_html }}">{{ link.title }}</a></li>
     {% endif %}

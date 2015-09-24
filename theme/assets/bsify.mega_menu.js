@@ -18,11 +18,12 @@ MegaMenu.add_event_handlers = function () {
   });
   
   $(document).on('hidden.bs.collapse', menu_selector+' .collapse', function () {
-    console.log('MM:', $(menu_selector+' .collapse.in').length);
-    
-    if ($(menu_selector+' .collapse.in').length === 1) {
-      $menu.removeClass('open');
-    }
+    // Timeout hack to make sure the transitions have finished.
+    setTimeout(function () {
+      if ($(menu_selector+' .collapse.in').length === 0) {
+        $menu.removeClass('open');
+      }
+    }, 350);
   });
 };
 

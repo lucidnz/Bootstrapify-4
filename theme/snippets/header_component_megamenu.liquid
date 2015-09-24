@@ -59,18 +59,21 @@
           
         {% else %}
           {% comment note: we only have a second level link list %}{% endcomment %}
-          {% capture mm_childlink_content %}{{ mm_childlink_content }}<li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>{% endcapture %}
           {% assign child_link_count = child_link_count | plus: 1 %}
+          {% assign mod = child_link_count | modulo: link_cols %}
+          {% capture mm_childlink_content %}{{ mm_childlink_content }}<li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>{% endcapture %}
           
-          {% comment TODO: there is a missing guy here %}{% endcomment %}
-          {% if child_link_total < 12 %}
-          {% else %}
-          {% endif %}
-            {% assign mod = child_link_count | modulo: link_cols %}
-            {% if mod == 0 %}
+          {% if mod == 0 %}
+            {% comment note: dont create a new break because we have the final on outside of the loop; but do still count it %}{% endcomment %}
+            {% unless child_link_count == child_link_total %}
               {% capture mm_childlink_content %}{{ mm_childlink_content }}</ul></div><div class="mega-menu-group-list"><ul class="list-unstyled list-links">{% endcapture %}
-              {% assign child_link_groups = child_link_groups | plus: 1 %}
-            {% endif %}
+            {% endunless %}
+            {% assign child_link_groups = child_link_groups | plus: 1 %}
+            
+          {% elsif child_link_count == child_link_total %}
+            {% comment note: we got to the end but never finished a group completely, but we still want to count it %}{% endcomment %}
+            {% assign child_link_groups = child_link_groups | plus: 1 %}
+          {% endif %}
           
         {% endif %}
       {% endfor %}

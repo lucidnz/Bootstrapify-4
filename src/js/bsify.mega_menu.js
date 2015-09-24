@@ -23,7 +23,7 @@ MegaMenu.add_event_handlers = function () {
       if ($(menu_selector+' .collapse.in').length === 0) {
         $menu.removeClass('open');
       }
-    }, 350)
+    }, 350);
   });
 };
 
