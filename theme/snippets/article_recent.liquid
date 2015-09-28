@@ -1,0 +1,12 @@
+<div class="blog-recent-articles">
+  <h4>{{ 'blog.recent_articles.title' | t }}</h4>
+  <ul class="list-unstyled">
+  {% for recent_article in blog.articles %}
+    <li>
+      <h5><a href="{{ recent_article.url }}">{{ recent_article.title }}</a></h5>
+      {% capture date %}{{ recent_article.published_at | date: format: 'article_short' }}{% endcapture %}
+      <p><em class="small text-muted">{{ 'blog.article_list.published_date_html' | t: date: date }}</em></p>
+    </li>
+  {% endfor %}
+  </ul>
+</div>

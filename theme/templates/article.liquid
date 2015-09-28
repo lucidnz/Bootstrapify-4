@@ -28,13 +28,15 @@
       {% endunless %}
     
       <div class="blog-article-content-wrap">
-        <aside class="blog-article-meta">
-          {% include 'article_meta' %}
-        </aside>
-    
         <section class="blog-article-content">
           {{ content }}
         </section>
+        
+        <aside class="blog-article-aside">
+          {% include 'article_meta' %}
+          <hr>
+          {% include 'article_recent' %}
+        </aside>
       </div>
       <footer>
         {% if settings.blog_show_author_bio and article.user.bio != blank %}
@@ -53,11 +55,25 @@
     </article>
     
 		{% if blog.previous_article or blog.next_article %}
-		<ul class="pager">
-			<li class="previous{% unless blog.previous_article %} disabled{% endunless %}">{{ 'blog.general.previous_article_html' | t | link_to: blog.previous_article }}</li>
-      <li>{{ blog.title | link_to: blog.url }}</li>
-			<li class="next{% unless blog.next_article %} disabled{% endunless %}">{{ 'blog.general.next_article_html' | t | link_to: blog.next_article }}</li>
-		</ul>
+  		{% assign next_article = null %}
+  		{% assign next_article_count = 0 %}
+  		{% assign previous_article = null %}
+  		{% assign previous_article_count = 0 %}
+  		{% for article in blog.articles %}
+        {% if article.url == blog.next_article %}
+          {% assign next_article = article %}
+      		{% assign next_article_count = 1 %}
+        {% elsif article.url == blog.previous_article %}
+      		{% assign previous_article = article %}
+      		{% assign previous_article_count = 1 %}
+        {% endif %}
+      {% endfor %}
+  		
+  		<ul class="pager">
+  			<li class="previous{% unless blog.previous_article %} disabled{% endunless %}">{{ 'blog.general.previous_article_html' | t: count: previous_article_count, article_title: previous_article.title | link_to: blog.previous_article }}</li>
+        <li>{{ blog.title | link_to: blog.url }}</li>
+  			<li class="next{% unless blog.next_article %} disabled{% endunless %}">{{ 'blog.general.next_article_html' | t: count: next_article_count, article_title: next_article.title | link_to: blog.next_article }}</li>
+  		</ul>
 		{% endif %}
 		
     {% if article.comments_enabled? %}

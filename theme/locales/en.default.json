@@ -285,8 +285,14 @@
       "empty_message_title": "Whoa! There are no articles",
       "empty_message_html": "You could sign up for our mailing list or check back soon.",
       "rss_link_html": "<span class='fa fa-rss'></span> Subscribe to the RSS feed for {{ blog_title }}",
-      "previous_article_html": "<span class='fa fa-chevron-left'></span> Previous",
-      "next_article_html": "Next <span class='fa fa-chevron-right'></span>"
+      "previous_article_html": {
+        "zero": "<span class='fa fa-chevron-left'></span> Previous Article",
+        "other": "<span class='fa fa-chevron-left'></span> {{ article_title }}"
+      },
+      "next_article_html": {
+        "zero": "Next Article <span class='fa fa-chevron-right'></span>",
+        "other": "{{ article_title }} <span class='fa fa-chevron-right'></span>"
+      }
     },
     "article_list": {
       "published_date_html": "Published on {{ date }}",
@@ -318,6 +324,9 @@
       "body_placeholder": "Tell us something awesome",
       "submit": "Post Comment",
       "moderated_note": "All comments are held for moderation. Your comment will appear shortly."
+    },
+    "recent_articles": {
+      "title": "Recent Articles"
     }
   },
   "social_and_newsletter": {

@@ -22,17 +22,17 @@
       </h1>
     </header>
     
-    <div class="blog-article-content-wrap">    
-      <aside class="blog-article-meta">
-        {% include 'article_meta' %}
-      </aside>
-    
+    <div class="blog-article-content-wrap">
       <section class="blog-article-content">
         {{ content }}
         <p class="read-more">
           <a href="{{ article.url }}">{{ 'blog.article_list.read_more_html' | t: page_title: article.title }}</a>
         </p>
       </section>
+      
+      <aside class="blog-article-aside">
+        {% include 'article_meta' %}
+      </aside>
     </div>
   </article>
 </div>
