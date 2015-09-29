@@ -6,7 +6,7 @@
 
 <div class="list-item-wrap">
   <article class="list-item blog-article">
-    <header>
+    <header class="page-header">
 
       {% if settings.enable_article_list_banners and content contains 'src=' %}
         {% assign image_size = '2048x2048' %}
@@ -20,19 +20,13 @@
       <h1 class="h3">
         <a href="{{ article.url }}">{{ article.title }}</a>
       </h1>
+      {% include 'article_meta' %}
     </header>
-    
-    <div class="blog-article-content-wrap">
-      <section class="blog-article-content">
-        {{ content }}
-        <p class="read-more">
-          <a href="{{ article.url }}">{{ 'blog.article_list.read_more_html' | t: page_title: article.title }}</a>
-        </p>
-      </section>
-      
-      <aside class="blog-article-aside">
-        {% include 'article_meta' %}
-      </aside>
-    </div>
+    <section class="blog-article-content">
+      {{ content }}
+      <p class="read-more">
+        <a href="{{ article.url }}">{{ 'blog.article_list.read_more_html' | t: page_title: article.title }}</a>
+      </p>
+    </section>
   </article>
 </div>

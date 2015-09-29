@@ -46,7 +46,7 @@
         </div>
         {% endpaginate %}
         {% if settings.enable_rss_link %}
-        <p class="rss-link">
+        <p class="rss-link text-center">
           <a href="{{ blog.url | append: '.atom' }}">{{ 'blog.general.rss_link_html' | t: blog_title: blog.title }}</a>
         </p>
         {% endif %}

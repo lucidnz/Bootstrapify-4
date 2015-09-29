@@ -13,7 +13,7 @@
       {% include 'pagination' %}
     {% endpaginate %}
   {% else %}
-    <p>{{ 'blog.comments.no_comments_message' | t }}</p>
+    <p class="text-muted"><em>{{ 'blog.comments.no_comments_message' | t }}</em></p>
   {% endif %}
 </div>
 
