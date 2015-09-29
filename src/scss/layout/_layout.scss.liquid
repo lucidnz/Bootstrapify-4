@@ -673,3 +673,22 @@ body.search .search-results {
     }
   }
 }
+.blog-recent-articles {
+  h5 {
+    margin-bottom: 0;
+  }
+}
+.blog-recent-articles-thumbs {
+  @include make-row();
+}
+.recent-article-thumb-wrap {
+  @include make-xs-column(6);
+  @include make-sm-column(4);
+  
+  .thumbnail {
+    margin-bottom: 0;
+  }
+  .thumbnail > a:hover + figcaption a {
+    color: $link-hover-color;
+  }
+}
