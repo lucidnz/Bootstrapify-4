@@ -9040,6 +9040,52 @@ body.search .search-results {
     }
   }
 }
+/*
+  Styles for centered header layout snippet
+*/
+
+#header-layout-logo-left {
+  .navbar-brand-logo {
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: middle;
+    
+    {% unless settings.logo_max_height == blank %}
+    img {
+      max-height: {{ settings.logo_max_height }};
+    }
+    {% endunless %}
+  }
+  
+  .header-main-menu {
+    position: relative;
+    z-index: 1;
+    .navbar {
+      margin-bottom: 0;
+      padding: $grid-gutter-width/2 0;
+    }
+    .navbar-nav {
+      float: right;
+      margin-right: -($grid-gutter-width/2);
+      {% unless settings.logo_max_height == blank %}
+        margin-top: ({{ settings.logo_max_height | remove: 'px' }} / 2)*1px;
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        transform: translateY(-50%);
+      {% endunless %}
+    }
+  }
+  
+  .header-top-menu {
+    .navbar {
+      margin-bottom: 0;
+    }
+    .navbar-left:first-child {
+      margin-left: -($grid-gutter-width/2);
+    }
+  }
+}
+
 
 .collection-header-split .content-split {
   @include make-row();

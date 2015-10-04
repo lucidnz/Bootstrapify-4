@@ -1,0 +1,49 @@
+{% include '_has_menu' %}
+
+<div id="header-layout-logo-left">
+  
+  <div class="header-layout-sm visible-xs-block">
+    {% include 'header_component_mobile_navbar' %}
+  </div>
+
+  {% comment note: Desktop and large screen nav %}{% endcomment %}
+  <div class="header-layout-lg hidden-xs">
+    <div class="header-top-menu">
+      {% capture navbar_content %}
+        {% unless settings.secondary_menu_linklist == blank %}
+          {% assign nav_classes = 'nav navbar-nav navbar-left' %}
+          {% include 'nav_list' with settings.secondary_menu_linklist %}
+        {% endunless %}
+        
+        {% assign form_classes = 'navbar-form navbar-left' %}
+        {% include 'search_form' %}
+        
+        {% assign nav_classes = 'nav navbar-nav navbar-right' %}
+        {% assign nav_list_items = 'accounts,cart' %}
+        {% include 'nav_list' with settings.tertiary_menu_linklist %}
+        
+      {% endcapture %}
+      {% assign navbar_classes = 'navbar navbar-default navbar-static-top' %}
+      {% assign include_header = false %}
+      {% include 'header_component_navbar' %}
+    </div>
+    
+    <div class="header-main-menu">
+      {% capture navbar_content %}
+        {% include 'header_component_brand' %}
+        
+        {% assign nav_classes = 'nav navbar-nav' %}
+        {% if has_menu %}
+          {% include 'nav_list' with settings.main_menu_linklist %}
+        {% else %}
+          {% include 'nav_list' with 'main-menu' %}
+        {% endif %}
+      {% endcapture %}
+      
+      {% assign navbar_classes = 'navbar ' %}
+      {% assign include_header = false %}
+      {% include 'header_component_navbar' %}
+    </div>
+    {% include 'header_component_megamenu' %}
+  </div>
+</div>
