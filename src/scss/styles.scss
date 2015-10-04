@@ -1,4 +1,6 @@
 @import 'base/_variables.scss.liquid';
+@import 'theme/_custom_variables.scss.liquid';
+
 @import 'base/_mixins.scss.liquid';
 @import '../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap';
 @import 'base/_foundation.scss.liquid';
