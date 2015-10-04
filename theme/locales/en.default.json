@@ -277,7 +277,7 @@
       "phone": "Phone",
       "message": "Message",
       "send_button": "Send",
-      "post_success": "Thank you for your enquiry. We will be in contact&nbsp;shortly."
+      "post_success_html": "Thank you for your enquiry. We will be in contact&nbsp;shortly."
     }
   },
   "blog": {
