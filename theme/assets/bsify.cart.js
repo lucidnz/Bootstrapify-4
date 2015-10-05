@@ -64,7 +64,7 @@ Cart.init = function () {
 
 Cart.add_item_to_cart = function ($current_target) {
   var values = Cart.form_values($current_target.serializeArray());
-  var properties = {}; // TODO: deal with item properties when adding to cart
+  var properties = values.properties || {};
   
   var variant = Bsify.get_variant_by_id(values.id);
   var item_title = (variant.title === 'Default Title') ? Bsify.product.title : Bsify.product.title + Bsify.translations.product.item_title_seperator + variant.title;
@@ -182,12 +182,26 @@ Cart.remove_message = function (message_id) {
   }, Bsify.message_timeout);
 };
 
-// convert jQuery serializeArray results into something useful 
+// convert jQuery serializeArray results into something useful
 Cart.form_values = function (arr) {
   var vals = {};
   for (var i = 0; i < arr.length; i++) {
     var item = arr[i];
-    vals[item.name] = item.value;
+    // nest objects 1 deep i.e. for line_item.properties
+    var re = /(.*)\[(.*)\]/ig;
+    var result = re.exec(item.name);
+    if (result) {
+      var key = result[1];
+      var obj = {}
+      obj[result[2] || 0] = item.value;
+      if (vals[key]) {
+        $.extend(vals[key], obj);
+      } else {
+        vals[key] = obj;
+      }
+    } else {
+      vals[item.name] = item.value;
+    }
   }
   return vals;
 };
