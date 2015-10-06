@@ -31,6 +31,7 @@
               {% if result.price %}
                 {% assign products_size = products_size | plus: 1 %}
                 {% assign p = result %}
+                {% assign show_product_only = true %}
                 {% capture products %}
                   {{ products }}
                   {% include 'product_item_list' %}

@@ -21,6 +21,11 @@
 {% assign product_limit = settings.nested_collections_product_limit | times: 1 | 50 %}
 {% if product_limit > 50 %}{% assign product_limit = 50 %}{% endif %}
 {% assign products_size = collections_linklist.links | map: 'object' | sort: 'products_count' | map: 'products_count' | first | times: 1 %}
+{% if settings.show_product_variants_as_items %}
+  {% assign h = collections_linklist.links | map: 'object' | sort: 'products_count' | map: 'handle' | first %}
+  {% assign first_collection = collections[h] %}
+  {% assign products_size = first_collection.all_products | map: 'variants' | map: 'title' | size %}
+{% endif %}
 {% if product_limit < products_size %}
   {% assign products_size = product_limit | times: 1 %}
 {% endif %}

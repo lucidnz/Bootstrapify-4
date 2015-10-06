@@ -1,8 +1,12 @@
 {% if homepage_products.products.size > 0 %}
   {% assign homepage_products_url = homepage_products.url | default: '/collections/all' %}
 
-  {% assign product_limit = settings.homepage_limit_products | times: 1 %}
-  {% if homepage_products.products.size < product_limit %}{% assign collection_size = homepage_products.products.size | times: 1 %}{% else %}{% assign collection_size = product_limit | times: 1 %}{% endif %}
+  {% assign product_limit = settings.homepage_limit_products | times: 1 %}  
+  {% assign homepage_products_all_size = homepage_products.all_products.size %}
+  {% if settings.show_product_variants_as_items %}
+    {% assign homepage_products_all_size = homepage_products.all_products | map: 'variants' | map: 'title' | size %}
+  {% endif %}
+  {% if homepage_products_all_size < product_limit %}{% assign collection_size = homepage_products_all_size %}{% else %}{% assign collection_size = product_limit %}{% endif %}
   <div class="sheet">
     <header class="sheet-header page-header">
       {% if homepage_products.products.size > product_limit %}
@@ -17,6 +21,7 @@
     </header>
     
     <section class="group products" data-products-size="{{ collection_size }}">
+      {% assign product_limit_counter = 0 %}
       {% for p in homepage_products.products limit: product_limit %}
         {% include 'product_item' %}
       {% endfor %}

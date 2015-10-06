@@ -1,36 +1,96 @@
-{% comment note: Check if the product is on sale and set a variable to be used below. %}{% endcomment %}
-{% assign on_sale = false %}
-{% if p.compare_at_price > p.price %}
-  {% assign on_sale = true %}
-{% endif %}
-
-{% comment note: Check if the product is sold out and set a variable to be used below. %}{% endcomment %}
-{% assign sold_out = true %}
-{% if p.available  %}
-  {% assign sold_out = false %}
-{% endif %}
-
-<div class="group-item-wrap">
-  <figure class="group-item thumbnail">
-    {% assign item_url = p.url %}
-    {% if collection %}
-      {% assign item_url = p.url | within: collection %}
+{% if settings.show_product_variants_as_items and show_product_only != true %}
+  {% for v in p.variants %}
+    {% assign output_variant = true %}
+    {% if product_limit_counter != blank %}
+      {% assign product_limit_counter = product_limit_counter | plus: 1 %}
+      {% if product_limit_counter > product_limit %}
+        {% assign output_variant = false %}
+      {% endif %}
     {% endif %}
-    <a href="{{ item_url }}" title="{{ p.title | escape }}">
-      <div class="group-item-image">
-        {% if p.featured_image %}
-          {% capture img_size %}{% if collection_size > 1 %}1024x1024{% else %}2048x2048{% endif %}{% endcapture %}
-          {{ p.featured_image | img_url: img_size | img_tag: p.title }}
-        {% else %}
-          <div class="fallback-image"></div>
-        {% endif %}
+  
+    {% if output_variant %}
+      {% comment note: Check if the product is on sale and set a variable to be used below. %}{% endcomment %}
+      {% assign on_sale = false %}
+      {% if v.compare_at_price > v.price %}
+        {% assign on_sale = true %}
+      {% endif %}
+      
+      {% comment note: Check if the product is sold out and set a variable to be used below. %}{% endcomment %}
+      {% assign sold_out = true %}
+      {% if v.available  %}
+        {% assign sold_out = false %}
+      {% endif %}
+  
+      {% capture v_title %}{{ p.title | escape }} &mdash; {{ v.title | escape }}{% endcapture %}
+      <div class="group-item-wrap">
+        <figure class="group-item thumbnail">
+          {% assign item_url = v.url %}
+          {% if collection %}
+            {% assign item_url = v.url | within: collection %}
+          {% endif %}
+          <a href="{{ item_url }}" title="{{ v_title }}">
+            <div class="group-item-image">
+              {% if v.image or p.featured_image %}
+                {% capture img_size %}{% if collection_size > 1 %}1024x1024{% else %}2048x2048{% endif %}{% endcapture %}
+                {% if v.image %}
+                  {{ v.image | img_url: img_size | img_tag: v_title }}
+                {% else %}
+                  {{ p.featured_image | img_url: img_size | img_tag: v_title }}
+                {% endif %}
+              {% else %}
+                <div class="fallback-image"></div>
+              {% endif %}
+            </div>
+            <figcaption class="group-item-details caption">
+              <h3 class="group-item-title">{{ p.title }} {{ v.title }}</h3>
+              {% include 'product_price_variant' %}
+              {% include 'product_badges' %}
+              <span class="shopify-product-reviews-badge" data-id="{{ p.id }}"></span>
+            </figcaption>
+          </a>
+        </figure>
       </div>
-      <figcaption class="group-item-details caption">
-        <h3 class="group-item-title">{{ p.title }}</h3>
-        {% include 'product_price' %}
-        {% include 'product_badges' %}
-        <span class="shopify-product-reviews-badge" data-id="{{ p.id }}"></span>
-      </figcaption>
-    </a>
-  </figure>
-</div>
+    {% endif %}
+  {% endfor %}
+  
+{% else %}
+  {% comment note: Check if the product is on sale and set a variable to be used below. %}{% endcomment %}
+  {% assign on_sale = false %}
+  {% if p.compare_at_price > p.price %}
+    {% assign on_sale = true %}
+  {% endif %}
+  
+  {% comment note: Check if the product is sold out and set a variable to be used below. %}{% endcomment %}
+  {% assign sold_out = true %}
+  {% if p.available  %}
+    {% assign sold_out = false %}
+  {% endif %}
+  
+  {% assign p_title = p.title | escape %}
+  
+  <div class="group-item-wrap">
+    <figure class="group-item thumbnail">
+      {% assign item_url = p.url %}
+      {% if collection %}
+        {% assign item_url = p.url | within: collection %}
+      {% endif %}
+      <a href="{{ item_url }}" title="{{ p_title }}">
+        <div class="group-item-image">
+          {% if p.featured_image %}
+            {% capture img_size %}{% if collection_size > 1 %}1024x1024{% else %}2048x2048{% endif %}{% endcapture %}
+            {{ p.featured_image | img_url: img_size | img_tag: p_title }}
+          {% else %}
+            <div class="fallback-image"></div>
+          {% endif %}
+        </div>
+        <figcaption class="group-item-details caption">
+          <h3 class="group-item-title">{{ p.title }}</h3>
+          {% include 'product_price' %}
+          {% include 'product_badges' %}
+          <span class="shopify-product-reviews-badge" data-id="{{ p.id }}"></span>
+        </figcaption>
+      </a>
+    </figure>
+  </div>
+{% endif %}
+{% assign show_product_only = null %}

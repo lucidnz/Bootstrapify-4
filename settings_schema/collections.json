@@ -38,6 +38,17 @@
     },
     {
       "type": "header",
+      "content": "Products"
+    },
+    {
+      "label": "Show all products variants as items on the collections page",
+      "id": "show_product_variants_as_items",
+      "type": "checkbox",
+      "default": false,
+      "info": "This is a global settings so all product variants will be displayed like this if enabled."
+    },
+    {
+      "type": "header",
       "content": "Sort and filter"
     },
     {

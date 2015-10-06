@@ -196,6 +196,7 @@
             {% when 'product_link' %}
               {% comment note: Show the products thumbnail %}{% endcomment %}
               {% assign p = advanced_section_child_link.object %}
+              {% assign show_product_only = true %}
               {% capture new_homepage_sub_section_content %}{% include 'product_item' %}{% endcapture %}
             
             {% when 'page_link' %}
