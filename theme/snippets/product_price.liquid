@@ -1,3 +1,4 @@
+{% if settings.hide_pricing != true or p.price > 0 %}
 <div class="product-price">
   {% if p.price_varies %}
     {% capture price %}{% assign show_zero = true %}{% include '_price' with p.price_min %}{% endcapture %}
@@ -9,3 +10,4 @@
     {{ 'products.price.standard_price_html' | t: price: price, price_with_currency: price_with_currency }}
   {% endif %}
 </div>
+{% endif %}

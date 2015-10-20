@@ -55,6 +55,12 @@
       "id": "product_social_share_email",
       "type": "checkbox",
       "default": true
+    },
+    {
+      "label": "Hide pricing and add to cart button if price is $0.00",
+      "id": "hide_pricing",
+      "type": "checkbox",
+      "default": true
     }
   ]
 }

@@ -43,7 +43,7 @@
             Collect any variant id (first) associated with each thumb and include it as a data-attr to be used with the image switcher.
             Clicking a thumb to change the image also changes the selected variant if it is linked to it.
           {% endcomment %}
-          
+
           {% if product.images.size > 1 %}
           {% for thumb in product.images %}
             {% assign image_variant_id = false %}
@@ -60,11 +60,12 @@
         <section class="product-details" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
           {% comment note: Get first variant, or deep linked one %}{% endcomment %}
           {% assign variant = product.selected_or_first_available_variant %}
-  
+
+          {% if settings.hide_pricing != true or variant.price > 0 %}
           <meta itemprop="priceCurrency" content="{{ shop.currency }}">
           {% unless variant.sku == blank %}<meta itemprop="identifier" content="sku:{{ variant.sku }}" />{% endunless %}
           <link itemprop="availability" href="http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}">
-  
+
           <div class="product-details-content">
             <div class="product-price h3">
               <p class="compare-at-price small text-muted">
@@ -85,9 +86,9 @@
                 {% endif %}
               </p>
             </div>
-  
+
             {% comment TODO: sale badges %}{% endcomment %}
-  
+
             <form class="add-to-cart-form" action="/cart/add" method="post" enctype="multipart/form-data">
               <div class="form-group">
                 <select class="product-select form-control" id="product-select" name="id">
@@ -102,26 +103,28 @@
                 {% endfor %}
                 </select>
               </div>
-  
+
               <div class="form-group product-quantity">
                 <label class="quantity-selector control-label" for="quantity">{{ 'products.form.quantity' | t }}</label>
                 <input class="quantity-selector form-control" type="number" id="quantity" name="quantity" value="1" min="1">
               </div>
-  
+
               <input class="btn-add-to-cart btn btn-primary btn-lg btn-block" type="submit" name="add" value="{{ 'products.buttons.add_to_cart' | t }}">
             </form>
             <div class="add-to-cart-message hidden"></div>
           </div>
+          {% endif %}
+
           {% include 'product_social_share_links' %}
-  
+
           <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
         </section>
-  
+
         <section class="product-description">
           {% include 'product_description' with product.description %}
         </section>
       </div>
-        
+
       {% if collection %}
       <section class="product-navigation">
         {% assign previous_product_title = '' %}
@@ -132,7 +135,7 @@
           {% assign previous_product = all_products[previous_product_handle] %}
           {% assign previous_product_title = previous_product.title %}
         {% endif %}
-        
+
         {% assign next_product_title = '' %}
         {% assign next_count = 0 %}
         {% if collection.next_product %}

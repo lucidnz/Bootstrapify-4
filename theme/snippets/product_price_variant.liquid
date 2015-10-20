@@ -1,5 +1,7 @@
+{% if settings.hide_pricing != true or v.price > 0 %}
 <div class="product-price">
   {% capture price %}{% assign show_zero = true %}{% include '_price' with v.price %}{% endcapture %}
   {% capture price_with_currency %}{% assign show_zero = true %}{% include '_price_with_currency' with v.price %}{% endcapture %}
   {{ 'products.price.standard_price_html' | t: price: price, price_with_currency: price_with_currency }}
 </div>
+{% endif %}
