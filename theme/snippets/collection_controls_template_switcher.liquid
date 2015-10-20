@@ -1,14 +1,14 @@
 {% comment note:
 
-  Collection template switcher  
+  Collection template switcher
   Collect the:
     - Default template
     - Current template
     - Enabled templates list
   Then if we have enabled templates other than the default template show them.
-  
+
  %}{% endcomment %}
- 
+
 {% if collection %}
   {% assign default_template = collection.template_suffix | default: 'grid' %}
 {% endif %}
@@ -28,16 +28,16 @@
 <div class="collection-template-switcher">
   <ul class="nav nav-pills">
   {% for t in enabled_templates %}
-    
+
     {% case t %}
     {% when 'grid' %}
       {% assign t_icon = 'fa fa-lg fa-th-large' %}
     {% when 'list' %}
       {% assign t_icon = 'fa fa-lg fa-th-list' %}
     {% when 'lookbook' %}
-      {% assign t_icon = 'fa fa-lg fa-book' %}
+      {% assign t_icon = 'fa fa-lg fa-columns' %}
     {% endcase %}
-    
+
     {% comment note: Set the url taking into account a sort order might currently be in use %}{% endcomment %}
     {% capture template_url %}{{ collection.url }}?{% unless collection.sort_by == blank %}sort_by={{ collection.sort_by }}&{% endunless %}{% endcapture %}
     <li{% if t == current_template %} class="active"{% endif %}><a href="{{ template_url }}view={{ t }}" title="{{ 'collections.collection_controls.switcher_title' | t: collection_title: collection.title, template_type: t }}"><span class="{{ t_icon }}"></span><span class="sr-only">{{ t }}</span></a></li>
