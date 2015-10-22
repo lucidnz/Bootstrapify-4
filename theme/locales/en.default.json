@@ -6,6 +6,9 @@
     "pagination": {
       "previous_html": "&laquo; Previous",
       "next_html": "Next &raquo;"
+    },
+    "modal": {
+      "close_button": "Close"
     }
   },
   "seo": {

@@ -1,0 +1,13 @@
+{% layout none %}
+<div class="page-modal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'general.modal.close_button' | t }}"><span class="fa fa-times" aria-hidden="true"></span></button>
+    <h1>{{ page.title }}</h1>
+  </div>
+  <div class="modal-body">
+    {{ page.content }}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'general.modal.close_button' | t }}</button>
+  </div>
+</div>
