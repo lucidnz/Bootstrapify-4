@@ -192,7 +192,7 @@ Cart.form_values = function (arr) {
     var result = re.exec(item.name);
     if (result) {
       var key = result[1];
-      var obj = {}
+      var obj = {};
       obj[result[2] || 0] = item.value;
       if (vals[key]) {
         $.extend(vals[key], obj);

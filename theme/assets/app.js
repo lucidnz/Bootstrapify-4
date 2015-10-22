@@ -43,6 +43,9 @@ var App = function () {
   // init event listeners for megamenu 
   Bsify.MegaMenu.init();
 
+  // init event listeners for scroll_to 
+  Bsify.ScrollTo.init();
+
   // init lookbook gallery
   if ($('.collection-lookbook').length > 0) {
     var lookbook = new Lookbook({
