@@ -33,12 +33,25 @@ Modal._set_trigger_listener = function (trigger) {
   $trigger.on('click', function (e) {
     e.preventDefault();
     var $current_target = $(e.currentTarget);
-    var content_url = $current_target.attr('href');
-    $modal.modal();
-    $.ajax(content_url).done(function (data) {
-      $modal.find('.modal-content').html(data);
-    });
+    Modal._load_content($current_target);
   });
+};
+
+Modal._load_content = function ($current_target) {
+  var content_url = $current_target.attr('href');
+  if (Modal._is_external_content(content_url)) {
+    $.ajax(content_url).done(function (content) {
+      $modal.find('.modal-content').html(content);
+    });
+  } else {
+    var content = $(content_url).html();
+    $modal.find('.modal-content').html(content);
+  }
+  $modal.modal();
+};
+
+Modal._is_external_content = function (content_url) {
+  return content_url.charAt(0) !== '#';
 };
 
 module.exports = Modal;
