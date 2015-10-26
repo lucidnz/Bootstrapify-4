@@ -19,5 +19,5 @@
   {% else %}
     {% capture data_query %}data-user="{{ social_feed_instagram | split: '.com/' | last | remove: '/' | escape }}"{% endcapture %}
   {% endif %}
-  <div data-social-feed="instagram" data-client-id="{{ settings.instagram_client_id }}" {{ data_query }} data-empty-message="{{ 'social_and_newsletter.homepage_advanced_layout.instagram_empty_message' | t }}"></div>
+  <div data-social-feed="instagram" data-client-id="{{ settings.instagram_client_id }}" {{ data_query }} data-empty-message="{{ 'social_and_newsletter.advanced_layout.instagram_empty_message' | t }}"></div>
 {% endunless %}
