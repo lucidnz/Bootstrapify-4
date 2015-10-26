@@ -25,24 +25,6 @@
       "default": true
     },
     {
-      "label": "Show recent articles",
-      "id": "show_recent_articles",
-      "type": "select",
-      "options": [
-        { "value": "none", "label": "None" },
-        { "value": "list", "label": "As List" },
-        { "value": "thumbs", "label": "As Thumbs" }
-      ],
-      "default": "list",
-      "info": "If 'As Thumbs' is selected you will need to include an image in each post to be used as the thumbnail picture."
-    },
-    {
-      "label": "Recent articles limit",
-      "id": "recent_articles_limit",
-      "type": "text",
-      "default": "3"
-    },
-    {
       "type": "header",
       "content": "Authors"
     },
@@ -73,6 +55,28 @@
       "id": "pagination_limit_comments",
       "type": "text",
       "default": "25"
+    },
+    {
+      "type": "header",
+      "content": "Recent Articles"
+    },
+    {
+      "label": "Show recent articles",
+      "id": "show_recent_articles",
+      "type": "select",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "list", "label": "As List" },
+        { "value": "thumbs", "label": "As Thumbs" }
+      ],
+      "default": "list",
+      "info": "If 'As Thumbs' is selected you will need to include an image in each post to be used as the thumbnail picture."
+    },
+    {
+      "label": "Recent articles limit",
+      "id": "recent_articles_limit",
+      "type": "text",
+      "default": "3"
     },
     {
       "type": "header",
