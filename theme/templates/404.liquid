@@ -1,12 +1,8 @@
-<main role="main">
-  <article class="sheet">
-    <header class="sheet-header page-header">
-      <h1>{{ 'errors.404.page_title' | t }}</h1>
-    </header>
-    
-    {% assign message_html = 'errors.404.not_found_message_html' | t %}
-    {% include 'search_results_empty' %}
-  </article>
-</main>
-
-{% include 'site_aside' %}
+<article class="sheet">
+  <header class="sheet-header page-header">
+    <h1>{{ 'errors.404.page_title' | t }}</h1>
+  </header>
+  
+  {% assign message_html = 'errors.404.not_found_message_html' | t %}
+  {% include 'search_results_empty' %}
+</article>

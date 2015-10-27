@@ -1,90 +1,92 @@
-<main role="main">
-  {% assign image = false %}
-  {% assign content = article.content %}
-  {% if settings.enable_article_banners and content contains 'src=' %}
-    {% assign image_size = '2048x2048' %}
-    {% include '_extract_images' with content %}
-    {% assign image = images | first %}
-    {% assign image_to_remove = unsized_images | first %}
-    {% assign content = content | remove: image_to_remove %}
-    <div class="article-banner">
-      <div class="banner-image banner-image-fullscreen">
-        {{ image }}
-        {% if settings.show_article_title_on_banner %}
-          <div class="banner-image-caption carousel-caption">
-            <h1>{{ article.title }}</h1>
-          </div>
-        {% endif %}
-      </div>
+{% assign image = false %}
+{% assign content = article.content %}
+{% if settings.enable_article_banners and content contains 'src=' %}
+  {% assign image_size = '2048x2048' %}
+  {% include '_extract_images' with content %}
+  {% assign image = images | first %}
+  {% assign image_to_remove = unsized_images | first %}
+  {% assign content = content | remove: image_to_remove %}
+  <div class="article-banner">
+    <div class="banner-image banner-image-fullscreen">
+      {{ image }}
+      {% if settings.show_article_title_on_banner %}
+        <div class="banner-image-caption carousel-caption">
+          <h1>{{ article.title }}</h1>
+        </div>
+      {% endif %}
     </div>
-  {% endif %}
-  
-  <div class="sheet">
-    <div class="blog-wrapper">
-      <article class="blog-article">
-        <header class="sheet-header page-header{% if settings.show_article_title_on_banner and image %} no-title{% endif %}">
-          {% unless settings.show_article_title_on_banner and image %}
-            <h1>{{ article.title }}</h1>
-          {% endunless %}
-          {% include 'article_meta' %}
-        </header>
-      
-        <section class="blog-article-content">
-          {{ content }}
-        </section>
-        
-        <footer>
-          {% include 'article_meta' %}
-          
-          {% if settings.blog_show_author_bio and article.user.bio != blank %}
-          <div class="blog-article-author">
-    				<strong>{{ 'blog.article_list.author_html' | t: author: article.author }}</strong>
-    				<p>{{ article.user.bio }}</p>
-    			</div>
-          {% endif %}
-          
-          {% if settings.enable_rss_link %}
-          <p class="rss-link">
-            <a href="{{ blog.url | append: '.atom' }}">{{ 'blog.general.rss_link_html' | t: blog_title: blog.title }}</a>
-          </p>
-          {% endif %}
-        </footer>
-      </article>
-  		
-  		<aside class="blog-aside">        
-    		{% if blog.previous_article or blog.next_article %}
-      		{% assign next_article = null %}
-      		{% assign next_article_count = 0 %}
-      		{% assign previous_article = null %}
-      		{% assign previous_article_count = 0 %}
-      		{% for article in blog.articles %}
-            {% if article.url == blog.next_article %}
-              {% assign next_article = article %}
-          		{% assign next_article_count = 1 %}
-            {% elsif article.url == blog.previous_article %}
-          		{% assign previous_article = article %}
-          		{% assign previous_article_count = 1 %}
-            {% endif %}
-          {% endfor %}
-      		
-      		<ul class="pager">
-      			<li class="previous{% unless blog.previous_article %} disabled{% endunless %}">{{ 'blog.general.previous_article_html' | t: count: previous_article_count, article_title: previous_article.title | link_to: blog.previous_article }}</li>
-            <li>{{ blog.title | link_to: blog.url }}</li>
-      			<li class="next{% unless blog.next_article %} disabled{% endunless %}">{{ 'blog.general.next_article_html' | t: count: next_article_count, article_title: next_article.title | link_to: blog.next_article }}</li>
-      		</ul>
-    		{% endif %}
-        
-        {% include 'article_recent' %}
-        <hr>
-          
-        {% if article.comments_enabled? %}
-    		<div class="blog-article-comments" id="comments">
-      		{% include 'article_comments' %}
-    		</div>
-    		{% endif %}
-  		</aside>
-		</div>
   </div>
-</main>
+{% endif %}
 
-{% include 'site_aside' %}
+<div class="sheet">
+  <div class="blog-wrapper">
+    <article class="blog-article">
+      <header class="sheet-header page-header{% if settings.show_article_title_on_banner and image %} no-title{% endif %}">
+        {% unless settings.show_article_title_on_banner and image %}
+          <h1>{{ article.title }}</h1>
+        {% endunless %}
+        {% include 'article_meta' %}
+      </header>
+    
+      <section class="blog-article-content">
+        {{ content }}
+      </section>
+      
+      <footer>
+        {% include 'article_meta' %}
+        
+        {% if settings.blog_show_author_bio and article.user.bio != blank %}
+        <div class="blog-article-author">
+  				<strong>{{ 'blog.article_list.author_html' | t: author: article.author }}</strong>
+  				<p>{{ article.user.bio }}</p>
+  			</div>
+        {% endif %}
+        
+        {% if settings.enable_rss_link %}
+        <p class="rss-link">
+          <a href="{{ blog.url | append: '.atom' }}">{{ 'blog.general.rss_link_html' | t: blog_title: blog.title }}</a>
+        </p>
+        {% endif %}
+      </footer>
+    </article>
+		
+		<aside class="blog-aside">        
+  		{% if blog.previous_article or blog.next_article %}
+    		{% assign next_article = null %}
+    		{% assign next_article_count = 0 %}
+    		{% assign previous_article = null %}
+    		{% assign previous_article_count = 0 %}
+    		{% for article in blog.articles %}
+          {% if article.url == blog.next_article %}
+            {% assign next_article = article %}
+        		{% assign next_article_count = 1 %}
+          {% elsif article.url == blog.previous_article %}
+        		{% assign previous_article = article %}
+        		{% assign previous_article_count = 1 %}
+          {% endif %}
+        {% endfor %}
+    		
+    		<ul class="pager">
+    			<li class="previous{% unless blog.previous_article %} disabled{% endunless %}">{{ 'blog.general.previous_article_html' | t: count: previous_article_count, article_title: previous_article.title | link_to: blog.previous_article }}</li>
+          <li>{{ blog.title | link_to: blog.url }}</li>
+    			<li class="next{% unless blog.next_article %} disabled{% endunless %}">{{ 'blog.general.next_article_html' | t: count: next_article_count, article_title: next_article.title | link_to: blog.next_article }}</li>
+    		</ul>
+  		{% endif %}
+  		
+      {% unless settings.show_recent_articles == 'none' %}
+        <hr>
+        <div class="blog-recent-articles">
+          <h4>{{ 'blog.recent_articles.title' | t }}</h4>
+          {% include 'article_recent' %}
+        </div>
+      {% endunless %}
+      <hr>
+        
+      {% if article.comments_enabled? %}
+  		<div class="blog-article-comments" id="comments">
+    		{% include 'article_comments' %}
+  		</div>
+  		{% endif %}
+		</aside>
+	</div>
+</div>

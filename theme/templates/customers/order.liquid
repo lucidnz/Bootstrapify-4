@@ -1,157 +1,155 @@
-<main role="main">
-  <article class="sheet">
-    <header class="sheet-header page-header">
-      <h1>{{ 'customer_accounts.orders.page_title' | t: count: 1 }} {{ order.name }}</h1>
-      <a href="/account">{{ 'customer_accounts.orders.back_link' | t }}</a>
-    </header>
+<article class="sheet">
+  <header class="sheet-header page-header">
+    <h1>{{ 'customer_accounts.orders.page_title' | t: count: 1 }} {{ order.name }}</h1>
+    <a href="/account">{{ 'customer_accounts.orders.back_link' | t }}</a>
+  </header>
 
-    <section class="sheet-content">
-      
-      {% capture order_created_at_date %}{{ order.created_at | date: format: 'order_long' }}{% endcapture %}
-      <p class="order-date">{{ 'customer_accounts.orders.order_created_on_note' | t: date: order_created_at_date }}</p>
-      
-      {% if order.cancelled %}
-  		<div class="alert alert-warning">
-    		{% capture order_cancelled_at_date %}{{ order.cancelled_at | date: format: 'order_long' }}{% endcapture %}
-  			<h5>{{ 'customer_accounts.orders.order_cancelled_on_note' | t: date: order_cancelled_at_date }}</h5>
-  			<span>{{ order.cancel_reason }}</span>
-  		</div>
-  		{% endif %}
-  		
-  		<div class="well order-address">
-  			<div class="order-address-content">
-  				<div class="order-billing">
-  					<h4 class="order-section-title">{{ 'customer_accounts.orders.billing_address_title' | t }}</h4>
-  					<p><strong>{{ 'customer_accounts.orders.financial_status_title' | t }}</strong> <span class="status-{{ order.financial_status }}">{{ order.financial_status }}</span></p>
-          
-  					<address>
-  						{{ order.billing_address.name }}<br>
-  						{{ order.billing_address.company }}<br>
-  						{{ order.billing_address.street }}<br>
-  						{{ order.billing_address.city }}, {{ order.billing_address.province }}<br>
-  						{{ order.billing_address.country }} {{ order.billing_address.zip }}<br>
-  						{{ order.billing_address.phone }}
-  					</address>
-  				</div>
-  				<div class="order-shipping">
-  					{% if order.shipping_address %}
-  					<h4 class="order-section-title">{{ 'customer_accounts.orders.shipping_address_title' | t }}</h4>
-  					<p><strong>{{ 'customer_accounts.orders.fulfillment_status_title' | t }}</strong> <span class="status-{{ order.fulfillment_status }}">{{ order.fulfillment_status }}</span></p>
-            
-  					<address>
-  						{{ order.shipping_address.name }}<br>
-  						{{ order.shipping_address.company }}<br>
-  						{{ order.shipping_address.street }}<br>
-  						{{ order.shipping_address.city }}, {{ order.shipping_address.province }}<br>
-  						{{ order.shipping_address.country }} {{ order.shipping_address.zip }}<br>
-  						{{ order.shipping_address.phone }}
-  					</address>
-  					{% endif %}
-  				</div>
-  			</div>
-  		</div>
+  <section class="sheet-content">
     
-  		<div class="order-details table-responsive">
-  			<table class="table">
-  				<thead>
-  					<tr>
-  						<th>{{ 'customer_accounts.orders.product_title' | t }}</th>
-  						<th>{{ 'customer_accounts.orders.sku_title' | t }}</th>
-  						<th>{{ 'customer_accounts.orders.quantity_title' | t }}</th>
-  						<th class="text-right">{{ 'customer_accounts.orders.price_title' | t }}</th>
-  						<th class="total text-right">{{ 'customer_accounts.orders.total_title' | t }}</th>
-  					</tr>
-  				</thead>
-  				
-  				<tfoot>
-  					<tr class="order-summary note">
-  						<td class="text-right" colspan="4">{{ 'customer_accounts.orders.subtotal_title' | t }}</td>
-  						<td class="total text-right">
-                {% capture price %}{% include '_price' with order.subtotal_price %}{% endcapture %}
-                {% capture price_with_currency %}{% include '_price_with_currency' with order.subtotal_price %}{% endcapture %}
-                {{ 'customer_accounts.orders.subtotal_html' | t: price: price, price_with_currency: price_with_currency }}
-              </td>
-  					</tr>   
-      
-  					{% for discount in order.discounts %}
-  					<tr class="order-summary discount">
-  						<td class="text-right" colspan="4">{{ 'customer_accounts.orders.discount_title' | t: discount_code: discount.code }}</td>
-  						<td class="total text-right">
-                {% capture price %}{% include '_price' with discount.savings %}{% endcapture %}
-                {% capture price_with_currency %}{% include '_price_with_currency' with discount.savings %}{% endcapture %}
-                {{ 'customer_accounts.orders.discount_price_html' | t: price: price, price_with_currency: price_with_currency }}
-              </td>
-  					</tr>
-  					{% endfor %}
-      
-  					{% for shipping_method in order.shipping_methods %}
-  					<tr class="order-summary note">
-  						<td class="text-right" colspan="4">{{ 'customer_accounts.orders.shipping_title' | t: shipping_method: shipping_method.title }}</td>
-  						<td class="total text-right">
-                {% capture price %}{% include '_price' with shipping_method.price %}{% endcapture %}
-                {% capture price_with_currency %}{% include '_price_with_currency' with shipping_method.price %}{% endcapture %}
-                {{ 'customer_accounts.orders.shipping_price_html' | t: price: price, price_with_currency: price_with_currency }}
-              </td>
-  					</tr>
-  					{% endfor %}
+    {% capture order_created_at_date %}{{ order.created_at | date: format: 'order_long' }}{% endcapture %}
+    <p class="order-date">{{ 'customer_accounts.orders.order_created_on_note' | t: date: order_created_at_date }}</p>
+    
+    {% if order.cancelled %}
+		<div class="alert alert-warning">
+  		{% capture order_cancelled_at_date %}{{ order.cancelled_at | date: format: 'order_long' }}{% endcapture %}
+			<h5>{{ 'customer_accounts.orders.order_cancelled_on_note' | t: date: order_cancelled_at_date }}</h5>
+			<span>{{ order.cancel_reason }}</span>
+		</div>
+		{% endif %}
+		
+		<div class="well order-address">
+			<div class="order-address-content">
+				<div class="order-billing">
+					<h4 class="order-section-title">{{ 'customer_accounts.orders.billing_address_title' | t }}</h4>
+					<p><strong>{{ 'customer_accounts.orders.financial_status_title' | t }}</strong> <span class="status-{{ order.financial_status }}">{{ order.financial_status }}</span></p>
+        
+					<address>
+						{{ order.billing_address.name }}<br>
+						{{ order.billing_address.company }}<br>
+						{{ order.billing_address.street }}<br>
+						{{ order.billing_address.city }}, {{ order.billing_address.province }}<br>
+						{{ order.billing_address.country }} {{ order.billing_address.zip }}<br>
+						{{ order.billing_address.phone }}
+					</address>
+				</div>
+				<div class="order-shipping">
+					{% if order.shipping_address %}
+					<h4 class="order-section-title">{{ 'customer_accounts.orders.shipping_address_title' | t }}</h4>
+					<p><strong>{{ 'customer_accounts.orders.fulfillment_status_title' | t }}</strong> <span class="status-{{ order.fulfillment_status }}">{{ order.fulfillment_status }}</span></p>
           
-  					{% for tax_line in order.tax_lines %}
-  					<tr class="order-summary note">
-  						<td class="text-right" colspan="4">
-    						{% assign tax_rate_percent = tax_line.rate | times: 100 %}
-    						{{ 'customer_accounts.orders.tax_title' | t: tax_type: tax_line.title, tax_rate: tax_line.rate, tax_rate_percent: tax_rate_percent }}
-    					</td>
-  						<td class="total text-right">
-                {% capture price %}{% include '_price' with tax_line.price %}{% endcapture %}
-                {% capture price_with_currency %}{% include '_price_with_currency' with tax_line.price %}{% endcapture %}
-                {{ 'customer_accounts.orders.tax_price_html' | t: price: price, price_with_currency: price_with_currency }}
-              </td>
-  					</tr>
-  					{% endfor %}    
-                  
-  					<tr class="order-summary order_total">
-  						<td class="text-right" colspan="4"><h4>{{ 'customer_accounts.orders.order_summary_total' | t }}</h4></td>
-  						<td class="total text-right"><h4>
-                {% capture price %}{% include '_price' with order.total_price %}{% endcapture %}
-                {% capture price_with_currency %}{% include '_price_with_currency' with order.total_price %}{% endcapture %}
-                {{ 'cart.price.cart_total_html' | t: price: price, price_with_currency: price_with_currency }}
-    					</h4></td>
-  					</tr>   
-  				</tfoot>
-  				
-  				<tbody>
-  					{% for line_item in order.line_items %}
-  					<tr id="{{ line_item.id }}" class="{% cycle 'odd', 'even' %}">
-  						<td class="product">
-  							{{ line_item.title | link_to: line_item.product.url }} 
-  							{% if line_item.fulfillment %}
-  							<div class="note">
-    							{% assign fulfillment_date = line_item.fulfillment.created_at | date: "%b %d" %}
-    							{{ 'customer_accounts.orders.fulfillment_note' | t: date: fulfillment_date }}
-  								{% if line_item.fulfillment.tracking_number %}
-    								<a href="{{ line_item.fulfillment.tracking_url }}">{{ line_item.fulfillment.tracking_company }} #{{ line_item.fulfillment.tracking_number}}</a>
-  								{% endif %}
-  							</div>
-  							{% endif %}
-  						</td>
-  						<td class="sku note">{{ line_item.sku }}</td>
-  						<td class="quantity">{{ line_item.quantity }}</td>
-  						<td class="text-right">
-                {% capture price %}{% assign show_zero = true %}{% include '_price' with line_item.price %}{% endcapture %}
-                {% capture price_with_currency %}{% assign show_zero = true %}{% include '_price_with_currency' with line_item.price %}{% endcapture %}
-                {{ 'cart.price.item_price_html' | t: price: price, price_with_currency: price_with_currency }}
-              </td>
-  						<td class="total text-right">
-                {% capture price %}{% include '_price' with line_item.line_price %}{% endcapture %}
-                {% capture price_with_currency %}{% include '_price_with_currency' with line_item.line_price %}{% endcapture %}
-                {{ 'cart.price.line_price_html' | t: price: price, price_with_currency: price_with_currency }}
-              </td>
-  					</tr>
-  					{% endfor %}
-  				</tbody>
-  			</table>
-  		</div>
-  		
-    </section>
-  </article>
-</main>
+					<address>
+						{{ order.shipping_address.name }}<br>
+						{{ order.shipping_address.company }}<br>
+						{{ order.shipping_address.street }}<br>
+						{{ order.shipping_address.city }}, {{ order.shipping_address.province }}<br>
+						{{ order.shipping_address.country }} {{ order.shipping_address.zip }}<br>
+						{{ order.shipping_address.phone }}
+					</address>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+  
+		<div class="order-details table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>{{ 'customer_accounts.orders.product_title' | t }}</th>
+						<th>{{ 'customer_accounts.orders.sku_title' | t }}</th>
+						<th>{{ 'customer_accounts.orders.quantity_title' | t }}</th>
+						<th class="text-right">{{ 'customer_accounts.orders.price_title' | t }}</th>
+						<th class="total text-right">{{ 'customer_accounts.orders.total_title' | t }}</th>
+					</tr>
+				</thead>
+				
+				<tfoot>
+					<tr class="order-summary note">
+						<td class="text-right" colspan="4">{{ 'customer_accounts.orders.subtotal_title' | t }}</td>
+						<td class="total text-right">
+              {% capture price %}{% include '_price' with order.subtotal_price %}{% endcapture %}
+              {% capture price_with_currency %}{% include '_price_with_currency' with order.subtotal_price %}{% endcapture %}
+              {{ 'customer_accounts.orders.subtotal_html' | t: price: price, price_with_currency: price_with_currency }}
+            </td>
+					</tr>   
+    
+					{% for discount in order.discounts %}
+					<tr class="order-summary discount">
+						<td class="text-right" colspan="4">{{ 'customer_accounts.orders.discount_title' | t: discount_code: discount.code }}</td>
+						<td class="total text-right">
+              {% capture price %}{% include '_price' with discount.savings %}{% endcapture %}
+              {% capture price_with_currency %}{% include '_price_with_currency' with discount.savings %}{% endcapture %}
+              {{ 'customer_accounts.orders.discount_price_html' | t: price: price, price_with_currency: price_with_currency }}
+            </td>
+					</tr>
+					{% endfor %}
+    
+					{% for shipping_method in order.shipping_methods %}
+					<tr class="order-summary note">
+						<td class="text-right" colspan="4">{{ 'customer_accounts.orders.shipping_title' | t: shipping_method: shipping_method.title }}</td>
+						<td class="total text-right">
+              {% capture price %}{% include '_price' with shipping_method.price %}{% endcapture %}
+              {% capture price_with_currency %}{% include '_price_with_currency' with shipping_method.price %}{% endcapture %}
+              {{ 'customer_accounts.orders.shipping_price_html' | t: price: price, price_with_currency: price_with_currency }}
+            </td>
+					</tr>
+					{% endfor %}
+        
+					{% for tax_line in order.tax_lines %}
+					<tr class="order-summary note">
+						<td class="text-right" colspan="4">
+  						{% assign tax_rate_percent = tax_line.rate | times: 100 %}
+  						{{ 'customer_accounts.orders.tax_title' | t: tax_type: tax_line.title, tax_rate: tax_line.rate, tax_rate_percent: tax_rate_percent }}
+  					</td>
+						<td class="total text-right">
+              {% capture price %}{% include '_price' with tax_line.price %}{% endcapture %}
+              {% capture price_with_currency %}{% include '_price_with_currency' with tax_line.price %}{% endcapture %}
+              {{ 'customer_accounts.orders.tax_price_html' | t: price: price, price_with_currency: price_with_currency }}
+            </td>
+					</tr>
+					{% endfor %}    
+                
+					<tr class="order-summary order_total">
+						<td class="text-right" colspan="4"><h4>{{ 'customer_accounts.orders.order_summary_total' | t }}</h4></td>
+						<td class="total text-right"><h4>
+              {% capture price %}{% include '_price' with order.total_price %}{% endcapture %}
+              {% capture price_with_currency %}{% include '_price_with_currency' with order.total_price %}{% endcapture %}
+              {{ 'cart.price.cart_total_html' | t: price: price, price_with_currency: price_with_currency }}
+  					</h4></td>
+					</tr>   
+				</tfoot>
+				
+				<tbody>
+					{% for line_item in order.line_items %}
+					<tr id="{{ line_item.id }}" class="{% cycle 'odd', 'even' %}">
+						<td class="product">
+							{{ line_item.title | link_to: line_item.product.url }} 
+							{% if line_item.fulfillment %}
+							<div class="note">
+  							{% assign fulfillment_date = line_item.fulfillment.created_at | date: "%b %d" %}
+  							{{ 'customer_accounts.orders.fulfillment_note' | t: date: fulfillment_date }}
+								{% if line_item.fulfillment.tracking_number %}
+  								<a href="{{ line_item.fulfillment.tracking_url }}">{{ line_item.fulfillment.tracking_company }} #{{ line_item.fulfillment.tracking_number}}</a>
+								{% endif %}
+							</div>
+							{% endif %}
+						</td>
+						<td class="sku note">{{ line_item.sku }}</td>
+						<td class="quantity">{{ line_item.quantity }}</td>
+						<td class="text-right">
+              {% capture price %}{% assign show_zero = true %}{% include '_price' with line_item.price %}{% endcapture %}
+              {% capture price_with_currency %}{% assign show_zero = true %}{% include '_price_with_currency' with line_item.price %}{% endcapture %}
+              {{ 'cart.price.item_price_html' | t: price: price, price_with_currency: price_with_currency }}
+            </td>
+						<td class="total text-right">
+              {% capture price %}{% include '_price' with line_item.line_price %}{% endcapture %}
+              {% capture price_with_currency %}{% include '_price_with_currency' with line_item.line_price %}{% endcapture %}
+              {{ 'cart.price.line_price_html' | t: price: price, price_with_currency: price_with_currency }}
+            </td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		
+  </section>
+</article>

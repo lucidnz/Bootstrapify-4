@@ -343,14 +343,14 @@
     "social_links": {
       "title": "Follow us"
     },
-    "homepage_advanced_layout": {
+    "advanced_layout": {
       "instagram_title_html": "",
       "instagram_description_html": "",
       "instagram_empty_message": "There are no images. Try again later."
     }
   },
   "search": {
-    "homepage": {
+    "advanced_layout": {
       "title_html": "Search {{ shop_name }}",
       "description_html": ""
     },

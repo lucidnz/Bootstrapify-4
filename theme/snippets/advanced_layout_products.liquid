@@ -1,0 +1,30 @@
+{% if advanced_layout_products.products.size > 0 %}
+  {% assign advanced_layout_products_url = advanced_layout_products.url | default: '/collections/all' %}
+
+  {% assign product_limit = settings.homepage_limit_products | times: 1 %}  
+  {% assign advanced_layout_products_all_size = advanced_layout_products.all_products.size %}
+  {% if settings.show_product_variants_as_items %}
+    {% assign advanced_layout_products_all_size = advanced_layout_products.all_products | map: 'variants' | map: 'title' | size %}
+  {% endif %}
+  {% if advanced_layout_products_all_size < product_limit %}{% assign collection_size = advanced_layout_products_all_size %}{% else %}{% assign collection_size = product_limit %}{% endif %}
+  <div class="sheet">
+    <header class="sheet-header page-header">
+      {% if advanced_layout_products.products.size > product_limit %}
+        <h1><a href="{{ advanced_layout_products_url }}">{{ advanced_layout_products.title }}</a></h1>
+        <a class="view-all-link" href="{{ advanced_layout_products_url }}">{{ 'collections.general.view_all_products_html' | t: collection_title: advanced_layout_products.title }}</a>
+      {% else %}
+        <h1>{{ advanced_layout_products.title }}</h1>
+      {% endif %}
+      <div class="collection-description">
+        {{ advanced_layout_products.description }}
+      </div>
+    </header>
+    
+    <section class="group products" data-products-size="{{ collection_size }}">
+      {% assign product_limit_counter = 0 %}
+      {% for p in advanced_layout_products.products limit: product_limit %}
+        {% include 'product_item' %}
+      {% endfor %}
+    </section>
+  </div>
+{% endif %}

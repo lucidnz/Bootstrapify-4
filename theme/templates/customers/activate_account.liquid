@@ -1,32 +1,28 @@
-<main role="main">
-  <article class="sheet">
-    <header class="sheet-header page-header">
-      <h1>{{ 'customer_accounts.activate_account.page_title' | t }}</h1>
-    </header>
+<article class="sheet">
+  <header class="sheet-header page-header">
+    <h1>{{ 'customer_accounts.activate_account.page_title' | t }}</h1>
+  </header>
 
-    <section class="sheet-content">
-      <div class="customer-activate-form">
-        <p class="description">{{ 'customer_accounts.activate_account.description' | t }}</p>
-  		  {% form 'activate_customer_password' %}
-          {% assign form_errors_message = 'errors.customer_accounts.form_message' | t %}
-          {% include 'form_errors' %}
-      
-          <div class="form-group">
-            <label for="customer_password">{{ 'customer_accounts.activate_account.password' | t }}</label>
-            <input class="form-control input-lg" type="password" value="" name="customer[password]" id="customer_password" placeholder="{{ 'customer_accounts.activate_account.password' | t }}" />
-          </div>
-          
-          <div class="form-group">
-            <label for="password_confirmation">{{ 'customer_accounts.activate_account.password_confirmation' | t }}</label>
-            <input class="form-control input-lg" type="password" value="" name="customer[password_confirmation]" id="customer_password_confirmation" placeholder="{{ 'customer_accounts.activate_account.password_confirmation' | t }}" />
-          </div>
-          
-          <input class="btn btn-primary btn-lg" type="submit" value="{{ 'customer_accounts.activate_account.password_confirmation' | t }}" />
-          <span class="note">{{ 'customer_accounts.activate_account.button_separator' | t }}</span><input class="cancel btn btn-default btn-lg" type="submit" name="decline" id="customer_decline" value="{{ 'customer_accounts.activate_account.cancel_button' | t }}" />
-        {% endform %}
-      </div>
-    </section>
-  </article>
-</main>
-
-{% include 'site_aside' %}
+  <section class="sheet-content">
+    <div class="customer-activate-form">
+      <p class="description">{{ 'customer_accounts.activate_account.description' | t }}</p>
+		  {% form 'activate_customer_password' %}
+        {% assign form_errors_message = 'errors.customer_accounts.form_message' | t %}
+        {% include 'form_errors' %}
+    
+        <div class="form-group">
+          <label for="customer_password">{{ 'customer_accounts.activate_account.password' | t }}</label>
+          <input class="form-control input-lg" type="password" value="" name="customer[password]" id="customer_password" placeholder="{{ 'customer_accounts.activate_account.password' | t }}" />
+        </div>
+        
+        <div class="form-group">
+          <label for="password_confirmation">{{ 'customer_accounts.activate_account.password_confirmation' | t }}</label>
+          <input class="form-control input-lg" type="password" value="" name="customer[password_confirmation]" id="customer_password_confirmation" placeholder="{{ 'customer_accounts.activate_account.password_confirmation' | t }}" />
+        </div>
+        
+        <input class="btn btn-primary btn-lg" type="submit" value="{{ 'customer_accounts.activate_account.password_confirmation' | t }}" />
+        <span class="note">{{ 'customer_accounts.activate_account.button_separator' | t }}</span><input class="cancel btn btn-default btn-lg" type="submit" name="decline" id="customer_decline" value="{{ 'customer_accounts.activate_account.cancel_button' | t }}" />
+      {% endform %}
+    </div>
+  </section>
+</article>

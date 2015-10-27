@@ -1,7 +1,0 @@
-{% unless homepage_section_content == blank %}
-  <section class="homepage-section homepage-section-{{ section_count }} homepage-section-{{ homepage_section_type }}" id="{{ homepage_section_id }}">
-    {{ homepage_section_content }}
-  </section>
-  {% assign section_count = section_count | plus: 1 %}
-  {% assign homepage_section_content = '' %}
-{% endunless %}

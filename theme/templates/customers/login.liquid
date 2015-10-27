@@ -1,83 +1,79 @@
-<main role="main">
-  <article class="sheet" data-bsify-toggle-recover="login">
-    <header class="sheet-header page-header">
-      <h1>{{ 'customer_accounts.login.page_title' | t }}</h1>
-    </header>
+<article class="sheet" data-bsify-toggle-recover="login">
+  <header class="sheet-header page-header">
+    <h1>{{ 'customer_accounts.login.page_title' | t }}</h1>
+  </header>
 
-    <section class="sheet-content">
-      <div class="customer-login-form">
-        
-        <div class="customer-login-description">{{ 'customer_accounts.login.description_html' | t }}</div>
-        
-        {% form 'customer_login' %}
-          {% assign form_errors_message = 'errors.customer_accounts.form_message' | t %}
-          {% include 'form_errors' %}
-        
+  <section class="sheet-content">
+    <div class="customer-login-form">
+      
+      <div class="customer-login-description">{{ 'customer_accounts.login.description_html' | t }}</div>
+      
+      {% form 'customer_login' %}
+        {% assign form_errors_message = 'errors.customer_accounts.form_message' | t %}
+        {% include 'form_errors' %}
+      
+        <div class="form-group {% if form.errors contains 'form' %}has-error{% endif %}">
+          <label for="customer_email">{{ 'customer_accounts.login.email' | t }}</label>
+          <input class="form-control input-lg" type="email" value="{{ form.email }}" name="customer[email]" id="customer_email" placeholder="{{ 'customer_accounts.login.email' | t }}" autocorrect="off" autocapitalize="off">
+        </div>
+      
+        {% if form.password_needed %}
           <div class="form-group {% if form.errors contains 'form' %}has-error{% endif %}">
-            <label for="customer_email">{{ 'customer_accounts.login.email' | t }}</label>
-            <input class="form-control input-lg" type="email" value="{{ form.email }}" name="customer[email]" id="customer_email" placeholder="{{ 'customer_accounts.login.email' | t }}" autocorrect="off" autocapitalize="off">
+            <label for="customer_password">{{ 'customer_accounts.login.password' | t }}</label>
+            <input class="form-control input-lg" type="password" value="" name="customer[password]" id="customer_password" placeholder="{{ 'customer_accounts.login.password' | t }}">
           </div>
-        
-          {% if form.password_needed %}
-            <div class="form-group {% if form.errors contains 'form' %}has-error{% endif %}">
-              <label for="customer_password">{{ 'customer_accounts.login.password' | t }}</label>
-              <input class="form-control input-lg" type="password" value="" name="customer[password]" id="customer_password" placeholder="{{ 'customer_accounts.login.password' | t }}">
-            </div>
-          {% endif %}
-            
-          <div class="form-group">
-            {% if form.password_needed %}<p><a href="/account/login#recover">{{ 'customer_accounts.login.reset_link' | t }}</a></p>{% endif %}
-            <p>{{ 'customer_accounts.login.register_link' | t | customer_register_link }}</p>
-          </div>
-        
-          {% if current_url %}<input type="hidden" name="checkout_url" value="{{ current_url }}">{% endif %}
-          <input class="btn btn-primary btn-lg" type="submit" value="{{ 'customer_accounts.login.login_button' | t }}">
-          <span class="cancel-link">{{ 'customer_accounts.login.note_html' | t: shop_url: shop.url }}</span>
-        {% endform %}
-      </div>
-    </section>
-    
-    {% if shop.checkout.guest_login %}
-    <section class="sheet-content">
-      <div class="customer-login-form">
-        {% comment note: Guest Login form for shops with optional customer accounts. This form only displays if the users click on the login link on the checkout page. %}{% endcomment %}
-        {% form 'guest_login' %}
-          <input class="btn btn-link" type="submit" value="{{ 'customer_accounts.login.back_to_checkout' | t }}" />
-        {% endform %}
-      </div>
-    </section>
-    {% endif %}
-  </article>
+        {% endif %}
+          
+        <div class="form-group">
+          {% if form.password_needed %}<p><a href="/account/login#recover">{{ 'customer_accounts.login.reset_link' | t }}</a></p>{% endif %}
+          <p>{{ 'customer_accounts.login.register_link' | t | customer_register_link }}</p>
+        </div>
+      
+        {% if current_url %}<input type="hidden" name="checkout_url" value="{{ current_url }}">{% endif %}
+        <input class="btn btn-primary btn-lg" type="submit" value="{{ 'customer_accounts.login.login_button' | t }}">
+        <span class="cancel-link">{{ 'customer_accounts.login.note_html' | t: shop_url: shop.url }}</span>
+      {% endform %}
+    </div>
+  </section>
   
-  <article class="sheet" data-bsify-toggle-recover="recover">
-    <header class="sheet-header page-header">
-      <h1>{{ 'customer_accounts.recover_password.page_title' | t }}</h1>
-    </header>
+  {% if shop.checkout.guest_login %}
+  <section class="sheet-content">
+    <div class="customer-login-form">
+      {% comment note: Guest Login form for shops with optional customer accounts. This form only displays if the users click on the login link on the checkout page. %}{% endcomment %}
+      {% form 'guest_login' %}
+        <input class="btn btn-link" type="submit" value="{{ 'customer_accounts.login.back_to_checkout' | t }}" />
+      {% endform %}
+    </div>
+  </section>
+  {% endif %}
+</article>
 
-    <section class="sheet-content">      
-      <div class="customer-recover-password-form">
-        <p class="description">{{ 'customer_accounts.recover_password.description' | t }}</p>
-        {% form 'recover_customer_password' %}
-          {% assign form_errors_message = 'errors.customer_accounts.form_message' | t %}
-          {% include 'form_errors' %}
-          
-          {% if form.posted_successfully? %}
-          <div class="note success" data-bsify-toggle-recover-force>
-            {{ 'customer_accounts.recover_password.success_message' | t }}
-          </div>
-          {% endif %}
-          
-          <div class="form-group {% if form.errors contains 'email' %}has-error{% endif %}">
-            <label for="customer_email">{{ 'customer_accounts.recover_password.email' | t }}</label>
-            <input class="form-control input-lg" type="email" value="{{ form.email }}" name="email" id="recover-email" placeholder="{{ 'customer_accounts.recover_password.email' | t }}" autocorrect="off" autocapitalize="off">
-          </div>
+<article class="sheet" data-bsify-toggle-recover="recover">
+  <header class="sheet-header page-header">
+    <h1>{{ 'customer_accounts.recover_password.page_title' | t }}</h1>
+  </header>
+
+  <section class="sheet-content">      
+    <div class="customer-recover-password-form">
+      <p class="description">{{ 'customer_accounts.recover_password.description' | t }}</p>
+      {% form 'recover_customer_password' %}
+        {% assign form_errors_message = 'errors.customer_accounts.form_message' | t %}
+        {% include 'form_errors' %}
         
-          <input class="btn btn-primary btn-lg" type="submit" value="{{ 'customer_accounts.recover_password.reset_button' | t }}">
-          <span class="cancel-link">{{ 'customer_accounts.recover_password.note_html' | t: shop_url: shop.url }}</span>
-        {% endform %}
-      </div>
-    </section>
-  </article>
-</main>
-
-{% include 'site_aside' %}
+        {% if form.posted_successfully? %}
+        <div class="note success" data-bsify-toggle-recover-force>
+          {{ 'customer_accounts.recover_password.success_message' | t }}
+        </div>
+        {% endif %}
+        
+        <div class="form-group {% if form.errors contains 'email' %}has-error{% endif %}">
+          <label for="customer_email">{{ 'customer_accounts.recover_password.email' | t }}</label>
+          <input class="form-control input-lg" type="email" value="{{ form.email }}" name="email" id="recover-email" placeholder="{{ 'customer_accounts.recover_password.email' | t }}" autocorrect="off" autocapitalize="off">
+        </div>
+      
+        <input class="btn btn-primary btn-lg" type="submit" value="{{ 'customer_accounts.recover_password.reset_button' | t }}">
+        <span class="cancel-link">{{ 'customer_accounts.recover_password.note_html' | t: shop_url: shop.url }}</span>
+      {% endform %}
+    </div>
+  </section>
+</article>

@@ -1,74 +1,72 @@
-<main role="main">
-  <article class="sheet">
-    <header class="sheet-header page-header">
-      <h1>{{ 'customer_accounts.account.page_title' | t }}</h1>
-    </header>
+<article class="sheet">
+  <header class="sheet-header page-header">
+    <h1>{{ 'customer_accounts.account.page_title' | t }}</h1>
+  </header>
 
-    <section class="sheet-content">
-      <div class="account-details">
-        
-        <div class="account-description">{{ 'customer_accounts.account.description_html' | t }}</div>
-
-        <div class="well">
-          <h4>{{ customer.name }}</h4>
-          <dl class="dl-horizontal">
-            <dt>{{ 'customer_accounts.account.email' | t }}</dt>
-            <dd>{{ customer.email }}</dd>
-            <dt>{{ 'customer_accounts.account.default_phone' | t }}</dt>
-            <dd>{% if customer.default_address.phone %}{{ customer.default_address.phone }}{% else %}<span class="text-muted">{{ 'customer_accounts.account.default_phone_empty' | t }}</span>{% endif %}</dd>
-            <dt>{{ 'customer_accounts.account.default_address' | t }}</dt>
-            <dd>
-              {% if customer.default_address != nil %}
-              <adddress>
-                {{ customer.default_address.address1 }}<br>
-                {% if customer.default_address.address2 != "" %}{{ customer.default_address.address2 }}<br>{% endif %}
-                {{ customer.default_address.city}}, {% if address.province_code %}{{customer.default_address.province_code}}, {% endif %}{{customer.default_address.country}}<br>
-                {{ customer.default_address.zip}}<br>
-              </adddress>
-              {% else %}
-                <span class="text-muted">{{ 'customer_accounts.account.default_address_empty' | t }}</span><br>
-              {% endif %}
-              <a href="/account/addresses">{{ 'customer_accounts.account.addresses_link' | t: addresses_count: customer.addresses_count }}</a>
-            </dd>
-          </dl>
-        </div>
-      </div>
+  <section class="sheet-content">
+    <div class="account-details">
       
-      <div class="account-orders">
-        <h2>{{ 'customer_accounts.orders.page_title' | t: count: 2 }}</h2>
-        {% if customer.orders.size > 0 %}
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="order-number">{{ 'customer_accounts.orders.page_title' | t: count: 1 }}</th>
-                  <th class="date">{{ 'customer_accounts.orders.date_title' | t }}</th>
-                  <th class="payment-status">{{ 'customer_accounts.orders.payment_status_title' | t }}</th>
-                  <th class="fulfillment-status">{{ 'customer_accounts.orders.fulfillment_status_title' | t }}</th>
-                  <th class="total text-right">{{ 'customer_accounts.orders.total_title' | t }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for order in customer.orders %}
-                <tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled-order danger{% endif %}">
-                  <td>{{ order.name | link_to: order.customer_url }}</td>
-                  <td><span class="note">{{ order.created_at | date: format: 'order_short' }}</span></td>
-                  <td><span class="status-{{ order.financial_status }}">{{ order.financial_status }}</span></td>
-                  <td><span class="status-{{ order.fulfillment_status }}">{{ order.fulfillment_status }}</span></td>
-                  <td class="text-right">
-                    {% capture price %}{% include '_price' with order.total_price %}{% endcapture %}
-                    {% capture price_with_currency %}{% include '_price_with_currency' with order.total_price %}{% endcapture %}
-                    {{ 'cart.price.cart_total_html' | t: price: price, price_with_currency: price_with_currency }}
-                  </td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        {% else %}
-          <div class="alert alert-info">{{ 'customer_accounts.orders.empty_message_html' | t }}</div>
-        {% endif %}
+      <div class="account-description">{{ 'customer_accounts.account.description_html' | t }}</div>
+
+      <div class="well">
+        <h4>{{ customer.name }}</h4>
+        <dl class="dl-horizontal">
+          <dt>{{ 'customer_accounts.account.email' | t }}</dt>
+          <dd>{{ customer.email }}</dd>
+          <dt>{{ 'customer_accounts.account.default_phone' | t }}</dt>
+          <dd>{% if customer.default_address.phone %}{{ customer.default_address.phone }}{% else %}<span class="text-muted">{{ 'customer_accounts.account.default_phone_empty' | t }}</span>{% endif %}</dd>
+          <dt>{{ 'customer_accounts.account.default_address' | t }}</dt>
+          <dd>
+            {% if customer.default_address != nil %}
+            <adddress>
+              {{ customer.default_address.address1 }}<br>
+              {% if customer.default_address.address2 != "" %}{{ customer.default_address.address2 }}<br>{% endif %}
+              {{ customer.default_address.city}}, {% if address.province_code %}{{customer.default_address.province_code}}, {% endif %}{{customer.default_address.country}}<br>
+              {{ customer.default_address.zip}}<br>
+            </adddress>
+            {% else %}
+              <span class="text-muted">{{ 'customer_accounts.account.default_address_empty' | t }}</span><br>
+            {% endif %}
+            <a href="/account/addresses">{{ 'customer_accounts.account.addresses_link' | t: addresses_count: customer.addresses_count }}</a>
+          </dd>
+        </dl>
       </div>
-    </section>
-  </article>
-</main>
+    </div>
+    
+    <div class="account-orders">
+      <h2>{{ 'customer_accounts.orders.page_title' | t: count: 2 }}</h2>
+      {% if customer.orders.size > 0 %}
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="order-number">{{ 'customer_accounts.orders.page_title' | t: count: 1 }}</th>
+                <th class="date">{{ 'customer_accounts.orders.date_title' | t }}</th>
+                <th class="payment-status">{{ 'customer_accounts.orders.payment_status_title' | t }}</th>
+                <th class="fulfillment-status">{{ 'customer_accounts.orders.fulfillment_status_title' | t }}</th>
+                <th class="total text-right">{{ 'customer_accounts.orders.total_title' | t }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in customer.orders %}
+              <tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled-order danger{% endif %}">
+                <td>{{ order.name | link_to: order.customer_url }}</td>
+                <td><span class="note">{{ order.created_at | date: format: 'order_short' }}</span></td>
+                <td><span class="status-{{ order.financial_status }}">{{ order.financial_status }}</span></td>
+                <td><span class="status-{{ order.fulfillment_status }}">{{ order.fulfillment_status }}</span></td>
+                <td class="text-right">
+                  {% capture price %}{% include '_price' with order.total_price %}{% endcapture %}
+                  {% capture price_with_currency %}{% include '_price_with_currency' with order.total_price %}{% endcapture %}
+                  {{ 'cart.price.cart_total_html' | t: price: price, price_with_currency: price_with_currency }}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="alert alert-info">{{ 'customer_accounts.orders.empty_message_html' | t }}</div>
+      {% endif %}
+    </div>
+  </section>
+</article>

@@ -1,0 +1,7 @@
+{% unless advanced_layout_section_content == blank %}
+  <section class="advanced-section advanced-section-{{ section_count }} advanced-section-{{ advanced_layout_section_type }}" id="{{ advanced_layout_section_id }}">
+    {{ advanced_layout_section_content }}
+  </section>
+  {% assign section_count = section_count | plus: 1 %}
+  {% assign advanced_layout_section_content = '' %}
+{% endunless %}

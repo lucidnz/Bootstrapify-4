@@ -19,8 +19,8 @@
   
   {% assign default_title = params[1] %}
   
-  {% capture title_translation %}social_and_newsletter.homepage_advanced_layout.{{ service }}_title_html{% endcapture %}
-  {% capture description_translation %}social_and_newsletter.homepage_advanced_layout.{{ service }}_description_html{% endcapture %}
+  {% capture title_translation %}social_and_newsletter.advanced_layout.{{ service }}_title_html{% endcapture %}
+  {% capture description_translation %}social_and_newsletter.advanced_layout.{{ service }}_description_html{% endcapture %}
   
   {% capture social_title %}{{ title_translation | t | default: default_title }}{% endcapture %}
   {% capture social_description %}{{ description_translation | t }}{% endcapture %}

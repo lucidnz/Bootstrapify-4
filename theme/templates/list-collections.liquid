@@ -1,39 +1,35 @@
-<main role="main">
-  {% comment note: List collection header layouts are also used on the collections page, so set up the relevant variables outside the include first %}{% endcomment %}
-  {% capture collection_title %}{{ 'collections.list_collections.title' | t }}{% endcapture %}
-  {% capture collection_description %}{{ 'collections.list_collections.description_html' | t }}{% endcapture %}
-  {% assign collection_image = 'list_collections_banner_image.jpg' | asset_url %}
-  {% if settings.list_collections_header_layout contains 'split_image' %}
-    {% capture header_classes %}list-collection-header collection-header-split list-collection-header-{{ settings.list_collections_header_layout | replace: '_','-' }}{% endcapture %}
-    {% include 'collection_header_layout_split' %}
+{% comment note: List collection header layouts are also used on the collections page, so set up the relevant variables outside the include first %}{% endcomment %}
+{% capture collection_title %}{{ 'collections.list_collections.title' | t }}{% endcapture %}
+{% capture collection_description %}{{ 'collections.list_collections.description_html' | t }}{% endcapture %}
+{% assign collection_image = 'list_collections_banner_image.jpg' | asset_url %}
+{% if settings.list_collections_header_layout contains 'split_image' %}
+  {% capture header_classes %}list-collection-header collection-header-split list-collection-header-{{ settings.list_collections_header_layout | replace: '_','-' }}{% endcapture %}
+  {% include 'collection_header_layout_split' %}
+{% else %}
+  {% capture header_classes %}list-collection-header collection-header-{{ settings.list_collections_header_layout | replace: '_','-' }}{% endcapture %}
+  {% assign collection_header_layout_snippet = 'collection_header_layout_' | append: settings.list_collections_header_layout %}
+  {% include collection_header_layout_snippet %}
+{% endif %}
+
+<div class="sheet">
+  {% assign featured_collections = linklists[settings.list_collections_featured_collection] %}
+  {% if featured_collections.links != blank %}
+    {% assign collections_size = featured_collections.links.size | times: 1 %}
+    <section class="group collections" data-collections-size="{{ collections_size }}">
+      {% for collection_link in featured_collections.links %}
+        {% assign c = collection_link.object %}
+        {% include 'collection_item' %}
+      {% endfor %}
+    </section>
+          
   {% else %}
-    {% capture header_classes %}list-collection-header collection-header-{{ settings.list_collections_header_layout | replace: '_','-' }}{% endcapture %}
-    {% assign collection_header_layout_snippet = 'collection_header_layout_' | append: settings.list_collections_header_layout %}
-    {% include collection_header_layout_snippet %}
+    {% comment note: No featured collections so fallback to all collections %}{% endcomment %}
+    
+    {% assign collections_size = collections.size | times: 1 %}
+    <section class="group collections" data-collections-size="{{ collections_size }}">
+      {% for c in collections %}
+        {% include 'collection_item' %}
+      {% endfor %}
+    </section>
   {% endif %}
-
-  <div class="sheet">
-    {% assign featured_collections = linklists[settings.list_collections_featured_collection] %}
-    {% if featured_collections.links != blank %}
-      {% assign collections_size = featured_collections.links.size | times: 1 %}
-      <section class="group collections" data-collections-size="{{ collections_size }}">
-        {% for collection_link in featured_collections.links %}
-          {% assign c = collection_link.object %}
-          {% include 'collection_item' %}
-        {% endfor %}
-      </section>
-            
-    {% else %}
-      {% comment note: No featured collections so fallback to all collections %}{% endcomment %}
-      
-      {% assign collections_size = collections.size | times: 1 %}
-      <section class="group collections" data-collections-size="{{ collections_size }}">
-        {% for c in collections %}
-          {% include 'collection_item' %}
-        {% endfor %}
-      </section>
-    {% endif %}
-  </div>
-</main>
-
-{% include 'site_aside' %}
+</div>
