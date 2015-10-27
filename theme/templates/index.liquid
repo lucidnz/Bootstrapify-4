@@ -1,91 +1,88 @@
-<main role="main">
+{% comment note:
+  Loop the homepage content settings and add each section if applicable.
+  Then loop the advanced content link list to add additional sections if needed.
+  
+  `section_count` is used across both standard & advanced sections and only increments if a section is included.
+ %}{% endcomment %}
 
-  {% comment note:
-    Loop the homepage content settings and add each section if applicable.
-    Then loop the advanced content link list to add additional sections if needed.
-    
-    `section_count` is used across both standard & advanced sections and only increments if a section is included.
-   %}{% endcomment %}
+{% assign section_count = 1 %}
 
-  {% assign section_count = 1 %}
+{% for i in (1..5) %}
+  {% assign homepage_settings_id = 'homepage_layout_section_' | append: i %}
+  {% assign homepage_section = settings[homepage_settings_id] %}
   
-  {% for i in (1..5) %}
-    {% assign homepage_settings_id = 'homepage_layout_section_' | append: i %}
-    {% assign homepage_section = settings[homepage_settings_id] %}
-    
-    {% unless homepage_section == blank or homepage_section == 'none' %}
-    
-      {% comment note:
-        Check for each section type and collect it's relevant content inside the advanced_layout_section_content variable
-        
-        All except for the banner and video banner create three variables:
-         - advanced_layout_section_object which is passed to the snippet to be rendered
-         - advanced_layout_section_id to be used to identify each section
-         - advanced_layout_section_type to be used to identify each sections type
-       %}{% endcomment %}
-    
-      {% case homepage_section %}
-      {% when 'banner' %}
-        {% assign advanced_layout_section_id = 'homepage-banner-' | append: section_count %}
-        {% assign advanced_layout_section_type = 'banner' %}
-        {% capture advanced_layout_section_content %}{% include 'advanced_layout_banner' %}{% endcapture %}
-                
-      {% when 'video_banner' %}
-        {% assign advanced_layout_section_id = 'homepage-banner-' | append: section_count %}
-        {% assign advanced_layout_section_type = 'banner-video' %}
-        {% capture advanced_layout_section_content %}{% include 'advanced_layout_banner_video' %}{% endcapture %}
-                
-      {% when 'featured_collections' %}
-        {% unless settings.homepage_featured_collections == blank %}
-          {% assign advanced_layout_section_object = linklists[settings.homepage_featured_collections] %}
-          {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
-          {% assign advanced_layout_section_type = 'collections' %}
-          {% capture advanced_layout_section_content %}{% include 'advanced_layout_collections' with advanced_layout_section_object %}{% endcapture %}
-        {% endunless %}
-        
-      {% when 'featured_products' %}
-        {% unless settings.homepage_featured_products == blank %}
-          {% assign advanced_layout_section_object = collections[settings.homepage_featured_products] %}
-          {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
-          {% assign advanced_layout_section_type = 'collection' %}
-          {% capture advanced_layout_section_content %}{% include 'advanced_layout_products' with advanced_layout_section_object %}{% endcapture %}
-        {% endunless %}
-        
-      {% when 'page_content' %}
-        {% unless settings.homepage_page_content == blank %}
-          {% assign advanced_layout_section_object = pages[settings.homepage_page_content] %}
-          {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
-          {% assign advanced_layout_section_type = 'page' %}
-          {% capture advanced_layout_section_content %}{% include 'advanced_layout_page' with advanced_layout_section_object %}{% endcapture %}
-        {% endunless %}
-      {% endcase %}
-    
-      {% comment note:
-        If we have collected content inside advanced_layout_section_content then add it to the page
-       %}{% endcomment %}
+  {% unless homepage_section == blank or homepage_section == 'none' %}
+  
+    {% comment note:
+      Check for each section type and collect it's relevant content inside the advanced_layout_section_content variable
       
-      {% include 'advanced_layout_section' %}
+      All except for the banner and video banner create three variables:
+       - advanced_layout_section_object which is passed to the snippet to be rendered
+       - advanced_layout_section_id to be used to identify each section
+       - advanced_layout_section_type to be used to identify each sections type
+     %}{% endcomment %}
+  
+    {% case homepage_section %}
+    {% when 'banner' %}
+      {% assign advanced_layout_section_id = 'homepage-banner-' | append: section_count %}
+      {% assign advanced_layout_section_type = 'banner' %}
+      {% capture advanced_layout_section_content %}{% include 'advanced_layout_banner' %}{% endcapture %}
+              
+    {% when 'video_banner' %}
+      {% assign advanced_layout_section_id = 'homepage-banner-' | append: section_count %}
+      {% assign advanced_layout_section_type = 'banner-video' %}
+      {% capture advanced_layout_section_content %}{% include 'advanced_layout_banner_video' %}{% endcapture %}
+              
+    {% when 'featured_collections' %}
+      {% unless settings.homepage_featured_collections == blank %}
+        {% assign advanced_layout_section_object = linklists[settings.homepage_featured_collections] %}
+        {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
+        {% assign advanced_layout_section_type = 'collections' %}
+        {% capture advanced_layout_section_content %}{% include 'advanced_layout_collections' with advanced_layout_section_object %}{% endcapture %}
+      {% endunless %}
       
-    {% endunless %}
-  {% endfor %}
+    {% when 'featured_products' %}
+      {% unless settings.homepage_featured_products == blank %}
+        {% assign advanced_layout_section_object = collections[settings.homepage_featured_products] %}
+        {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
+        {% assign advanced_layout_section_type = 'collection' %}
+        {% capture advanced_layout_section_content %}{% include 'advanced_layout_products' with advanced_layout_section_object %}{% endcapture %}
+      {% endunless %}
+      
+    {% when 'page_content' %}
+      {% unless settings.homepage_page_content == blank %}
+        {% assign advanced_layout_section_object = pages[settings.homepage_page_content] %}
+        {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
+        {% assign advanced_layout_section_type = 'page' %}
+        {% capture advanced_layout_section_content %}{% include 'advanced_layout_page' with advanced_layout_section_object %}{% endcapture %}
+      {% endunless %}
+    {% endcase %}
   
-  {% comment note:
-    Advanced layout.
+    {% comment note:
+      If we have collected content inside advanced_layout_section_content then add it to the page
+     %}{% endcomment %}
     
-    The advanced layout uses nested linklists like dropdown menus do, but the layout of the content is changed by it's level
-    i.e. a product on the top level of the list will show a products layout with product form and description,
-    but a product on the 2nd level will show a product thumbnail.
-   %}{% endcomment %}
-  
-  {% unless settings.homepage_advanced_layout == blank %}
-    {% include 'advanced_layout' with settings.homepage_advanced_layout %}
+    {% include 'advanced_layout_section' %}
+    
   {% endunless %}
+{% endfor %}
+
+{% comment note:
+  Advanced layout.
   
-  {% comment note:
-    If the section count is still 1 after all of that then we haven't created any sections.
-    So show the on-boarding content
-   %}{% endcomment %}
-  {% if section_count == 1 %}
-    {% include 'homepage_onboarding' %}
-  {% endif %}
-</main>
+  The advanced layout uses nested linklists like dropdown menus do, but the layout of the content is changed by it's level
+  i.e. a product on the top level of the list will show a products layout with product form and description,
+  but a product on the 2nd level will show a product thumbnail.
+ %}{% endcomment %}
+
+{% unless settings.homepage_advanced_layout == blank %}
+  {% include 'advanced_layout' with settings.homepage_advanced_layout %}
+{% endunless %}
+
+{% comment note:
+  If the section count is still 1 after all of that then we haven't created any sections.
+  So show the on-boarding content
+ %}{% endcomment %}
+{% if section_count == 1 %}
+  {% include 'homepage_onboarding' %}
+{% endif %}

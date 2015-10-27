@@ -59,33 +59,31 @@
   {% endif %}
 {% endfor %}
 
-<main role="main">
-  {% comment note: Collection header layouts are also used on the list collections page, so set up the relevant variables outside the include first %}{% endcomment %}
-  {% assign collection_title = collection.title %}
-  {% assign collection_description = collection.description %}
-  {% if settings.collection_header_layout contains 'split_image' %}
-    {% assign collection_image = collection.image.src | img_url: 'grande' %}
-    {% capture header_classes %}collection-header collection-header-split collection-header-{{ settings.collection_header_layout | replace: '_','-' }}{% endcapture %}
-    {% include 'collection_header_layout_split' %}
-  {% else %}
-    {% assign collection_image = collection.image.src | img_url: '2048x2048' %}
-    {% capture header_classes %}collection-header collection-header-{{ settings.collection_header_layout | replace: '_','-' }}{% endcapture %}
-    {% assign collection_header_layout_snippet = 'collection_header_layout_' | append: settings.collection_header_layout %}
-    {% include collection_header_layout_snippet %}
-  {% endif %}
-  
-  <section class="collection-content">
-    <div class="sheet{% unless nested_collections == blank %} products-wrap{% endunless %}">
-      {% if nested_collections == blank %}
-        <section class="sheet-content">
-          <div class="collection-message">
-            <h3>{{ 'collections.general.empty_message_title' | t }}</h3>
-            <p>{{ 'collections.general.empty_message_html' | t }}</p>
-          </div>
-        </section>
-      {% else %}
-        {{ nested_collections }}
-      {% endif %}
-    </div>
-  </section>
-</main>
+{% comment note: Collection header layouts are also used on the list collections page, so set up the relevant variables outside the include first %}{% endcomment %}
+{% assign collection_title = collection.title %}
+{% assign collection_description = collection.description %}
+{% if settings.collection_header_layout contains 'split_image' %}
+  {% assign collection_image = collection.image.src | img_url: 'grande' %}
+  {% capture header_classes %}collection-header collection-header-split collection-header-{{ settings.collection_header_layout | replace: '_','-' }}{% endcapture %}
+  {% include 'collection_header_layout_split' %}
+{% else %}
+  {% assign collection_image = collection.image.src | img_url: '2048x2048' %}
+  {% capture header_classes %}collection-header collection-header-{{ settings.collection_header_layout | replace: '_','-' }}{% endcapture %}
+  {% assign collection_header_layout_snippet = 'collection_header_layout_' | append: settings.collection_header_layout %}
+  {% include collection_header_layout_snippet %}
+{% endif %}
+
+<section class="collection-content">
+  <div class="sheet{% unless nested_collections == blank %} products-wrap{% endunless %}">
+    {% if nested_collections == blank %}
+      <section class="sheet-content">
+        <div class="collection-message">
+          <h3>{{ 'collections.general.empty_message_title' | t }}</h3>
+          <p>{{ 'collections.general.empty_message_html' | t }}</p>
+        </div>
+      </section>
+    {% else %}
+      {{ nested_collections }}
+    {% endif %}
+  </div>
+</section>

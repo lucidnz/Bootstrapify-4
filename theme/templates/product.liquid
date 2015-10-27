@@ -1,164 +1,162 @@
-<main role="main">
-  <div class="sheet">
-    <div class="sheet-content" itemscope itemtype="http://schema.org/Product">
+<div class="sheet">
+  <div class="sheet-content" itemscope itemtype="http://schema.org/Product">
 
-      <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
-      <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+    <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+    <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
 
-      <div class="sheet-header product-header">
-        <header class="page-header">
-          <h1 itemprop="name">{{ product.title }}</h1>
-        </header>
-      </div>
+    <div class="sheet-header product-header">
+      <header class="page-header">
+        <h1 itemprop="name">{{ product.title }}</h1>
+      </header>
+    </div>
 
-      <section class="product-images">
+    <section class="product-images">
 
-        {% comment %} TODO: product image gallery on mobile - swipe between images & hide thumbs {% endcomment %}
+      {% comment %} TODO: product image gallery on mobile - swipe between images & hide thumbs {% endcomment %}
 
-        <div class="product-image-main">
-          {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
-          <img src="{{ featured_image | img_url: '2048x2048' }}" alt="{{ featured_image.alt | escape }}">
+      <div class="product-image-main">
+        {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+        <img src="{{ featured_image | img_url: '2048x2048' }}" alt="{{ featured_image.alt | escape }}">
 
-          {% comment %}
-            TODO: Trying to use srcset but it's not totally working properly yet
-            Waiting on Shopify to implement image width filter
+        {% comment %}
+          TODO: Trying to use srcset but it's not totally working properly yet
+          Waiting on Shopify to implement image width filter
 <!--
-          <img src="{{ featured_image | img_url: 'medium' }}"
-               srcset="{{ featured_image | img_url: 'medium' }} 240w,
-                       {{ featured_image | img_url: 'large' }} 480w,
-                       {{ featured_image | img_url: 'grande' }} 600w,
-                       {{ featured_image | img_url: '1024x1024' }} 1024w,
-                       {{ featured_image | img_url: '2048x2048' }} 2048w"
-               sizes="(min-width: 768px) 40%,
-                      100%"
-               alt="{{ featured_image.alt | escape }}">
+        <img src="{{ featured_image | img_url: 'medium' }}"
+             srcset="{{ featured_image | img_url: 'medium' }} 240w,
+                     {{ featured_image | img_url: 'large' }} 480w,
+                     {{ featured_image | img_url: 'grande' }} 600w,
+                     {{ featured_image | img_url: '1024x1024' }} 1024w,
+                     {{ featured_image | img_url: '2048x2048' }} 2048w"
+             sizes="(min-width: 768px) 40%,
+                    100%"
+             alt="{{ featured_image.alt | escape }}">
 -->
-          {% endcomment %}
-        </div>
-        <ul class="product-image-thumbs list-inline">
+        {% endcomment %}
+      </div>
+      <ul class="product-image-thumbs list-inline">
 
-          {% comment %}
-            Show thumbs for product image gallery.
+        {% comment %}
+          Show thumbs for product image gallery.
 
-            Collect any variant id (first) associated with each thumb and include it as a data-attr to be used with the image switcher.
-            Clicking a thumb to change the image also changes the selected variant if it is linked to it.
-          {% endcomment %}
+          Collect any variant id (first) associated with each thumb and include it as a data-attr to be used with the image switcher.
+          Clicking a thumb to change the image also changes the selected variant if it is linked to it.
+        {% endcomment %}
 
-          {% if product.images.size > 1 %}
-          {% for thumb in product.images %}
-            {% assign image_variant_id = false %}
-            {% if thumb.attached_to_variant? %}
-              {% assign image_variant_id = thumb.variants.first.id %}
-            {% endif %}
-            <li><a href="{{ thumb | img_url: 'master' }}" data-gallery-main=".product-image-main img" {% if image_variant_id %}data-variant-id="{{ image_variant_id }}"{% endif %}><img src="{{ thumb | img_url: 'large' }}" alt="{{ thumb.alt | escape }}"></a></li>
-          {% endfor %}
+        {% if product.images.size > 1 %}
+        {% for thumb in product.images %}
+          {% assign image_variant_id = false %}
+          {% if thumb.attached_to_variant? %}
+            {% assign image_variant_id = thumb.variants.first.id %}
           {% endif %}
-        </ul>
-      </section>
+          <li><a href="{{ thumb | img_url: 'master' }}" data-gallery-main=".product-image-main img" {% if image_variant_id %}data-variant-id="{{ image_variant_id }}"{% endif %}><img src="{{ thumb | img_url: 'large' }}" alt="{{ thumb.alt | escape }}"></a></li>
+        {% endfor %}
+        {% endif %}
+      </ul>
+    </section>
 
-      <div class="product-content">
-        <section class="product-details" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-          {% comment note: Get first variant, or deep linked one %}{% endcomment %}
-          {% assign variant = product.selected_or_first_available_variant %}
+    <div class="product-content">
+      <section class="product-details" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        {% comment note: Get first variant, or deep linked one %}{% endcomment %}
+        {% assign variant = product.selected_or_first_available_variant %}
 
-          {% if settings.hide_pricing != true or variant.price > 0 %}
-          <meta itemprop="priceCurrency" content="{{ shop.currency }}">
-          {% unless variant.sku == blank %}<meta itemprop="identifier" content="sku:{{ variant.sku }}" />{% endunless %}
-          <link itemprop="availability" href="http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}">
+        {% if settings.hide_pricing != true or variant.price > 0 %}
+        <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+        {% unless variant.sku == blank %}<meta itemprop="identifier" content="sku:{{ variant.sku }}" />{% endunless %}
+        <link itemprop="availability" href="http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}">
 
-          <div class="product-details-content">
-            <div class="product-price h3">
-              <p class="compare-at-price small text-muted">
-                {% comment note: Leave compare-at-price element in markup even if empty so we can grab it with JS if we need to %}{% endcomment %}
-                {% if variant.compare_at_price > variant.price %}
-                  {% capture price %}{% include '_price' with variant.compare_at_price %}{% endcapture %}
-                  {% capture price_with_currency %}{% include '_price_with_currency' with variant.compare_at_price %}{% endcapture %}
-                  {{ 'products.price.compare_at_price_html' | t: price: price, price_with_currency: price_with_currency }}
-                {% endif %}
-              </p>
-              <p class="price" itemprop="price">
-                {% capture price %}{% assign show_zero = true %}{% include '_price' with variant.price %}{% endcapture %}
-                {% capture price_with_currency %}{% assign show_zero = true %}{% include '_price_with_currency' with variant.price %}{% endcapture %}
-                {% if variant.compare_at_price > variant.price %}
-                  {{ 'products.price.sale_price_html' | t: price: price, price_with_currency: price_with_currency }}
+        <div class="product-details-content">
+          <div class="product-price h3">
+            <p class="compare-at-price small text-muted">
+              {% comment note: Leave compare-at-price element in markup even if empty so we can grab it with JS if we need to %}{% endcomment %}
+              {% if variant.compare_at_price > variant.price %}
+                {% capture price %}{% include '_price' with variant.compare_at_price %}{% endcapture %}
+                {% capture price_with_currency %}{% include '_price_with_currency' with variant.compare_at_price %}{% endcapture %}
+                {{ 'products.price.compare_at_price_html' | t: price: price, price_with_currency: price_with_currency }}
+              {% endif %}
+            </p>
+            <p class="price" itemprop="price">
+              {% capture price %}{% assign show_zero = true %}{% include '_price' with variant.price %}{% endcapture %}
+              {% capture price_with_currency %}{% assign show_zero = true %}{% include '_price_with_currency' with variant.price %}{% endcapture %}
+              {% if variant.compare_at_price > variant.price %}
+                {{ 'products.price.sale_price_html' | t: price: price, price_with_currency: price_with_currency }}
+              {% else %}
+                {{ 'products.price.standard_price_html' | t: price: price, price_with_currency: price_with_currency }}
+              {% endif %}
+            </p>
+          </div>
+
+          {% comment TODO: sale badges %}{% endcomment %}
+
+          <form class="add-to-cart-form" action="/cart/add" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <select class="product-select form-control" id="product-select" name="id">
+              {% for variant in product.variants %}
+                {% if variant.available %}
+                  <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
                 {% else %}
-                  {{ 'products.price.standard_price_html' | t: price: price, price_with_currency: price_with_currency }}
+                  <option disabled="disabled">
+                    {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                  </option>
                 {% endif %}
-              </p>
+              {% endfor %}
+              </select>
             </div>
 
-            {% comment TODO: sale badges %}{% endcomment %}
+            <div class="form-group product-quantity">
+              <label class="quantity-selector control-label" for="quantity">{{ 'products.form.quantity' | t }}</label>
+              <input class="quantity-selector form-control" type="number" id="quantity" name="quantity" value="1" min="1">
+            </div>
 
-            <form class="add-to-cart-form" action="/cart/add" method="post" enctype="multipart/form-data">
-              <div class="form-group">
-                <select class="product-select form-control" id="product-select" name="id">
-                {% for variant in product.variants %}
-                  {% if variant.available %}
-                    <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
-                  {% else %}
-                    <option disabled="disabled">
-                      {{ variant.title }} - {{ 'products.product.sold_out' | t }}
-                    </option>
-                  {% endif %}
-                {% endfor %}
-                </select>
-              </div>
-
-              <div class="form-group product-quantity">
-                <label class="quantity-selector control-label" for="quantity">{{ 'products.form.quantity' | t }}</label>
-                <input class="quantity-selector form-control" type="number" id="quantity" name="quantity" value="1" min="1">
-              </div>
-
-              <input class="btn-add-to-cart btn btn-primary btn-lg btn-block" type="submit" name="add" value="{{ 'products.buttons.add_to_cart' | t }}">
-            </form>
-            <div class="add-to-cart-message hidden"></div>
-          </div>
-          {% endif %}
-
-          {% include 'product_social_share_links' %}
-
-          <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
-        </section>
-
-        <section class="product-description">
-          {% include 'product_description' with product.description %}
-        </section>
-      </div>
-
-      {% if collection %}
-      <section class="product-navigation">
-        {% assign previous_product_title = '' %}
-        {% assign previous_count = 0 %}
-        {% if collection.previous_product %}
-          {% assign previous_count = 1 %}
-          {% assign previous_product_handle = collection.previous_product | split: '/' | last %}
-          {% assign previous_product = all_products[previous_product_handle] %}
-          {% assign previous_product_title = previous_product.title %}
+            <input class="btn-add-to-cart btn btn-primary btn-lg btn-block" type="submit" name="add" value="{{ 'products.buttons.add_to_cart' | t }}">
+          </form>
+          <div class="add-to-cart-message hidden"></div>
+        </div>
         {% endif %}
 
-        {% assign next_product_title = '' %}
-        {% assign next_count = 0 %}
-        {% if collection.next_product %}
-          {% assign next_count = 1 %}
-          {% assign next_product_handle = collection.next_product | split: '/' | last %}
-          {% assign next_product = all_products[next_product_handle] %}
-          {% assign next_product_title = next_product.title %}
-        {% endif %}
-        <nav>
-          <ul class="pager">
-            <li class="previous{% unless collection.previous_product %} disabled{% endunless %}">{{ 'products.navigation.previous_product_link_html' | t: previous_product_title: previous_product_title, count: previous_count | link_to: collection.previous_product }}</a></li>
-            <li><a href="{{ collection.url }}">{{ 'products.navigation.collection_link_html' | t: collection_title: collection.title }}</a></li>
-            <li class="next{% unless collection.next_product %} disabled{% endunless %}">{{ 'products.navigation.next_product_link_html' | t: next_product_title: next_product_title, count: next_count | link_to: collection.next_product }}</li>
-          </ul>
-        </nav>
+        {% include 'product_social_share_links' %}
+
+        <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
       </section>
-      {% endif %}
+
+      <section class="product-description">
+        {% include 'product_description' with product.description %}
+      </section>
     </div>
+
+    {% if collection %}
+    <section class="product-navigation">
+      {% assign previous_product_title = '' %}
+      {% assign previous_count = 0 %}
+      {% if collection.previous_product %}
+        {% assign previous_count = 1 %}
+        {% assign previous_product_handle = collection.previous_product | split: '/' | last %}
+        {% assign previous_product = all_products[previous_product_handle] %}
+        {% assign previous_product_title = previous_product.title %}
+      {% endif %}
+
+      {% assign next_product_title = '' %}
+      {% assign next_count = 0 %}
+      {% if collection.next_product %}
+        {% assign next_count = 1 %}
+        {% assign next_product_handle = collection.next_product | split: '/' | last %}
+        {% assign next_product = all_products[next_product_handle] %}
+        {% assign next_product_title = next_product.title %}
+      {% endif %}
+      <nav>
+        <ul class="pager">
+          <li class="previous{% unless collection.previous_product %} disabled{% endunless %}">{{ 'products.navigation.previous_product_link_html' | t: previous_product_title: previous_product_title, count: previous_count | link_to: collection.previous_product }}</a></li>
+          <li><a href="{{ collection.url }}">{{ 'products.navigation.collection_link_html' | t: collection_title: collection.title }}</a></li>
+          <li class="next{% unless collection.next_product %} disabled{% endunless %}">{{ 'products.navigation.next_product_link_html' | t: next_product_title: next_product_title, count: next_count | link_to: collection.next_product }}</li>
+        </ul>
+      </nav>
+    </section>
+    {% endif %}
   </div>
-  {% if product_description_sections != blank %}
-    {{ product_description_sections }}
-  {% endif %}
-</main>
+</div>
+{% if product_description_sections != blank %}
+  {{ product_description_sections }}
+{% endif %}
 
 <script>
 

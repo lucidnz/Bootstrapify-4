@@ -1,80 +1,78 @@
-<main role="main">
-  {% comment note: Collection header layouts are also used on the list collections page, so set up the relevant variables outside the include first %}{% endcomment %}
-  {% assign collection_title = collection.title %}
-  {% assign collection_description = collection.description %}
-  {% if settings.collection_header_layout contains 'split_image' %}
-    {% assign collection_image = collection.image.src | img_url: 'grande' %}
-    {% capture header_classes %}collection-header collection-header-split collection-header-{{ settings.collection_header_layout | replace: '_','-' }}{% endcapture %}
-    {% include 'collection_header_layout_split' %}
-  {% else %}
-    {% assign collection_image = collection.image.src | img_url: '2048x2048' %}
-    {% capture header_classes %}collection-header collection-header-{{ settings.collection_header_layout | replace: '_','-' }}{% endcapture %}
-    {% assign collection_header_layout_snippet = 'collection_header_layout_' | append: settings.collection_header_layout %}
-    {% include collection_header_layout_snippet %}
-  {% endif %}
-  
-  <section class="collection-content">
-    <div class="sheet {% if collection.products.size > 0 %}products-wrap{% endif %}">
-      {% include 'collection_controls'%}
+{% comment note: Collection header layouts are also used on the list collections page, so set up the relevant variables outside the include first %}{% endcomment %}
+{% assign collection_title = collection.title %}
+{% assign collection_description = collection.description %}
+{% if settings.collection_header_layout contains 'split_image' %}
+  {% assign collection_image = collection.image.src | img_url: 'grande' %}
+  {% capture header_classes %}collection-header collection-header-split collection-header-{{ settings.collection_header_layout | replace: '_','-' }}{% endcapture %}
+  {% include 'collection_header_layout_split' %}
+{% else %}
+  {% assign collection_image = collection.image.src | img_url: '2048x2048' %}
+  {% capture header_classes %}collection-header collection-header-{{ settings.collection_header_layout | replace: '_','-' }}{% endcapture %}
+  {% assign collection_header_layout_snippet = 'collection_header_layout_' | append: settings.collection_header_layout %}
+  {% include collection_header_layout_snippet %}
+{% endif %}
+
+<section class="collection-content">
+  <div class="sheet {% if collection.products.size > 0 %}products-wrap{% endif %}">
+    {% include 'collection_controls'%}
+    
+    {% if collection.all_products_count == 0 %}
+      <section class="sheet-content">
+        <div class="collection-message">
+          <h3>{{ 'collections.general.empty_message_title' | t }}</h3>
+          <p>{{ 'collections.general.empty_message_html' | t }}</p>
+        </div>
+      </section>
       
-      {% if collection.all_products_count == 0 %}
-        <section class="sheet-content">
-          <div class="collection-message">
-            <h3>{{ 'collections.general.empty_message_title' | t }}</h3>
-            <p>{{ 'collections.general.empty_message_html' | t }}</p>
-          </div>
-        </section>
-        
-      {% elsif collection.products_count == 0 %}
-        {% comment note: The collection has products in it but we have filtered it down to far %}{% endcomment%}
-        <section class="sheet-content">
-          <div class="collection-message">
-            <h3>{{ 'collections.filtering.empty_message_title' | t }}</h3>
-            <p>{{ 'collections.filtering.empty_message_html' | t: count: collection.all_products_count, collection_title: collection.title }}</p>
-            <ul class="list-unstyled">
-        		{% for tag in current_tags %}
-        		  {% if tag contains ':' %}
-                {% assign tag_value = tag | split: ':' | last %}
-              {% else %}
-                {% assign tag_value = tag %}
-              {% endif %}
-          		{% capture tag_text %}<span class="fa fa-times-circle"></span><span class="sr-only">{{ 'collections.filtering.tag_title_remove' | t: tag: tag_value }}</span> {{ tag_value }}{% endcapture %}
-          		<li>{{ tag_text | link_to_remove_tag: tag }}</li>
-        		{% endfor %}
-          	</ul>
-          </div>
-        </section>
-        
-      {% else %}
-        {% include 'pagination_limit' with 'products' %}
-        {% paginate collection.products by pagination_limit %}
-          {% assign collection_all_size = collection.all_products.size %}
-          {% if settings.show_product_variants_as_items %}
-            {% assign collection_all_size = collection.all_products | map: 'variants' | map: 'title' | size %}
-          {% endif %}
-          {% if collection_all_size < pagination_limit %}{% assign collection_size = collection_all_size %}{% else %}{% assign collection_size = pagination_limit %}{% endif %}
-          
-          <section class="group products" data-products-size="{{ collection_size }}">
-            {% for p in collection.products %}
-              {% if product_list_item %}
-                {% include 'product_item_list' %}
-              {% else %}
-                {% include 'product_item' %}
-              {% endif %}
-            {% endfor %}
-            {% include 'pagination' %}
-          </section>
-        {% endpaginate %}
-        
-        {% if template contains 'lookbook' %}
-          <div class="lookbook-controls">
-            <a href="#" data-gallery-direction="left" data-scroll-to=""><span class="fa fa-chevron-left"></span></a>
-            <a href="#" data-gallery-direction="right" data-scroll-to=""><span class="fa fa-chevron-right"></span></a>
-          </div>
+    {% elsif collection.products_count == 0 %}
+      {% comment note: The collection has products in it but we have filtered it down to far %}{% endcomment%}
+      <section class="sheet-content">
+        <div class="collection-message">
+          <h3>{{ 'collections.filtering.empty_message_title' | t }}</h3>
+          <p>{{ 'collections.filtering.empty_message_html' | t: count: collection.all_products_count, collection_title: collection.title }}</p>
+          <ul class="list-unstyled">
+      		{% for tag in current_tags %}
+      		  {% if tag contains ':' %}
+              {% assign tag_value = tag | split: ':' | last %}
+            {% else %}
+              {% assign tag_value = tag %}
+            {% endif %}
+        		{% capture tag_text %}<span class="fa fa-times-circle"></span><span class="sr-only">{{ 'collections.filtering.tag_title_remove' | t: tag: tag_value }}</span> {{ tag_value }}{% endcapture %}
+        		<li>{{ tag_text | link_to_remove_tag: tag }}</li>
+      		{% endfor %}
+        	</ul>
+        </div>
+      </section>
+      
+    {% else %}
+      {% include 'pagination_limit' with 'products' %}
+      {% paginate collection.products by pagination_limit %}
+        {% assign collection_all_size = collection.all_products.size %}
+        {% if settings.show_product_variants_as_items %}
+          {% assign collection_all_size = collection.all_products | map: 'variants' | map: 'title' | size %}
         {% endif %}
+        {% if collection_all_size < pagination_limit %}{% assign collection_size = collection_all_size %}{% else %}{% assign collection_size = pagination_limit %}{% endif %}
+        
+        <section class="group products" data-products-size="{{ collection_size }}">
+          {% for p in collection.products %}
+            {% if product_list_item %}
+              {% include 'product_item_list' %}
+            {% else %}
+              {% include 'product_item' %}
+            {% endif %}
+          {% endfor %}
+          {% include 'pagination' %}
+        </section>
+      {% endpaginate %}
+      
+      {% if template contains 'lookbook' %}
+        <div class="lookbook-controls">
+          <a href="#" data-gallery-direction="left" data-scroll-to=""><span class="fa fa-chevron-left"></span></a>
+          <a href="#" data-gallery-direction="right" data-scroll-to=""><span class="fa fa-chevron-right"></span></a>
+        </div>
       {% endif %}
-    </div>
-  </section>
-</main>
+    {% endif %}
+  </div>
+</section>
 
 {% assign product_list_item = false %}

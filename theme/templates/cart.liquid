@@ -1,122 +1,120 @@
-<main role="main">
-  <article class="sheet">
-    <header class="sheet-header page-header">
-      <h1>{{ 'cart.cart_page.page_title' | t }}</h1>
-      <p>{{ 'cart.cart_page.description' | t }}</p>
-    </header>
+<article class="sheet">
+  <header class="sheet-header page-header">
+    <h1>{{ 'cart.cart_page.page_title' | t }}</h1>
+    <p>{{ 'cart.cart_page.description' | t }}</p>
+  </header>
 
-    <section class="sheet-content">
-      {% if cart.item_count > 0 %}
-        <div class="cart-message hidden"></div>
-        <form class="cart-form" action="/cart" method="post">
-          <div class="cart-items">
-            <table class="cart-table table">
-              <thead>
-                <tr>
-                  <th class="cart-item-product-label">{{ 'cart.cart_table.product_label' | t }}</th>
-                  <th class="cart-item-price-label">{{ 'cart.cart_table.price_label' | t }}</th>
-                  <th class="cart-item-quantity-label">{{ 'cart.cart_table.quantity_label' | t }}</th>
-                  <th class="cart-item-total-label">{{ 'cart.cart_table.total_label' | t }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for item in cart.items %}
-                <tr class="cart-item" data-cart-item="{{ item.id }}">
-                  <td class="cart-item-content">
-                    <a href="{{ item.url }}">
-                      <div class="cart-item-image">
-                        <img src="{{ item | img_url: 'large' }}" alt="{{ item.title | escape }}">
-                      </div>
-                      <div class="cart-item-details">
-                        {% comment %}
-                          TODO: item properties
-                        {% endcomment %}
-                        <h3 class="cart-item-title">{{ item.product.title }}</h3>
-                        {% unless item.variant.title contains 'Default' %}
-                          <h5>{{ item.variant.title }}</h5>
-                        {% endunless %}
-                      </div>
-                    </a>
-                  </td>
-                  <td class="cart-item-price">
-                    {% capture item_price %}{% assign show_zero = true %}{% include '_price' with item.price %}{% endcapture %}
-                    {% capture item_price_with_currency %}{% assign show_zero = true %}{% include '_price_with_currency' with item.price %}{% endcapture %}
-                    <span class="cart-item-label-mini text-muted">{{ 'cart.cart_table.price_label' | t }}:</span> {{ 'cart.price.item_price_html' | t: price: item_price, price_with_currency: item_price_with_currency }}
-                  </td>
-                  <td class="cart-item-quantity">
-                    <div class="input-group">
-                      <input class="form-control" type="number" name="updates[{{ item.id }}]" value="{{ item.quantity }}" data-update-item="{{ forloop.index }}">
-                      <div class="input-group-btn">
-                        <button class="btn btn-default" type="button" title="{{ 'cart.cart_table.remove_item_label' | t: item_title: item.title }}" data-remove-item="{{ forloop.index }}"><span class="fa fa-times"></span><span class="sr-only">{{ 'cart.cart_table.remove_item_label' | t: item_title: item.title }}</span></button>
-                      </div>
+  <section class="sheet-content">
+    {% if cart.item_count > 0 %}
+      <div class="cart-message hidden"></div>
+      <form class="cart-form" action="/cart" method="post">
+        <div class="cart-items">
+          <table class="cart-table table">
+            <thead>
+              <tr>
+                <th class="cart-item-product-label">{{ 'cart.cart_table.product_label' | t }}</th>
+                <th class="cart-item-price-label">{{ 'cart.cart_table.price_label' | t }}</th>
+                <th class="cart-item-quantity-label">{{ 'cart.cart_table.quantity_label' | t }}</th>
+                <th class="cart-item-total-label">{{ 'cart.cart_table.total_label' | t }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in cart.items %}
+              <tr class="cart-item" data-cart-item="{{ item.id }}">
+                <td class="cart-item-content">
+                  <a href="{{ item.url }}">
+                    <div class="cart-item-image">
+                      <img src="{{ item | img_url: 'large' }}" alt="{{ item.title | escape }}">
                     </div>
-                  </td>
-                  <td class="cart-item-total">
-                    {% capture line_price %}{% include '_price' with item.line_price %}{% endcapture %}
-                    {% capture line_price_with_currency %}{% include '_price_with_currency' with item.line_price %}{% endcapture %}
-                    <span class="cart-item-label-mini text-muted">{{ 'cart.cart_table.total_label' | t }}:</span> {{ 'cart.price.line_price_html' | t: price: line_price, price_with_currency: line_price_with_currency }}
-                  </td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-          
-          <div class="cart-extras">
-            <div class="cart-extras-content">
-              
-              <div class="cart-instructions">
-                <label class="control-label" for="cart-instructions-input">{{ 'cart.cart_page.customer_note_label' | t }}</label>
-                <textarea class="form-control" name="note" id="cart-instructions-input">{{ cart.note }}</textarea>
-              </div>
-              
-              {% comment %}
-                TODO: shipping estimator 
-                <div class="shipping-estimator"></div>
-              {% endcomment %}
-              
-            </div>
-          </div>
-          
-          <div class="cart-details">            
-            <h3>
-              <small>{{ 'cart.cart_page.subtotal_title' | t }}</small>
-              {% capture total_price %}{% include '_price' with cart.total_price %}{% endcapture %}
-              {% capture total_price_with_currency %}{% include '_price_with_currency' with cart.total_price %}{% endcapture %}
-              <span class="cart-total" data-cart-total>{{ 'cart.price.cart_total_html' | t: price: total_price, price_with_currency: total_price_with_currency }}</span>
-            </h3>
-            <div class="cart-shipping-note">
-              {% assign cart_shipping_note = 'cart.cart_page.shipping_note' | t %}
-              {% unless cart_shipping_note == blank %}
-                <p><em>{{ cart_shipping_note }}</em></p>
-              {% endunless %}
-              {% if settings.enable_cart_checkbox %}
-                <div class="checkbox">
-                  <label>
-                    <input class="acknowledgement-checkbox" type="checkbox" name="attributes[acknowledgement]"> {{ 'cart.acknowledgement_checkbox.label_html' | t }}
-                  </label>
-                </div>
-              {% endif %}
-            </div>
-            <div class="cart-buttons btn-group">
-              <input class="btn-update-cart btn btn-default" type="submit" name="update" value="{{ 'cart.buttons.update' | t }}">
-              <input class="btn-checkout btn btn-primary" type="submit" name="checkout" value="{{ 'cart.buttons.checkout' | t }}">
+                    <div class="cart-item-details">
+                      {% comment %}
+                        TODO: item properties
+                      {% endcomment %}
+                      <h3 class="cart-item-title">{{ item.product.title }}</h3>
+                      {% unless item.variant.title contains 'Default' %}
+                        <h5>{{ item.variant.title }}</h5>
+                      {% endunless %}
+                    </div>
+                  </a>
+                </td>
+                <td class="cart-item-price">
+                  {% capture item_price %}{% assign show_zero = true %}{% include '_price' with item.price %}{% endcapture %}
+                  {% capture item_price_with_currency %}{% assign show_zero = true %}{% include '_price_with_currency' with item.price %}{% endcapture %}
+                  <span class="cart-item-label-mini text-muted">{{ 'cart.cart_table.price_label' | t }}:</span> {{ 'cart.price.item_price_html' | t: price: item_price, price_with_currency: item_price_with_currency }}
+                </td>
+                <td class="cart-item-quantity">
+                  <div class="input-group">
+                    <input class="form-control" type="number" name="updates[{{ item.id }}]" value="{{ item.quantity }}" data-update-item="{{ forloop.index }}">
+                    <div class="input-group-btn">
+                      <button class="btn btn-default" type="button" title="{{ 'cart.cart_table.remove_item_label' | t: item_title: item.title }}" data-remove-item="{{ forloop.index }}"><span class="fa fa-times"></span><span class="sr-only">{{ 'cart.cart_table.remove_item_label' | t: item_title: item.title }}</span></button>
+                    </div>
+                  </div>
+                </td>
+                <td class="cart-item-total">
+                  {% capture line_price %}{% include '_price' with item.line_price %}{% endcapture %}
+                  {% capture line_price_with_currency %}{% include '_price_with_currency' with item.line_price %}{% endcapture %}
+                  <span class="cart-item-label-mini text-muted">{{ 'cart.cart_table.total_label' | t }}:</span> {{ 'cart.price.line_price_html' | t: price: line_price, price_with_currency: line_price_with_currency }}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="cart-extras">
+          <div class="cart-extras-content">
+            
+            <div class="cart-instructions">
+              <label class="control-label" for="cart-instructions-input">{{ 'cart.cart_page.customer_note_label' | t }}</label>
+              <textarea class="form-control" name="note" id="cart-instructions-input">{{ cart.note }}</textarea>
             </div>
             
-            {% if additional_checkout_buttons %}
-              <div class="cart-additional-buttons">{{ content_for_additional_checkout_buttons }}</div>
+            {% comment %}
+              TODO: shipping estimator 
+              <div class="shipping-estimator"></div>
+            {% endcomment %}
+            
+          </div>
+        </div>
+        
+        <div class="cart-details">            
+          <h3>
+            <small>{{ 'cart.cart_page.subtotal_title' | t }}</small>
+            {% capture total_price %}{% include '_price' with cart.total_price %}{% endcapture %}
+            {% capture total_price_with_currency %}{% include '_price_with_currency' with cart.total_price %}{% endcapture %}
+            <span class="cart-total" data-cart-total>{{ 'cart.price.cart_total_html' | t: price: total_price, price_with_currency: total_price_with_currency }}</span>
+          </h3>
+          <div class="cart-shipping-note">
+            {% assign cart_shipping_note = 'cart.cart_page.shipping_note' | t %}
+            {% unless cart_shipping_note == blank %}
+              <p><em>{{ cart_shipping_note }}</em></p>
+            {% endunless %}
+            {% if settings.enable_cart_checkbox %}
+              <div class="checkbox">
+                <label>
+                  <input class="acknowledgement-checkbox" type="checkbox" name="attributes[acknowledgement]"> {{ 'cart.acknowledgement_checkbox.label_html' | t }}
+                </label>
+              </div>
             {% endif %}
           </div>
-        </form>
-      {% else %}
-        {% comment %}
-          The cart is empty
-        {% endcomment %}
-        
-        <div class="cart-message">
-          {{ 'cart.cart_page.empty_message_html' | t }}
+          <div class="cart-buttons btn-group">
+            <input class="btn-update-cart btn btn-default" type="submit" name="update" value="{{ 'cart.buttons.update' | t }}">
+            <input class="btn-checkout btn btn-primary" type="submit" name="checkout" value="{{ 'cart.buttons.checkout' | t }}">
+          </div>
+          
+          {% if additional_checkout_buttons %}
+            <div class="cart-additional-buttons">{{ content_for_additional_checkout_buttons }}</div>
+          {% endif %}
         </div>
-      {% endif %}
-    </section>
-  </article>
-</main>
+      </form>
+    {% else %}
+      {% comment %}
+        The cart is empty
+      {% endcomment %}
+      
+      <div class="cart-message">
+        {{ 'cart.cart_page.empty_message_html' | t }}
+      </div>
+    {% endif %}
+  </section>
+</article>

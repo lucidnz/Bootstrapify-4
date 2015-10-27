@@ -1,61 +1,59 @@
-<main role="main">
-    {% assign image = false %}
-    {% assign banner_index = false %}
-    {% assign title_over_banner = false %}
-    {% for i in (1..5) %}
-      {% assign blog_banner_key = 'blog_banner_' | append: i %}
-      {% assign blog_banner_image_key = 'blog_banner_image_' | append: i | append: '.jpg' %}
-      {% assign blog_title_over_banner_key = 'blog_banner_' | append: i | append: '_title_over_banner' %}
-      {% if settings[blog_banner_key] == handle %}
-        {% assign banner_index = i %}
-        {% assign image = blog_banner_image_key %}
-        {% assign title_over_banner = settings[blog_title_over_banner_key] %}
+{% assign image = false %}
+{% assign banner_index = false %}
+{% assign title_over_banner = false %}
+{% for i in (1..5) %}
+  {% assign blog_banner_key = 'blog_banner_' | append: i %}
+  {% assign blog_banner_image_key = 'blog_banner_image_' | append: i | append: '.jpg' %}
+  {% assign blog_title_over_banner_key = 'blog_banner_' | append: i | append: '_title_over_banner' %}
+  {% if settings[blog_banner_key] == handle %}
+    {% assign banner_index = i %}
+    {% assign image = blog_banner_image_key %}
+    {% assign title_over_banner = settings[blog_title_over_banner_key] %}
+  {% endif %}
+{% endfor %}
+
+{% if image %}
+  <div class="blog-header">
+    <div class="banner-image banner-image-fullscreen" data-blog-banner="{{ banner_index }}">
+      {{ image | asset_url | img_tag: blog.title }}
+      {% if title_over_banner %}
+      <div class="banner-image-caption carousel-caption">
+        <h1>{{ blog.title }}</h1>
+      </div>
       {% endif %}
-    {% endfor %}
-    
-    {% if image %}
-      <div class="blog-header">
-        <div class="banner-image banner-image-fullscreen" data-blog-banner="{{ banner_index }}">
-          {{ image | asset_url | img_tag: blog.title }}
-          {% if title_over_banner %}
-          <div class="banner-image-caption carousel-caption">
-            <h1>{{ blog.title }}</h1>
-          </div>
-          {% endif %}
-        </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="sheet">
+  {% if title_over_banner == false %}
+  <header class="sheet-header page-header">
+    <h1>{{ blog.title }}</h1>
+  </header>
+  {% endif %}
+
+  <section class="sheet-content">
+    {% if blog.articles.size > 0 %}
+      {% include 'pagination_limit' with 'articles' %}
+      {% paginate blog.articles by pagination_limit %}
+      {% if blog.articles.size < pagination_limit %}{% assign articles_size = blog.articles.size | times: 1 %}{% else %}{% assign articles_size = pagination_limit | times: 1 %}{% endif %}
+      <div class="list posts" data-group-size="{{ articles_size }}">      
+        {% for article in blog.articles %}
+          {% include 'article_item' %}
+        {% endfor %}
+        {% include 'pagination' %}
+      </div>
+      {% endpaginate %}
+      {% if settings.enable_rss_link %}
+      <p class="rss-link text-center">
+        <a href="{{ blog.url | append: '.atom' }}">{{ 'blog.general.rss_link_html' | t: blog_title: blog.title }}</a>
+      </p>
+      {% endif %}
+    {% else %}
+      <div class="blog-message">
+        <h3>{{ 'blog.general.empty_message_title' | t }}</h3>
+        <p>{{ 'blog.general.empty_message_html' | t }}</p>
       </div>
     {% endif %}
-  
-  <div class="sheet">
-    {% if title_over_banner == false %}
-    <header class="sheet-header page-header">
-      <h1>{{ blog.title }}</h1>
-    </header>
-    {% endif %}
-
-    <section class="sheet-content">
-      {% if blog.articles.size > 0 %}
-        {% include 'pagination_limit' with 'articles' %}
-        {% paginate blog.articles by pagination_limit %}
-        {% if blog.articles.size < pagination_limit %}{% assign articles_size = blog.articles.size | times: 1 %}{% else %}{% assign articles_size = pagination_limit | times: 1 %}{% endif %}
-        <div class="list posts" data-group-size="{{ articles_size }}">      
-          {% for article in blog.articles %}
-            {% include 'article_item' %}
-          {% endfor %}
-          {% include 'pagination' %}
-        </div>
-        {% endpaginate %}
-        {% if settings.enable_rss_link %}
-        <p class="rss-link text-center">
-          <a href="{{ blog.url | append: '.atom' }}">{{ 'blog.general.rss_link_html' | t: blog_title: blog.title }}</a>
-        </p>
-        {% endif %}
-      {% else %}
-        <div class="blog-message">
-          <h3>{{ 'blog.general.empty_message_title' | t }}</h3>
-          <p>{{ 'blog.general.empty_message_html' | t }}</p>
-        </div>
-      {% endif %}
-    </section>
-  </div>
-</main>
+  </section>
+</div>
