@@ -15,7 +15,7 @@
 
  %}{% endcomment %}
 
-{% capture template_hook %}{{ advanced_hook }}-{{ template }}{% endcapture %}
+{% capture template_hook %}{{ advanced_hook }}-{{ template | split: '.' | first }}{% endcapture %}
 {% capture page_hook %}{{ template_hook }}{% unless handle == blank %}-{{ handle }}{% endunless %}{% endcapture %}
 
 {% assign advanced_hook_linklist = null %}
