@@ -10,9 +10,9 @@
   {% assign section_count = 1 %}
 {% endif %}
   
-{% assign homepage_advanced_linklist = linklists[advanced_layout] %}
-{% unless homepage_advanced_linklist.links == blank %}
-  {% for advanced_section_link in homepage_advanced_linklist.links %}
+{% assign advanced_linklist = linklists[advanced_layout] %}
+{% unless advanced_linklist.links == blank %}
+  {% for advanced_section_link in advanced_linklist.links %}
   
     {% comment note:
       using WebAddress:#linklist-handle to define the sub-linklist allows us to craft linklist titles without losing the connection
@@ -40,14 +40,14 @@
         {% case advanced_section_link.url %}
         {% when '/collections/all' %}
           {% comment note: Show the product loop for this collection %}{% endcomment %}
-          {% assign homepage_section_object = collections.all %}
-          {% assign homepage_section_id = homepage_section_object.handle %}
-          {% assign homepage_section_type = 'collection' %}
-          {% capture advanced_layout_section_content %}{% include 'homepage_products' with homepage_section_object %}{% endcapture %}
+          {% assign advanced_layout_section_object = collections.all %}
+          {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
+          {% assign advanced_layout_section_type = 'collection' %}
+          {% capture advanced_layout_section_content %}{% include 'homepage_products' with advanced_layout_section_object %}{% endcapture %}
           
         {% when '/search' %}
-          {% assign homepage_section_id = 'site-search' %}
-          {% assign homepage_section_type = 'search' %}
+          {% assign advanced_layout_section_id = 'site-search' %}
+          {% assign advanced_layout_section_type = 'search' %}
           {% capture advanced_layout_section_content %}{% include 'homepage_search' %}{% endcapture %}
           
         {% else %}
@@ -56,20 +56,20 @@
         
       {% when 'collection_link' %}
         {% comment note: Show the product loop for this collection %}{% endcomment %}
-        {% assign homepage_section_object = advanced_section_link.object %}
-        {% assign homepage_section_id = homepage_section_object.handle %}
-        {% assign homepage_section_type = 'collection' %}
-        {% capture advanced_layout_section_content %}{% include 'homepage_products' with homepage_section_object %}{% endcapture %}
+        {% assign advanced_layout_section_object = advanced_section_link.object %}
+        {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
+        {% assign advanced_layout_section_type = 'collection' %}
+        {% capture advanced_layout_section_content %}{% include 'homepage_products' with advanced_layout_section_object %}{% endcapture %}
       
       {% when 'product_link' %}
-        {% comment TODO: Show the special homepage product details %}{% endcomment %}
+        {% comment TODO: Show the special product details %}{% endcomment %}
       
       {% when 'page_link' %}
         {% comment note: Show the page content %}{% endcomment %}
-        {% assign homepage_section_object = advanced_section_link.object %}
-        {% assign homepage_section_id = homepage_section_object.handle %}
-        {% assign homepage_section_type = 'page' %}
-        {% capture advanced_layout_section_content %}{% include 'homepage_page' with homepage_section_object %}{% endcapture %}
+        {% assign advanced_layout_section_object = advanced_section_link.object %}
+        {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
+        {% assign advanced_layout_section_type = 'page' %}
+        {% capture advanced_layout_section_content %}{% include 'homepage_page' with advanced_layout_section_object %}{% endcapture %}
       
       {% when 'blog_link' %}
         {% comment TODO: Show a list of articles from this blog. limit in settings? %}{% endcomment %}
@@ -82,8 +82,8 @@
           - url contains twitter.com/username then show a feed of tweets
           - url contains youtube.com/video or vimeo.com/video then embed the video
          %}{% endcomment %}
-        {% assign homepage_section_id = advanced_section_link.handle %}
-        {% assign homepage_section_type = 'social' %}
+        {% assign advanced_layout_section_id = advanced_section_link.handle %}
+        {% assign advanced_layout_section_type = 'social' %}
         {% capture advanced_layout_section_content %}{% include 'homepage_social' with advanced_section_link %}{% endcapture %}
         
       {% endcase %}
@@ -94,8 +94,8 @@
         Drop down a level and change context of snippets
        %}{% endcomment %}
     
-      {% capture homepage_sub_section_content %}{% endcapture %}
-      {% assign homepage_sub_section_size = 0 %}
+      {% capture advanced_layout_sub_section_content %}{% endcapture %}
+      {% assign advanced_layout_sub_section_size = 0 %}
       {% for advanced_section_child_link in linklists[child_list_handle].links %}
     
         {% case advanced_section_child_link.type %}
@@ -107,10 +107,10 @@
             {% comment note: Show the collection thumbnail for the all collection %}{% endcomment %}
             {% assign c = collections.all %}
             {% assign collection_item_title = advanced_section_child_link.title %}
-            {% capture new_homepage_sub_section_content %}{% include 'collection_item' %}{% endcapture %}
+            {% capture new_advanced_layout_sub_section_content %}{% include 'collection_item' %}{% endcapture %}
             
           {% when '/search' %}
-            {% capture new_homepage_sub_section_content %}{% include 'homepage_sub_search' %}{% endcapture %}
+            {% capture new_advanced_layout_sub_section_content %}{% include 'homepage_sub_search' %}{% endcapture %}
             
           {% else %}
             {% comment note: We've got the front page; that's pretty meta. http://gph.is/1kPdp9x %}{% endcomment %}
@@ -121,18 +121,18 @@
           {% assign c = advanced_section_child_link.object %}
           {% if c.products_count > 0 %}
             {% assign collection_item_title = advanced_section_child_link.title %}
-            {% capture new_homepage_sub_section_content %}{% include 'collection_item' %}{% endcapture %}
+            {% capture new_advanced_layout_sub_section_content %}{% include 'collection_item' %}{% endcapture %}
           {% endif %}
         
         {% when 'product_link' %}
           {% comment note: Show the products thumbnail %}{% endcomment %}
           {% assign p = advanced_section_child_link.object %}
           {% assign show_product_only = true %}
-          {% capture new_homepage_sub_section_content %}{% include 'product_item' %}{% endcapture %}
+          {% capture new_advanced_layout_sub_section_content %}{% include 'product_item' %}{% endcapture %}
         
         {% when 'page_link' %}
           {% comment note: Show the page content, with title ala features %}{% endcomment %}
-          {% capture new_homepage_sub_section_content %}{% include 'homepage_sub_page' with advanced_section_child_link.object %}{% endcapture %}
+          {% capture new_advanced_layout_sub_section_content %}{% include 'homepage_sub_page' with advanced_section_child_link.object %}{% endcapture %}
         
         {% when 'blog_link' %}
           {% comment TODO: Show a list of articles from this blog %}{% endcomment %}
@@ -145,27 +145,27 @@
             - url contains twitter.com/username then show a feed of tweets
             - url contains youtube.com/video or vimeo.com/video then embed the video
            %}{% endcomment %}
-          {% capture new_homepage_sub_section_content %}{% include 'homepage_sub_social' with advanced_section_child_link %}{% endcapture %}
+          {% capture new_advanced_layout_sub_section_content %}{% include 'homepage_sub_social' with advanced_section_child_link %}{% endcapture %}
           
         {% endcase %}
         
-        {% unless new_homepage_sub_section_content == blank %}
-          {% capture homepage_sub_section_content %}{{ homepage_sub_section_content }}{{ new_homepage_sub_section_content }}{% endcapture %}
-          {% assign homepage_sub_section_size = homepage_sub_section_size | plus: 1 %}
-          {% assign new_homepage_sub_section_content = null %}
+        {% unless new_advanced_layout_sub_section_content == blank %}
+          {% capture advanced_layout_sub_section_content %}{{ advanced_layout_sub_section_content }}{{ new_advanced_layout_sub_section_content }}{% endcapture %}
+          {% assign advanced_layout_sub_section_size = advanced_layout_sub_section_size | plus: 1 %}
+          {% assign new_advanced_layout_sub_section_content = null %}
         {% endunless %}
     
       {% endfor %}
       
-      {% assign homepage_section_id = advanced_section_link.handle %}
-      {% assign homepage_section_type = 'group' %}
+      {% assign advanced_layout_section_id = advanced_section_link.handle %}
+      {% assign advanced_layout_section_type = 'group' %}
       {% capture advanced_layout_section_content %}
         <div class="sheet">
           <header class="sheet-header page-header">
             <h1>{{ advanced_section_link.title }}</h1>
           </header>
-          <div class="homepage-section-group group" data-group-size="{{ homepage_sub_section_size }}">
-            {{ homepage_sub_section_content }}
+          <div class="advanced-section-group group" data-group-size="{{ advanced_layout_sub_section_size }}">
+            {{ advanced_layout_sub_section_content }}
           </div>
         </div>
       {% endcapture %}

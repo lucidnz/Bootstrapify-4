@@ -1,6 +1,6 @@
 {% comment TODO: On-boarding %}{% endcomment %}
 
-{% assign homepage_section_object = pages['frontpage'] %}
-{% assign homepage_section_id = homepage_section_object.handle %}
-{% capture advanced_layout_section_content %}{% include 'homepage_page' with homepage_section_object %}{% endcapture %}
+{% assign advanced_layout_section_object = pages['frontpage'] %}
+{% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
+{% capture advanced_layout_section_content %}{% include 'homepage_page' with advanced_layout_section_object %}{% endcapture %}
 {% include 'homepage_section' %}
