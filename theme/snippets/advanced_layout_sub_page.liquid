@@ -1,0 +1,20 @@
+<div class="group-item-wrap">
+  <article class="group-item" id="{{ advanced_layout_sub_page.handle }}">
+    <header>
+      {% if advanced_layout_sub_page.published_at != blank %}
+        <h1><a href="{{ advanced_layout_sub_page.url }}">{{ advanced_layout_sub_page.title }}</a></h1>
+      {% else %}
+        <h1>{{ advanced_layout_sub_page.title }}</h1>
+      {% endif %}
+    </header>
+    <section>
+      {% if advanced_layout_sub_page.published_at != blank %}
+        {% comment note: the page is published so only show the first paragraph %}{% endcomment %}
+        {% assign parts = advanced_layout_sub_page.content | split:'</p>' %}
+        <p>{{ parts.first | remove: '<p>' }}</p>
+      {% else %}
+        {{ advanced_layout_sub_page.content }}
+      {% endif %}
+    </section>
+  </article>
+</div>

@@ -350,7 +350,7 @@
     }
   },
   "search": {
-    "homepage": {
+    "advanced_layout": {
       "title_html": "Search {{ shop_name }}",
       "description_html": ""
     },

@@ -1,0 +1,19 @@
+<div class="sheet">
+  <header class="sheet-header page-header">
+    {% if advanced_layout_page.published_at != blank %}
+      <h1><a href="{{ advanced_layout_page.url }}">{{ advanced_layout_page.title }}</a></h1>
+    {% else %}
+      <h1>{{ advanced_layout_page.title }}</h1>
+    {% endif %}
+  </header>
+  
+  <section class="sheet-content">
+  {% if advanced_layout_page.template_suffix == 'split' %}
+    {% include 'content_split' with advanced_layout_page.content %}
+  {% else %}
+    <div class="content-full">
+      {{ advanced_layout_page.content }}
+    </div>
+  {% endif %}
+  </section>
+</div>

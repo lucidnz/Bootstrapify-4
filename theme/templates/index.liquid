@@ -28,19 +28,19 @@
       {% when 'banner' %}
         {% assign advanced_layout_section_id = 'homepage-banner-' | append: section_count %}
         {% assign advanced_layout_section_type = 'banner' %}
-        {% capture advanced_layout_section_content %}{% include 'homepage_banner' %}{% endcapture %}
+        {% capture advanced_layout_section_content %}{% include 'advanced_layout_banner' %}{% endcapture %}
                 
       {% when 'video_banner' %}
         {% assign advanced_layout_section_id = 'homepage-banner-' | append: section_count %}
         {% assign advanced_layout_section_type = 'banner-video' %}
-        {% capture advanced_layout_section_content %}{% include 'homepage_banner_video' %}{% endcapture %}
+        {% capture advanced_layout_section_content %}{% include 'advanced_layout_banner_video' %}{% endcapture %}
                 
       {% when 'featured_collections' %}
         {% unless settings.homepage_featured_collections == blank %}
           {% assign advanced_layout_section_object = linklists[settings.homepage_featured_collections] %}
           {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
           {% assign advanced_layout_section_type = 'collections' %}
-          {% capture advanced_layout_section_content %}{% include 'homepage_collections' with advanced_layout_section_object %}{% endcapture %}
+          {% capture advanced_layout_section_content %}{% include 'advanced_layout_collections' with advanced_layout_section_object %}{% endcapture %}
         {% endunless %}
         
       {% when 'featured_products' %}
@@ -48,7 +48,7 @@
           {% assign advanced_layout_section_object = collections[settings.homepage_featured_products] %}
           {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
           {% assign advanced_layout_section_type = 'collection' %}
-          {% capture advanced_layout_section_content %}{% include 'homepage_products' with advanced_layout_section_object %}{% endcapture %}
+          {% capture advanced_layout_section_content %}{% include 'advanced_layout_products' with advanced_layout_section_object %}{% endcapture %}
         {% endunless %}
         
       {% when 'page_content' %}
@@ -56,7 +56,7 @@
           {% assign advanced_layout_section_object = pages[settings.homepage_page_content] %}
           {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
           {% assign advanced_layout_section_type = 'page' %}
-          {% capture advanced_layout_section_content %}{% include 'homepage_page' with advanced_layout_section_object %}{% endcapture %}
+          {% capture advanced_layout_section_content %}{% include 'advanced_layout_page' with advanced_layout_section_object %}{% endcapture %}
         {% endunless %}
       {% endcase %}
     

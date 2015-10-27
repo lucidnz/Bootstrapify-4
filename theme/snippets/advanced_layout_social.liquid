@@ -1,6 +1,6 @@
-{% capture social_service %}{% include 'social_service' with homepage_social.url %}{% endcapture %}
-{% capture social_feed %}{% include 'social_feed' with homepage_social.url %}{% endcapture %}
-{% capture params %}{{ social_service }}||{{ homepage_social.title }}{% endcapture %}
+{% capture social_service %}{% include 'social_service' with advanced_layout_social.url %}{% endcapture %}
+{% capture social_feed %}{% include 'social_feed' with advanced_layout_social.url %}{% endcapture %}
+{% capture params %}{{ social_service }}||{{ advanced_layout_social.title }}{% endcapture %}
 {% include 'social_content' with params %}
 
 {% unless social_feed == blank %}

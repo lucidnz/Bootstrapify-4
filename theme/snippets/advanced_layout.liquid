@@ -43,12 +43,12 @@
           {% assign advanced_layout_section_object = collections.all %}
           {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
           {% assign advanced_layout_section_type = 'collection' %}
-          {% capture advanced_layout_section_content %}{% include 'homepage_products' with advanced_layout_section_object %}{% endcapture %}
+          {% capture advanced_layout_section_content %}{% include 'advanced_layout_products' with advanced_layout_section_object %}{% endcapture %}
           
         {% when '/search' %}
           {% assign advanced_layout_section_id = 'site-search' %}
           {% assign advanced_layout_section_type = 'search' %}
-          {% capture advanced_layout_section_content %}{% include 'homepage_search' %}{% endcapture %}
+          {% capture advanced_layout_section_content %}{% include 'advanced_layout_search' %}{% endcapture %}
           
         {% else %}
           {% comment note: We've got the front page; that's pretty meta. http://gph.is/1kPdp9x %}{% endcomment %}
@@ -59,7 +59,7 @@
         {% assign advanced_layout_section_object = advanced_section_link.object %}
         {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
         {% assign advanced_layout_section_type = 'collection' %}
-        {% capture advanced_layout_section_content %}{% include 'homepage_products' with advanced_layout_section_object %}{% endcapture %}
+        {% capture advanced_layout_section_content %}{% include 'advanced_layout_products' with advanced_layout_section_object %}{% endcapture %}
       
       {% when 'product_link' %}
         {% comment TODO: Show the special product details %}{% endcomment %}
@@ -69,7 +69,7 @@
         {% assign advanced_layout_section_object = advanced_section_link.object %}
         {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
         {% assign advanced_layout_section_type = 'page' %}
-        {% capture advanced_layout_section_content %}{% include 'homepage_page' with advanced_layout_section_object %}{% endcapture %}
+        {% capture advanced_layout_section_content %}{% include 'advanced_layout_page' with advanced_layout_section_object %}{% endcapture %}
       
       {% when 'blog_link' %}
         {% comment TODO: Show a list of articles from this blog. limit in settings? %}{% endcomment %}
@@ -84,7 +84,7 @@
          %}{% endcomment %}
         {% assign advanced_layout_section_id = advanced_section_link.handle %}
         {% assign advanced_layout_section_type = 'social' %}
-        {% capture advanced_layout_section_content %}{% include 'homepage_social' with advanced_section_link %}{% endcapture %}
+        {% capture advanced_layout_section_content %}{% include 'advanced_layout_social' with advanced_section_link %}{% endcapture %}
         
       {% endcase %}
     
@@ -110,7 +110,7 @@
             {% capture new_advanced_layout_sub_section_content %}{% include 'collection_item' %}{% endcapture %}
             
           {% when '/search' %}
-            {% capture new_advanced_layout_sub_section_content %}{% include 'homepage_sub_search' %}{% endcapture %}
+            {% capture new_advanced_layout_sub_section_content %}{% include 'advanced_layout_sub_search' %}{% endcapture %}
             
           {% else %}
             {% comment note: We've got the front page; that's pretty meta. http://gph.is/1kPdp9x %}{% endcomment %}
@@ -132,7 +132,7 @@
         
         {% when 'page_link' %}
           {% comment note: Show the page content, with title ala features %}{% endcomment %}
-          {% capture new_advanced_layout_sub_section_content %}{% include 'homepage_sub_page' with advanced_section_child_link.object %}{% endcapture %}
+          {% capture new_advanced_layout_sub_section_content %}{% include 'advanced_layout_sub_page' with advanced_section_child_link.object %}{% endcapture %}
         
         {% when 'blog_link' %}
           {% comment TODO: Show a list of articles from this blog %}{% endcomment %}
@@ -145,7 +145,7 @@
             - url contains twitter.com/username then show a feed of tweets
             - url contains youtube.com/video or vimeo.com/video then embed the video
            %}{% endcomment %}
-          {% capture new_advanced_layout_sub_section_content %}{% include 'homepage_sub_social' with advanced_section_child_link %}{% endcapture %}
+          {% capture new_advanced_layout_sub_section_content %}{% include 'advanced_layout_sub_social' with advanced_section_child_link %}{% endcapture %}
           
         {% endcase %}
         

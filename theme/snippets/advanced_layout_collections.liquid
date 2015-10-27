@@ -1,11 +1,11 @@
 {% if c.collection.products_count > 0 %}
 <div class="sheet">
   <header class="sheet-header page-header">
-    <h1>{{ homepage_collections.title }}</h1>
+    <h1>{{ advanced_layout_collections.title }}</h1>
   </header>
   
-  <section class="group collections" data-collections-size="{{ homepage_collections.links.size }}">
-    {% for l in homepage_collections.links %}
+  <section class="group collections" data-collections-size="{{ advanced_layout_collections.links.size }}">
+    {% for l in advanced_layout_collections.links %}
       {% assign c = l.object %}
       {% if c.collection.products_count > 0 %}
         {% assign collection_item_title = l.title %}
