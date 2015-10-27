@@ -674,11 +674,9 @@ body.search .search-results {
 }
 .blog-recent-articles-thumbs {
   @include make-row();
+  @include columns('.recent-article-thumb-wrap');
 }
 .recent-article-thumb-wrap {
-  @include make-xs-column(6);
-  @include make-sm-column(4);
-  
   .thumbnail {
     margin-bottom: 0;
   }

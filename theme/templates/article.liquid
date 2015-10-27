@@ -72,8 +72,14 @@
     			<li class="next{% unless blog.next_article %} disabled{% endunless %}">{{ 'blog.general.next_article_html' | t: count: next_article_count, article_title: next_article.title | link_to: blog.next_article }}</li>
     		</ul>
   		{% endif %}
-      
-      {% include 'article_recent' %}
+  		
+      {% unless settings.show_recent_articles == 'none' %}
+        <hr>
+        <div class="blog-recent-articles">
+          <h4>{{ 'blog.recent_articles.title' | t }}</h4>
+          {% include 'article_recent' %}
+        </div>
+      {% endunless %}
       <hr>
         
       {% if article.comments_enabled? %}

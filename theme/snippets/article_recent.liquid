@@ -1,51 +1,46 @@
-{% unless settings.show_recent_articles == 'none' %}
-  <hr>
-  {% assign recent_articles_limit = settings.recent_articles_limit | default: 3 | times: 1 %}
-  {% assign recent_articles_limit_buffered = recent_articles_limit | plus: 1 %}
-  {% assign recent_articles_count = 0 %}
-  <div class="blog-recent-articles">
-    <h4>{{ 'blog.recent_articles.title' | t }}</h4>
-    {% if settings.show_recent_articles == 'list' %}
-      <ul class="blog-recent-articles-list list-unstyled">
-      {% for recent_article in blog.articles limit: recent_articles_limit_buffered %}
-        {% unless recent_article.id == article.id or recent_articles_count > recent_articles_limit %}
-          {% assign recent_articles_count = recent_articles_count | plus: 1 %}
-          <li>
+{% assign recent_articles_limit = settings.recent_articles_limit | default: 3 | times: 1 %}
+{% assign recent_articles_limit_buffered = recent_articles_limit | plus: 1 %}
+{% assign recent_articles_count = 0 %}
+
+{% if settings.show_recent_articles == 'list' %}
+  <ul class="blog-recent-articles-list list-unstyled">
+  {% for recent_article in blog.articles limit: recent_articles_limit_buffered %}
+    {% unless recent_article.id == article.id or recent_articles_count > recent_articles_limit %}
+      {% assign recent_articles_count = recent_articles_count | plus: 1 %}
+      <li>
+        <h5><a href="{{ recent_article.url }}">{{ recent_article.title }}</a></h5>
+        {% capture date %}{{ recent_article.published_at | date: format: 'article_short' }}{% endcapture %}
+        <p><em class="small text-muted">{{ 'blog.article_list.published_date_html' | t: date: date }}</em></p>
+      </li>
+    {% endunless %}
+  {% endfor %}
+  </ul>
+{% elsif settings.show_recent_articles == 'thumbs' %}
+  {% if blog.articles.size < recent_articles_limit %}
+    {% assign group_size = blog.articles.size %}
+  {% else %}
+    {% assign group_size = recent_articles_limit %}
+  {% endif %}
+  <div class="blog-recent-articles-thumbs" data-group-size="{{ group_size }}">        
+  {% for recent_article in blog.articles limit: recent_articles_limit_buffered %}
+    {% unless recent_article.id == article.id or recent_articles_count > recent_articles_limit %}
+      {% assign recent_articles_count = recent_articles_count | plus: 1 %}
+      
+      <div class="recent-article-thumb-wrap">
+        <figure class="thumbnail">
+          <a href="{{ recent_article.url }}">
+            {% include '_extract_images' with recent_article.content %}
+            {{ images | first }}
+          </a>
+          <figcaption>
             <h5><a href="{{ recent_article.url }}">{{ recent_article.title }}</a></h5>
             {% capture date %}{{ recent_article.published_at | date: format: 'article_short' }}{% endcapture %}
             <p><em class="small text-muted">{{ 'blog.article_list.published_date_html' | t: date: date }}</em></p>
-          </li>
-        {% endunless %}
-      {% endfor %}
-      </ul>
-    {% elsif settings.show_recent_articles == 'thumbs' %}
-      {% if blog.articles.size < recent_articles_limit %}
-        {% assign group_size = blog.articles.size %}
-      {% else %}
-        {% assign group_size = recent_articles_limit %}
-      {% endif %}
-      <div class="blog-recent-articles-thumbs" data-group-size="{{ group_size }}">        
-      {% for recent_article in blog.articles limit: recent_articles_limit_buffered %}
-        {% unless recent_article.id == article.id or recent_articles_count > recent_articles_limit %}
-          {% assign recent_articles_count = recent_articles_count | plus: 1 %}
-          
-          <div class="recent-article-thumb-wrap">
-            <figure class="thumbnail">
-              <a href="{{ recent_article.url }}">
-                {% include '_extract_images' with recent_article.content %}
-                {{ images | first }}
-              </a>
-              <figcaption>
-                <h5><a href="{{ recent_article.url }}">{{ recent_article.title }}</a></h5>
-                {% capture date %}{{ recent_article.published_at | date: format: 'article_short' }}{% endcapture %}
-                <p><em class="small text-muted">{{ 'blog.article_list.published_date_html' | t: date: date }}</em></p>
-              </figcaption>
-            </figure>
-          </div>
-          
-        {% endunless %}
-      {% endfor %}
+          </figcaption>
+        </figure>
       </div>
-    {% endif %}
+      
+    {% endunless %}
+  {% endfor %}
   </div>
-{% endunless %}
+{% endif %}

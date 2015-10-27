@@ -72,7 +72,11 @@
         {% capture advanced_layout_section_content %}{% include 'advanced_layout_page' with advanced_layout_section_object %}{% endcapture %}
       
       {% when 'blog_link' %}
-        {% comment TODO: Show a list of articles from this blog. limit in settings? %}{% endcomment %}
+        {% comment note: Show a list of articles from this blog. %}{% endcomment %}
+        {% assign advanced_layout_section_object = advanced_section_link.object %}
+        {% assign advanced_layout_section_id = advanced_layout_section_object.handle %}
+        {% assign advanced_layout_section_type = 'blog' %}
+        {% capture advanced_layout_section_content %}{% include 'advanced_layout_blog' with advanced_layout_section_object %}{% endcapture %}
       
       {% when 'http_link' %}
         {% comment note:
@@ -135,7 +139,8 @@
           {% capture new_advanced_layout_sub_section_content %}{% include 'advanced_layout_sub_page' with advanced_section_child_link.object %}{% endcapture %}
         
         {% when 'blog_link' %}
-          {% comment TODO: Show a list of articles from this blog %}{% endcomment %}
+          {% comment note: Show a list of articles from this blog %}{% endcomment %}
+          {% capture new_advanced_layout_sub_section_content %}{% include 'advanced_layout_sub_blog' with advanced_section_child_link.object %}{% endcapture %}
         
         {% when 'http_link' %}
           {% comment note:
