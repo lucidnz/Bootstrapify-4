@@ -1,0 +1,30 @@
+{% comment note:
+
+  Advanced Layout Hook
+  
+  This will allow you to use an advanced layout linklist on any template.
+  All you need to do is have a linklist with a correctly constructed handle.
+
+  The linkists handle must match the formula: (pre|post)-template[-handle]
+  
+  - pre|post: The hook is available both before and after a templates content with `pre` & `post` respectively.
+  - template: The type of template you wish to have the layout on e.g. page/collection/product/etc.
+  - handle:   The handle is optional. This specifies the exact page to include the layout on. If handle is omitted then the linklist
+              will be shown on ALL pages with this template. Use this like a blanket layout i.e. one linklist for all collections.
+              Linklists with handles will take precedence over those without.
+
+ %}{% endcomment %}
+
+{% capture template_hook %}{{ advanced_hook }}-{{ template }}{% endcapture %}
+{% capture page_hook %}{{ template_hook }}{% unless handle == blank %}-{{ handle }}{% endunless %}{% endcapture %}
+
+{% assign advanced_hook_linklist = null %}
+{% if linklists[page_hook] != blank %}
+  {% assign advanced_hook_linklist = page_hook %}
+{% elsif linklists[template_hook] != blank %}
+  {% assign advanced_hook_linklist = template_hook %}
+{% endif %}
+
+{% if advanced_hook_linklist %}
+  {% include 'advanced_layout' with advanced_hook_linklist %}
+{% endif %}
