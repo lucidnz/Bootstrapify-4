@@ -32,6 +32,9 @@ var App = function () {
   if (Bsify.ajax_add_to_cart) {
     Bsify.Cart.init();
   }
+  
+  // init currency converter
+  Bsify.CurrencyConverter.init();
 
   // load uniform thumbs and orderly
   Bsify.Thumbnails.init();

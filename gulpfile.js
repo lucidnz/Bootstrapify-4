@@ -186,6 +186,7 @@ gulp.task('shopify_theme_settings', function () {
     'newsletter',
     'footer',
     'advanced',
+    'currency',
     'cart'
   ];
 

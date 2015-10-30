@@ -20,6 +20,7 @@ Bsify.get_variant_by_id = function (variant_id) {
 
 // add bsify classes to the Bsify object
 Bsify.Cart = require('./bsify.cart.js');
+Bsify.CurrencyConverter = require('./bsify.currency_converter.js');
 Bsify.ImageSwitcher = require('./bsify.image_switcher.js');
 Bsify.VariantOptionSwitcher = require('./bsify.variant_option_switcher.js');
 Bsify.LinkedProductOptions = require('./bsify.linked_product_options.js');

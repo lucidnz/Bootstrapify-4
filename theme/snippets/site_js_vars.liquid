@@ -80,6 +80,10 @@
   // If you don't want them then just set them to false
   Bsify.ajax_add_to_cart = true;
   Bsify.linked_product_options = true; // links product options selectors so as to not show unavilble products on a products page
+  Bsify.currency_converter_options = {
+    enabled: {{ settings.enable_currency_converter }},
+    codes: "{{ settings.currency_codes }}"
+  };
   
   // Time that any message created by the cart is visble for before being removed
   Bsify.message_timeout = 15000; // 15 secs
