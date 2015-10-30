@@ -1,3 +1,11 @@
 {% if settings.enable_currency_converter %}
-  [CONVERTER]
+  {% assign currency_codes = settings.currency_codes | split: ' ' %}
+  <li class="currency-converter dropdown">
+    <a href="#" data-toggle="dropdown" data-currency-current="{{ shop.currency }}">{{ 'currency.currency_converter.link_html' | t: code: shop.currency }}</a>
+    <ul class="dropdown-menu">
+      {% for code in currency_codes %}
+        <li><a href="#" data-currency-code="{{ code }}">{{ 'currency.currency_converter.link_html' | t: code: code }}</a></li>
+      {% endfor %}
+    </ul>
+  </li>
 {% endif %}

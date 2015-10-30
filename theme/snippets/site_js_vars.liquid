@@ -80,9 +80,23 @@
   // If you don't want them then just set them to false
   Bsify.ajax_add_to_cart = true;
   Bsify.linked_product_options = true; // links product options selectors so as to not show unavilble products on a products page
+  {% include '_currencies' %}
   Bsify.currency_converter_options = {
+    store_currency: '{{ shop.currency }}',
     enabled: {{ settings.enable_currency_converter }},
-    codes: "{{ settings.currency_codes }}"
+    codes: "{{ settings.currency_codes }}",
+    formats: {
+      {% for currency in currencies %}
+        {% assign currency_translation = 'currency.formats.' | append: currency %}
+        {{ currency }}: "{{ currency_translation | t: amount: '[amount]', amount_no_decimals: '[amount_no_decimals]', amount_with_comma_separator: '[amount_with_comma_separator]', amount_no_decimals_with_comma_separator: '[amount_no_decimals_with_comma_separator]', amount_no_decimals_with_space_separator: '[amount_no_decimals_with_space_separator]' | replace: '"',"'" | strip_newlines }}"{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    },
+    formats_with_currency: {
+      {% for currency in currencies %}
+        {% assign currency_translation = 'currency.formats_with_currency.' | append: currency %}
+        {{ currency }}: "{{ currency_translation | t: amount: '[amount]', amount_no_decimals: '[amount_no_decimals]', amount_with_comma_separator: '[amount_with_comma_separator]', amount_no_decimals_with_comma_separator: '[amount_no_decimals_with_comma_separator]', amount_no_decimals_with_space_separator: '[amount_no_decimals_with_space_separator]' | replace: '"',"'" | strip_newlines }}"{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    }
   };
   
   // Time that any message created by the cart is visble for before being removed

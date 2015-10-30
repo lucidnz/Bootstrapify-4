@@ -16,7 +16,7 @@
       "label": "Currency Codes",
       "id": "currency_codes",
       "type": "textarea",
-      "default": "NZD, AUD, USD, CAD",
+      "default": "NZD AUD USD CAD",
       "info": "Separate your currency codes with a space. Use the ISO 4217 3-letter currency code e.g. NZD USD CAD. [A complete list of currency codes can be found here](http://www.xe.com/iso4217.php)."
     }
   ]
