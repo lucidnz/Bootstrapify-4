@@ -4,9 +4,9 @@ require('jquery-orderly');
 var Thumbnails = {};
 
 Thumbnails.init = function () {
+  var opts = {};
   if (Bsify.thumbnail_settings.constrain_images) {
     
-    var opts = {};
     opts.fit = (Bsify.thumbnail_settings.crop_images)? 'crop' : 'scale';
     opts.align = Bsify.thumbnail_settings.image_alignment.toLowerCase();
     var ratio = Bsify.thumbnail_settings.image_ratio.toLowerCase();
@@ -30,6 +30,9 @@ Thumbnails.init = function () {
     // just use orderly
     Thumbnails.orderly();
   }
+  
+  // Always unifrom thumbs on product thumbnails
+  $('.product-image-thumbs li a').uniform_thumbnails(opts);
 };
 
 Thumbnails.orderly = function () {

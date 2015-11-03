@@ -30,5 +30,6 @@ Bsify.SocialFeeds = require('./bsify.social_feeds.js');
 Bsify.PasswordRecover = require('./bsify.password_recover.js');
 Bsify.MegaMenu = require('./bsify.mega_menu.js');
 Bsify.ScrollTo = require('./bsify.scroll_to.js');
+Bsify.Modal = require('./bsify.modal.js');
 
 module.exports = Bsify;
