@@ -1,11 +1,15 @@
 {% assign image = false %}
 {% assign content = article.content %}
-{% if settings.enable_article_banners and content contains 'src=' %}
+{% if settings.enable_article_banners %}
   {% assign image_size = '2048x2048' %}
-  {% include '_extract_images' with content %}
-  {% assign image = images | first %}
-  {% assign image_to_remove = unsized_images | first %}
-  {% assign content = content | remove: image_to_remove %}
+  {% if article.image %}
+    {{ article | img_url: image_size | img_tag: article.title }}
+  {% elsif content contains 'src=' %}
+    {% include '_extract_images' with content %}
+    {% assign image = images | first %}
+    {% assign image_to_remove = unsized_images | first %}
+    {% assign content = content | remove: image_to_remove %}
+  {% endif %}
   <div class="article-banner">
     <div class="banner-image banner-image-fullscreen">
       {{ image }}

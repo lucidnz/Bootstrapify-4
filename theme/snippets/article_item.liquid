@@ -8,13 +8,17 @@
   <article class="list-item blog-article">
     <header class="page-header">
 
-      {% if settings.enable_article_list_banners and content contains 'src=' %}
+      {% if settings.enable_article_list_banners %}
         {% assign image_size = '2048x2048' %}
-        {% include '_extract_images' with article.content %}
-        {% assign image = images | first %}
-        {% assign image_to_remove = unsized_images | first %}
-        {% assign content = content | remove: image_to_remove %}
-        {{ image }}
+        {% if article.image %}
+          {{ article | img_url: image_size | img_tag: article.title }}
+        {% elsif content contains 'src=' %}
+          {% include '_extract_images' with article.content %}
+          {% assign image = images | first %}
+          {% assign image_to_remove = unsized_images | first %}
+          {% assign content = content | remove: image_to_remove %}
+          {{ image }}
+        {% endif %}
       {% endif %}
       
       <h1 class="h3">

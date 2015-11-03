@@ -29,8 +29,12 @@
       <div class="recent-article-thumb-wrap">
         <figure class="thumbnail">
           <a href="{{ recent_article.url }}">
-            {% include '_extract_images' with recent_article.content %}
-            {{ images | first }}
+            {% if recent_article.image %}
+              {{ recent_article | img_url: '1024x1024' | img_tag: recent_article.title }}
+            {% else %}
+              {% include '_extract_images' with recent_article.content %}
+              {{ images | first }}
+            {% endif %}
           </a>
           <figcaption>
             <h5><a href="{{ recent_article.url }}">{{ recent_article.title }}</a></h5>
