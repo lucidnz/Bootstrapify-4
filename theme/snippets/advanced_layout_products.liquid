@@ -1,4 +1,7 @@
 {% if advanced_layout_products.products.size > 0 %}
+  {% if collection == blank %}
+    {% assign collection = advanced_layout_products %}
+  {% endif %}
   {% assign advanced_layout_products_url = advanced_layout_products.url | default: '/collections/all' %}
 
   {% assign product_limit = settings.homepage_limit_products | times: 1 %}  
