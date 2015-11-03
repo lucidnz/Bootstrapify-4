@@ -7,7 +7,7 @@
 <div class="list-item-wrap">
   <article class="list-item blog-article">
     <header class="page-header">
-
+      <a href="{{ article.url }}">
       {% if settings.enable_article_list_banners %}
         {% assign image_size = '2048x2048' %}
         {% if article.image %}
@@ -20,7 +20,7 @@
           {{ image }}
         {% endif %}
       {% endif %}
-      
+      </a>
       <h1 class="h3">
         <a href="{{ article.url }}">{{ article.title }}</a>
       </h1>
