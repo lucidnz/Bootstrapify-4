@@ -9304,12 +9304,12 @@ body.search .search-results {
 {% endfor %}
 
 // mixin for slides
-@mixin slide($slide-count, $slide-size, $slide-alignment, $slide-vertical-alignment, $slide-text-colour, $slide-button-bg-colour, $slide-background-colour){
+@mixin slide($slide-count, $slide-size, $slide-alignment, $slide-vertical-alignment, $slide-text-colour, $slide-button-bg-colour, $slide-background-colour, $banner-width){
   [data-banner="#{$slide-count}"] {
     
     .banner-content-wrap {
       position: relative;
-      @if $slide-size!= 'full_width' {
+      @if $slide-size != 'full_width' and $banner-width != 'container_width' {
         @include container;
       }
     }
@@ -9427,7 +9427,7 @@ $slide-count: 1;
 
 @each $slide in $slides {
   @if nth($slide, 1) == true {
-    @include slide($slide-count, nth($slide, 2), nth($slide, 3), nth($slide, 4), nth($slide, 5), nth($slide, 6), nth($slide, 7));
+    @include slide($slide-count, nth($slide, 2), nth($slide, 3), nth($slide, 4), nth($slide, 5), nth($slide, 6), nth($slide, 7), {{ settings.banner_width }});
     $slide-count: $slide-count + 1;
   }
 }

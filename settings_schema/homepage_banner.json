@@ -18,6 +18,17 @@
       "content": "Global banner settings"
     },
     {
+      "label": "Banner width",
+      "id": "banner_width",
+      "type": "select",
+      "options": [
+        { "value": "full_screen_width", "label": "Full screen" },
+        { "value": "container_width", "label": "Container width" }
+      ],
+      "default": "full_screen_width",
+      "info": "Your banners will only be as wide as the width set here, so if an individual banners width is set to 'Full width' and your global banner width is 'Container width then your banners will never be bigger than the container.'"
+    },
+    {
       "label": "Transition type",
       "id": "banner_transtion_type",
       "type": "select",
