@@ -1,5 +1,9 @@
 {% assign recent_articles_limit = settings.recent_articles_limit | default: 3 | times: 1 %}
-{% assign recent_articles_limit_buffered = recent_articles_limit | plus: 1 %}
+{% if article %}
+  {% assign recent_articles_limit_buffered = recent_articles_limit | plus: 1 %}
+{% else %}
+  {% assign recent_articles_limit_buffered = recent_articles_limit %}
+{% endif %}
 {% assign recent_articles_count = 0 %}
 
 {% if settings.show_recent_articles == 'list' %}
