@@ -2,7 +2,8 @@
   Bootstrapify build tasks
 */
 
-var gulp        = require('gulp'),
+var fs          = require('fs'),
+  gulp          = require('gulp'),
   gutil         = require('gulp-util'),
   zip           = require('gulp-zip'),
   plumber       = require('gulp-plumber'),
@@ -118,13 +119,15 @@ gulp.task('sass_blessify', function () {
       // CSS files are now blessed so add them to the theme file.
       // find [BLESSIFY] and [/BLESSIFY] and replace the contents with a new conditional comment
       // so that we are getting the exact amount of css files needed.
+      var style_links = '[BLESSIFY] --> <!--[if lte IE 9]>';
+      for (var i = 0; i < output_files.length; i++) {
+        style_links += "{{ '"+ output_files[i].filename +"' | asset_url | stylesheet_tag }}";
+      }
+      style_links += '<![endif]--> <!-- [/BLESSIFY]';
       
-      
-      
-      console.log(output_files);
-      
-      
-      
+      var data = fs.readFileSync(theme_path, 'utf-8');
+      var new_data = data.replace(/\[BLESSIFY\](.*)\[\/BLESSIFY\]/gmi, style_links);
+      fs.writeFileSync(theme_path, new_data, 'utf-8');
     });
   }, 12000);
 });
