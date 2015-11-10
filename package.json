@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/luciddesign/Bootstrapify-4",
   "devDependencies": {
+    "bless": "^3.0.3",
     "browserify": "^9.0.3",
     "cheerio": "^0.19.0",
     "debowerify": "^1.2.0",
@@ -44,6 +45,8 @@
     "gulp-uglify": "^1.1.0",
     "gulp-util": "^3.0.2",
     "gulp-zip": "^2.0.2",
+    "js-yaml": "^3.4.3",
+    "request": "^2.65.0",
     "uglifyify": "^3.0.1",
     "vinyl-source-stream": "^1.1.0",
     "yargs": "^3.9.1"
