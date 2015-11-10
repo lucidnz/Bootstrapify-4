@@ -15,7 +15,8 @@ var gulp        = require('gulp'),
   jsoncombine   = require('gulp-jsoncombine'),
   rename        = require('gulp-rename'),
   pjson         = require('./package.json'),
-  SassImport    = require('./utils/sass_import.js');
+  SassImport    = require('./utils/sass_import.js'),
+  Blessify      = require('./utils/blessify.js');
 
 // Setup gulp-grunt so that we can automatically run grunt tasks from inside gulp
 require('gulp-grunt')(gulp);
@@ -58,7 +59,7 @@ gulp.task('default', function () {
 gulp.task('js', ['js_lint', 'js_modernizr', 'js_browserify']);
 
 // Helper for sass tasks
-gulp.task('sass', ['sass_concat', 'sass_concat_giftcard']);
+gulp.task('sass', ['sass_concat', 'sass_concat_giftcard', 'sass_blessify']);
 
 // Helper for settings tasks
 gulp.task('settings', ['shopify_theme_settings']);
@@ -95,6 +96,23 @@ gulp.task('sass_concat_giftcard', function () {
     }))
     .pipe(concat('giftcard.scss.liquid'))
     .pipe(gulp.dest('./theme/assets/'));
+});
+
+// SASS_BLESSIFY: Legacy IE sucks and we keep hitting the css selector limit issue.
+//  Pull back down the latest css file that has been compiled and then runn it through bles
+//  Then push the blessed files back up and add them to the theme file.
+//  Known Issues: Because of the theme gems timing blessify might run before the latest css file
+//    is complete resulting in the blessed files being a version behind. - Hence the hacky timeout.
+gulp.task('sass_blessify', function () {
+  var config_path = 'theme/config.yml';
+  var stylesheet_name = 'styles.scss.css';
+  var output_path = 'theme/assets';
+  
+  setTimeout(function () {
+    new Blessify(config_path, stylesheet_name, output_path, false, function (output_files) {
+      console.log(output_files);
+    });
+  }, 12000);
 });
 
 // JS_LINT: Check we are not doing silly stuff with our JS
