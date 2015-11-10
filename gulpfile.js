@@ -104,13 +104,27 @@ gulp.task('sass_concat_giftcard', function () {
 //  Known Issues: Because of the theme gems timing blessify might run before the latest css file
 //    is complete resulting in the blessed files being a version behind. - Hence the hacky timeout.
 gulp.task('sass_blessify', function () {
+  // blessify vars
   var config_path = 'theme/config.yml';
   var stylesheet_name = 'styles.scss.css';
   var output_path = 'theme/assets';
+  // theme vars
+  var theme_path = 'theme/layout/theme.liquid';
   
+  // Timeout hack for timing issue
   setTimeout(function () {
+    // Bless the css file.
     new Blessify(config_path, stylesheet_name, output_path, false, function (output_files) {
+      // CSS files are now blessed so add them to the theme file.
+      // find [BLESSIFY] and [/BLESSIFY] and replace the contents with a new conditional comment
+      // so that we are getting the exact amount of css files needed.
+      
+      
+      
       console.log(output_files);
+      
+      
+      
     });
   }, 12000);
 });
