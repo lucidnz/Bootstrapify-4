@@ -330,6 +330,12 @@
     },
     "recent_articles": {
       "title": "Recent Articles"
+    },
+    "social_links": {
+      "share_title": "Share:",
+      "twitter_message": "Check out {{ article_title }} — {{ url }} (via {{ handle }})",
+      "email_subject" : "Check out {{ article_title }} on {{ shop_name }}",
+      "email_body" : "Hey, I was just looking at {{ article_title }} on {{ shop_name }} and wanted to share it with you. Checkout {{ url }}."
     }
   },
   "social_and_newsletter": {

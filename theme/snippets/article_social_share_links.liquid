@@ -1,0 +1,43 @@
+{% capture share_links %}{% endcapture %}
+
+{% if settings.article_social_share_facebook %}
+  {% capture share_links %}{{ share_links }}<li><a href="https://www.facebook.com/sharer/sharer.php?u={{ article.url }}" target="_blank"><i class="fa fa-facebook fa-lg fa-fw"></i></a></li>{% endcapture %}
+{% endif %}
+
+{% if settings.article_social_share_pinterest %}
+  {% include '_extract_images' with article.content %}
+  {% assign image = images | first | split: '"' %}
+  {% for i in image %}
+    {% if i contains 'cdn.shopify.com' %}
+      {% assign img_src = i %}
+    {% endif %}
+  {% endfor %}
+  
+  {% if article.featured_image.src != blank or img_src != blank %}
+    {% capture share_links %}{{ share_links }}<li><a href="http://pinterest.com/pin/create/button/?url={{ article.url }}&media={{ article.featured_image.src | default: img_src }}&description={{ article.title | replace: ' ','%20' }}" target="_blank"><i class="fa fa-pinterest fa-lg fa-fw"></i></a></li>{% endcapture %}
+  {% endif %}
+{% endif %}
+  
+{% if settings.article_social_share_twitter %}
+  {% capture twitter_handle %}{% unless settings.social_links_twitter == blank %}@{{ settings.social_links_twitter | split: '/' | last }}{% endunless %}{% endcapture %}
+  {% capture tweet %}https://twitter.com/intent/tweet?text={{ 'blog.social_links.twitter_message' | t: article_title: article.title, url: article.url, handle: twitter_handle }}{% endcapture %}
+  {% capture share_links %}{{ share_links }}<li><a href="{{ tweet | replace: ' ','%20' }}" target="_blank"><i class="fa fa-twitter fa-lg fa-fw"></i></a></li>{% endcapture %}
+{% endif %}
+
+{% if settings.article_social_share_email %}
+  {% capture email_subject %}{{ 'blog.social_links.email_subject' | t: article_title: article.title, shop_name: shop.name, url: article.url }}{% endcapture %}
+  {% capture email_body %}{{ 'blog.social_links.email_body' | t: article_title: article.title, shop_name: shop.name, url: article.url }}{% endcapture %}
+  {% capture share_links %}{{ share_links }}<li><a href="mailto:?subject={{ email_subject | escape | replace: ' ','%20' }}&body={{ email_body | escape | replace: ' ','%20' | replace: '\n','%0D%0A' | strip_newlines }}"><i class="fa fa-envelope fa-lg fa-fw"></i></a></li>{% endcapture %}
+{% endif %}
+  
+{% unless share_links == blank %}
+<div class="social-share-links">
+  <ul class="list-unstyled text-muted small">
+    {% capture share_title %}{{ 'blog.social_links.share_title' | t }}{% endcapture %}
+    {% unless share_title == blank %}
+      <li>{{ share_title }}</li>
+    {% endunless %}
+    {{ share_links }}
+  </ul>
+</div>
+{% endunless %}

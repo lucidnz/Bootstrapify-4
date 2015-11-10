@@ -58,6 +58,34 @@
     },
     {
       "type": "header",
+      "content": "Social share links"
+    },
+    {
+      "label": "Enable Twitter link",
+      "id": "article_social_share_twitter",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "label": "Enable Facebook link",
+      "id": "article_social_share_facebook",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "label": "Enable Pinterest link",
+      "id": "article_social_share_pinterest",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "label": "Enable email link",
+      "id": "article_social_share_email",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "type": "header",
       "content": "Recent Articles"
     },
     {
