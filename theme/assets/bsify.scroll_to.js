@@ -10,7 +10,7 @@ ScrollTo.init = function () {
 };
 
 ScrollTo.go = function (target) {
-  $('body').animate({
+  $('body,html').animate({
     scrollTop: $(target).offset().top
   }, 800);
 };
