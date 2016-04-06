@@ -1,6 +1,15 @@
 # Bootstrapify 4
 
-Bootstrapify 4 is a complete rebuild of the popular Shopify theme framework ready for Bootstrap 4.
+Bootstrapify 4 ~~is~~ _was_ going to be a complete rebuild of the popular Shopify theme framework ready for Bootstrap 4.
+However while in development we realised two things:
+
+1. Shopify's version of sass would mean that we can't use Bootstrap 4, unless we compiled locally.
+2. Bootstrap is not always the right tool for the job.
+
+But we wanted to release this anyway.
+Don't despair because it is stable-ish and has successfully been used [in](http://www.liannbellis.co.nz/) [the](http://www.laineehermsen.co.nz/) [wild](http://www.phd.co.nz/).
+
+So if it is the rght _tool_ for your job then you are more than welcome to use it, and if you do then let us know because we'd like to see what you've done.
 
 ## Setup
 
