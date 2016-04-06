@@ -9,7 +9,7 @@ However while in development we realised two things:
 But we wanted to release this anyway.
 Don't despair because it is stable-ish and has successfully been used [in](http://www.liannbellis.co.nz/) [the](http://www.laineehermsen.co.nz/) [wild](http://www.phd.co.nz/).
 
-So if it is the right _tool_ for your job then you are more than welcome to use it, and if you do then let us know because we'd like to see what you've done.
+So if it is the right tool for _your_ job then you are more than welcome to use it. If you do, then let us know because we'd like to see what you've done.
 
 ## Setup
 
